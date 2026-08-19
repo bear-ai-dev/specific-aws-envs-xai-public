@@ -2,27 +2,27 @@
 
 ## Contents
 
-- [Selection result](#selection-result)
+- [Cohort result](#cohort-result)
 - [Observed model difference](#observed-model-difference)
 - [Trial evidence](#trial-evidence)
 - [Failure mode analysis](#failure-mode-analysis)
 - [Fairness and reachability](#fairness-and-reachability)
 - [Evidence boundary](#evidence-boundary)
 
-## Selection result
+## Cohort result
 
-One of the three freshly evaluated tasks meets the numerical Grok calibration
-screen: Grok solves one to six attempts out of eight, or Grok solves zero while
-the comparison model solves the same frozen task.
+This sample evaluates one frozen task,
+[entitlement overage lines](../tasks/02-entitlement-overage-lines/instruction.md),
+using eight Grok 4.6 trials and eight Opus 5 trials.
 
-| Screened task | Grok 4.6 | Opus 5 | Result |
-| --- | ---: | ---: | --- |
-| Tenant attribution | 8/8 | 8/8 | Outside band: too easy for both models |
-| Entitlement overage lines | 0/8 | 8/8 | Selected: comparator-reachable Grok full failure |
-| Usage-window aggregation | 7/8 | 2/8 | Outside band: Grok solve rate exceeds the screen |
+| Task | Model | Solves | Interpretation |
+| --- | --- | ---: | --- |
+| Entitlement overage lines | Grok 4.6 | 0/8 | Full failure in this cohort |
+| Entitlement overage lines | Opus 5 | 8/8 | Solving comparator |
 
-Only entitlement overage lines and its 16 model trajectories are included in
-this sample. The two out-of-band tasks are not included.
+Under the screening rule used for this sample, a Grok `0/8` result remains in
+band when a comparison model solves the same frozen task. The packaged evidence
+therefore represents a comparator-reachable Grok full failure.
 
 ## Observed model difference
 
