@@ -18,7 +18,7 @@ ALIASES = {
     "bedrock/us.anthropic.claude-opus-5": "Opus 5",
 }
 COHORT = json.loads((ROOT / "harness" / "cohort.json").read_text())
-EVIDENCE_COHORT = "xai-bedrock-selected-eight-rollout-20260819"
+EVIDENCE_COHORT = "grok-4.6-and-opus-5-eight-rollouts-20260819"
 EVIDENCE_CONTROLS = "xai-public-controls-20260819"
 TASKS = [Path(entry["path"]).name for entry in COHORT["tasks"]]
 TASK_LABELS = {
@@ -89,6 +89,8 @@ def load_trials(raw_dir: Path) -> list[dict]:
                 "task_label": TASK_LABELS[task],
                 "model": model,
                 "model_label": ALIASES.get(model, model),
+                "recorded_trial_name": result.get("trial_name"),
+                "started_at": result.get("started_at"),
                 "reward": reward,
                 "passed": bool(valid and float(reward) >= 1.0),
                 "valid": valid,
@@ -112,6 +114,21 @@ def load_trials(raw_dir: Path) -> list[dict]:
                 ),
             }
         )
+    by_model: dict[tuple[str, str], list[dict]] = defaultdict(list)
+    for trial in trials:
+        by_model[(trial["task"], trial["model"])].append(trial)
+    for model_trials in by_model.values():
+        model_trials.sort(key=lambda item: item["started_at"] or "")
+        for trial_number, trial in enumerate(model_trials, start=1):
+            trial["trial_number"] = trial_number
+            trial["trial_label"] = (
+                f'{trial["model_label"]} Trial {trial_number}'
+            )
+    trials.sort(
+        key=lambda item: (
+            item["task"], item["model_label"], item["trial_number"]
+        )
+    )
     return trials
 
 

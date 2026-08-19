@@ -40,7 +40,7 @@ def main() -> None:
 
     payload = {
         "cohort": CONFIG["job_name"],
-        "evidence_cohort": "xai-bedrock-selected-eight-rollout-20260819",
+        "evidence_cohort": "grok-4.6-and-opus-5-eight-rollouts-20260819",
         "evidence_controls": "xai-public-controls-20260819",
         "publication_normalization": (
             "sample-run/manifests/public-transformation.json"

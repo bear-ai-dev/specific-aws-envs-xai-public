@@ -19,8 +19,13 @@
     "numeric fixtures and held-out cases",
     "model-generated control flow",
     "verifier outputs and rewards",
-    "trial identifiers and ordering"
+    "recorded trial identifiers and chronological ordering"
   ],
+  "public_evidence_layout": {
+    "cohort_directory": "grok-4.6-and-opus-5-eight-rollouts-20260819",
+    "directory_label_policy": "model name plus chronological trial number",
+    "recorded_trial_identifiers": "preserved in each config.json and result.json and exposed by sample-run/indexes/trials.json"
+  },
   "recorded_runtime_task_sha256": "92e4b98286ca4dd72881f59542ae4c17ad010f9910e29839c725cedbffe00ab3",
   "public_task_sha256": "c6a60ab17d77dbd7221a97a519e3062cdf4c2ba9a105acb41144d7a61138ae36",
   "public_controls_job": "xai-public-controls-20260819",

@@ -72,7 +72,7 @@ if (unitCost === 0 && settings?.freeDimensionOnInvoice === FreeDimensionOnInvoic
 return true;
 ```
 
-[Representative Grok final deliverable](sample-run/raw/xai-bedrock-selected-eight-rollout-20260819/02-entitlement-overage-lines__8rgcndN/verifier/deliverable/offering/entities/offeringPackage.entity.ts)
+[Representative Grok final deliverable](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-01/verifier/deliverable/offering/entities/offeringPackage.entity.ts)
 
 This ordering means the free-dimension setting is never considered when the
 quantity owed is zero. One Grok trajectory made the same interpretation explicit
@@ -89,7 +89,7 @@ assert(
 );
 ```
 
-[Grok trajectory containing the assertion](sample-run/raw/xai-bedrock-selected-eight-rollout-20260819/02-entitlement-overage-lines__Q3Z6BMP/agent/mini-swe-agent.txt)
+[Grok trajectory containing the assertion](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-07/agent/mini-swe-agent.txt)
 
 The solving Opus submissions kept the two decisions separate. A representative
 implementation first handles a zero-priced dimension according to the invoice
@@ -106,7 +106,7 @@ if (isFreeDimension) {
 }
 ```
 
-[Representative Opus final deliverable](sample-run/raw/xai-bedrock-selected-eight-rollout-20260819/02-entitlement-overage-lines__26zoXqN/verifier/deliverable/offering/entities/offeringPackage.entity.ts)
+[Representative Opus final deliverable](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-05/verifier/deliverable/offering/entities/offeringPackage.entity.ts)
 
 The behavioral consequence was identical in all eight Grok trials. Each
 submission produced otherwise valid invoice results but omitted five required
@@ -117,7 +117,7 @@ run:
 - `solstice-retention-days` for `cus_dunmore` and `cus_juniper`; and
 - `solstice-bandwidth-gigabytes` for `cus_juniper`.
 
-[Representative verifier report](sample-run/raw/xai-bedrock-selected-eight-rollout-20260819/02-entitlement-overage-lines__8rgcndN/verifier/report.txt)
+[Representative verifier report](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-01/verifier/report.txt)
 
 This supports a narrow gap in translating multi-part business rules into a
 complete decision table. The useful training target is to enumerate the
@@ -145,8 +145,10 @@ excluded.
   scores `0.0`. These controls were rerun after the public identifier
   normalization.
 - **Raw evidence:**
-  [`sample-run/raw/xai-bedrock-selected-eight-rollout-20260819/`](sample-run/raw/xai-bedrock-selected-eight-rollout-20260819/)
-  contains all 16 model attempts. Matching controls are in
+  [`sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/`](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/)
+  contains all 16 model attempts. Its folders are labeled `grok-4.6-trial-01`
+  through `08` and `opus-5-trial-01` through `08`, in chronological order
+  within each model. Matching controls are in
   [`sample-run/raw/xai-public-controls-20260819/`](sample-run/raw/xai-public-controls-20260819/).
 - **Machine-readable index:**
   [`sample-run/indexes/trials.json`](sample-run/indexes/trials.json) resolves

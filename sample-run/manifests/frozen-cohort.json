@@ -7,7 +7,7 @@
   "cohort_config_sha256": "4ff82e672427abd9ffa0394883d6f17f4f11041ff1c10d0ad13c20b0f47f1f1d",
   "controls_config_sha256": "8ef2a998570c0716fd80f7d3d70364d15801dd3bb893ce0119ad2d4cb0fbd590",
   "environment": "daytona",
-  "evidence_cohort": "xai-bedrock-selected-eight-rollout-20260819",
+  "evidence_cohort": "grok-4.6-and-opus-5-eight-rollouts-20260819",
   "evidence_controls": "xai-public-controls-20260819",
   "grok_bedrock_config_sha256": "c8c6d27b01da51699b578101552bb5d43bb9b8e072bac7e4ff275cc5550ef0f8",
   "grok_model_registry_sha256": "310dfa12cff09204d73ec8384b55397543f3f18974f422c158f688ae7bb2ecc5",

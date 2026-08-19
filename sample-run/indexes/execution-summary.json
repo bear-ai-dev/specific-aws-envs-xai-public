@@ -1,5 +1,5 @@
 {
-  "cohort_directory": "sample-run/raw/xai-bedrock-selected-eight-rollout-20260819",
+  "cohort_directory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
   "scored_valid_trials": 16,
   "completed_trials_excluded_from_denominator": 0,
   "controls": {
