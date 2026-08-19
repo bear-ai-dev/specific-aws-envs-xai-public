@@ -40,6 +40,11 @@ recorded start time. The original Harbor trial identifier remains available in
 each attempt's `config.json` and `result.json`, and in the
 [machine-readable trial index](indexes/trials.json).
 
+For a single-attempt audit, the
+[Grok 4.6 Trial 1 review bundle](review-bundles/grok-4.6-trial-01/) links the
+complete trace, every touched file, Grok's candidate patch, the verifier source,
+the verification result, and a solving Opus comparator.
+
 | Model | Trial | Reward | Trajectory | Verifier report |
 | --- | ---: | ---: | --- | --- |
 | Grok 4.6 | 1 | 0.0 | [Trace](raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-01/agent/mini-swe-agent.txt) | [Report](raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-01/verifier/report.txt) |

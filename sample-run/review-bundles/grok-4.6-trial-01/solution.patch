@@ -1,0 +1,411 @@
+diff --git a/offering/entities/offeringPackage.entity.spec.ts b/offering/entities/offeringPackage.entity.spec.ts
+index 45891d9..a0a9019 100644
+--- a/offering/entities/offeringPackage.entity.spec.ts
++++ b/offering/entities/offeringPackage.entity.spec.ts
+@@ -1563,2 +1563,300 @@ describe('OfferingPackageEntity', () => {
+         });
++        test('permittedUsage charges only permitted overage past a finite exhausted allowance', () => {
++            const priced = { consumptionPrice: '1.00' } as ReadDimensionResponseData;
++            expect(Offering.permittedUsage(12, priced)).toBe(12);
++            expect(
++                Offering.permittedUsage(12, {
++                    ...priced,
++                    usageEntitlement: 10,
++                    overageAllowed: overageAllowedEnum.true,
++                }),
++            ).toBe(2);
++            expect(
++                Offering.permittedUsage(8, {
++                    ...priced,
++                    usageEntitlement: 10,
++                    overageAllowed: overageAllowedEnum.true,
++                }),
++            ).toBe(0);
++            expect(
++                Offering.permittedUsage(40, {
++                    ...priced,
++                    usageEntitlement: 'inf',
++                    overageAllowed: overageAllowedEnum.true,
++                }),
++            ).toBe(0);
++            expect(
++                Offering.permittedUsage(7, {
++                    ...priced,
++                    usageEntitlement: 5,
++                    overageAllowed: overageAllowedEnum.false,
++                }),
++            ).toBe(0);
++            expect(
++                Offering.permittedUsage(70, {
++                    ...priced,
++                    usageEntitlement: 50,
++                }),
++            ).toBe(0);
++        });
++        test('shouldInvoiceDimension hides free dimensions only when invoice settings say to', () => {
++            expect(
++                Offering.shouldInvoiceDimension({
++                    owedQuantity: 5,
++                    unitCost: 0,
++                    settings: { freeDimensionOnInvoice: FreeDimensionOnInvoice.show } as ReadSettingsResponseData,
++                }),
++            ).toBe(true);
++            expect(
++                Offering.shouldInvoiceDimension({
++                    owedQuantity: 5,
++                    unitCost: 0,
++                    settings: { freeDimensionOnInvoice: FreeDimensionOnInvoice.hide } as ReadSettingsResponseData,
++                }),
++            ).toBe(false);
++            expect(
++                Offering.shouldInvoiceDimension({
++                    owedQuantity: 0,
++                    unitCost: 1,
++                    settings: fakeSettings,
++                }),
++            ).toBe(false);
++            expect(
++                Offering.shouldInvoiceDimension({
++                    owedQuantity: 2,
++                    unitCost: 10,
++                    settings: { freeDimensionOnInvoice: FreeDimensionOnInvoice.hide } as ReadSettingsResponseData,
++                }),
++            ).toBe(true);
++        });
++        test('Line items charge only permitted overage and omit hidden free or unbillable dimensions', async () => {
++            basicReadCustomerResponseData = { ...basicReadCustomerResponseData, currency: SupportedCurrencies.USD };
++            jest.spyOn(customerService, 'findUsageForCustomer').mockImplementation(
++                async () =>
++                    ({
++                        message: 'fake',
++                        data: [
++                            {
++                                dimensionId: 'api',
++                                usage: [
++                                    {
++                                        startTime: new Date().toISOString(),
++                                        endTime: new Date().toISOString(),
++                                        value: '100',
++                                    },
++                                ],
++                            },
++                            {
++                                dimensionId: 'seats',
++                                usage: [
++                                    {
++                                        startTime: new Date().toISOString(),
++                                        endTime: new Date().toISOString(),
++                                        value: '12',
++                                    },
++                                ],
++                            },
++                            {
++                                dimensionId: 'alerts',
++                                usage: [
++                                    {
++                                        startTime: new Date().toISOString(),
++                                        endTime: new Date().toISOString(),
++                                        value: '5',
++                                    },
++                                ],
++                            },
++                            {
++                                dimensionId: 'reports',
++                                usage: [
++                                    {
++                                        startTime: new Date().toISOString(),
++                                        endTime: new Date().toISOString(),
++                                        value: '7',
++                                    },
++                                ],
++                            },
++                            {
++                                dimensionId: 'storage',
++                                usage: [
++                                    {
++                                        startTime: new Date().toISOString(),
++                                        endTime: new Date().toISOString(),
++                                        value: '40',
++                                    },
++                                ],
++                            },
++                        ],
++                    }) as ReadCustomerUsageData,
++            );
++            const hideFreeSettings = {
++                ...fakeSettings,
++                freeDimensionOnInvoice: FreeDimensionOnInvoice.hide,
++            } as ReadSettingsResponseData;
++            const dimensions = [
++                {
++                    aggregationInterval: aggregationInterval.month,
++                    aggregationMethod: aggregationMethod.sum,
++                    dimensionName: 'API Calls',
++                    consumptionPrice: '0.01',
++                    rounding: roundingEnum.round,
++                    consumptionUnit: { unit: countBasedUnits['count-based'], type: 'count' },
++                    dimensionId: 'api',
++                    usageIncrement: '1',
++                },
++                {
++                    aggregationInterval: aggregationInterval.month,
++                    aggregationMethod: aggregationMethod.sum,
++                    dimensionName: 'Seats',
++                    consumptionPrice: '10.00',
++                    rounding: roundingEnum.round,
++                    consumptionUnit: { unit: countBasedUnits['count-based'], type: 'count' },
++                    dimensionId: 'seats',
++                    usageIncrement: '1',
++                    usageEntitlement: 10,
++                    overageAllowed: overageAllowedEnum.true,
++                },
++                {
++                    aggregationInterval: aggregationInterval.month,
++                    aggregationMethod: aggregationMethod.sum,
++                    dimensionName: 'Alerts',
++                    consumptionPrice: '0.00',
++                    rounding: roundingEnum.round,
++                    consumptionUnit: { unit: countBasedUnits['count-based'], type: 'count' },
++                    dimensionId: 'alerts',
++                    usageIncrement: '1',
++                },
++                {
++                    aggregationInterval: aggregationInterval.month,
++                    aggregationMethod: aggregationMethod.sum,
++                    dimensionName: 'Reports',
++                    consumptionPrice: '1.00',
++                    rounding: roundingEnum.round,
++                    consumptionUnit: { unit: countBasedUnits['count-based'], type: 'count' },
++                    dimensionId: 'reports',
++                    usageIncrement: '1',
++                    usageEntitlement: 5,
++                    overageAllowed: overageAllowedEnum.false,
++                },
++                {
++                    aggregationInterval: aggregationInterval.month,
++                    aggregationMethod: aggregationMethod.sum,
++                    dimensionName: 'Storage',
++                    consumptionPrice: '0.20',
++                    rounding: roundingEnum.round,
++                    consumptionUnit: { unit: countBasedUnits['count-based'], type: 'count' },
++                    dimensionId: 'storage',
++                    usageIncrement: '1',
++                    usageEntitlement: 'inf' as const,
++                    overageAllowed: overageAllowedEnum.true,
++                },
++            ];
++            const fakeCustomer = { ...basicReadCustomerResponseData, invoices: [], offering: basicUsageOffering };
++            const lineItems = await Offering.getLineItemsForUsage({
++                customerService: customerService,
++                customer: fakeCustomer,
++                startDate: DatetimeUtils.fifthDayOfLastMonthAtMidnight(new Date()),
++                endDate: new Date(),
++                customerId: fakeCustomerID,
++                dimensions,
++                businessID: fakeBusinessID,
++                lineItems: new InvoiceLineItems(),
++                offeringInstance: Offering.getInstance(
++                    { ...basicUsageOffering, dimensions },
++                    fakeCustomerID,
++                    fakeBusinessID,
++                    invoicesService,
++                    hideFreeSettings,
++                    schedulerService,
++                    customerService,
++                ),
++            });
++            expect(lineItems.getLineItems()).toEqual([
++                expect.objectContaining(new InvoiceLineItem('API Calls - foobar', 100, 0.01)),
++                expect.objectContaining(new InvoiceLineItem('Seats - foobar', 2, 10)),
++            ]);
++        });
++        test('Line items keep a zero-priced dimension when invoice settings show free dimensions', async () => {
++            basicReadCustomerResponseData = { ...basicReadCustomerResponseData, currency: SupportedCurrencies.USD };
++            jest.spyOn(customerService, 'findUsageForCustomer').mockImplementation(
++                async () =>
++                    ({
++                        message: 'fake',
++                        data: [
++                            {
++                                dimensionId: 'hours',
++                                usage: [
++                                    {
++                                        startTime: new Date().toISOString(),
++                                        endTime: new Date().toISOString(),
++                                        value: '10',
++                                    },
++                                ],
++                            },
++                            {
++                                dimensionId: 'units',
++                                usage: [
++                                    {
++                                        startTime: new Date().toISOString(),
++                                        endTime: new Date().toISOString(),
++                                        value: '25',
++                                    },
++                                ],
++                            },
++                        ],
++                    }) as ReadCustomerUsageData,
++            );
++            const showFreeSettings = {
++                ...fakeSettings,
++                freeDimensionOnInvoice: FreeDimensionOnInvoice.show,
++            } as ReadSettingsResponseData;
++            const dimensions = [
++                {
++                    aggregationInterval: aggregationInterval.month,
++                    aggregationMethod: aggregationMethod.sum,
++                    dimensionName: 'Hours',
++                    consumptionPrice: '0.00',
++                    rounding: roundingEnum.round,
++                    consumptionUnit: { unit: countBasedUnits['count-based'], type: 'count' },
++                    dimensionId: 'hours',
++                    usageIncrement: '1',
++                },
++                {
++                    aggregationInterval: aggregationInterval.month,
++                    aggregationMethod: aggregationMethod.sum,
++                    dimensionName: 'Units',
++                    consumptionPrice: '5.00',
++                    rounding: roundingEnum.round,
++                    consumptionUnit: { unit: countBasedUnits['count-based'], type: 'count' },
++                    dimensionId: 'units',
++                    usageIncrement: '1',
++                    usageEntitlement: 20,
++                    overageAllowed: overageAllowedEnum.true,
++                },
++            ];
++            const fakeCustomer = { ...basicReadCustomerResponseData, invoices: [], offering: basicUsageOffering };
++            const lineItems = await Offering.getLineItemsForUsage({
++                customerService: customerService,
++                customer: fakeCustomer,
++                startDate: DatetimeUtils.fifthDayOfLastMonthAtMidnight(new Date()),
++                endDate: new Date(),
++                customerId: fakeCustomerID,
++                dimensions,
++                businessID: fakeBusinessID,
++                lineItems: new InvoiceLineItems(),
++                offeringInstance: Offering.getInstance(
++                    { ...basicUsageOffering, dimensions },
++                    fakeCustomerID,
++                    fakeBusinessID,
++                    invoicesService,
++                    showFreeSettings,
++                    schedulerService,
++                    customerService,
++                ),
++            });
++            expect(lineItems.getLineItems()).toEqual([
++                expect.objectContaining(new InvoiceLineItem('Hours - foobar', 10, 0)),
++                expect.objectContaining(new InvoiceLineItem('Units - foobar', 5, 5)),
++            ]);
++        });
+         test('Free trial scheduler must set parameters correctly', async () => {
+diff --git a/offering/entities/offeringPackage.entity.ts b/offering/entities/offeringPackage.entity.ts
+index 147ab70..57e9fa9 100644
+--- a/offering/entities/offeringPackage.entity.ts
++++ b/offering/entities/offeringPackage.entity.ts
+@@ -32,3 +32,4 @@ import { CustomerContractDiscount } from '../../contract/dto/customerContractDis
+ import { DimensionTierDto } from '../../dimensions/dto/dimensionTier.dto.js';
+-import { PaymentSchedule, aggregationMethod } from '../../dimensions/dto/create-dimension.dto.js';
++import { PaymentSchedule, aggregationMethod, overageAllowedEnum } from '../../dimensions/dto/create-dimension.dto.js';
++import { FreeDimensionOnInvoice } from '../../setting/dto/FreeDimensionOnInvoice.js';
+ import { DimensionOverridesDto } from '../../contract/dto/dimensionOverrides.dto.js';
+@@ -363,2 +364,49 @@ export abstract class Offering {
+ 
++    /**
++     * Usage a dimension may charge for: only the permitted overage past a
++     * finite exhausted allowance. An unlimited or unexhausted allowance, or
++     * a plan that forbids overage, charges nothing.
++     */
++    static permittedUsage(total: number, dimension: ReadDimensionResponseData): number {
++        const entitlement = dimension?.usageEntitlement;
++        if (entitlement === undefined || entitlement === null || entitlement === '') {
++            return total;
++        }
++        if (entitlement === 'inf') {
++            return 0;
++        }
++        if (dimension?.overageAllowed !== overageAllowedEnum.true) {
++            return 0;
++        }
++        const allowance = typeof entitlement === 'number' ? entitlement : parseFloat(String(entitlement));
++        if (!Number.isFinite(allowance)) {
++            return 0;
++        }
++        const overage = Number((Number(total) - allowance).toFixed(2));
++        return overage > 0 ? overage : 0;
++    }
++
++    /**
++     * Whether a dimension earns a line: the customer owes something on it,
++     * and a plan that prices the dimension at zero is shown unless invoice
++     * settings hide free dimensions.
++     */
++    static shouldInvoiceDimension({
++        owedQuantity,
++        unitCost,
++        settings,
++    }: {
++        owedQuantity: number;
++        unitCost: number;
++        settings?: ReadSettingsResponseData;
++    }): boolean {
++        if (!Number.isFinite(owedQuantity) || owedQuantity <= 0) {
++            return false;
++        }
++        if (unitCost === 0 && settings?.freeDimensionOnInvoice === FreeDimensionOnInvoice.hide) {
++            return false;
++        }
++        return true;
++    }
++
+     static async getLineItemsForUsage({
+@@ -477,13 +525,12 @@ export abstract class Offering {
+         Object.keys(dimensionTotals).forEach((dimensionId) => {
++            const dimension = nonTieredDimensionsMap[dimensionId];
++            const owedQuantity = Offering.permittedUsage(Number(dimensionTotals[dimensionId]), dimension);
+             let unitCost = Number(
+-                (parseFloat(nonTieredDimensionsMap[dimensionId].consumptionPrice) * exchangeRate).toFixed(
+-                    Offering.getDecimalsForNumber(parseFloat(nonTieredDimensionsMap[dimensionId].consumptionPrice)) ===
+-                        0
++                (parseFloat(dimension.consumptionPrice) * exchangeRate).toFixed(
++                    Offering.getDecimalsForNumber(parseFloat(dimension.consumptionPrice)) === 0
+                         ? 2
+-                        : Offering.getDecimalsForNumber(
+-                              parseFloat(nonTieredDimensionsMap[dimensionId].consumptionPrice),
+-                          ),
++                        : Offering.getDecimalsForNumber(parseFloat(dimension.consumptionPrice)),
+                 ),
+             );
+-            if (nonTieredDimensionsMap[dimensionId]?.paymentSchedule === PaymentSchedule.upfront) {
++            if (dimension?.paymentSchedule === PaymentSchedule.upfront) {
+                 const billingMSStartDate = proratedStartDate ? proratedStartDate : startDate;
+@@ -496,2 +543,11 @@ export abstract class Offering {
+             }
++            if (
++                !Offering.shouldInvoiceDimension({
++                    owedQuantity,
++                    unitCost,
++                    settings: offeringInstance.settings,
++                })
++            ) {
++                return;
++            }
+             const {
+@@ -499,3 +555,3 @@ export abstract class Offering {
+                 consumptionUnit: { unit, type },
+-            } = nonTieredDimensionsMap[dimensionId];
++            } = dimension;
+             // Handle currency conversion
+@@ -503,6 +559,6 @@ export abstract class Offering {
+             const { displayName, total: displayTotal } = InvoiceLineItem.prepareLineItem({
+-                total: dimensionTotals[dimensionId],
++                total: owedQuantity,
+                 dimensionType: type,
+                 dimensionId,
+-                dimensionName: nonTieredDimensionsMap[dimensionId].dimensionName,
++                dimensionName: dimension.dimensionName,
+                 offeringName: offeringInstance.offeringName,

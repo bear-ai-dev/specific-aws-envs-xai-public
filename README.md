@@ -153,6 +153,10 @@ excluded.
 - **Machine-readable index:**
   [`sample-run/indexes/trials.json`](sample-run/indexes/trials.json) resolves
   every matrix row to its trajectory and verifier result.
+- **Reviewer bundle:**
+  [`Grok 4.6 Trial 1`](sample-run/review-bundles/grok-4.6-trial-01/)
+  collects the trace, exact touched-file list, candidate patch, verifier source,
+  verification result, and solving comparator for one complete attempt.
 - **Frozen inputs:**
   [`sample-run/manifests/frozen-cohort.json`](sample-run/manifests/frozen-cohort.json)
   records task, harness, and runtime checksums.
