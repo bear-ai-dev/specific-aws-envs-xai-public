@@ -154,7 +154,7 @@ excluded.
   [`sample-run/indexes/trials.json`](sample-run/indexes/trials.json) resolves
   every matrix row to its trajectory and verifier result.
 - **Reviewer bundle:**
-  [`Grok 4.6 review bundle`](sample-run/review-bundles/grok-4.6-trial-01/)
+  [`Grok 4.6 review bundle`](sample-run/review-bundle/)
   contains the exact frozen source files and each Grok trial's final changed
   files, all eight Grok and eight Opus native JSON trajectories, the Python
   scoring code, and every trial's human-readable verification report.
