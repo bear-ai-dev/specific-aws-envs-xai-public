@@ -6,7 +6,7 @@ contains eight Grok failures and eight Opus solves on the same frozen task.
 
 | Folder | Contents |
 | --- | --- |
-| [`files/`](files/) | Exact frozen pre-edit versions of every source file changed by Grok Trial 1 |
+| [`initial-files/`](initial-files/) | Exact frozen pre-edit versions of every source file changed by Grok Trial 1 |
 | [`grok-solution/`](grok-solution/) | Exact final versions of those files from Grok Trial 1's captured workspace |
 | [`trajectories/grok/`](trajectories/grok/) | Eight native mini-SWE-agent JSON trajectories, numbered `01` through `08` |
 | [`trajectories/opus/`](trajectories/opus/) | Eight native mini-SWE-agent JSON trajectories, numbered `01` through `08` |
@@ -19,9 +19,10 @@ contains eight Grok failures and eight Opus solves on the same frozen task.
 - `offeringPackage.entity.spec.ts`
 - `offeringPackage.entity.ts`
 
-The copies are placed directly inside each folder for easier review. `files/`
-contains the frozen base, while `grok-solution/` contains Grok's final submitted
-versions. No task-level oracle code is included in `grok-solution/`.
+The copies are placed directly inside each folder for easier review.
+`initial-files/` contains the frozen base, while `grok-solution/` contains
+Grok's final submitted versions. No task-level oracle code is included in
+`grok-solution/`.
 
 ## Verifier
 
