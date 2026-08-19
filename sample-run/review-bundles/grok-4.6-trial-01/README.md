@@ -10,7 +10,7 @@ contains eight Grok failures and eight Opus solves on the same frozen task.
 | [`grok-solution/`](grok-solution/) | Exact final versions of those files from Grok Trial 1's captured workspace |
 | [`trajectories/grok/`](trajectories/grok/) | Eight native mini-SWE-agent JSON trajectories, numbered `01` through `08` |
 | [`trajectories/opus/`](trajectories/opus/) | Eight native mini-SWE-agent JSON trajectories, numbered `01` through `08` |
-| [`verifier/`](verifier/) | Executable non-shell scorer and behavioral driver, plus their held-out scenario and run specification |
+| [`verifier/`](verifier/) | The Python code that calculates the expected invoice lines, checks the submitted output, and assigns the binary reward |
 | [`verification-results/grok/`](verification-results/grok/) | Reward, report, observed output, and verifier stdout for all eight Grok trials |
 | [`verification-results/opus/`](verification-results/opus/) | Reward, report, observed output, and verifier stdout for all eight Opus trials |
 
@@ -25,15 +25,9 @@ versions. No task-level oracle code is included in `grok-solution/`.
 
 ## Verifier
 
-The non-shell verifier materials are:
-
-- `compute_reward.py`, the independent binary reward scorer;
-- `drive.ts`, the behavioral driver that invokes the submitted collector;
-- `holdout.json`, the held-out AWS-compatible scenario; and
-- `run-spec.json`, the two billing runs exercised by the verifier.
-
-The shell orchestration wrapper is intentionally excluded from this review
-folder. Its recorded outputs are preserved under `verification-results/`.
+[`compute_reward.py`](verifier/compute_reward.py) is the independent binary
+reward scorer. It calculates the expected invoice lines, compares them with the
+submitted output, and assigns a reward of `0.0` or `1.0`.
 
 ## Verification result
 
