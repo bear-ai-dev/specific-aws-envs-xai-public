@@ -6,7 +6,6 @@ the same frozen task.
 
 | Folder | Contents |
 | --- | --- |
-| [`files/provided-files/`](files/provided-files/) | Exact frozen versions of the two source files supplied to Grok that were later modified |
 | [`files/touched-files/`](files/touched-files/) | Every file Grok directly wrote, copied, reformatted, or deleted, separated by trial and stored under its original `/app` or `/tmp` path |
 | [`grok-solution/`](grok-solution/) | Each Grok trial's exact final changed files, separated into folders numbered `01` through `08` |
 | [`trajectories/grok/`](trajectories/grok/) | Eight native mini-SWE-agent JSON trajectories, numbered `01` through `08` |
@@ -23,10 +22,8 @@ the same frozen task.
 | `03`, `06` | `offeringPackage.entity.ts`; `offeringPackage.entity.spec.ts`; new `invoiceLineGatherer.service.spec.ts` |
 
 The final submitted copies are placed directly inside each `grok-solution`
-trial folder for easier review. `files/provided-files/` contains the frozen
-versions of the two files that existed before the trials. The third solution
-file in Trials 3 and 6 was newly created, so it has no matching provided file.
-No task-level oracle code is included.
+trial folder for easier review. The third solution file in Trials 3 and 6 was
+newly created during those trials. No task-level oracle code is included.
 
 ## Every file Grok touched
 
