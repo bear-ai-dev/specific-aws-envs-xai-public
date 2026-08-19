@@ -155,9 +155,10 @@ excluded.
   every matrix row to its trajectory and verifier result.
 - **Reviewer bundle:**
   [`Grok 4.6 review bundle`](sample-run/review-bundle/)
-  contains the exact frozen source files and each Grok trial's final changed
-  files, all eight Grok and eight Opus native JSON trajectories, the Python
-  scoring code, and every trial's human-readable verification report.
+  contains every file Grok directly touched, each Grok trial's final changed
+  files, all eight Grok and eight Opus native JSON trajectories, the complete
+  verifier execution and scoring assets, and every trial's human-readable
+  verification report.
 - **Frozen inputs:**
   [`sample-run/manifests/frozen-cohort.json`](sample-run/manifests/frozen-cohort.json)
   records task, harness, and runtime checksums.

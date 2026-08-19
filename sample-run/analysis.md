@@ -41,10 +41,10 @@ each attempt's `config.json` and `result.json`, and in the
 [machine-readable trial index](indexes/trials.json).
 
 For a compact cohort audit, the
-[Grok 4.6 review bundle](review-bundle/) contains the exact
-frozen source files and each Grok trial's final changed files, all eight Grok
-and eight Opus native JSON trajectories, the Python scoring code, and every
-trial's human-readable verification report.
+[Grok 4.6 review bundle](review-bundle/) contains every file Grok directly
+touched and each Grok trial's final changed files, all eight Grok and eight Opus
+native JSON trajectories, the complete verifier execution and scoring assets,
+and every trial's human-readable verification report.
 
 | Model | Trial | Reward | Trajectory | Verifier report |
 | --- | ---: | ---: | --- | --- |
