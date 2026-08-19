@@ -1,2 +1,0 @@
-M	offering/entities/offeringPackage.entity.spec.ts
-M	offering/entities/offeringPackage.entity.ts
