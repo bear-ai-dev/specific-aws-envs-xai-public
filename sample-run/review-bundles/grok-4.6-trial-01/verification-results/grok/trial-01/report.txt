@@ -1,3 +1,10 @@
+Reviewer annotation (added after the recorded run; original verifier output is preserved below).
+
+Failed test case: Include zero-priced dimensions when invoice settings show free dimensions.
+Expected-value rule: compute_reward.py::line_is_shown
+Output assertion: compute_reward.py::grade_run detects missing expected lines.
+
+Original verifier output:
 solstice-july: cus_cobalt is missing lines for ['solstice-model-invocations']
 solstice-july: cus_dunmore is missing lines for ['solstice-retention-days']
 solstice-july: cus_juniper is missing lines for ['solstice-bandwidth-gigabytes', 'solstice-retention-days']

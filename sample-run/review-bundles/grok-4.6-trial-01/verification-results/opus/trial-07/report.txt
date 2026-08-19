@@ -1,1 +1,10 @@
+Reviewer annotation (added after the recorded run; original verifier output is preserved below).
+
+Passed test cases:
+- Billing-window usage aggregation: compute_reward.py::published_totals
+- Entitlement and overage calculation: compute_reward.py::billable_total
+- Free-dimension visibility: compute_reward.py::line_is_shown
+- Output structure, line completeness, and quantities: compute_reward.py::grade_run
+
+Original verifier output:
 reward=1.0

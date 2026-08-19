@@ -44,7 +44,7 @@ For a single-attempt audit, the
 [Grok 4.6 Trial 1 review bundle](review-bundles/grok-4.6-trial-01/) contains the
 exact frozen and final code files for that attempt, all eight Grok and eight
 Opus native JSON trajectories, the Python scoring code, and every trial's
-verification result.
+human-readable verification report.
 
 | Model | Trial | Reward | Trajectory | Verifier report |
 | --- | ---: | ---: | --- | --- |

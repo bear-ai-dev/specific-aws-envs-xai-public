@@ -157,7 +157,7 @@ excluded.
   [`Grok 4.6 Trial 1`](sample-run/review-bundles/grok-4.6-trial-01/)
   contains the exact frozen and final code files for the representative attempt,
   all eight Grok and eight Opus native JSON trajectories, the Python scoring
-  code, and every trial's verification result.
+  code, and every trial's human-readable verification report.
 - **Frozen inputs:**
   [`sample-run/manifests/frozen-cohort.json`](sample-run/manifests/frozen-cohort.json)
   records task, harness, and runtime checksums.
