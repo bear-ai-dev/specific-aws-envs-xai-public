@@ -6,7 +6,7 @@ the same frozen task.
 
 | Folder | Contents |
 | --- | --- |
-| [`files/touched-files/`](files/touched-files/) | Every file Grok directly wrote, copied, reformatted, or deleted, separated by trial and stored under its original `/app` or `/tmp` path |
+| [`touched-files/`](touched-files/) | Every file Grok directly wrote, copied, reformatted, or deleted, separated by trial and stored under its original `/app` or `/tmp` path |
 | [`grok-solution/`](grok-solution/) | Each Grok trial's exact final changed files, separated into folders numbered `01` through `08` |
 | [`trajectories/grok/`](trajectories/grok/) | Eight native mini-SWE-agent JSON trajectories, numbered `01` through `08` |
 | [`trajectories/opus/`](trajectories/opus/) | Eight native mini-SWE-agent JSON trajectories, numbered `01` through `08` |
@@ -27,7 +27,7 @@ newly created during those trials. No task-level oracle code is included.
 
 ## Every file Grok touched
 
-[`files/touched-files/`](files/touched-files/) contains one folder per trial.
+[`touched-files/`](touched-files/) contains one folder per trial.
 Within each trial, the `app/` and `tmp/` directories mirror the file's original
 location in the sandbox. This includes the submitted source edits, temporary
 reproduction scripts, copied debugging scripts, new tests, and files Grok later
