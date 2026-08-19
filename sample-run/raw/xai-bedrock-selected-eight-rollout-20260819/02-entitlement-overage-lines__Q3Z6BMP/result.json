@@ -1,0 +1,128 @@
+{
+    "id": "46a61437-62ff-417c-baa8-72f5f67c3328",
+    "task_name": "meteringco/entitlement-overage-lines",
+    "trial_name": "02-entitlement-overage-lines__Q3Z6BMP",
+    "trial_uri": "file://[REDACTED_LOCAL_REPO_PATH]/sample-run/raw/xai-bedrock-grok-recovery-eight-rollout-20260819/02-entitlement-overage-lines__Q3Z6BMP",
+    "task_id": {
+        "path": "tasks/02-entitlement-overage-lines"
+    },
+    "source": null,
+    "task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
+    "config": {
+        "task": {
+            "path": "tasks/02-entitlement-overage-lines",
+            "git_url": null,
+            "git_commit_id": null,
+            "name": null,
+            "ref": null,
+            "overwrite": false,
+            "download_dir": null,
+            "source": null
+        },
+        "trial_name": "02-entitlement-overage-lines__Q3Z6BMP",
+        "trials_dir": "sample-run/raw/xai-bedrock-grok-recovery-eight-rollout-20260819",
+        "install_only": false,
+        "timeout_multiplier": 1.0,
+        "agent_timeout_multiplier": null,
+        "verifier_timeout_multiplier": null,
+        "agent_setup_timeout_multiplier": null,
+        "environment_build_timeout_multiplier": null,
+        "agent": {
+            "name": null,
+            "import_path": "harness.harbor_agents:BedrockMiniSweAgent",
+            "model_name": "bedrock/converse/us.xai.grok-4.6",
+            "n_concurrent": 24,
+            "concurrency_group": null,
+            "skills": [],
+            "override_timeout_sec": null,
+            "override_setup_timeout_sec": null,
+            "max_timeout_sec": null,
+            "extra_allowed_hosts": [],
+            "kwargs": {
+                "version": "2.4.5",
+                "cost_limit": "0",
+                "config_file": "harness/mini-swe-bedrock-grok.yaml",
+                "model_registry_file": "harness/litellm-bedrock-grok-4.6.json"
+            },
+            "env": {
+                "BEDROCK_PROVIDER_AWS_ACCESS_KEY_ID": "${AWS_ACCESS_KEY_ID}",
+                "BEDROCK_PROVIDER_AWS_SECRET_ACCESS_KEY": "${AWS_SECRET_ACCESS_KEY}",
+                "BEDROCK_PROVIDER_AWS_SESSION_TOKEN": "${AWS_SESSION_TOKEN:-}",
+                "BEDROCK_PROVIDER_AWS_REGION": "${AWS_REGION:-us-east-1}"
+            },
+            "mcp_servers": []
+        },
+        "environment": {
+            "type": "daytona",
+            "import_path": null,
+            "force_build": false,
+            "delete": true,
+            "cpu_enforcement_policy": "auto",
+            "memory_enforcement_policy": "auto",
+            "override_cpus": null,
+            "override_memory_mb": null,
+            "override_storage_mb": 10240,
+            "override_gpus": null,
+            "override_tpu": null,
+            "mounts": null,
+            "extra_docker_compose": [],
+            "kwargs": {
+                "connection_pool_maxsize": 128,
+                "labels": {
+                    "cohort": "xai-bedrock-grok-recovery-eight-rollout-20260819"
+                }
+            },
+            "extra_allowed_hosts": []
+        },
+        "verifier": {
+            "override_timeout_sec": null,
+            "max_timeout_sec": null,
+            "disable": false
+        },
+        "artifacts": [],
+        "extra_instruction_paths": [],
+        "job_id": "69f3b27d-146e-4dd7-8ffb-5df6d4bae186"
+    },
+    "agent_info": {
+        "name": "mini-swe-agent",
+        "version": "2.4.5",
+        "model_info": {
+            "name": "converse/us.xai.grok-4.6",
+            "provider": "bedrock"
+        }
+    },
+    "agent_result": {
+        "n_input_tokens": 3516520,
+        "n_cache_tokens": 198784,
+        "n_output_tokens": 93917,
+        "cost_usd": 8.0282026,
+        "rollout_details": null,
+        "metadata": null
+    },
+    "verifier_result": {
+        "rewards": {
+            "reward": 0.0,
+            "score": 0.0
+        }
+    },
+    "exception_info": null,
+    "started_at": "2026-08-19T17:52:00.799823Z",
+    "finished_at": "2026-08-19T18:31:13.094748Z",
+    "environment_setup": {
+        "started_at": "2026-08-19T17:52:03.303208Z",
+        "finished_at": "2026-08-19T18:07:22.998071Z"
+    },
+    "agent_setup": {
+        "started_at": "2026-08-19T18:07:23.398260Z",
+        "finished_at": "2026-08-19T18:07:34.873334Z"
+    },
+    "agent_execution": {
+        "started_at": "2026-08-19T18:07:34.873504Z",
+        "finished_at": "2026-08-19T18:30:59.137798Z"
+    },
+    "verifier": {
+        "started_at": "2026-08-19T18:31:03.097837Z",
+        "finished_at": "2026-08-19T18:31:12.412416Z"
+    },
+    "step_results": null
+}

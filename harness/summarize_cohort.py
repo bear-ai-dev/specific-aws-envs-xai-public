@@ -1,0 +1,246 @@
+#!/usr/bin/env python3
+"""Index Harbor results and update the README pass-rate matrix."""
+
+from __future__ import annotations
+
+import argparse
+import json
+from collections import defaultdict
+from math import comb
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parent.parent
+START = "<!-- MINI_SWE_MATRIX_START -->"
+END = "<!-- MINI_SWE_MATRIX_END -->"
+ALIASES = {
+    "bedrock/converse/us.xai.grok-4.6": "Grok 4.6",
+    "bedrock/us.anthropic.claude-opus-5": "Opus 5",
+}
+COHORT = json.loads((ROOT / "harness" / "cohort.json").read_text())
+EVIDENCE_COHORT = "xai-bedrock-selected-eight-rollout-20260819"
+EVIDENCE_CONTROLS = "xai-public-controls-20260819"
+TASKS = [Path(entry["path"]).name for entry in COHORT["tasks"]]
+TASK_LABELS = {
+    task: f"Task {int(task.split('-', 1)[0])}" for task in TASKS
+}
+TARGET_ATTEMPTS = int(COHORT["n_attempts"])
+REPRODUCTION_CONTROLS = json.loads(
+    (ROOT / "harness" / "controls.json").read_text()
+)["job_name"]
+
+
+def first_existing(*paths: Path) -> Path | None:
+    return next((path for path in paths if path.is_file()), None)
+
+
+def display_path(path: Path) -> str:
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
+def load_trials(raw_dir: Path) -> list[dict]:
+    trials = []
+    if raw_dir == ROOT / "sample-run" / "raw":
+        result_paths = sorted(
+            raw_dir.glob(f"{EVIDENCE_COHORT}/**/result.json")
+        )
+    else:
+        result_paths = sorted(raw_dir.rglob("result.json"))
+    for result_path in result_paths:
+        try:
+            result = json.loads(result_path.read_text())
+        except (OSError, json.JSONDecodeError):
+            continue
+        trial_dir = result_path.parent
+        config = result.get("config") or {}
+        task_config = config.get("task") or {}
+        agent_config = config.get("agent") or {}
+        task_path = str(task_config.get("path") or "")
+        historical_task = Path(task_path).name
+        task = historical_task
+        model = agent_config.get("model_name")
+        if task not in TASKS or model not in ALIASES:
+            continue
+        rewards = ((result.get("verifier_result") or {}).get("rewards") or {})
+        reward = rewards.get("reward")
+        trajectory = first_existing(
+            trial_dir / "agent" / "trajectory.json",
+            trial_dir / "agent" / "mini-swe-agent.trajectory.json",
+        )
+        verifier = first_existing(
+            trial_dir / "verifier" / "output.json",
+            trial_dir / "verifier" / "reward.json",
+        )
+        valid = (
+            task in TASKS
+            and model in ALIASES
+            and result.get("exception_info") is None
+            and isinstance(reward, (int, float))
+            and trajectory is not None
+            and verifier is not None
+        )
+        trials.append(
+            {
+                "task": task,
+                "historical_task": historical_task,
+                "task_label": TASK_LABELS[task],
+                "model": model,
+                "model_label": ALIASES.get(model, model),
+                "reward": reward,
+                "passed": bool(valid and float(reward) >= 1.0),
+                "valid": valid,
+                "trial_dir": display_path(trial_dir),
+                "trajectory": (
+                    display_path(trajectory) if trajectory else None
+                ),
+                "verifier": display_path(verifier) if verifier else None,
+                "exception_info": result.get("exception_info"),
+                "input_tokens": (result.get("agent_result") or {}).get(
+                    "n_input_tokens"
+                ),
+                "cache_tokens": (result.get("agent_result") or {}).get(
+                    "n_cache_tokens"
+                ),
+                "output_tokens": (result.get("agent_result") or {}).get(
+                    "n_output_tokens"
+                ),
+                "reported_cost_usd": (result.get("agent_result") or {}).get(
+                    "cost_usd"
+                ),
+            }
+        )
+    return trials
+
+
+def pass_at_k(n: int, c: int, k: int) -> float:
+    """Unbiased pass@k estimate from n trials with c solves."""
+    if c == 0:
+        return 0.0
+    if n - c < k:
+        return 1.0
+    return 1.0 - comb(n - c, k) / comb(n, k)
+
+
+def render_matrix(trials: list[dict], models: tuple[str, ...] | None = None) -> str:
+    models = models or tuple(ALIASES)
+    cells: dict[tuple[str, str], list[dict]] = defaultdict(list)
+    for trial in trials:
+        if trial["valid"]:
+            cells[(trial["task"], trial["model"])].append(trial)
+    lines = [
+        START,
+        "| Task | Model | Solves `c/n` | pass@1 | pass@3 | pass@8 |",
+        "| --- | --- | ---: | ---: | ---: | ---: |",
+    ]
+    for task in TASKS:
+        for model in models:
+            valid = cells[(task, model)]
+            n = len(valid)
+            c = sum(item["passed"] for item in valid)
+            values = [pass_at_k(n, c, k) for k in (1, 3, 8)]
+            lines.append(
+                f"| [{TASK_LABELS[task]}](tasks/{task}/instruction.md) | "
+                f"{ALIASES[model]} | {c}/{n} | "
+                + " | ".join(f"{value:.4f}" for value in values)
+                + " |"
+            )
+    lines.append(END)
+    return "\n".join(lines)
+
+
+def execution_summary(trials: list[dict], raw_dir: Path) -> dict:
+    packaged_raw = ROOT / "sample-run" / "raw"
+    if raw_dir == packaged_raw:
+        control_root = packaged_raw / EVIDENCE_CONTROLS
+        cohort_directory = packaged_raw / EVIDENCE_COHORT
+    else:
+        control_root = raw_dir.parent / REPRODUCTION_CONTROLS
+        cohort_directory = raw_dir
+    controls = defaultdict(list)
+    for result_path in sorted(control_root.glob("*/result.json")):
+        result = json.loads(result_path.read_text())
+        agent = ((result.get("config") or {}).get("agent") or {}).get("name")
+        reward = ((result.get("verifier_result") or {}).get("rewards") or {}).get(
+            "reward"
+        )
+        if agent in {"oracle", "nop"} and isinstance(reward, (int, float)):
+            controls[agent].append(float(reward))
+
+    return {
+        "cohort_directory": display_path(cohort_directory),
+        "scored_valid_trials": sum(trial["valid"] for trial in trials),
+        "completed_trials_excluded_from_denominator": sum(
+            not trial["valid"] for trial in trials
+        ),
+        "controls": {
+            "oracle": {
+                "count": len(controls["oracle"]),
+                "all_reward_one": bool(controls["oracle"])
+                and all(value == 1 for value in controls["oracle"]),
+            },
+            "nop": {
+                "count": len(controls["nop"]),
+                "all_reward_zero": bool(controls["nop"])
+                and all(value == 0 for value in controls["nop"]),
+            },
+        },
+        "denominator_policy": (
+            "numeric verifier reward, complete trajectory, complete verifier "
+            "artifact, and no Harbor exception"
+        ),
+    }
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--raw-dir",
+        type=Path,
+        default=ROOT / "sample-run" / "raw",
+    )
+    args = parser.parse_args()
+    raw_dir = args.raw_dir.resolve()
+    trials = load_trials(raw_dir)
+    valid_cells: dict[tuple[str, str], int] = defaultdict(int)
+    for trial in trials:
+        if trial["valid"]:
+            valid_cells[(trial["task"], trial["model"])] += 1
+    incomplete = {
+        f"{task}/{ALIASES[model]}": valid_cells[(task, model)]
+        for task in TASKS
+        for model in ALIASES
+        if valid_cells[(task, model)] != TARGET_ATTEMPTS
+    }
+    if incomplete:
+        raise SystemExit(
+            f"expected exactly {TARGET_ATTEMPTS} valid trials per cell: {incomplete}"
+        )
+    index_dir = ROOT / "sample-run" / "indexes"
+    index_dir.mkdir(parents=True, exist_ok=True)
+    (index_dir / "trials.json").write_text(
+        json.dumps(trials, indent=2) + "\n"
+    )
+    (index_dir / "execution-summary.json").write_text(
+        json.dumps(execution_summary(trials, raw_dir), indent=2) + "\n"
+    )
+
+    matrix = render_matrix(trials)
+    index_matrix = matrix.replace("](tasks/", "](../../tasks/")
+    (index_dir / "pass-rate-matrix.md").write_text(index_matrix + "\n")
+    readme_path = ROOT / "README.md"
+    readme = readme_path.read_text()
+    if START not in readme or END not in readme:
+        raise SystemExit("README matrix markers are missing")
+    prefix, rest = readme.split(START, 1)
+    _, suffix = rest.split(END, 1)
+    readme_path.write_text(prefix + matrix + suffix)
+    print(
+        f"indexed={len(trials)} valid={sum(t['valid'] for t in trials)}"
+    )
+
+
+if __name__ == "__main__":
+    main()

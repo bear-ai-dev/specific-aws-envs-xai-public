@@ -1,0 +1,21 @@
+{
+    "task": {
+        "path": "tasks/02-entitlement-overage-lines"
+    },
+    "trial_name": "02-entitlement-overage-lines__9kJQyMu",
+    "trials_dir": "sample-run/raw/xai-public-controls-20260819",
+    "agent": {
+        "name": "nop"
+    },
+    "environment": {
+        "type": "daytona",
+        "override_storage_mb": 10240,
+        "kwargs": {
+            "connection_pool_maxsize": 32,
+            "labels": {
+                "cohort": "xai-public-controls-20260819"
+            }
+        }
+    },
+    "job_id": "b2657f7a-4e01-4bd6-819a-b07055895c24"
+}

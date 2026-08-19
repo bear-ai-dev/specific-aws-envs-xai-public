@@ -1,0 +1,16 @@
+{
+  "cohort_directory": "sample-run/raw/xai-bedrock-selected-eight-rollout-20260819",
+  "scored_valid_trials": 16,
+  "completed_trials_excluded_from_denominator": 0,
+  "controls": {
+    "oracle": {
+      "count": 1,
+      "all_reward_one": true
+    },
+    "nop": {
+      "count": 1,
+      "all_reward_zero": true
+    }
+  },
+  "denominator_policy": "numeric verifier reward, complete trajectory, complete verifier artifact, and no Harbor exception"
+}

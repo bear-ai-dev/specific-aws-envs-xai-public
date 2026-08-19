@@ -1,0 +1,35 @@
+{
+    "task": {
+        "path": "tasks/02-entitlement-overage-lines"
+    },
+    "trial_name": "02-entitlement-overage-lines__avFGoRr",
+    "trials_dir": "sample-run/raw/xai-bedrock-grok-recovery-eight-rollout-20260819",
+    "agent": {
+        "import_path": "harness.harbor_agents:BedrockMiniSweAgent",
+        "model_name": "bedrock/converse/us.xai.grok-4.6",
+        "n_concurrent": 24,
+        "kwargs": {
+            "version": "2.4.5",
+            "cost_limit": "0",
+            "config_file": "harness/mini-swe-bedrock-grok.yaml",
+            "model_registry_file": "harness/litellm-bedrock-grok-4.6.json"
+        },
+        "env": {
+            "BEDROCK_PROVIDER_AWS_ACCESS_KEY_ID": "${AWS_ACCESS_KEY_ID}",
+            "BEDROCK_PROVIDER_AWS_SECRET_ACCESS_KEY": "${AWS_SECRET_ACCESS_KEY}",
+            "BEDROCK_PROVIDER_AWS_SESSION_TOKEN": "${AWS_SESSION_TOKEN:-}",
+            "BEDROCK_PROVIDER_AWS_REGION": "${AWS_REGION:-us-east-1}"
+        }
+    },
+    "environment": {
+        "type": "daytona",
+        "override_storage_mb": 10240,
+        "kwargs": {
+            "connection_pool_maxsize": 128,
+            "labels": {
+                "cohort": "xai-bedrock-grok-recovery-eight-rollout-20260819"
+            }
+        }
+    },
+    "job_id": "69f3b27d-146e-4dd7-8ffb-5df6d4bae186"
+}

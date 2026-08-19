@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "transformation": "deterministic_identifier_only_publication_normalization",
+  "scope": [
+    "task definition and workspace",
+    "captured trajectories and verifier artifacts",
+    "manifests, indexes, and documentation"
+  ],
+  "normalized_identifier_classes": [
+    "organization names and code symbols",
+    "organization domains and repository references",
+    "organization email addresses",
+    "author names and source ticket references",
+    "example cloud account and endpoint identifiers",
+    "task-local emulator credentials"
+  ],
+  "preserved": [
+    "task requirements",
+    "numeric fixtures and held-out cases",
+    "model-generated control flow",
+    "verifier outputs and rewards",
+    "trial identifiers and ordering"
+  ],
+  "recorded_runtime_task_sha256": "92e4b98286ca4dd72881f59542ae4c17ad010f9910e29839c725cedbffe00ab3",
+  "public_task_sha256": "c6a60ab17d77dbd7221a97a519e3062cdf4c2ba9a105acb41144d7a61138ae36",
+  "public_controls_job": "xai-public-controls-20260819",
+  "public_controls_required": {
+    "oracle": 1.0,
+    "nop": 0.0
+  }
+}

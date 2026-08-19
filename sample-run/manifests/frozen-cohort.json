@@ -1,0 +1,32 @@
+{
+  "adapter_sha256": "72d5bbd3df1add9001476d67e58031bba192b73dfebd15a7f7dc28ca2c1a053c",
+  "agent": "mini-swe-agent",
+  "attempts_per_task_model": 8,
+  "bedrock_config_sha256": "a8ebaf00aa24ccd8d8f0dcb074cc11b9349dcc163c6a2a67783402ab74b5c19c",
+  "cohort": "xai-selected-eight-rollout-reproduction",
+  "cohort_config_sha256": "4ff82e672427abd9ffa0394883d6f17f4f11041ff1c10d0ad13c20b0f47f1f1d",
+  "controls_config_sha256": "8ef2a998570c0716fd80f7d3d70364d15801dd3bb893ce0119ad2d4cb0fbd590",
+  "environment": "daytona",
+  "evidence_cohort": "xai-bedrock-selected-eight-rollout-20260819",
+  "evidence_controls": "xai-public-controls-20260819",
+  "grok_bedrock_config_sha256": "c8c6d27b01da51699b578101552bb5d43bb9b8e072bac7e4ff275cc5550ef0f8",
+  "grok_model_registry_sha256": "310dfa12cff09204d73ec8384b55397543f3f18974f422c158f688ae7bb2ecc5",
+  "harbor_version": "0.18.0",
+  "mini_swe_agent_version": "2.4.5",
+  "models": {
+    "grok-4.6": "bedrock/converse/us.xai.grok-4.6",
+    "opus-5": "bedrock/us.anthropic.claude-opus-5"
+  },
+  "public_task_sha256": {
+    "02-entitlement-overage-lines": "c6a60ab17d77dbd7221a97a519e3062cdf4c2ba9a105acb41144d7a61138ae36"
+  },
+  "publication_normalization": "sample-run/manifests/public-transformation.json",
+  "reasoning_effort": "high",
+  "recorded_runtime_task_sha256": {
+    "02-entitlement-overage-lines": "92e4b98286ca4dd72881f59542ae4c17ad010f9910e29839c725cedbffe00ab3"
+  },
+  "task_labels": {
+    "02-entitlement-overage-lines": "Task 2"
+  },
+  "validity_rule": "numeric verifier reward, complete trajectory, complete verifier artifact, no Harbor exception, and exact frozen task/config variant"
+}

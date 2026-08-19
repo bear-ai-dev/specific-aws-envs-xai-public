@@ -1,0 +1,45 @@
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Cardinal Scale, customer currency undefined[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-storage-gigabytes off the invoice for customer cus_meridian, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-support-tickets off the invoice for customer cus_meridian, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-audit-exports off the invoice for customer cus_meridian, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Cardinal Scale, customer currency undefined[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-api-requests off the invoice for customer cus_falconry, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-included-seats off the invoice for customer cus_falconry, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-storage-gigabytes off the invoice for customer cus_falconry, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-support-tickets off the invoice for customer cus_falconry, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-audit-exports off the invoice for customer cus_falconry, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Cardinal Scale, customer currency undefined[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-included-seats off the invoice for customer cus_marlowe, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-storage-gigabytes off the invoice for customer cus_marlowe, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-support-tickets off the invoice for customer cus_marlowe, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-audit-exports off the invoice for customer cus_marlowe, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Cardinal Metered, customer currency undefined[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-data-scans off the invoice for customer cus_larkspur, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-archive-restores off the invoice for customer cus_larkspur, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-sandbox-hours off the invoice for customer cus_larkspur, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-replay-jobs off the invoice for customer cus_larkspur, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Cardinal Metered, customer currency undefined[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-events-ingested off the invoice for customer cus_pinnacle, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-webhook-calls off the invoice for customer cus_pinnacle, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-data-scans off the invoice for customer cus_pinnacle, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-archive-restores off the invoice for customer cus_pinnacle, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-sandbox-hours off the invoice for customer cus_pinnacle, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving cardinal-replay-jobs off the invoice for customer cus_pinnacle, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:29 PM [32m    LOG[39m [38;5;3m[InvoiceLineGathererService] [39m[32mAssembled invoice lines for 5 customers[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Solstice Team, customer currency undefined[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving solstice-priority-builds off the invoice for customer cus_orchard, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Solstice Team, customer currency undefined[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving solstice-messages-sent off the invoice for customer cus_juniper, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving solstice-active-users off the invoice for customer cus_juniper, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving solstice-priority-builds off the invoice for customer cus_juniper, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Solstice Team, customer currency undefined[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving solstice-priority-builds off the invoice for customer cus_dunmore, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Solstice Flex, customer currency undefined[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving solstice-export-jobs off the invoice for customer cus_vesper, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving solstice-stream-hours off the invoice for customer cus_vesper, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Solstice Flex, customer currency undefined[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving solstice-queries-run off the invoice for customer cus_cobalt, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving solstice-index-updates off the invoice for customer cus_cobalt, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving solstice-export-jobs off the invoice for customer cus_cobalt, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mLeaving solstice-stream-hours off the invoice for customer cus_cobalt, nothing is owed on it[39m
+[32m[Nest] 1449  - [39m08/19/2026, 5:52:30 PM [32m    LOG[39m [38;5;3m[InvoiceLineGathererService] [39m[32mAssembled invoice lines for 5 customers[39m

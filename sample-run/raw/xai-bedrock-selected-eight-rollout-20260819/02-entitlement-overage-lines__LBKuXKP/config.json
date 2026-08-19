@@ -1,0 +1,34 @@
+{
+    "task": {
+        "path": "tasks/02-entitlement-overage-lines"
+    },
+    "trial_name": "02-entitlement-overage-lines__LBKuXKP",
+    "trials_dir": "sample-run/raw/xai-bedrock-dual-eight-rollout-20260819",
+    "agent": {
+        "import_path": "harness.harbor_agents:BedrockMiniSweAgent",
+        "model_name": "bedrock/us.anthropic.claude-opus-5",
+        "n_concurrent": 24,
+        "kwargs": {
+            "version": "2.4.5",
+            "cost_limit": "0",
+            "config_file": "harness/mini-swe-bedrock.yaml"
+        },
+        "env": {
+            "BEDROCK_PROVIDER_AWS_ACCESS_KEY_ID": "${AWS_ACCESS_KEY_ID}",
+            "BEDROCK_PROVIDER_AWS_SECRET_ACCESS_KEY": "${AWS_SECRET_ACCESS_KEY}",
+            "BEDROCK_PROVIDER_AWS_SESSION_TOKEN": "${AWS_SESSION_TOKEN:-}",
+            "BEDROCK_PROVIDER_AWS_REGION": "${AWS_REGION:-us-east-1}"
+        }
+    },
+    "environment": {
+        "type": "daytona",
+        "override_storage_mb": 10240,
+        "kwargs": {
+            "connection_pool_maxsize": 128,
+            "labels": {
+                "cohort": "xai-bedrock-dual-eight-rollout-20260819"
+            }
+        }
+    },
+    "job_id": "2060f0b1-acb6-4085-8170-9bb27012d245"
+}

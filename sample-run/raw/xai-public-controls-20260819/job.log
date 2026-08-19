@@ -1,0 +1,11 @@
+Selected strategy: _DaytonaDirect
+Selected strategy: _DaytonaDirect
+Creating new AsyncDaytona client
+Building environment from [REDACTED_LOCAL_REPO_PATH]/tasks/02-entitlement-overage-lines/environment/Dockerfile
+Building environment from [REDACTED_LOCAL_REPO_PATH]/tasks/02-entitlement-overage-lines/environment/Dockerfile
+Running healthcheck: test -f /tmp/task-infra/.ready
+Healthcheck passed
+Collecting main service artifacts
+Running healthcheck: test -f /tmp/task-infra/.ready
+Healthcheck passed
+Collecting main service artifacts

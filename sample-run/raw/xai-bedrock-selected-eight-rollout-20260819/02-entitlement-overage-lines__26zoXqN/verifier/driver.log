@@ -1,0 +1,45 @@
+[32m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Cardinal Scale, customer currency undefined[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-storage-gigabytes has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-support-tickets is free and the business hides free dimensions, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-audit-exports has nothing owed on it, skipping its line[39m
+[32m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Cardinal Scale, customer currency undefined[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-api-requests has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-included-seats has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-storage-gigabytes has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-support-tickets is free and the business hides free dimensions, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-audit-exports has nothing owed on it, skipping its line[39m
+[32m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Cardinal Scale, customer currency undefined[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-included-seats has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-storage-gigabytes has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-support-tickets is free and the business hides free dimensions, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-audit-exports has nothing owed on it, skipping its line[39m
+[32m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Cardinal Metered, customer currency undefined[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-data-scans has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-archive-restores has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-sandbox-hours is free and the business hides free dimensions, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-replay-jobs has nothing owed on it, skipping its line[39m
+[32m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Cardinal Metered, customer currency undefined[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-events-ingested has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-webhook-calls has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-data-scans has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-archive-restores has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-sandbox-hours is free and the business hides free dimensions, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension cardinal-replay-jobs has nothing owed on it, skipping its line[39m
+[32m[Nest] 1720  - [39m08/19/2026, 5:55:00 PM [32m    LOG[39m [38;5;3m[InvoiceLineGathererService] [39m[32mAssembled invoice lines for 5 customers[39m
+[32m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Solstice Team, customer currency undefined[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension solstice-priority-builds has nothing owed on it, skipping its line[39m
+[32m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Solstice Team, customer currency undefined[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension solstice-messages-sent has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension solstice-active-users has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension solstice-priority-builds has nothing owed on it, skipping its line[39m
+[32m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Solstice Team, customer currency undefined[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension solstice-priority-builds has nothing owed on it, skipping its line[39m
+[32m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Solstice Flex, customer currency undefined[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension solstice-export-jobs has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension solstice-stream-hours has nothing owed on it, skipping its line[39m
+[32m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [32m    LOG[39m [38;5;3m[Offering] [39m[32mGetting currency for customer undefined, offering Solstice Flex, customer currency undefined[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension solstice-queries-run has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension solstice-index-updates has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension solstice-export-jobs has nothing owed on it, skipping its line[39m
+[95m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [95m  DEBUG[39m [38;5;3m[Offering] [39m[95mDimension solstice-stream-hours has nothing owed on it, skipping its line[39m
+[32m[Nest] 1720  - [39m08/19/2026, 5:55:01 PM [32m    LOG[39m [38;5;3m[InvoiceLineGathererService] [39m[32mAssembled invoice lines for 5 customers[39m

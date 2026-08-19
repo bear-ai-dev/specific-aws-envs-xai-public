@@ -1,0 +1,30 @@
+{
+  "job_name": "xai-public-controls-20260819",
+  "jobs_dir": "sample-run/raw",
+  "n_attempts": 1,
+  "n_concurrent_trials": 2,
+  "quiet": false,
+  "environment": {
+    "type": "daytona",
+    "override_storage_mb": 10240,
+    "kwargs": {
+      "connection_pool_maxsize": 32,
+      "labels": {
+        "cohort": "xai-public-controls-20260819"
+      }
+    }
+  },
+  "agents": [
+    {
+      "name": "oracle"
+    },
+    {
+      "name": "nop"
+    }
+  ],
+  "tasks": [
+    {
+      "path": "tasks/02-entitlement-overage-lines"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+model:
+  litellm_model_registry: /tmp/mswea-bedrock-provider/model-registry.json
+  model_kwargs:
+    drop_params: false
+    reasoning:
+      effort: high
+    aws_profile_name: bedrock-provider
+    aws_region_name: us-east-1
