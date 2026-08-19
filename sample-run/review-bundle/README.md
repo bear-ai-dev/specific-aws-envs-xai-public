@@ -6,7 +6,8 @@ the same frozen task.
 
 | Folder | Contents |
 | --- | --- |
-| [`initial-files/`](initial-files/) | Exact frozen versions of the two existing source files modified in every Grok trial |
+| [`files/provided-files/`](files/provided-files/) | Exact frozen versions of the two source files supplied to Grok that were later modified |
+| [`files/touched-files/`](files/touched-files/) | Every file Grok directly wrote, copied, reformatted, or deleted, separated by trial and stored under its original `/app` or `/tmp` path |
 | [`grok-solution/`](grok-solution/) | Each Grok trial's exact final changed files, separated into folders numbered `01` through `08` |
 | [`trajectories/grok/`](trajectories/grok/) | Eight native mini-SWE-agent JSON trajectories, numbered `01` through `08` |
 | [`trajectories/opus/`](trajectories/opus/) | Eight native mini-SWE-agent JSON trajectories, numbered `01` through `08` |
@@ -21,11 +22,24 @@ the same frozen task.
 | `01`, `02`, `04`, `05`, `07`, `08` | `offeringPackage.entity.ts`; `offeringPackage.entity.spec.ts` |
 | `03`, `06` | `offeringPackage.entity.ts`; `offeringPackage.entity.spec.ts`; new `invoiceLineGatherer.service.spec.ts` |
 
-The copies are placed directly inside each folder for easier review.
-`initial-files/` contains the frozen versions of the two files that existed
-before the trials. `grok-solution/trial-XX/` contains the final changed files
-captured for that trial. The third file in Trials 3 and 6 was newly created, so
-it has no matching initial file. No task-level oracle code is included.
+The final submitted copies are placed directly inside each `grok-solution`
+trial folder for easier review. `files/provided-files/` contains the frozen
+versions of the two files that existed before the trials. The third solution
+file in Trials 3 and 6 was newly created, so it has no matching provided file.
+No task-level oracle code is included.
+
+## Every file Grok touched
+
+[`files/touched-files/`](files/touched-files/) contains one folder per trial.
+Within each trial, the `app/` and `tmp/` directories mirror the file's original
+location in the sandbox. This includes the submitted source edits, temporary
+reproduction scripts, copied debugging scripts, new tests, and files Grok later
+deleted.
+
+Repeated writes to the same path are represented by the last recoverable
+contents at that path. Across the eight trials, the folder contains 43 file
+snapshots, including 20 files that Grok deleted before submission. Those
+deletions remain visible in the corresponding trajectory JSON.
 
 ## Verifier
 
