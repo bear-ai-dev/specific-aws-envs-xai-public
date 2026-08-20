@@ -1,0 +1,633 @@
+{
+  "region": "us-east-1",
+  "regions": [
+    {
+      "name": "us-east-1",
+      "opt_in_status": "opt-in-not-required"
+    },
+    {
+      "name": "us-west-2",
+      "opt_in_status": "opt-in-not-required"
+    },
+    {
+      "name": "eu-west-2",
+      "opt_in_status": "opt-in-not-required"
+    },
+    {
+      "name": "eu-north-1",
+      "opt_in_status": "opted-in",
+      "faults": {
+        "DescribeVolumes": {
+          "code": "UnauthorizedOperation",
+          "message": "You are not authorized to perform this operation in this Region",
+          "status": 403
+        }
+      }
+    },
+    {
+      "name": "ap-northeast-1",
+      "opt_in_status": "opted-in",
+      "faults": {
+        "DescribeSnapshots": {
+          "code": "UnauthorizedOperation",
+          "message": "You are not authorized to perform this operation in this Region",
+          "status": 403
+        }
+      }
+    },
+    {
+      "name": "ap-southeast-2",
+      "opt_in_status": "opted-in",
+      "faults": {
+        "DescribeVolumes": {
+          "code": "RequestLimitExceeded",
+          "message": "Request limit exceeded",
+          "status": 503,
+          "count": 4
+        }
+      }
+    },
+    {
+      "name": "ca-central-1",
+      "opt_in_status": "opted-in",
+      "faults": {
+        "DescribeSnapshots": {
+          "code": "RequestLimitExceeded",
+          "message": "Request limit exceeded",
+          "status": 503,
+          "count": 4
+        }
+      }
+    },
+    {
+      "name": "af-south-1",
+      "opt_in_status": "not-opted-in"
+    },
+    {
+      "name": "il-central-1",
+      "opt_in_status": "not-opted-in"
+    }
+  ],
+  "bootstrap_identity": {
+    "account_id": "900000000009",
+    "access_key_id": "LOCALMETERINGKEY07"
+  },
+  "accounts": [
+    {
+      "account_id": "900000000009",
+      "alias": "meteringco-metering"
+    },
+    {
+      "account_id": "300000000042",
+      "alias": "metered-0042",
+      "roles": [
+        {
+          "name": "meteringco-metering",
+          "trust_policy": {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Effect": "Allow",
+                "Action": "sts:AssumeRole",
+                "Principal": {
+                  "AWS": "arn:aws:iam::900000000009:root"
+                },
+                "Condition": {
+                  "StringEquals": {
+                    "sts:ExternalId": "brightwater-hld-9c31"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "volumes": [
+        {
+          "volume_id": "vol-0hld0000000000a1",
+          "region": "us-east-1",
+          "availability_zone": "us-east-1a",
+          "size": 512,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_kestrel"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000a2",
+          "region": "us-east-1",
+          "availability_zone": "us-east-1a",
+          "size": 128,
+          "volume_type": "gp2",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_kestrel"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000a3",
+          "region": "us-east-1",
+          "availability_zone": "us-east-1a",
+          "size": 64,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000a4",
+          "region": "us-east-1",
+          "availability_zone": "us-east-1a",
+          "size": 1024,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-object-storage",
+            "meteringcoCustomerId": "cus_marlin"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000b1",
+          "region": "us-west-2",
+          "availability_zone": "us-west-2a",
+          "size": 256,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_marlin"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000b2",
+          "region": "us-west-2",
+          "availability_zone": "us-west-2b",
+          "size": 32,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_marlin"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000b3",
+          "region": "us-west-2",
+          "availability_zone": "us-west-2a",
+          "size": 96,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_kestrel"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000b4",
+          "region": "us-west-2",
+          "availability_zone": "us-west-2a",
+          "size": 8,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_juniper"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000b5",
+          "region": "us-west-2",
+          "availability_zone": "us-west-2a",
+          "size": 448,
+          "volume_type": "io2",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_juniper"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000b6",
+          "region": "us-west-2",
+          "availability_zone": "us-west-2c",
+          "size": 40,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000b7",
+          "region": "us-west-2",
+          "availability_zone": "us-west-2a",
+          "size": 2048,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {}
+        },
+        {
+          "volume_id": "vol-0hld0000000000c1",
+          "region": "eu-west-2",
+          "availability_zone": "eu-west-2a",
+          "size": 300,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-object-storage",
+            "meteringcoCustomerId": "cus_juniper"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000c2",
+          "region": "eu-west-2",
+          "availability_zone": "eu-west-2a",
+          "size": 12,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {}
+        },
+        {
+          "volume_id": "vol-0hld0000000000d1",
+          "region": "eu-north-1",
+          "availability_zone": "eu-north-1a",
+          "size": 700,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_kestrel"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000d2",
+          "region": "eu-north-1",
+          "availability_zone": "eu-north-1a",
+          "size": 24,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_marlin"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000d3",
+          "region": "eu-north-1",
+          "availability_zone": "eu-north-1a",
+          "size": 88,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000e1",
+          "region": "ap-northeast-1",
+          "availability_zone": "ap-northeast-1a",
+          "size": 160,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_marlin"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000e2",
+          "region": "ap-northeast-1",
+          "availability_zone": "ap-northeast-1a",
+          "size": 20,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_juniper"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000f1",
+          "region": "ap-southeast-2",
+          "availability_zone": "ap-southeast-2a",
+          "size": 384,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_kestrel"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000f2",
+          "region": "ap-southeast-2",
+          "availability_zone": "ap-southeast-2a",
+          "size": 48,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_juniper"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000g1",
+          "region": "ca-central-1",
+          "availability_zone": "ca-central-1a",
+          "size": 72,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_marlin"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000h1",
+          "region": "af-south-1",
+          "availability_zone": "af-south-1a",
+          "size": 900,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_kestrel"
+          }
+        },
+        {
+          "volume_id": "vol-0hld0000000000h2",
+          "region": "af-south-1",
+          "availability_zone": "af-south-1a",
+          "size": 36,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_juniper"
+          }
+        }
+      ],
+      "snapshots": [
+        {
+          "snapshot_id": "snap-0hld000000000a1",
+          "region": "us-east-1",
+          "volume_id": "vol-0hld0000000000a1",
+          "volume_size": 512,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_kestrel"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000a2",
+          "region": "us-east-1",
+          "volume_id": "vol-0hld0000000000a2",
+          "volume_size": 128,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_kestrel"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000a3",
+          "region": "us-east-1",
+          "volume_id": "vol-0hld0000000000a4",
+          "volume_size": 1024,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-object-storage",
+            "meteringcoCustomerId": "cus_marlin"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000b1",
+          "region": "us-west-2",
+          "volume_id": "vol-0hld0000000000b1",
+          "volume_size": 256,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-object-storage",
+            "meteringcoCustomerId": "cus_marlin"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000b2",
+          "region": "us-west-2",
+          "volume_id": "vol-0hld0000000000b3",
+          "volume_size": 96,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {}
+        },
+        {
+          "snapshot_id": "snap-0hld000000000c1",
+          "region": "eu-west-2",
+          "volume_id": "vol-0hld0000000000c1",
+          "volume_size": 300,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_juniper"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000c2",
+          "region": "eu-west-2",
+          "volume_id": "vol-0hld0000000000c1",
+          "volume_size": 300,
+          "storage_tier": "archive",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_juniper"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000c3",
+          "region": "eu-west-2",
+          "volume_id": "vol-0hld0000000000c2",
+          "volume_size": 12,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000c4",
+          "region": "eu-west-2",
+          "volume_id": "vol-0hld0000000000c2",
+          "volume_size": 12,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_kestrel"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000c5",
+          "region": "eu-west-2",
+          "volume_id": "vol-0hld0000000000c1",
+          "volume_size": 300,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_marlin"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000d1",
+          "region": "eu-north-1",
+          "volume_id": "vol-0hld0000000000d1",
+          "volume_size": 700,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_kestrel"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000d2",
+          "region": "eu-north-1",
+          "volume_id": "vol-0hld0000000000d2",
+          "volume_size": 24,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_marlin"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000e1",
+          "region": "ap-northeast-1",
+          "volume_id": "vol-0hld0000000000e1",
+          "volume_size": 160,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_marlin"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000e2",
+          "region": "ap-northeast-1",
+          "volume_id": "vol-0hld0000000000e2",
+          "volume_size": 20,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_juniper"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000f1",
+          "region": "ap-southeast-2",
+          "volume_id": "vol-0hld0000000000f1",
+          "volume_size": 384,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_kestrel"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000g1",
+          "region": "ca-central-1",
+          "volume_id": "vol-0hld0000000000g1",
+          "volume_size": 72,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_marlin"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000g2",
+          "region": "ca-central-1",
+          "volume_id": "vol-0hld0000000000g1",
+          "volume_size": 72,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_juniper"
+          }
+        },
+        {
+          "snapshot_id": "snap-0hld000000000h1",
+          "region": "af-south-1",
+          "volume_id": "vol-0hld0000000000h1",
+          "volume_size": 900,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage",
+            "meteringcoCustomerId": "cus_kestrel"
+          }
+        }
+      ]
+    }
+  ],
+  "faults": {
+    "enabled": true,
+    "rules": [
+      {
+        "service": "ec2",
+        "action": "DescribeVolumes",
+        "max_page_size": 3
+      },
+      {
+        "service": "ec2",
+        "action": "DescribeSnapshots",
+        "max_page_size": 3
+      },
+      {
+        "service": "ec2",
+        "action": "DescribeInstances",
+        "max_page_size": 3
+      }
+    ]
+  }
+}

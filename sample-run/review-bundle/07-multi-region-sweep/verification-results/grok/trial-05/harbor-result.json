@@ -1,0 +1,39 @@
+{
+  "id": "4bbb52b9-ddfd-4d97-bdba-89b9fa107091",
+  "taskName": "meteringco/multi-region-sweep",
+  "trialName": "07-multi-region-sweep__cGPMwaF",
+  "taskChecksum": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "converse/us.xai.grok-4.6",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0,
+      "score": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-20T05:02:10.393571Z",
+  "finishedAt": "2026-08-20T05:31:59.991160Z",
+  "environmentSetup": {
+    "started_at": "2026-08-20T05:02:10.773334Z",
+    "finished_at": "2026-08-20T05:02:17.412948Z"
+  },
+  "agentSetup": {
+    "started_at": "2026-08-20T05:02:18.501082Z",
+    "finished_at": "2026-08-20T05:02:34.991440Z"
+  },
+  "agentExecution": {
+    "started_at": "2026-08-20T05:02:34.993170Z",
+    "finished_at": "2026-08-20T05:31:37.887160Z"
+  },
+  "verifier": {
+    "started_at": "2026-08-20T05:31:46.663508Z",
+    "finished_at": "2026-08-20T05:31:59.755353Z"
+  }
+}

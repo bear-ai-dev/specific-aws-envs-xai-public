@@ -1,0 +1,43 @@
+{
+  "runs": {
+    "provisioned-volumes": {
+      "ok": true,
+      "regions": {
+        "ap-northeast-1": [
+          "vol-0hld0000000000e1",
+          "vol-0hld0000000000e2"
+        ],
+        "ap-southeast-2": [
+          "vol-0hld0000000000f1",
+          "vol-0hld0000000000f2"
+        ],
+        "ca-central-1": [
+          "vol-0hld0000000000g1"
+        ],
+        "eu-west-2": [],
+        "us-east-1": [
+          "vol-0hld0000000000a1",
+          "vol-0hld0000000000a2",
+          "vol-0hld0000000000a3"
+        ],
+        "us-west-2": [
+          "vol-0hld0000000000b1",
+          "vol-0hld0000000000b2",
+          "vol-0hld0000000000b3",
+          "vol-0hld0000000000b4",
+          "vol-0hld0000000000b5",
+          "vol-0hld0000000000b6"
+        ]
+      }
+    },
+    "retained-snapshots": {
+      "ok": true,
+      "regions": {
+        "us-east-1": [
+          "snap-0hld000000000a1",
+          "snap-0hld000000000a2"
+        ]
+      }
+    }
+  }
+}

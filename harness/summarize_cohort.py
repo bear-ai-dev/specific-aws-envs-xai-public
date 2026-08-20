@@ -20,6 +20,14 @@ ALIASES = {
 COHORT = json.loads((ROOT / "harness" / "cohort.json").read_text())
 EVIDENCE_COHORT = "grok-4.6-and-opus-5-eight-rollouts-20260819"
 EVIDENCE_CONTROLS = "xai-public-controls-20260819"
+REVIEW_BUNDLE_TASKS = (
+    "07-multi-region-sweep",
+    "14-iam-role-validation",
+)
+REVIEW_MODELS = {
+    "grok": "bedrock/converse/us.xai.grok-4.6",
+    "opus": "bedrock/us.anthropic.claude-opus-5",
+}
 TASKS = [Path(entry["path"]).name for entry in COHORT["tasks"]]
 TASK_LABELS = {
     task: f"Task {int(task.split('-', 1)[0])}" for task in TASKS
@@ -114,6 +122,63 @@ def load_trials(raw_dir: Path) -> list[dict]:
                 ),
             }
         )
+    if raw_dir == ROOT / "sample-run" / "raw":
+        for task in REVIEW_BUNDLE_TASKS:
+            bundle = ROOT / "sample-run" / "review-bundle" / task
+            for bundle_model, model in REVIEW_MODELS.items():
+                for trial_number in range(1, TARGET_ATTEMPTS + 1):
+                    label = f"trial-{trial_number:02d}"
+                    trial_dir = (
+                        bundle
+                        / "verification-results"
+                        / bundle_model
+                        / label
+                    )
+                    result_path = trial_dir / "harbor-result.json"
+                    trajectory = (
+                        bundle
+                        / "trajectories"
+                        / bundle_model
+                        / f"{label}.json"
+                    )
+                    verifier = trial_dir / "reward.json"
+                    result = json.loads(result_path.read_text())
+                    reward = (
+                        (result.get("verifierResult") or {})
+                        .get("rewards", {})
+                        .get("reward")
+                    )
+                    valid = (
+                        result.get("exceptionInfo") is None
+                        and isinstance(reward, (int, float))
+                        and trajectory.is_file()
+                        and verifier.is_file()
+                    )
+                    trials.append(
+                        {
+                            "task": task,
+                            "historical_task": task,
+                            "task_label": TASK_LABELS[task],
+                            "model": model,
+                            "model_label": ALIASES[model],
+                            "recorded_trial_name": result.get("trialName"),
+                            "started_at": result.get("startedAt"),
+                            "reward": reward,
+                            "passed": bool(valid and float(reward) >= 1.0),
+                            "valid": valid,
+                            "trial_dir": display_path(trial_dir),
+                            "trajectory": display_path(trajectory),
+                            "verifier": display_path(verifier),
+                            "exception_info": result.get("exceptionInfo"),
+                            "recorded_runtime_task_checksum": result.get(
+                                "taskChecksum"
+                            ),
+                            "input_tokens": None,
+                            "cache_tokens": None,
+                            "output_tokens": None,
+                            "reported_cost_usd": None,
+                        }
+                    )
     by_model: dict[tuple[str, str], list[dict]] = defaultdict(list)
     for trial in trials:
         by_model[(trial["task"], trial["model"])].append(trial)
@@ -186,7 +251,28 @@ def execution_summary(trials: list[dict], raw_dir: Path) -> dict:
         if agent in {"oracle", "nop"} and isinstance(reward, (int, float)):
             controls[agent].append(float(reward))
 
-    return {
+    if raw_dir == packaged_raw:
+        for task in REVIEW_BUNDLE_TASKS:
+            for agent in ("oracle", "nop"):
+                result_path = (
+                    ROOT
+                    / "sample-run"
+                    / "review-bundle"
+                    / task
+                    / "controls"
+                    / agent
+                    / "harbor-result.json"
+                )
+                result = json.loads(result_path.read_text())
+                reward = (
+                    (result.get("verifierResult") or {})
+                    .get("rewards", {})
+                    .get("reward")
+                )
+                if isinstance(reward, (int, float)):
+                    controls[agent].append(float(reward))
+
+    summary = {
         "cohort_directory": display_path(cohort_directory),
         "scored_valid_trials": sum(trial["valid"] for trial in trials),
         "completed_trials_excluded_from_denominator": sum(
@@ -209,6 +295,13 @@ def execution_summary(trials: list[dict], raw_dir: Path) -> dict:
             "artifact, and no Harbor exception"
         ),
     }
+    if raw_dir == packaged_raw:
+        summary["evidence_roots"] = [
+            display_path(cohort_directory),
+            "sample-run/review-bundle/07-multi-region-sweep",
+            "sample-run/review-bundle/14-iam-role-validation",
+        ]
+    return summary
 
 
 def main() -> None:

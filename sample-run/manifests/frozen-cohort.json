@@ -4,11 +4,19 @@
   "attempts_per_task_model": 8,
   "bedrock_config_sha256": "a8ebaf00aa24ccd8d8f0dcb074cc11b9349dcc163c6a2a67783402ab74b5c19c",
   "cohort": "xai-selected-eight-rollout-reproduction",
-  "cohort_config_sha256": "4ff82e672427abd9ffa0394883d6f17f4f11041ff1c10d0ad13c20b0f47f1f1d",
-  "controls_config_sha256": "8ef2a998570c0716fd80f7d3d70364d15801dd3bb893ce0119ad2d4cb0fbd590",
+  "cohort_config_sha256": "73ae5e9680aa0aeff1717e1a01ad1d468f59621c5268b8262708301f0b5a631e",
+  "controls_config_sha256": "d498208e3ab2b7fad740c518d004dc00bb030f2deb1245207699e4b3aedb6141",
   "environment": "daytona",
-  "evidence_cohort": "grok-4.6-and-opus-5-eight-rollouts-20260819",
-  "evidence_controls": "xai-public-controls-20260819",
+  "evidence_controls": {
+    "02-entitlement-overage-lines": "sample-run/raw/xai-public-controls-20260819",
+    "07-multi-region-sweep": "sample-run/review-bundle/07-multi-region-sweep/controls",
+    "14-iam-role-validation": "sample-run/review-bundle/14-iam-role-validation/controls"
+  },
+  "evidence_roots": [
+    "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
+    "sample-run/review-bundle/07-multi-region-sweep",
+    "sample-run/review-bundle/14-iam-role-validation"
+  ],
   "grok_bedrock_config_sha256": "c8c6d27b01da51699b578101552bb5d43bb9b8e072bac7e4ff275cc5550ef0f8",
   "grok_model_registry_sha256": "310dfa12cff09204d73ec8384b55397543f3f18974f422c158f688ae7bb2ecc5",
   "harbor_version": "0.18.0",
@@ -18,15 +26,23 @@
     "opus-5": "bedrock/us.anthropic.claude-opus-5"
   },
   "public_task_sha256": {
-    "02-entitlement-overage-lines": "c6a60ab17d77dbd7221a97a519e3062cdf4c2ba9a105acb41144d7a61138ae36"
+    "02-entitlement-overage-lines": "c6a60ab17d77dbd7221a97a519e3062cdf4c2ba9a105acb41144d7a61138ae36",
+    "07-multi-region-sweep": "16af4e43e3e2b5b0da4eb73385bdbb89ce9e4b00c1b9c034a77667b8f73ff588",
+    "14-iam-role-validation": "38747a620a3dcdc45516f20d074bd98c7e127b8086b4b2630023354345214288"
   },
+  "publication_controls_validation": "sample-run/manifests/public-controls-validation.json",
+  "publication_controls_validation_sha256": "22fc254ceafeba04a346e3f4b41b303a0410f3373fe0dff3f103fb4cf342d27f",
   "publication_normalization": "sample-run/manifests/public-transformation.json",
   "reasoning_effort": "high",
   "recorded_runtime_task_sha256": {
-    "02-entitlement-overage-lines": "92e4b98286ca4dd72881f59542ae4c17ad010f9910e29839c725cedbffe00ab3"
+    "02-entitlement-overage-lines": "92e4b98286ca4dd72881f59542ae4c17ad010f9910e29839c725cedbffe00ab3",
+    "07-multi-region-sweep": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
+    "14-iam-role-validation": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2"
   },
   "task_labels": {
-    "02-entitlement-overage-lines": "Task 2"
+    "02-entitlement-overage-lines": "Task 2",
+    "07-multi-region-sweep": "Task 7",
+    "14-iam-role-validation": "Task 14"
   },
   "validity_rule": "numeric verifier reward, complete trajectory, complete verifier artifact, no Harbor exception, and exact frozen task/config variant"
 }

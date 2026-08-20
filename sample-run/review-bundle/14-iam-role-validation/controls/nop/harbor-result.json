@@ -1,0 +1,36 @@
+{
+  "id": "d0ed0a0c-42c8-44ad-92e9-14934b40b1a2",
+  "taskName": "meteringco/iam-role-validation",
+  "trialName": "14-iam-role-validation__z8QMHe4",
+  "taskChecksum": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2",
+  "agent": {
+    "name": "nop",
+    "version": "1.0.0",
+    "model_info": null
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 0.0,
+      "score": 0.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-20T01:22:07.484530Z",
+  "finishedAt": "2026-08-20T01:23:34.676965Z",
+  "environmentSetup": {
+    "started_at": "2026-08-20T01:22:11.922190Z",
+    "finished_at": "2026-08-20T01:23:13.702212Z"
+  },
+  "agentSetup": {
+    "started_at": "2026-08-20T01:23:14.396054Z",
+    "finished_at": "2026-08-20T01:23:14.396089Z"
+  },
+  "agentExecution": {
+    "started_at": "2026-08-20T01:23:14.396121Z",
+    "finished_at": "2026-08-20T01:23:14.396160Z"
+  },
+  "verifier": {
+    "started_at": "2026-08-20T01:23:19.409979Z",
+    "finished_at": "2026-08-20T01:23:34.466539Z"
+  }
+}

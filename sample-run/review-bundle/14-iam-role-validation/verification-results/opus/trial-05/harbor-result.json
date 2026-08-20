@@ -1,0 +1,39 @@
+{
+  "id": "572669f1-cf5e-48f8-a472-c50ffb086c59",
+  "taskName": "meteringco/iam-role-validation",
+  "trialName": "14-iam-role-validation__q23rYZH",
+  "taskChecksum": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "us.anthropic.claude-opus-5",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0,
+      "score": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-20T01:58:54.555219Z",
+  "finishedAt": "2026-08-20T03:55:36.741792Z",
+  "environmentSetup": {
+    "started_at": "2026-08-20T01:59:39.888685Z",
+    "finished_at": "2026-08-20T02:20:38.405347Z"
+  },
+  "agentSetup": {
+    "started_at": "2026-08-20T02:20:38.838865Z",
+    "finished_at": "2026-08-20T02:20:50.999111Z"
+  },
+  "agentExecution": {
+    "started_at": "2026-08-20T02:20:50.999389Z",
+    "finished_at": "2026-08-20T03:55:18.085719Z"
+  },
+  "verifier": {
+    "started_at": "2026-08-20T03:55:21.510264Z",
+    "finished_at": "2026-08-20T03:55:36.561668Z"
+  }
+}

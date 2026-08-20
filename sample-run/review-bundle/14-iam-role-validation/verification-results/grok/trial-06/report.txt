@@ -1,0 +1,11 @@
+Reviewer annotation (added after the recorded run; original verifier output is preserved below).
+
+Passed behavioral checks:
+- assume-role validation with the supplied external ID
+- instance-inventory authorization using the returned credentials
+- bad-request and no-write atomicity on either cloud failure
+- blank-role disconnect with external-ID clearing
+- distinction between an absent cloud block and a present block with no role
+
+Original verifier output:
+reward=1.0

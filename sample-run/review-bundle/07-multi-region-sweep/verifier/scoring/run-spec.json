@@ -1,0 +1,20 @@
+{
+  "runs": [
+    {
+      "label": "provisioned-volumes",
+      "kind": "volumes",
+      "businessID": "biz-brightwater",
+      "roleArn": "arn:aws:iam::300000000042:role/meteringco-metering",
+      "externalId": "brightwater-hld-9c31",
+      "dimensionId": "dim-block-storage"
+    },
+    {
+      "label": "retained-snapshots",
+      "kind": "snapshots",
+      "businessID": "biz-brightwater",
+      "roleArn": "arn:aws:iam::300000000042:role/meteringco-metering",
+      "externalId": "brightwater-hld-9c31",
+      "dimensionId": "dim-block-storage"
+    }
+  ]
+}

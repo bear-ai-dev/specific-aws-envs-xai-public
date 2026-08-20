@@ -1,12 +1,11 @@
-# Reproducing the selected cohort
+# Reproducing the three selected cohorts
 
-The repository contains the selected task definition, complete recorded
+The repository contains all three selected task definitions, complete recorded
 evidence, and a reproduction configuration with the same model, agent,
 reasoning, sandbox, and verifier settings. Organization identifiers were
-normalized consistently across the task and evidence for publication; task
-requirements, numeric fixtures, model outputs, and verifier rewards were not
-changed. The public task's oracle and no-op controls were rerun after that
-normalization.
+normalized consistently across tasks and evidence for publication. Task
+requirements, model-generated control flow, trial ordering, and verifier
+rewards were not changed.
 
 ## 1. Configure credentials
 
@@ -38,11 +37,23 @@ git diff --exit-code sample-run/manifests/frozen-cohort.json
 ## 3. Run controls and model trials
 
 The reproduction job names differ from the stored evidence job names, so new
-results do not mix with the packaged denominator.
+results do not mix with any packaged denominator. The control configuration
+runs one oracle and one no-op attempt for each of Tasks 2, 7, and 14.
+
+The published public directories were also validated after identifier
+normalization with the same control configuration and a local Docker override.
+The six outcomes and Harbor task digests are recorded in
+[`sample-run/manifests/public-controls-validation.json`](sample-run/manifests/public-controls-validation.json).
 
 ```sh
 harbor run --config harness/controls.json --yes
 PYTHONPATH="$PWD" harbor run --config harness/cohort.json --yes
+```
+
+To reproduce the publication-only local control check without Daytona:
+
+```sh
+harbor run --config harness/controls.json --env docker --yes
 ```
 
 If an infrastructure or provider failure leaves a cell below eight valid
@@ -54,14 +65,19 @@ python3 harness/launch_remainders.py --model all
 
 ## 4. Index a reproduced cohort
 
-To summarize the packaged cohort, use the default command:
+To verify and regenerate the packaged 48-trial index, use the default command:
 
 ```sh
 python3 harness/summarize_cohort.py
 ```
 
-For a reproduced cohort, point the indexer at the new model job directory. It
-will read the matching reproduction controls from the sibling control job:
+The packaged Task 2 attempts are stored as full raw Harbor trees. Tasks 7 and
+14 use compact review bundles containing native trajectories, final code,
+touched files, and complete verifier evidence. The default indexer reads both
+evidence layouts.
+
+For a newly reproduced cohort, point the indexer at the new model job directory.
+It will read the matching reproduction controls from the sibling control job:
 
 ```sh
 python3 harness/summarize_cohort.py \

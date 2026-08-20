@@ -1,0 +1,39 @@
+{
+  "id": "e4d84803-3901-460f-824c-700000000001",
+  "taskName": "meteringco/iam-role-validation",
+  "trialName": "14-iam-role-validation__RgS83u6",
+  "taskChecksum": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "converse/us.xai.grok-4.6",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0,
+      "score": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-20T05:19:20.893662Z",
+  "finishedAt": "2026-08-20T06:26:20.957109Z",
+  "environmentSetup": {
+    "started_at": "2026-08-20T05:19:20.948961Z",
+    "finished_at": "2026-08-20T05:19:24.394738Z"
+  },
+  "agentSetup": {
+    "started_at": "2026-08-20T05:19:24.825014Z",
+    "finished_at": "2026-08-20T05:19:36.780738Z"
+  },
+  "agentExecution": {
+    "started_at": "2026-08-20T05:19:36.782500Z",
+    "finished_at": "2026-08-20T06:26:04.421236Z"
+  },
+  "verifier": {
+    "started_at": "2026-08-20T06:26:07.747187Z",
+    "finished_at": "2026-08-20T06:26:20.711846Z"
+  }
+}

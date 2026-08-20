@@ -1,0 +1,23 @@
+{
+  "runs": {
+    "provisioned-volumes": {
+      "ok": true,
+      "regions": {
+        "us-east-1": [
+          "vol-0hld0000000000a1",
+          "vol-0hld0000000000a2",
+          "vol-0hld0000000000a3"
+        ]
+      }
+    },
+    "retained-snapshots": {
+      "ok": true,
+      "regions": {
+        "us-east-1": [
+          "snap-0hld000000000a1",
+          "snap-0hld000000000a2"
+        ]
+      }
+    }
+  }
+}
