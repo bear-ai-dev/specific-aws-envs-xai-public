@@ -50,6 +50,9 @@ made positive owed quantity a prerequisite for every invoice line. That drops
 zero-priced dimensions even when invoice settings say to show them. All eight
 Opus submissions kept chargeability and visibility separate.
 
+Task 2 had no successful Grok runs, so there is no within-Grok success example
+for this task. The eight successful Opus runs provide the solving comparison.
+
 A representative failed Grok implementation checks the owed quantity before it
 checks whether a free dimension should remain visible:
 
@@ -148,6 +151,10 @@ export const getAllSnapshots = async (creds, Filters: Array<Filter> = []): Promi
 };
 ```
 
+The six successful Grok runs did not repeat the omission: all six applied the
+multi-region sweep to both volumes and snapshots, so snapshots were no longer
+left on the single configured region.
+
 [Failed Grok code](sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-01/awsEc2.ts),
 [failed Grok trace](sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-01.json),
 [solving Grok code](sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-02/awsEc2.ts),
@@ -189,6 +196,10 @@ const newEntity = new SettingsEntity({
     cloudIAM,
 });
 ```
+
+The three successful Grok runs did not collapse the two states. They validated
+`cloudIAM` only when an actual block was supplied and preserved the existing
+setting when it was omitted, so an unrelated settings update was not rejected.
 
 [Failed Grok code](sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-01/settings.service.ts),
 [failed Grok trace](sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-01.json),
