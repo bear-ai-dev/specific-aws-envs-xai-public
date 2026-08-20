@@ -31,11 +31,11 @@ least one of `k` sampled attempts succeeds.
 
 ## Task inventory
 
-| Task | Capability exercised | Role in this sample |
-| --- | --- | --- |
-| [Task 2](tasks/02-entitlement-overage-lines/instruction.md) | Separate entitlement chargeability from statement visibility | Comparator-reachable Grok full failure |
-| [Task 7](tasks/07-multi-region-sweep/instruction.md) | Apply one region-coverage contract to every sibling inventory workflow | Secondary Grok reliability gap |
-| [Task 14](tasks/14-iam-role-validation/instruction.md) | Separate absent, invalid, and disconnect states while validating cloud access atomically | Primary Grok reliability gap |
+| Task | What was asked |
+| --- | --- |
+| [Task 2](tasks/02-entitlement-overage-lines/instruction.md) | Update invoice generation so customers are charged only for permitted usage above their allowance, while still showing free line items unless the invoice settings hide them. |
+| [Task 7](tasks/07-multi-region-sweep/instruction.md) | Update block-storage collection to check every enabled AWS region, retry rate limits, keep readable regions even when they are empty, and skip permanently unreadable regions without stopping the whole sweep. |
+| [Task 14](tasks/14-iam-role-validation/instruction.md) | Validate a customer's IAM role before saving it: assume the role with its external ID, confirm it can read instance inventory, reject the whole update if either check fails, and handle disconnects correctly. |
 
 The source task numbers are retained in task paths, headings, review bundles,
 and recorded trial names so every result resolves to the exact frozen task that
