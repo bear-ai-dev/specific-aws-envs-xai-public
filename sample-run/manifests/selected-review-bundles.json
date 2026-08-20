@@ -1,7 +1,7 @@
 {
   "bundles": {
     "07-multi-region-sweep": {
-      "bundle_sha256": "38909bf248eefc76b258e62cd2e2a0552069314841a7a42a89e5360a3bc4b341",
+      "bundle_sha256": "2c671406490e4f89d4d67c28a7d1e14963a8b01eb62c429beed3248b47afa051",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -17,8 +17,8 @@
       "files": [
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/README.md",
-          "sha256": "6da8d8d055e291b42c01a05da8198e11fc81db6cbf4a78e3dc76a029d256c505",
-          "size_bytes": 4184
+          "sha256": "6abd34d3520bac1f82c85399b461c0fd79c2e9df1550db2e12d11d6ff77db293",
+          "size_bytes": 4359
         },
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/controls/nop/harbor-result.json",
@@ -1085,7 +1085,7 @@
       "task_label": "Task 7"
     },
     "14-iam-role-validation": {
-      "bundle_sha256": "55efb55b441862707ad5c66b9c64b71b648cd2ec5f67f94244e2a1c146fa16b6",
+      "bundle_sha256": "145a457f966cedce7082b28e40eb8c9e51fe18f00f0c61b3d992c4bfd8038138",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -1101,8 +1101,8 @@
       "files": [
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/README.md",
-          "sha256": "d37747c4afdca8909f2b033d54c8a83b9276de3edae2edeb90aff3f168ab0fdd",
-          "size_bytes": 4988
+          "sha256": "eeb2f78965f8577a1241c476c61b6ae9ab2af1bcfbd3fd294faff3aafc81251e",
+          "size_bytes": 5163
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/controls/nop/harbor-result.json",

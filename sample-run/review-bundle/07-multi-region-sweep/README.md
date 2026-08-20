@@ -1,8 +1,15 @@
 # Task 7 — multi-region sweep review bundle
 
 The frozen matched cohort contains eight Grok 4.6 trials and eight Opus 5
-trials: **Grok 6/8; Opus 8/8**. This is the secondary directional Grok gap and
-measures complete multi-region work under partial failure.
+trials. This is the secondary directional Grok gap and measures complete
+multi-region work under partial failure.
+
+## Headline result
+
+| Model | Solves `c/n` | pass@1 | pass@3 | pass@8 |
+| --- | ---: | ---: | ---: | ---: |
+| Grok 4.6 | 6/8 | 0.7500 | 1.0000 | 1.0000 |
+| Opus 5 | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 
 | Folder | Contents |
 | --- | --- |

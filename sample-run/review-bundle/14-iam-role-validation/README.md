@@ -1,9 +1,15 @@
 # Task 14 — IAM role validation review bundle
 
 The frozen matched cohort contains eight Grok 4.6 trials and eight Opus 5
-trials: **Grok 3/8; Opus 8/8**. This is the primary directional Grok gap and
-measures optional nested-configuration presence semantics plus atomic cloud
-validation.
+trials. This is the primary directional Grok gap and measures optional
+nested-configuration presence semantics plus atomic cloud validation.
+
+## Headline result
+
+| Model | Solves `c/n` | pass@1 | pass@3 | pass@8 |
+| --- | ---: | ---: | ---: | ---: |
+| Grok 4.6 | 3/8 | 0.3750 | 0.8214 | 1.0000 |
+| Opus 5 | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 
 | Folder | Contents |
 | --- | --- |
