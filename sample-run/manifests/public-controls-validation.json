@@ -6,7 +6,7 @@
   "environment": "docker",
   "config": "harness/controls.json",
   "config_environment_override": "docker",
-  "job_name": "xai-public-controls-docker-20260820",
+  "job_name": "xai-public-comment-controls-all-20260820",
   "summary": {
     "trials": 6,
     "exceptions": 0,
@@ -18,40 +18,40 @@
       "public_task_sha256": "c6a60ab17d77dbd7221a97a519e3062cdf4c2ba9a105acb41144d7a61138ae36",
       "harbor_task_digest": "sha256:deb46215e6948f7766289f7b2f6803d6ef3d7a1514f3a0c6f80a8c7e6135a981",
       "oracle": {
-        "trial_id": "qC3Sd7n",
+        "trial_id": "v7eXSue",
         "reward": 1.0,
         "exception": null
       },
       "nop": {
-        "trial_id": "xFqF6na",
+        "trial_id": "vP9oxXq",
         "reward": 0.0,
         "exception": null
       }
     },
     "07-multi-region-sweep": {
-      "public_task_sha256": "a7564eb1f7f467a1c80c0e903992ea10ccb4f6563de14a2725f44009b9e1655b",
-      "harbor_task_digest": "sha256:850c13d580ac000949e176213bebef095f57381f8a467e93913f1e5fac21e30a",
+      "public_task_sha256": "16af4e43e3e2b5b0da4eb73385bdbb89ce9e4b00c1b9c034a77667b8f73ff588",
+      "harbor_task_digest": "sha256:66965f51b34778b46a5e6e29a087244ee1717102b6c843cc1d6f2c7790293736",
       "oracle": {
-        "trial_id": "j7zSuCd",
+        "trial_id": "hXyUkyR",
         "reward": 1.0,
         "exception": null
       },
       "nop": {
-        "trial_id": "V2LopFp",
+        "trial_id": "fFL4tkW",
         "reward": 0.0,
         "exception": null
       }
     },
     "14-iam-role-validation": {
-      "public_task_sha256": "3a2b258e99dd6c88541dd19924126969b9743e16d5f14c577563c4126ec9400a",
-      "harbor_task_digest": "sha256:ae22255fddd9431824f524b4f79f6f4eb2ca8aede8bd2c1d449fc455ecab72fe",
+      "public_task_sha256": "38747a620a3dcdc45516f20d074bd98c7e127b8086b4b2630023354345214288",
+      "harbor_task_digest": "sha256:5b6fb25a132bd6383982f69de4e8f228fa3a9017e30de625efaa17124c99ceb8",
       "oracle": {
-        "trial_id": "wGJhyQp",
+        "trial_id": "CVLTK6u",
         "reward": 1.0,
         "exception": null
       },
       "nop": {
-        "trial_id": "YeDjNS7",
+        "trial_id": "b9YM7Af",
         "reward": 0.0,
         "exception": null
       }

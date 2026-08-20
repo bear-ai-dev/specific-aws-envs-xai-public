@@ -65,14 +65,38 @@ def region_status(scenario: dict, action: str) -> tuple[list[str], set[str]]:
 
 
 def expected_run(scenario: dict, run: dict) -> dict[str, list[str]]:
+    """Build the exact region-to-resource map one sweep should return.
+
+    The run contributes the role ARN, resource kind, and dimension filter. The
+    role ARN selects the account being swept, while the resource kind selects
+    both the account collection (volumes or snapshots) and the AWS action whose
+    per-region faults matter.
+
+    `region_status` supplies the enabled regions that are readable for that
+    action. Temporarily throttled regions remain readable because they
+    eventually recover; permanently refused and not-opted-in regions do not.
+    Every readable region is seeded with an empty list so a successful empty
+    read remains visible in the expected output instead of looking like a
+    failed or skipped read.
+
+    Matching resources are then placed under their own region when their
+    metering dimension equals the run's requested dimension. The result has the
+    same semantic shape accepted from the submission, for example
+    `{"us-east-1": ["vol-123"], "eu-west-2": []}`. Identifier and region
+    ordering are normalized later, so only membership matters.
+    """
     kind = RESOURCE_KINDS[run["kind"]]
     account = swept_account(scenario, run["roleArn"])
     readable, _ = region_status(scenario, kind["action"])
 
+    # Seeding first is what distinguishes "readable but empty" from a region
+    # that was not enabled or permanently refused this particular AWS action.
     coverage: dict[str, list[str]] = {name: [] for name in readable}
     for record in account.get(kind["collection"], []):
+        # A record outside `coverage` belongs to a region this sweep must omit.
         if record.get("region") not in coverage:
             continue
+        # The production caller requests one metering dimension at a time.
         if (record.get("tags") or {}).get(DIMENSION_TAG) != run["dimensionId"]:
             continue
         coverage[record["region"]].append(record[kind["identifier"]])

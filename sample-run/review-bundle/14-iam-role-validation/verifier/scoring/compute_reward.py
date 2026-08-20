@@ -147,6 +147,13 @@ def can_collect(account: dict, role: dict) -> bool:
 
 
 def role_is_usable(scenario: dict, role_arn: str, external_id: str | None) -> bool:
+    """Combine ARN, trust, external-ID, and permission checks for one role.
+
+    A usable role must name a real role in a held-out account, trust the
+    platform account for `sts:AssumeRole` under the supplied external ID, and
+    grant the resulting session `ec2:DescribeInstances`. Passing only the trust
+    half or only the permission half is deliberately insufficient.
+    """
     platform_account = scenario["bootstrap_identity"]["account_id"]
     split = split_role_arn(role_arn)
     if split is None:
@@ -164,7 +171,14 @@ def role_is_usable(scenario: dict, role_arn: str, external_id: str | None) -> bo
 
 
 def expected_outcome(scenario: dict, body: dict) -> bool:
-    """Whether this payload should be saved."""
+    """Return whether this individual settings payload should be saved.
+
+    A payload with no cloud-IAM block is an ordinary settings update and needs
+    no role validation. An explicit blank role is the disconnect operation and
+    is also accepted. Any non-blank role must pass the complete usability check
+    above; malformed, absent, unassumable, or under-permissioned roles are
+    rejected atomically.
+    """
     if "cloudIAM" not in body:
         return True
     cloud = body.get("cloudIAM") or {}
@@ -179,13 +193,27 @@ def expected_outcome(scenario: dict, body: dict) -> bool:
 
 
 def expected_state(scenario: dict, runs: list[dict]) -> list[tuple[bool, dict]]:
-    """The verdict and the readable record after each save, in order."""
+    """Replay the ordered saves into the exact expected settings timeline.
+
+    For each run, `expected_outcome` first decides whether the payload is
+    accepted. An accepted save replaces the readable settings fields with the
+    normalized values from that payload. A blank role is normalized to a clean
+    disconnect, so its external ID is cleared as well. A rejected save leaves
+    the complete prior record untouched, which is how the verifier checks that
+    validation happens before persistence rather than after a partial write.
+
+    The output contains one `(accepted, state_snapshot)` pair per input run.
+    `grade` uses the boolean to require HTTP 200 or 400, then compares the
+    snapshot with the settings read back after that same save.
+    """
     state = {"iamRoleArn": "", "externalId": "", "city": "", "vatId": ""}
     timeline: list[tuple[bool, dict]] = []
     for run in runs:
         body = run["body"]
         accepted = expected_outcome(scenario, body)
         if accepted:
+            # Only accepted saves advance state. Rejections intentionally fall
+            # through with the previous snapshot still intact.
             cloud = body.get("cloudIAM") or {}
             role_arn = cloud.get("iamRoleArn") or ""
             state = {
@@ -195,6 +223,8 @@ def expected_state(scenario: dict, runs: list[dict]) -> list[tuple[bool, dict]]:
                 "city": body.get("city") or "",
                 "vatId": body.get("vatId") or "",
             }
+        # Copy the state so later accepted saves cannot mutate earlier expected
+        # snapshots in the timeline.
         timeline.append((accepted, dict(state)))
     return timeline
 

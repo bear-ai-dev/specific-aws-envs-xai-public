@@ -1,7 +1,7 @@
 {
   "bundles": {
     "07-multi-region-sweep": {
-      "bundle_sha256": "c742f18184acd6726dc6029811101a51fff539e81ed45053fccdea5d4a15042f",
+      "bundle_sha256": "35a68e6e7beda381b4aa019e23bdf6448d1f39c729106e62a1794bdc3fec82b9",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -1062,8 +1062,8 @@
         },
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/verifier/scoring/compute_reward.py",
-          "sha256": "fc699d7b15b61ce690274e122e7dedb3af9fa31c170cc860c14a04ce390d02e6",
-          "size_bytes": 7150
+          "sha256": "6b675b9fe5b90043b5593874f157fef85bff5d840608333e41ab6f1618b59b97",
+          "size_bytes": 8567
         },
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/verifier/scoring/holdout.json",
@@ -1076,7 +1076,7 @@
           "size_bytes": 562
         }
       ],
-      "public_task_sha256": "a7564eb1f7f467a1c80c0e903992ea10ccb4f6563de14a2725f44009b9e1655b",
+      "public_task_sha256": "16af4e43e3e2b5b0da4eb73385bdbb89ce9e4b00c1b9c034a77667b8f73ff588",
       "recorded_runtime_task_checksum": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
       "solves": {
         "grok": 6,
@@ -1085,7 +1085,7 @@
       "task_label": "Task 7"
     },
     "14-iam-role-validation": {
-      "bundle_sha256": "6882d7d1c575bcaaf7c34032b488017186babf1f8856c6200f24a0ebed6c3fb3",
+      "bundle_sha256": "f87108d4a1fff27c6d51461da7066e95cfceccd80772da4ecae87a865d277298",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -2226,8 +2226,8 @@
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/verifier/scoring/compute_reward.py",
-          "sha256": "823dc90a230d1c1d8590b709bcf9e13b98c7d76b8e8f6b2e0e23ef05e6e3285e",
-          "size_bytes": 12414
+          "sha256": "3f8fdc38b1d3cddbef3060aa4249ad74efece9c6e7d49b95bbc3f69ea57973b7",
+          "size_bytes": 14119
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/verifier/scoring/holdout.json",
@@ -2240,7 +2240,7 @@
           "size_bytes": 4392
         }
       ],
-      "public_task_sha256": "3a2b258e99dd6c88541dd19924126969b9743e16d5f14c577563c4126ec9400a",
+      "public_task_sha256": "38747a620a3dcdc45516f20d074bd98c7e127b8086b4b2630023354345214288",
       "recorded_runtime_task_checksum": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2",
       "solves": {
         "grok": 3,

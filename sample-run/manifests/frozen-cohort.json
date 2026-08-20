@@ -27,11 +27,11 @@
   },
   "public_task_sha256": {
     "02-entitlement-overage-lines": "c6a60ab17d77dbd7221a97a519e3062cdf4c2ba9a105acb41144d7a61138ae36",
-    "07-multi-region-sweep": "a7564eb1f7f467a1c80c0e903992ea10ccb4f6563de14a2725f44009b9e1655b",
-    "14-iam-role-validation": "3a2b258e99dd6c88541dd19924126969b9743e16d5f14c577563c4126ec9400a"
+    "07-multi-region-sweep": "16af4e43e3e2b5b0da4eb73385bdbb89ce9e4b00c1b9c034a77667b8f73ff588",
+    "14-iam-role-validation": "38747a620a3dcdc45516f20d074bd98c7e127b8086b4b2630023354345214288"
   },
   "publication_controls_validation": "sample-run/manifests/public-controls-validation.json",
-  "publication_controls_validation_sha256": "afa61837d050234a35099d5721acdf6bcb2ab9b711228254ea389fe518fc4fb4",
+  "publication_controls_validation_sha256": "22fc254ceafeba04a346e3f4b41b303a0410f3373fe0dff3f103fb4cf342d27f",
   "publication_normalization": "sample-run/manifests/public-transformation.json",
   "reasoning_effort": "high",
   "recorded_runtime_task_sha256": {
