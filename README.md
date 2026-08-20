@@ -50,7 +50,45 @@ made positive owed quantity a prerequisite for every invoice line. That drops
 zero-priced dimensions even when invoice settings say to show them. All eight
 Opus submissions kept chargeability and visibility separate.
 
-[Task 2 representative Grok trace](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-07/agent/mini-swe-agent.txt)
+A representative failed Grok implementation checks the owed quantity before it
+checks whether a free dimension should remain visible:
+
+```ts
+if (!Number.isFinite(owedQuantity) || owedQuantity <= 0) {
+    return false;
+}
+if (unitCost === 0 && settings?.freeDimensionOnInvoice === FreeDimensionOnInvoice.hide) {
+    return false;
+}
+return true;
+```
+
+A representative Opus implementation keeps the free-dimension visibility
+decision separate from the positive-quantity check:
+
+```ts
+const owed = Number(dimensionTotals[dimensionId]);
+const isFreeDimension = Offering.dimensionIsFree(nonTieredDimensionsMap[dimensionId]);
+const hideFreeDimensions =
+    offeringInstance?.settings?.freeDimensionOnInvoice === FreeDimensionOnInvoice.hide;
+if (isFreeDimension) {
+    // A dimension the plan prices at zero is listed for visibility,
+    // unless the business asked for free dimensions to be hidden.
+    if (hideFreeDimensions) {
+        Offering.logger.debug(
+            `Dimension ${dimensionId} is free and the business hides free dimensions, skipping its line`,
+        );
+        return;
+    }
+} else if (!(owed > 0)) {
+    // The customer owes nothing on this dimension, so it gets no line.
+    Offering.logger.debug(`Dimension ${dimensionId} has nothing owed on it, skipping its line`);
+    return;
+}
+```
+
+[Failed Grok deliverable](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-01/verifier/deliverable/offering/entities/offeringPackage.entity.ts),
+[representative Grok trace](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-07/agent/mini-swe-agent.txt),
 and
 [paired Opus deliverable](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-05/verifier/deliverable/offering/entities/offeringPackage.entity.ts)
 
@@ -61,8 +99,58 @@ isolation, pagination, and empty-region reporting for volumes, but left
 snapshots on the original single-region path. The six solving Grok runs and all
 eight Opus runs used a shared region-sweep abstraction for both resource kinds.
 
-[Task 7 failed Grok trace](sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-01.json),
-[solving Grok change](sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-02/awsEc2.ts),
+A representative failed Grok implementation leaves snapshot collection tied to
+one configured region:
+
+```ts
+export const getAllSnapshots = async (creds, Filters: Array<Filter> = []): Promise<Record<string, Array<Snapshot>>> => {
+    const region = process.env.AWS_REGION || 'us-east-1';
+    console.log('Starting get all Snapshots', region);
+    const ec2Client = new EC2Client({ credentials: creds, region });
+    const snapshots = [];
+    let next: string;
+    do {
+        // Need to do this for pagination
+        // eslint-disable-next-line no-await-in-loop
+        const response = await ec2Client.send(
+            new DescribeSnapshotsCommand({ Filters, OwnerIds: ['self'], NextToken: next }),
+        );
+        next = response?.NextToken;
+        if (response.Snapshots) {
+            snapshots.push(...response.Snapshots);
+        }
+    } while (next);
+
+    return { [region]: snapshots };
+};
+```
+
+A solving Grok implementation routes both workflows through the same
+multi-region collector:
+
+```ts
+export const getAllVolumes = async (creds, Filters: Array<Filter> = []): Promise<Record<string, Array<Volume>>> => {
+    console.log('Starting get all Volumes');
+    return collectByEnabledRegion<Volume>(creds, async (client, next) => {
+        const response = await client.send(new DescribeVolumesCommand({ Filters, NextToken: next }));
+        return { items: response.Volumes || [], next: response.NextToken };
+    });
+};
+
+export const getAllSnapshots = async (creds, Filters: Array<Filter> = []): Promise<Record<string, Array<Snapshot>>> => {
+    console.log('Starting get all Snapshots');
+    return collectByEnabledRegion<Snapshot>(creds, async (client, next) => {
+        const response = await client.send(
+            new DescribeSnapshotsCommand({ Filters, OwnerIds: ['self'], NextToken: next }),
+        );
+        return { items: response.Snapshots || [], next: response.NextToken };
+    });
+};
+```
+
+[Failed Grok code](sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-01/awsEc2.ts),
+[failed Grok trace](sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-01.json),
+[solving Grok code](sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-02/awsEc2.ts),
 and
 [paired Opus trace](sample-run/review-bundle/07-multi-region-sweep/trajectories/opus/trial-01.json)
 
@@ -76,8 +164,35 @@ with value `undefined`, collapsing "absent" into "present but invalid." The
 three solving Grok runs and all eight Opus runs gated validation on an actual
 value and preserved the existing setting when the block was absent.
 
-[Task 14 failed Grok trace](sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-01.json),
-[solving Grok change](sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-06/settings.service.ts),
+A representative failed Grok implementation checks whether the DTO owns the
+property, even when its value is `undefined`:
+
+```ts
+if (Object.prototype.hasOwnProperty.call(updatedFileds, 'cloudIAM')) {
+    updatedFileds.cloudIAM = await SettingsService.prepareScraperRole(updatedFileds.cloudIAM);
+}
+```
+
+A solving Grok implementation checks the value instead, preserving the stored
+setting when the block was omitted:
+
+```ts
+let cloudIAM = updatedFileds.cloudIAM !== undefined ? updatedFileds.cloudIAM : setting.cloudIAM;
+if (updatedFileds.cloudIAM !== undefined) {
+    cloudIAM = await prepareCloudIamForSave(updatedFileds.cloudIAM);
+}
+const newEntity = new SettingsEntity({
+    ...setting,
+    ...updatedFileds,
+    pages,
+    businessID,
+    cloudIAM,
+});
+```
+
+[Failed Grok code](sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-01/settings.service.ts),
+[failed Grok trace](sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-01.json),
+[solving Grok code](sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-06/settings.service.ts),
 and
 [paired Opus trace](sample-run/review-bundle/14-iam-role-validation/trajectories/opus/trial-01.json)
 
