@@ -34,9 +34,9 @@ Rows are grouped by model; a blank model cell continues the model named above.
 
 | Task | What was asked |
 | --- | --- |
-| [Task 2](tasks/02-entitlement-overage-lines/instruction.md) | Update invoice generation so customers are charged only for permitted usage above their allowance, while still showing free line items unless the invoice settings hide them. |
-| [Task 7](tasks/07-multi-region-sweep/instruction.md) | Update block-storage collection to check every enabled AWS region, retry rate limits, keep readable regions even when they are empty, and skip permanently unreadable regions without stopping the whole sweep. |
-| [Task 14](tasks/14-iam-role-validation/instruction.md) | Validate a customer's IAM role before saving it: assume the role with its external ID, confirm it can read instance inventory, reject the whole update if either check fails, and handle disconnects correctly. |
+| [Task&nbsp;2](tasks/02-entitlement-overage-lines/instruction.md) | Update invoice generation so customers are charged only for permitted usage above their allowance, while still showing free line items unless the invoice settings hide them. |
+| [Task&nbsp;7](tasks/07-multi-region-sweep/instruction.md) | Update block-storage collection to check every enabled AWS region, retry rate limits, keep readable regions even when they are empty, and skip permanently unreadable regions without stopping the whole sweep. |
+| [Task&nbsp;14](tasks/14-iam-role-validation/instruction.md) | Validate a customer's IAM role before saving it: assume the role with its external ID, confirm it can read instance inventory, reject the whole update if either check fails, and handle disconnects correctly. |
 
 The source task numbers are retained in task paths, headings, review bundles,
 and recorded trial names so every result resolves to the exact frozen task that
