@@ -19,24 +19,24 @@ validation.
 
 ## Cohort identity and result
 
-| Model | Trial | Harbor ID | Reward | Recorded runtime task checksum |
-| --- | ---: | --- | ---: | --- |
-| Grok 4.6 | `01` | `8kjsAAW` | 0 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Grok 4.6 | `02` | `G84iXeU` | 0 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Grok 4.6 | `03` | `tWXTsqC` | 0 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Grok 4.6 | `04` | `xgnVmZg` | 0 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Grok 4.6 | `05` | `vK7H2up` | 0 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Grok 4.6 | `06` | `AHzaAmb` | 1 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Grok 4.6 | `07` | `RgS83u6` | 1 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Grok 4.6 | `08` | `u2o92Bn` | 1 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Opus 5 | `01` | `YoeMfEt` | 1 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Opus 5 | `02` | `DfssELR` | 1 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Opus 5 | `03` | `t2Jw2x3` | 1 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Opus 5 | `04` | `WWF7FvC` | 1 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Opus 5 | `05` | `q23rYZH` | 1 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Opus 5 | `06` | `97RzCfr` | 1 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Opus 5 | `07` | `fbLgaJq` | 1 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
-| Opus 5 | `08` | `X6C4opo` | 1 | `a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2` |
+| Model | Trial | Harbor ID | Reward |
+| --- | ---: | --- | ---: |
+| Grok 4.6 | `01` | `8kjsAAW` | 0 |
+| Grok 4.6 | `02` | `G84iXeU` | 0 |
+| Grok 4.6 | `03` | `tWXTsqC` | 0 |
+| Grok 4.6 | `04` | `xgnVmZg` | 0 |
+| Grok 4.6 | `05` | `vK7H2up` | 0 |
+| Grok 4.6 | `06` | `AHzaAmb` | 1 |
+| Grok 4.6 | `07` | `RgS83u6` | 1 |
+| Grok 4.6 | `08` | `u2o92Bn` | 1 |
+| Opus 5 | `01` | `YoeMfEt` | 1 |
+| Opus 5 | `02` | `DfssELR` | 1 |
+| Opus 5 | `03` | `t2Jw2x3` | 1 |
+| Opus 5 | `04` | `WWF7FvC` | 1 |
+| Opus 5 | `05` | `q23rYZH` | 1 |
+| Opus 5 | `06` | `97RzCfr` | 1 |
+| Opus 5 | `07` | `fbLgaJq` | 1 |
+| Opus 5 | `08` | `X6C4opo` | 1 |
 
 ## Grok solution files by trial
 
@@ -82,4 +82,4 @@ success from agent claims.
 
 Trajectories preserve native mini-SWE-agent structure. Only credentials and
 machine-local paths are redacted; the published manifest records the public
-file hashes and recorded runtime task checksum.
+file hashes.

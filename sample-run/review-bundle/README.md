@@ -43,8 +43,8 @@ missing zero-priced, zero-quantity invoice lines, producing reward `0.0`.
 The runnable task directories are the source of truth for execution. Review
 files are arranged by role for inspection. The
 [`selected review-bundle manifest`](../manifests/selected-review-bundles.json)
-records the published file hashes, trial counts, recorded runtime task
-checksums, and control outcomes for Tasks 7 and 14.
+records the published file hashes, trial counts, and control outcomes for Tasks
+7 and 14.
 The separate
 [`public control manifest`](../manifests/public-controls-validation.json)
 records the post-normalization oracle/no-op rerun for all three runnable tasks.
