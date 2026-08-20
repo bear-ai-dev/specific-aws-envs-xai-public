@@ -1,5 +1,12 @@
 # Task 14 — IAM role validation
 
+## Headline result
+
+| Model | Solves `c/n` | pass@1 | pass@3 | pass@8 |
+| --- | ---: | ---: | ---: | ---: |
+| Grok 4.6 | 3/8 | 0.3750 | 0.8214 | 1.0000 |
+| Opus 5 | 8/8 | 1.0000 | 1.0000 | 1.0000 |
+
 A feature-removal task cut from a real NestJS TypeScript backend
 (`meteringco-src/extracted/top-up-billing-lifecycle`, 534 `.ts` files, 87 runtime
 dependencies). The agent works in the actual repository, not a purpose-built
