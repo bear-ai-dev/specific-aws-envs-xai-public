@@ -1,6 +1,6 @@
 # Sample RL Tasks for AWS - xAI
 
-This sample contains three frozen AWS tasks retained after matched eight-run
+This sample contains three frozen AWS tasks evaluated in matched eight-run
 Bedrock cohorts. Grok 4.6 solved 0/8, 6/8, and 3/8 attempts; Claude Opus 5
 solved 8/8 attempts on each corresponding task.
 
@@ -97,16 +97,6 @@ value and preserved the existing setting when the block was absent.
 [solving Grok change](sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-06/settings.service.ts),
 and
 [paired Opus trace](sample-run/review-bundle/14-iam-role-validation/trajectories/opus/trial-01.json)
-
-The evidence score gives equal weight to requirement knowability, behavioral
-verifier validity, repetition, and attribution after infrastructure effects are
-excluded.
-
-| Training gap | Evidence score | Decision | Evidence | Training target |
-| --- | ---: | --- | --- | --- |
-| Separate chargeability from statement visibility | 100/100 | Retain | Explicit requirement; identical missing-line consequence in 8/8 valid Grok trials; matched Opus solves in 8/8 trials | Build and test the complete business-rule decision table before coding |
-| Apply a changed contract to every sibling workflow | 90/100 | Retain | Two Grok failures repair volumes but leave snapshots single-region; six Grok and eight Opus counterexamples cover both | Enumerate every function owning the behavior, then test each workflow |
-| Distinguish absent, invalid, and disconnect states | 95/100 | Retain | Five Grok failures collapse absent and present-empty states; three Grok and eight Opus counterexamples separate them | Write the optional-state matrix before implementing validation and persistence |
 
 ## Evidence and controls
 

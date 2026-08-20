@@ -132,12 +132,6 @@ and
 
 This supports a narrow gap in optional nested-configuration state completeness.
 
-| Training gap | Evidence score | Decision | Evidence | Training target |
-| --- | ---: | --- | --- | --- |
-| Separate chargeability from statement visibility | 100/100 | Retain | Explicit requirement; repeated 0/8 versus 8/8; identical missing-line consequence | Enumerate the business-rule cross-product before coding |
-| Apply a changed contract to every sibling workflow | 90/100 | Retain | Two repeated Grok omissions; six solving Grok counterexamples; Opus 8/8 | List every function owning the behavior and test each workflow |
-| Distinguish absent, invalid, and disconnect states | 95/100 | Retain | Five repeated Grok omissions; three solving Grok counterexamples; Opus 8/8 | Write the optional-state matrix before validation and persistence work |
-
 ## Fairness and reachability
 
 Every instruction states that a local AWS-compatible endpoint is available
