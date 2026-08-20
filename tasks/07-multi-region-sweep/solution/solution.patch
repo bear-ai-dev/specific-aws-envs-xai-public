@@ -1,0 +1,172 @@
+diff -ruN a/src/microservices/instanceUpTime/instanceUptime.service.ts b/src/microservices/instanceUpTime/instanceUptime.service.ts
+--- a/src/microservices/instanceUpTime/instanceUptime.service.ts	2026-08-19 23:22:52
++++ b/src/microservices/instanceUpTime/instanceUptime.service.ts	2026-08-19 23:22:52
+@@ -2,7 +2,7 @@
+ import flattenDeep from 'lodash.flattendeep';
+ import { InfluxService } from '../../influx/influx.service.js';
+ import { fromTemporaryCredentials } from '@aws-sdk/credential-providers';
+-import { getAllInstanceIDs } from '../../utils/aws/awsEc2.js';
++import { getAllInstanceIDs, getAllRegions } from '../../utils/aws/awsEc2.js';
+ import { InstanceUptimeEntity } from './entities/instanceUptime.entity.js';
+ import { OnQueueFailed, Process, Processor } from '@nestjs/bull';
+ import { infrastructureType } from '../../dimensions/dto/create-dimension.dto.js';
+@@ -30,8 +30,18 @@
+                 params: { RoleArn: iamRoleArn, ExternalId: externalId ? externalId : undefined },
+                 clientConfig: { region: 'us-east-1' },
+             });
+-            const region = process.env.AWS_REGION || 'us-east-1';
+-            const instances = await getAllInstanceIDs(region, creds);
++            const regions = await getAllRegions(creds);
++            const instances = await Promise.all(
++                regions.map(async (region) => {
++                    try {
++                        const instance = await getAllInstanceIDs(region, creds);
++                        return instance;
++                    } catch (e) {
++                        InstanceUptimeService.logger.error("Couldn't get instance IDs", e);
++                        return undefined;
++                    }
++                }),
++            );
+ 
+             // Put instances in influx with the following schema
+             const flattenedListOfInstances = flattenDeep(instances);
+diff -ruN a/src/utils/aws/awsEc2.ts b/src/utils/aws/awsEc2.ts
+--- a/src/utils/aws/awsEc2.ts	2026-08-19 23:22:52
++++ b/src/utils/aws/awsEc2.ts	2026-08-19 23:22:52
+@@ -2,6 +2,7 @@
+     EC2Client,
+     DescribeInstancesCommand,
+     DescribeInstanceTypesCommand,
++    DescribeRegionsCommand,
+     DescribeVolumesCommand,
+     DescribeSnapshotsCommand,
+     DescribeReservedInstancesCommand,
+@@ -136,45 +137,93 @@
+     }
+ };
+ 
+-export const getAllVolumes = async (creds, Filters: Array<Filter> = []): Promise<Record<string, Array<Volume>>> => {
+-    const region = process.env.AWS_REGION || 'us-east-1';
+-    console.log('Starting get all Volumes', region);
+-    const ec2Client = new EC2Client({ credentials: creds, region });
+-    const volumes = [];
+-    let next: string;
+-    do {
+-        // Need to do this for pagination
+-        // eslint-disable-next-line no-await-in-loop
+-        const response = await ec2Client.send(new DescribeVolumesCommand({ Filters, NextToken: next }));
+-        next = response?.NextToken;
+-        if (response.Volumes) {
+-            volumes.push(...response.Volumes);
+-        }
+-    } while (next);
++// A region that answers slowly or rate limits us has not failed, it is just
++// busy, so a regional client is given more goes at it than the SDK's default
++// three before we decide the region is unreadable.
++const REGION_ATTEMPTS = 8;
+ 
+-    return { [region]: volumes };
++export const getAllRegions = async (creds = undefined) => {
++    try {
++        const ec2Client = new EC2Client({ region: process.env.AWS_REGION || 'us-east-1', credentials: creds });
++        const response = await ec2Client.send(new DescribeRegionsCommand({}));
++        return (response?.Regions || [])
++            .filter(({ OptInStatus }) => OptInStatus !== 'not-opted-in')
++            .map(({ RegionName }) => RegionName);
++    } catch (error) {
++        console.log(error);
++        throw error;
++    }
+ };
+ 
+-export const getAllSnapshots = async (creds, Filters: Array<Filter> = []): Promise<Record<string, Array<Snapshot>>> => {
+-    const region = process.env.AWS_REGION || 'us-east-1';
+-    console.log('Starting get all Snapshots', region);
+-    const ec2Client = new EC2Client({ credentials: creds, region });
+-    const snapshots = [];
+-    let next: string;
+-    do {
+-        // Need to do this for pagination
+-        // eslint-disable-next-line no-await-in-loop
+-        const response = await ec2Client.send(
+-            new DescribeSnapshotsCommand({ Filters, OwnerIds: ['self'], NextToken: next }),
+-        );
+-        next = response?.NextToken;
+-        if (response.Snapshots) {
+-            snapshots.push(...response.Snapshots);
+-        }
+-    } while (next);
++/**
++ * Runs `collect` once in every region the account is switched on in.
++ *
++ * A region that answers is in the result even when it held nothing, so an empty
++ * region reads as "looked, found nothing". A region that will not let us read it
++ * is left out entirely rather than reported as empty, and it does not take the
++ * rest of the sweep down with it.
++ */
++const sweepAllRegions = async <T>(
++    creds,
++    label: string,
++    collect: (ec2Client: EC2Client) => Promise<Array<T>>,
++): Promise<Record<string, Array<T>>> => {
++    const regions = await getAllRegions(creds);
++    console.log(`Starting ${label} across`, regions);
+ 
+-    return { [region]: snapshots };
++    const swept = await Promise.all(
++        regions.map(async (region) => {
++            const ec2Client = new EC2Client({ credentials: creds, region, maxAttempts: REGION_ATTEMPTS });
++            try {
++                return { region, found: await collect(ec2Client) };
++            } catch (error) {
++                console.log(`Could not read ${region}, leaving it out of the ${label}`, error?.name || error);
++                return undefined;
++            }
++        }),
++    );
++
++    return swept.reduce((acc, outcome) => {
++        if (outcome) {
++            acc[outcome.region] = outcome.found;
++        }
++        return acc;
++    }, {} as Record<string, Array<T>>);
+ };
++
++export const getAllVolumes = async (creds, Filters: Array<Filter> = []): Promise<Record<string, Array<Volume>>> =>
++    sweepAllRegions<Volume>(creds, 'volume sweep', async (ec2Client) => {
++        const volumes: Array<Volume> = [];
++        let next: string;
++        do {
++            // Need to do this for pagination
++            // eslint-disable-next-line no-await-in-loop
++            const response = await ec2Client.send(new DescribeVolumesCommand({ Filters, NextToken: next }));
++            next = response?.NextToken;
++            if (response.Volumes) {
++                volumes.push(...response.Volumes);
++            }
++        } while (next);
++        return volumes;
++    });
++
++export const getAllSnapshots = async (creds, Filters: Array<Filter> = []): Promise<Record<string, Array<Snapshot>>> =>
++    sweepAllRegions<Snapshot>(creds, 'snapshot sweep', async (ec2Client) => {
++        const snapshots: Array<Snapshot> = [];
++        let next: string;
++        do {
++            // Need to do this for pagination
++            // eslint-disable-next-line no-await-in-loop
++            const response = await ec2Client.send(
++                new DescribeSnapshotsCommand({ Filters, OwnerIds: ['self'], NextToken: next }),
++            );
++            next = response?.NextToken;
++            if (response.Snapshots) {
++                snapshots.push(...response.Snapshots);
++            }
++        } while (next);
++        return snapshots;
++    });
+ 
+ export const getReservedInstanceCount = async (creds, region, filters) => {
+     const ec2Client = new EC2Client({ region, credentials: creds });

@@ -1,0 +1,52 @@
+Local AWS sandbox
+=================
+
+This box has no route to AWS. Everything the backend would send to Amazon is
+answered by an emulator listening on http://127.0.0.1:4566, which speaks the
+same wire protocols the AWS SDK uses. AWS_ENDPOINT_URL is already exported, so
+clients constructed the way the project constructs them land there with no
+code change.
+
+Credentials already in the environment belong to a bootstrap identity in the
+metering account. The estate that carries the block storage is a separate
+account, reached the way the gatherers reach it, by assuming a role:
+
+    metering account   900000000001
+    metered account    100000000077
+    role               arn:aws:iam::100000000077:role/meteringco-metering
+    external id        orchard-sbx-4f21
+    business           biz-orchard
+    default region     us-east-1
+
+The metered dimension the sandbox is set up around is
+dim-block-storage-sandbox, and dim-object-storage-sandbox also appears on some
+volumes and snapshots.
+
+The estate the emulator is currently serving is described by
+/opt/metering-sandbox/public.json. It is a small, quiet estate: one metered
+account and a couple of dozen volumes and snapshots spread over a handful of
+regions. Real businesses hand us more accounts, more regions and messier
+tagging, so treat what you see here as the easy case rather than the shape of
+the world.
+
+The emulator is region-aware. Every request is served against the region its
+credentials were signed for, so the same call made with clients in two regions
+returns two different answers. It will answer for any region name you send it,
+including ones this account has nothing to do with; what an account is actually
+switched on in is something only EC2 itself can tell you.
+
+It also misbehaves the way AWS does. Inventory reads come back in short pages.
+Some regions refuse a read outright with an authorization error, and which read
+they refuse differs by region. At least one region rate limits the first few
+calls of a read before letting it through, which is more attempts than the AWS
+SDK gives a call by default.
+
+To point the emulator at a different estate document, restart it yourself:
+
+    pkill -f mockaws
+    PYTHONPATH=/opt/mockaws python3 -m mockaws \
+        --scenario /path/to/your.json --host 127.0.0.1 --port 4566 --seed 7 &
+
+TypeScript in this project can be run directly with tsx, for example
+
+    tsx -e "import('./src/utils/aws/awsEc2.js').then((m) => console.log(Object.keys(m)))"

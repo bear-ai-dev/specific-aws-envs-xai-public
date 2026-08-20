@@ -1,0 +1,524 @@
+{
+  "region": "us-east-1",
+  "regions": [
+    {
+      "name": "us-east-1",
+      "opt_in_status": "opt-in-not-required"
+    },
+    {
+      "name": "eu-west-1",
+      "opt_in_status": "opt-in-not-required"
+    },
+    {
+      "name": "eu-central-1",
+      "opt_in_status": "opt-in-not-required"
+    },
+    {
+      "name": "ap-south-1",
+      "opt_in_status": "opted-in",
+      "faults": {
+        "DescribeVolumes": {
+          "code": "UnauthorizedOperation",
+          "message": "You are not authorized to perform this operation in this Region",
+          "status": 403
+        }
+      }
+    },
+    {
+      "name": "ap-northeast-2",
+      "opt_in_status": "opted-in",
+      "faults": {
+        "DescribeSnapshots": {
+          "code": "UnauthorizedOperation",
+          "message": "You are not authorized to perform this operation in this Region",
+          "status": 403
+        }
+      }
+    },
+    {
+      "name": "sa-east-1",
+      "opt_in_status": "opted-in",
+      "faults": {
+        "DescribeVolumes": {
+          "code": "RequestLimitExceeded",
+          "message": "Request limit exceeded",
+          "status": 503,
+          "count": 4
+        },
+        "DescribeSnapshots": {
+          "code": "RequestLimitExceeded",
+          "message": "Request limit exceeded",
+          "status": 503,
+          "count": 4
+        }
+      }
+    },
+    {
+      "name": "me-south-1",
+      "opt_in_status": "not-opted-in"
+    }
+  ],
+  "bootstrap_identity": {
+    "account_id": "900000000001",
+    "access_key_id": "LOCALMETERINGKEY07"
+  },
+  "accounts": [
+    {
+      "account_id": "900000000001",
+      "alias": "meteringco-metering"
+    },
+    {
+      "account_id": "100000000077",
+      "alias": "metered-0077",
+      "roles": [
+        {
+          "name": "meteringco-metering",
+          "trust_policy": {
+            "Version": "2012-10-17",
+            "Statement": [
+              {
+                "Effect": "Allow",
+                "Action": "sts:AssumeRole",
+                "Principal": {
+                  "AWS": "arn:aws:iam::900000000001:root"
+                },
+                "Condition": {
+                  "StringEquals": {
+                    "sts:ExternalId": "orchard-sbx-4f21"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "volumes": [
+        {
+          "volume_id": "vol-0sbx0000000000a1",
+          "region": "us-east-1",
+          "availability_zone": "us-east-1a",
+          "size": 120,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000a2",
+          "region": "us-east-1",
+          "availability_zone": "us-east-1a",
+          "size": 40,
+          "volume_type": "gp2",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000a3",
+          "region": "us-east-1",
+          "availability_zone": "us-east-1a",
+          "size": 500,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-object-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000b1",
+          "region": "eu-west-1",
+          "availability_zone": "eu-west-1a",
+          "size": 80,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000b2",
+          "region": "eu-west-1",
+          "availability_zone": "eu-west-1a",
+          "size": 80,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_thistle"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000b3",
+          "region": "eu-west-1",
+          "availability_zone": "eu-west-1a",
+          "size": 200,
+          "volume_type": "io2",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_thistle"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000b4",
+          "region": "eu-west-1",
+          "availability_zone": "eu-west-1a",
+          "size": 16,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000b5",
+          "region": "eu-west-1",
+          "availability_zone": "eu-west-1b",
+          "size": 32,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000b6",
+          "region": "eu-west-1",
+          "availability_zone": "eu-west-1a",
+          "size": 64,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {}
+        },
+        {
+          "volume_id": "vol-0sbx0000000000c1",
+          "region": "eu-central-1",
+          "availability_zone": "eu-central-1a",
+          "size": 250,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-object-storage-sandbox",
+            "meteringcoCustomerId": "cus_thistle"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000c2",
+          "region": "eu-central-1",
+          "availability_zone": "eu-central-1a",
+          "size": 90,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {}
+        },
+        {
+          "volume_id": "vol-0sbx0000000000d1",
+          "region": "ap-south-1",
+          "availability_zone": "ap-south-1a",
+          "size": 300,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_thistle"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000d2",
+          "region": "ap-south-1",
+          "availability_zone": "ap-south-1a",
+          "size": 60,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000e1",
+          "region": "ap-northeast-2",
+          "availability_zone": "ap-northeast-2a",
+          "size": 150,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000e2",
+          "region": "ap-northeast-2",
+          "availability_zone": "ap-northeast-2a",
+          "size": 20,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_thistle"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000f1",
+          "region": "sa-east-1",
+          "availability_zone": "sa-east-1a",
+          "size": 45,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_thistle"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000f2",
+          "region": "sa-east-1",
+          "availability_zone": "sa-east-1a",
+          "size": 75,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "volume_id": "vol-0sbx0000000000g1",
+          "region": "me-south-1",
+          "availability_zone": "me-south-1a",
+          "size": 999,
+          "volume_type": "gp3",
+          "state": "in-use",
+          "create_time": "2025-11-14T08:30:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        }
+      ],
+      "snapshots": [
+        {
+          "snapshot_id": "snap-0sbx000000000a1",
+          "region": "us-east-1",
+          "volume_id": "vol-0sbx0000000000a1",
+          "volume_size": 120,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "snapshot_id": "snap-0sbx000000000a2",
+          "region": "us-east-1",
+          "volume_id": "vol-0sbx0000000000a2",
+          "volume_size": 40,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "snapshot_id": "snap-0sbx000000000a3",
+          "region": "us-east-1",
+          "volume_id": "vol-0sbx0000000000a3",
+          "volume_size": 500,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-object-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "snapshot_id": "snap-0sbx000000000b1",
+          "region": "eu-west-1",
+          "volume_id": "vol-0sbx0000000000b1",
+          "volume_size": 80,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-object-storage-sandbox",
+            "meteringcoCustomerId": "cus_thistle"
+          }
+        },
+        {
+          "snapshot_id": "snap-0sbx000000000b2",
+          "region": "eu-west-1",
+          "volume_id": "vol-0sbx0000000000b2",
+          "volume_size": 80,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {}
+        },
+        {
+          "snapshot_id": "snap-0sbx000000000c1",
+          "region": "eu-central-1",
+          "volume_id": "vol-0sbx0000000000c1",
+          "volume_size": 250,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_thistle"
+          }
+        },
+        {
+          "snapshot_id": "snap-0sbx000000000c2",
+          "region": "eu-central-1",
+          "volume_id": "vol-0sbx0000000000c2",
+          "volume_size": 90,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "snapshot_id": "snap-0sbx000000000c3",
+          "region": "eu-central-1",
+          "volume_id": "vol-0sbx0000000000c2",
+          "volume_size": 90,
+          "storage_tier": "archive",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "snapshot_id": "snap-0sbx000000000c4",
+          "region": "eu-central-1",
+          "volume_id": "vol-0sbx0000000000c1",
+          "volume_size": 250,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox"
+          }
+        },
+        {
+          "snapshot_id": "snap-0sbx000000000d1",
+          "region": "ap-south-1",
+          "volume_id": "vol-0sbx0000000000d1",
+          "volume_size": 300,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_thistle"
+          }
+        },
+        {
+          "snapshot_id": "snap-0sbx000000000d2",
+          "region": "ap-south-1",
+          "volume_id": "vol-0sbx0000000000d2",
+          "volume_size": 60,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "snapshot_id": "snap-0sbx000000000e1",
+          "region": "ap-northeast-2",
+          "volume_id": "vol-0sbx0000000000e1",
+          "volume_size": 150,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "snapshot_id": "snap-0sbx000000000f1",
+          "region": "sa-east-1",
+          "volume_id": "vol-0sbx0000000000f1",
+          "volume_size": 45,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_thistle"
+          }
+        },
+        {
+          "snapshot_id": "snap-0sbx000000000f2",
+          "region": "sa-east-1",
+          "volume_id": "vol-0sbx0000000000f2",
+          "volume_size": 75,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        },
+        {
+          "snapshot_id": "snap-0sbx000000000g1",
+          "region": "me-south-1",
+          "volume_id": "vol-0sbx0000000000g1",
+          "volume_size": 999,
+          "storage_tier": "standard",
+          "start_time": "2025-12-02T04:15:00Z",
+          "tags": {
+            "meteringcoDimensionId": "dim-block-storage-sandbox",
+            "meteringcoCustomerId": "cus_wharf"
+          }
+        }
+      ]
+    }
+  ],
+  "faults": {
+    "enabled": true,
+    "rules": [
+      {
+        "service": "ec2",
+        "action": "DescribeVolumes",
+        "max_page_size": 3
+      },
+      {
+        "service": "ec2",
+        "action": "DescribeSnapshots",
+        "max_page_size": 3
+      },
+      {
+        "service": "ec2",
+        "action": "DescribeInstances",
+        "max_page_size": 3
+      }
+    ]
+  }
+}

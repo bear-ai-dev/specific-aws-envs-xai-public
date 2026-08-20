@@ -1,0 +1,5 @@
+patching file src/measurement-config/entities/measurement-config.entity.ts
+patching file src/setting/dto/customIAMAuthorizer.ts
+patching file src/setting/dto/update-settings.dto.ts
+patching file src/setting/settings.service.ts
+reference solution applied to /app

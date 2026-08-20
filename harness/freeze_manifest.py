@@ -40,15 +40,38 @@ def main() -> None:
 
     payload = {
         "cohort": CONFIG["job_name"],
-        "evidence_cohort": "grok-4.6-and-opus-5-eight-rollouts-20260819",
-        "evidence_controls": "xai-public-controls-20260819",
+        "evidence_roots": [
+            "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
+            "sample-run/review-bundle/07-multi-region-sweep",
+            "sample-run/review-bundle/14-iam-role-validation",
+        ],
+        "evidence_controls": {
+            "02-entitlement-overage-lines": (
+                "sample-run/raw/xai-public-controls-20260819"
+            ),
+            "07-multi-region-sweep": (
+                "sample-run/review-bundle/07-multi-region-sweep/controls"
+            ),
+            "14-iam-role-validation": (
+                "sample-run/review-bundle/14-iam-role-validation/controls"
+            ),
+        },
         "publication_normalization": (
             "sample-run/manifests/public-transformation.json"
+        ),
+        "publication_controls_validation": (
+            "sample-run/manifests/public-controls-validation.json"
         ),
         "recorded_runtime_task_sha256": {
             "02-entitlement-overage-lines": (
                 "92e4b98286ca4dd72881f59542ae4c17ad010f9910e29839c725cedbffe00ab3"
-            )
+            ),
+            "07-multi-region-sweep": (
+                "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a"
+            ),
+            "14-iam-role-validation": (
+                "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2"
+            ),
         },
         "attempts_per_task_model": CONFIG["n_attempts"],
         "validity_rule": (
@@ -71,6 +94,14 @@ def main() -> None:
         ).hexdigest(),
         "controls_config_sha256": hashlib.sha256(
             (ROOT / "harness" / "controls.json").read_bytes()
+        ).hexdigest(),
+        "publication_controls_validation_sha256": hashlib.sha256(
+            (
+                ROOT
+                / "sample-run"
+                / "manifests"
+                / "public-controls-validation.json"
+            ).read_bytes()
         ).hexdigest(),
         "bedrock_config_sha256": hashlib.sha256(
             (ROOT / "harness" / "mini-swe-bedrock.yaml").read_bytes()

@@ -1,0 +1,10 @@
+Reviewer annotation (added after the recorded run; original verifier output is preserved below).
+
+Failed behavioral check: Preserve the absent-cloud-block path while rejecting a present role-less block.
+Expected-value rule: compute_reward.py::expected_outcome and expected_state
+Output assertion: compute_reward.py::grade
+
+Original verifier output:
+no-cloud-block-at-all: should have been saved, answered 400
+no-cloud-block-at-all: city reads back as '', the record should hold 'Eugene'
+reward=0.0

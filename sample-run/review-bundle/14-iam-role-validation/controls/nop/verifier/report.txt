@@ -1,0 +1,42 @@
+wrong-external-id: should have been turned away as a bad request, answered 200
+wrong-external-id: externalId reads back as 'vd-9c41ab28', the record should hold 'vd-9c41ab27'
+wrong-external-id: city reads back as 'Bend', the record should hold 'Portland'
+external-id-omitted: should have been turned away as a bad request, answered 200
+external-id-omitted: externalId reads back as '', the record should hold 'vd-9c41ab27'
+external-id-omitted: city reads back as '', the record should hold 'Portland'
+assumable-but-storage-only: should have been turned away as a bad request, answered 200
+assumable-but-storage-only: iamRoleArn reads back as 'arn:aws:iam::411000000071:role/meteringco-archive', the record should hold 'arn:aws:iam::411000000071:role/meteringco-metering-legacy'
+assumable-but-storage-only: externalId reads back as 'vd-31ff00', the record should hold 'vd-not-required'
+assumable-but-storage-only: vatId reads back as 'OR-88112', the record should hold ''
+assumable-but-cost-only: should have been turned away as a bad request, answered 200
+assumable-but-cost-only: iamRoleArn reads back as 'arn:aws:iam::411000000082:role/meteringco-cost-view', the record should hold 'arn:aws:iam::411000000071:role/meteringco-metering-legacy'
+assumable-but-cost-only: externalId reads back as 'vd-an-7761', the record should hold 'vd-not-required'
+assumable-but-cost-only: city reads back as 'Salem', the record should hold ''
+assumable-but-no-policies: should have been turned away as a bad request, answered 200
+assumable-but-no-policies: iamRoleArn reads back as 'arn:aws:iam::411000000082:role/meteringco-empty', the record should hold 'arn:aws:iam::411000000071:role/meteringco-metering-legacy'
+assumable-but-no-policies: externalId reads back as 'vd-an-0002', the record should hold 'vd-not-required'
+trusts-only-its-own-account: should have been turned away as a bad request, answered 200
+trusts-only-its-own-account: iamRoleArn reads back as 'arn:aws:iam::411000000071:role/terraform-apply', the record should hold 'arn:aws:iam::411000000071:role/meteringco-metering-legacy'
+trusts-only-its-own-account: externalId reads back as '', the record should hold 'vd-not-required'
+trusts-only-its-own-account: vatId reads back as 'OR-11111', the record should hold ''
+trusts-a-service-not-us: should have been turned away as a bad request, answered 200
+trusts-a-service-not-us: iamRoleArn reads back as 'arn:aws:iam::411000000093:role/ci-runner', the record should hold 'arn:aws:iam::411000000071:role/meteringco-metering-legacy'
+trusts-a-service-not-us: externalId reads back as '', the record should hold 'vd-not-required'
+role-does-not-exist: should have been turned away as a bad request, answered 200
+role-does-not-exist: iamRoleArn reads back as 'arn:aws:iam::411000000093:role/meteringco-collector-typo', the record should hold 'arn:aws:iam::411000000071:role/meteringco-metering-legacy'
+role-does-not-exist: externalId reads back as '', the record should hold 'vd-not-required'
+role-does-not-exist: city reads back as 'Medford', the record should hold ''
+account-does-not-exist: should have been turned away as a bad request, answered 200
+account-does-not-exist: iamRoleArn reads back as 'arn:aws:iam::411000000999:role/meteringco-collector', the record should hold 'arn:aws:iam::411000000071:role/meteringco-metering-legacy'
+account-does-not-exist: externalId reads back as '', the record should hold 'vd-not-required'
+not-an-arn: should have been turned away as a bad request, answered 200
+not-an-arn: iamRoleArn reads back as 'meteringco-collector', the record should hold 'arn:aws:iam::411000000071:role/meteringco-metering-legacy'
+not-an-arn: externalId reads back as '', the record should hold 'vd-not-required'
+not-an-arn: vatId reads back as 'OR-22222', the record should hold ''
+arn-of-a-user: should have been turned away as a bad request, answered 200
+arn-of-a-user: iamRoleArn reads back as 'arn:aws:iam::411000000093:user/meteringco-collector', the record should hold 'arn:aws:iam::411000000071:role/meteringco-metering-legacy'
+arn-of-a-user: externalId reads back as '', the record should hold 'vd-not-required'
+external-id-but-no-role: iamRoleArn reads back as 'arn:aws:iam::411000000093:user/meteringco-collector', the record should hold 'arn:aws:iam::411000000071:role/meteringco-metering-legacy'
+external-id-but-no-role: externalId reads back as '', the record should hold 'vd-not-required'
+blank-role-drops-stale-external-id: externalId reads back as 'ks-lab-2f0a', the record should hold ''
+reward=0.0

@@ -1,0 +1,60 @@
+schema_version = "1.4"
+
+[task]
+name = "meteringco/multi-region-sweep"
+version = "1.0.0"
+description = "Drive the metering inventory sweeps from region discovery instead of a single region: cover every region the account is switched on in, report a region that held nothing as looked-at-and-empty, leave a region that refuses the read out of the report rather than calling it empty, ride out a region that only rate limits, and let no single region take the sweep down."
+keywords = ["aws", "ec2", "sts", "multi-region", "region-discovery", "typescript", "nestjs", "metering"]
+
+[[task.authors]]
+name = "meteringco-rl-envs"
+
+[metadata]
+difficulty = "hard"
+category = "aws-infrastructure"
+source = "meteringco-codebases"
+codebase = "meteringco-backend/top-up-billing-lifecycle"
+task_kind = "feature-removal"
+tags = [
+    "real-codebase",
+    "region-discovery",
+    "describe-regions",
+    "opt-in-regions",
+    "per-region-scoping",
+    "partial-failure-handling",
+    "retry-classification",
+    "coverage-reporting",
+]
+
+[agent]
+user = "agent"
+timeout_sec = 14400
+
+[verifier]
+user = "root"
+timeout_sec = 1800
+
+[environment]
+workdir = "/app"
+build_timeout_sec = 2400
+cpus = 2
+memory_mb = 6144
+storage_mb = 20480
+network_mode = "public"
+
+[environment.env]
+TZ = "Etc/UTC"
+AWS_ENDPOINT_URL = "http://127.0.0.1:4566"
+AWS_ACCESS_KEY_ID = "LOCALMETERINGKEY07"
+AWS_SECRET_ACCESS_KEY = "metering-secret"
+# The SDK in this tree reads AWS_REGION only. A client built without an
+# explicit region has no other source for it inside the container.
+AWS_REGION = "us-east-1"
+AWS_DEFAULT_REGION = "us-east-1"
+
+[environment.healthcheck]
+command = "test -f /tmp/task-infra/.ready"
+interval_sec = 5
+timeout_sec = 5
+start_period_sec = 30
+retries = 12

@@ -1,36 +1,48 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "transformation": "deterministic_identifier_only_publication_normalization",
   "scope": [
-    "task definition and workspace",
+    "three task definitions and workspaces",
     "captured trajectories and verifier artifacts",
     "manifests, indexes, and documentation"
   ],
   "normalized_identifier_classes": [
     "organization names and code symbols",
     "organization domains and repository references",
-    "organization email addresses",
-    "author names and source ticket references",
+    "organization email addresses and author names",
+    "source ticket references",
     "example cloud account and endpoint identifiers",
-    "task-local emulator credentials"
+    "task-local emulator credentials",
+    "execution organization, sandbox, and snapshot identifiers"
   ],
   "preserved": [
     "task requirements",
-    "numeric fixtures and held-out cases",
+    "non-identifier numeric fixtures and held-out case structure",
     "model-generated control flow",
     "verifier outputs and rewards",
     "recorded trial identifiers and chronological ordering"
   ],
   "public_evidence_layout": {
-    "cohort_directory": "grok-4.6-and-opus-5-eight-rollouts-20260819",
-    "directory_label_policy": "model name plus chronological trial number",
-    "recorded_trial_identifiers": "preserved in each config.json and result.json and exposed by sample-run/indexes/trials.json"
+    "02-entitlement-overage-lines": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
+    "07-multi-region-sweep": "sample-run/review-bundle/07-multi-region-sweep",
+    "14-iam-role-validation": "sample-run/review-bundle/14-iam-role-validation",
+    "directory_label_policy": "task number, model name, and chronological trial number",
+    "recorded_trial_identifiers": "preserved in compact Harbor results and sample-run/indexes/trials.json"
   },
-  "recorded_runtime_task_sha256": "92e4b98286ca4dd72881f59542ae4c17ad010f9910e29839c725cedbffe00ab3",
-  "public_task_sha256": "c6a60ab17d77dbd7221a97a519e3062cdf4c2ba9a105acb41144d7a61138ae36",
-  "public_controls_job": "xai-public-controls-20260819",
-  "public_controls_required": {
-    "oracle": 1.0,
-    "nop": 0.0
-  }
+  "recorded_runtime_task_sha256": {
+    "02-entitlement-overage-lines": "92e4b98286ca4dd72881f59542ae4c17ad010f9910e29839c725cedbffe00ab3",
+    "07-multi-region-sweep": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
+    "14-iam-role-validation": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2"
+  },
+  "public_task_sha256": {
+    "02-entitlement-overage-lines": "c6a60ab17d77dbd7221a97a519e3062cdf4c2ba9a105acb41144d7a61138ae36",
+    "07-multi-region-sweep": "a7564eb1f7f467a1c80c0e903992ea10ccb4f6563de14a2725f44009b9e1655b",
+    "14-iam-role-validation": "3a2b258e99dd6c88541dd19924126969b9743e16d5f14c577563c4126ec9400a"
+  },
+  "recorded_runtime_controls": {
+    "oracle_required": 1.0,
+    "nop_required": 0.0,
+    "tasks_passing": 3
+  },
+  "public_controls_reproduction_job": "xai-public-controls-20260820"
 }

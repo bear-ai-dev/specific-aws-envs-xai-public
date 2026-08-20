@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "run_date": "2026-08-20",
+  "purpose": "post-normalization oracle and no-op validation of all runnable public tasks",
+  "harbor_version": "0.18.0",
+  "environment": "docker",
+  "config": "harness/controls.json",
+  "config_environment_override": "docker",
+  "job_name": "xai-public-controls-docker-20260820",
+  "summary": {
+    "trials": 6,
+    "exceptions": 0,
+    "oracle_all_reward_one": true,
+    "nop_all_reward_zero": true
+  },
+  "tasks": {
+    "02-entitlement-overage-lines": {
+      "public_task_sha256": "c6a60ab17d77dbd7221a97a519e3062cdf4c2ba9a105acb41144d7a61138ae36",
+      "harbor_task_digest": "sha256:deb46215e6948f7766289f7b2f6803d6ef3d7a1514f3a0c6f80a8c7e6135a981",
+      "oracle": {
+        "trial_id": "qC3Sd7n",
+        "reward": 1.0,
+        "exception": null
+      },
+      "nop": {
+        "trial_id": "xFqF6na",
+        "reward": 0.0,
+        "exception": null
+      }
+    },
+    "07-multi-region-sweep": {
+      "public_task_sha256": "a7564eb1f7f467a1c80c0e903992ea10ccb4f6563de14a2725f44009b9e1655b",
+      "harbor_task_digest": "sha256:850c13d580ac000949e176213bebef095f57381f8a467e93913f1e5fac21e30a",
+      "oracle": {
+        "trial_id": "j7zSuCd",
+        "reward": 1.0,
+        "exception": null
+      },
+      "nop": {
+        "trial_id": "V2LopFp",
+        "reward": 0.0,
+        "exception": null
+      }
+    },
+    "14-iam-role-validation": {
+      "public_task_sha256": "3a2b258e99dd6c88541dd19924126969b9743e16d5f14c577563c4126ec9400a",
+      "harbor_task_digest": "sha256:ae22255fddd9431824f524b4f79f6f4eb2ca8aede8bd2c1d449fc455ecab72fe",
+      "oracle": {
+        "trial_id": "wGJhyQp",
+        "reward": 1.0,
+        "exception": null
+      },
+      "nop": {
+        "trial_id": "YeDjNS7",
+        "reward": 0.0,
+        "exception": null
+      }
+    }
+  }
+}

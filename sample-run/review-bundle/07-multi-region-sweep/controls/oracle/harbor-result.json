@@ -1,0 +1,36 @@
+{
+  "id": "5397d226-a6cd-48a1-9865-5fbdf4a4f48e",
+  "taskName": "meteringco/multi-region-sweep",
+  "trialName": "07-multi-region-sweep__F4HRtkg",
+  "taskChecksum": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
+  "agent": {
+    "name": "oracle",
+    "version": "1.0.0",
+    "model_info": null
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0,
+      "score": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-20T01:22:06.384479Z",
+  "finishedAt": "2026-08-20T01:23:44.805303Z",
+  "environmentSetup": {
+    "started_at": "2026-08-20T01:22:09.364490Z",
+    "finished_at": "2026-08-20T01:23:14.339763Z"
+  },
+  "agentSetup": {
+    "started_at": "2026-08-20T01:23:15.715696Z",
+    "finished_at": "2026-08-20T01:23:15.715739Z"
+  },
+  "agentExecution": {
+    "started_at": "2026-08-20T01:23:15.715782Z",
+    "finished_at": "2026-08-20T01:23:21.237402Z"
+  },
+  "verifier": {
+    "started_at": "2026-08-20T01:23:29.389320Z",
+    "finished_at": "2026-08-20T01:23:44.581078Z"
+  }
+}

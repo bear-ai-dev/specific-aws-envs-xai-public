@@ -1,8 +1,8 @@
 # Sample RL Tasks for AWS - xAI
 
-This sample contains the task that remained inside the selected Grok
-calibration band in the fresh eight-run Bedrock cohort. Grok 4.6 solved 0/8
-attempts while Claude Opus 5 solved 8/8 on the same frozen task.
+This sample contains three frozen AWS tasks retained after matched eight-run
+Bedrock cohorts. Grok 4.6 solved 0/8, 6/8, and 3/8 attempts; Claude Opus 5
+solved 8/8 attempts on each corresponding task.
 
 ## Contents
 
@@ -24,6 +24,10 @@ least one of `k` sampled attempts succeeds.
 | --- | --- | ---: | ---: | ---: | ---: |
 | [Task 2](tasks/02-entitlement-overage-lines/instruction.md) | Grok 4.6 | 0/8 | 0.0000 | 0.0000 | 0.0000 |
 | [Task 2](tasks/02-entitlement-overage-lines/instruction.md) | Opus 5 | 8/8 | 1.0000 | 1.0000 | 1.0000 |
+| [Task 7](tasks/07-multi-region-sweep/instruction.md) | Grok 4.6 | 6/8 | 0.7500 | 1.0000 | 1.0000 |
+| [Task 7](tasks/07-multi-region-sweep/instruction.md) | Opus 5 | 8/8 | 1.0000 | 1.0000 | 1.0000 |
+| [Task 14](tasks/14-iam-role-validation/instruction.md) | Grok 4.6 | 3/8 | 0.3750 | 0.8214 | 1.0000 |
+| [Task 14](tasks/14-iam-role-validation/instruction.md) | Opus 5 | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 <!-- MINI_SWE_MATRIX_END -->
 
 ## Task inventory
@@ -31,99 +35,68 @@ least one of `k` sampled attempts succeeds.
 | Task | Capability exercised | Role in this sample |
 | --- | --- | --- |
 | [Task 2](tasks/02-entitlement-overage-lines/instruction.md) | Separate entitlement chargeability from statement visibility | Comparator-reachable Grok full failure |
+| [Task 7](tasks/07-multi-region-sweep/instruction.md) | Apply one region-coverage contract to every sibling inventory workflow | Secondary Grok reliability gap |
+| [Task 14](tasks/14-iam-role-validation/instruction.md) | Separate absent, invalid, and disconnect states while validating cloud access atomically | Primary Grok reliability gap |
 
-The source task number is retained in the path and raw records so every result
-continues to resolve to the exact frozen task that produced it.
+The source task numbers are retained in task paths, headings, review bundles,
+and recorded trial names so every result resolves to the exact frozen task that
+produced it.
 
 ## How to interpret the results
 
-Task 2 is the only observed Grok-specific gap in this sample. The same frozen
-task and verifier produced no Grok solves and eight Opus solves. This establishes
-reachability and a measured difference in this cohort; it does not by itself
-identify the reason for that difference.
+All three tasks are comparator-reachable: Opus solved all eight attempts in
+every cell under the same task, verifier, harness, agent, provider, and
+reasoning settings used for Grok. Task 2 is a repeated full failure. Tasks 7
+and 14 show that Grok can solve the task, but does so less reliably than Opus.
 
-See [the full cohort interpretation](sample-run/analysis.md) for the evidence
-boundary and validity checks.
+The successful Grok runs are not accidental verifier passes. On Task 7 they
+route both volume and snapshot collection through the multi-region sweep. On
+Task 14 they explicitly distinguish an omitted cloud block from an invalid
+present block. The failed runs omit those exact behaviors. The measured gap is
+therefore completeness and consistency, not basic AWS API knowledge.
+
+See [the full cohort analysis](sample-run/analysis.md) for trial links,
+attribution evidence, and validity boundaries.
 
 ## Failure mode analysis
 
-### Business-logic gap: chargeability and invoice visibility were collapsed
+### Task 2: chargeability and invoice visibility were collapsed
 
-The task defines two separate decisions for each dimension:
+All eight Grok submissions calculated allowance and overage quantities, then
+made positive owed quantity a prerequisite for every invoice line. That drops
+zero-priced dimensions even when invoice settings say to show them. All eight
+Opus submissions kept chargeability and visibility separate.
 
-1. **Chargeability:** calculate the quantity the customer owes for after applying
-   allowances and overage rules.
-2. **Invoice visibility:** if the dimension is priced at zero, include its line
-   unless the invoice settings explicitly hide free dimensions. The line remains
-   visible even when the calculated quantity is zero.
+[Task 2 representative Grok trace](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-07/agent/mini-swe-agent.txt)
+and
+[paired Opus deliverable](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-05/verifier/deliverable/offering/entities/offeringPackage.entity.ts)
 
-All eight Grok submissions found the relevant invoice-line code and calculated
-the allowance and overage quantities correctly. They then made positive owed
-quantity a prerequisite for every line. One representative final implementation
-contains this gate:
+### Task 7: one sibling inventory workflow was left behind
 
-```ts
-if (!Number.isFinite(owedQuantity) || owedQuantity <= 0) {
-    return false;
-}
-if (unitCost === 0 && settings?.freeDimensionOnInvoice === FreeDimensionOnInvoice.hide) {
-    return false;
-}
-return true;
-```
+The two failed Grok runs implemented region discovery, retry handling, failure
+isolation, pagination, and empty-region reporting for volumes, but left
+snapshots on the original single-region path. The six solving Grok runs and all
+eight Opus runs used a shared region-sweep abstraction for both resource kinds.
 
-[Representative Grok final deliverable](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-01/verifier/deliverable/offering/entities/offeringPackage.entity.ts)
+[Task 7 failed Grok trace](sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-01.json),
+[solving Grok change](sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-02/awsEc2.ts),
+and
+[paired Opus trace](sample-run/review-bundle/07-multi-region-sweep/trajectories/opus/trial-01.json)
 
-This ordering means the free-dimension setting is never considered when the
-quantity owed is zero. One Grok trajectory made the same interpretation explicit
-in an ad hoc assertion:
+### Task 14: an omitted optional block was treated as invalid
 
-```ts
-assert(
-    Offering.shouldIncludeDimensionLine({
-        quantity: 0,
-        unitCost: 0,
-        settings: { freeDimensionOnInvoice: FreeDimensionOnInvoice.show } as any,
-    }) === false,
-    'zero free quantity hidden even when show',
-);
-```
+Five Grok runs correctly implemented role assumption, external-ID handling,
+instance-inventory permission checks, atomic rejection, and disconnect. They
+still rejected an ordinary settings update carrying no `cloudIAM` block. Their
+property-existence check observed the transformed DTO's own `cloudIAM` property
+with value `undefined`, collapsing "absent" into "present but invalid." The
+three solving Grok runs and all eight Opus runs gated validation on an actual
+value and preserved the existing setting when the block was absent.
 
-[Grok trajectory containing the assertion](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-07/agent/mini-swe-agent.txt)
-
-The solving Opus submissions kept the two decisions separate. A representative
-implementation first handles a zero-priced dimension according to the invoice
-setting, and applies the positive-quantity test only to dimensions with a
-non-zero price:
-
-```ts
-if (isFreeDimension) {
-    if (hideFreeDimensions) {
-        return;
-    }
-} else if (!(owed > 0)) {
-    return;
-}
-```
-
-[Representative Opus final deliverable](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-05/verifier/deliverable/offering/entities/offeringPackage.entity.ts)
-
-The behavioral consequence was identical in all eight Grok trials. Each
-submission produced otherwise valid invoice results but omitted five required
-zero-priced, zero-quantity lines across four customers in the `solstice-july`
-run:
-
-- `solstice-model-invocations` for `cus_cobalt` and `cus_vesper`;
-- `solstice-retention-days` for `cus_dunmore` and `cus_juniper`; and
-- `solstice-bandwidth-gigabytes` for `cus_juniper`.
-
-[Representative verifier report](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-01/verifier/report.txt)
-
-This supports a narrow gap in translating multi-part business rules into a
-complete decision table. The useful training target is to enumerate the
-cross-product of price (`zero` or `non-zero`), owed quantity (`zero` or
-positive), and invoice setting (`show` or `hide`) before implementing or testing
-the branch logic.
+[Task 14 failed Grok trace](sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-01.json),
+[solving Grok change](sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-06/settings.service.ts),
+and
+[paired Opus trace](sample-run/review-bundle/14-iam-role-validation/trajectories/opus/trial-01.json)
 
 The evidence score gives equal weight to requirement knowability, behavioral
 verifier validity, repetition, and attribution after infrastructure effects are
@@ -131,45 +104,38 @@ excluded.
 
 | Training gap | Evidence score | Decision | Evidence | Training target |
 | --- | ---: | --- | --- | --- |
-| Separate chargeability from statement visibility | 100/100 | Retain | Explicit requirement; identical missing-line consequence in 8/8 valid Grok trials; matched Opus solves in 8/8 trials; no infrastructure exceptions | Build and test the complete business-rule decision table before coding |
+| Separate chargeability from statement visibility | 100/100 | Retain | Explicit requirement; identical missing-line consequence in 8/8 valid Grok trials; matched Opus solves in 8/8 trials | Build and test the complete business-rule decision table before coding |
+| Apply a changed contract to every sibling workflow | 90/100 | Retain | Two Grok failures repair volumes but leave snapshots single-region; six Grok and eight Opus counterexamples cover both | Enumerate every function owning the behavior, then test each workflow |
+| Distinguish absent, invalid, and disconnect states | 95/100 | Retain | Five Grok failures collapse absent and present-empty states; three Grok and eight Opus counterexamples separate them | Write the optional-state matrix before implementing validation and persistence |
 
 ## Evidence and controls
 
 - **Harness:** Harbor 0.18.0 with mini-SWE-agent 2.4.5 in isolated Daytona
   sandboxes at high reasoning effort.
-- **Routes:** Grok 4.6 and Claude Opus 5 through Amazon Bedrock. Each model uses
-  the same frozen task image and binary verifier.
-- **Denominator:** All 16 packaged model trials have a numeric reward, complete
-  trajectory, complete verifier artifact, and no Harbor exception.
-- **Controls:** The matching oracle run scores `1.0`; the matching no-op run
-  scores `0.0`. These controls were rerun after the public identifier
-  normalization.
-- **Raw evidence:**
+- **Routes:** Grok 4.6 and Claude Opus 5 through Amazon Bedrock.
+- **Denominator:** All 48 packaged model trials have a numeric reward, complete
+  native trajectory, complete verifier evidence, and no Harbor exception.
+- **Controls:** Every task has an oracle reward of `1.0` and a no-op reward of
+  `0.0`. Recorded-runtime controls are included with the review bundles. A
+  separate [post-normalization control manifest](sample-run/manifests/public-controls-validation.json)
+  records a clean six-trial Docker rerun on the runnable public tasks.
+- **Task 2 raw evidence:**
   [`sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/`](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/)
-  contains all 16 model attempts. Its folders are labeled `grok-4.6-trial-01`
-  through `08` and `opus-5-trial-01` through `08`, in chronological order
-  within each model. Matching controls are in
-  [`sample-run/raw/xai-public-controls-20260819/`](sample-run/raw/xai-public-controls-20260819/).
+  contains all 16 full Harbor attempts.
+- **Tasks 7 and 14 evidence:** their complete trajectories, final Grok changes,
+  touched files, raw verifier observations, rewards, stdout, held-out scoring
+  assets, and controls are in the
+  [`review bundle`](sample-run/review-bundle/).
 - **Machine-readable index:**
   [`sample-run/indexes/trials.json`](sample-run/indexes/trials.json) resolves
-  every matrix row to its trajectory and verifier result.
-- **Reviewer bundle:**
-  [`Grok 4.6 review bundle`](sample-run/review-bundle/)
-  contains every file Grok directly touched, each Grok trial's final changed
-  files, all eight Grok and eight Opus native JSON trajectories, the complete
-  verifier execution and scoring assets, and every trial's human-readable
-  verification report.
+  every matrix cell to its trajectory and verifier result.
 - **Frozen inputs:**
   [`sample-run/manifests/frozen-cohort.json`](sample-run/manifests/frozen-cohort.json)
-  records task, harness, and runtime checksums.
+  records task, harness, runtime, and recorded-evidence checksums.
 - **Publication normalization:**
   [`sample-run/manifests/public-transformation.json`](sample-run/manifests/public-transformation.json)
-  records the identifier-only transformation applied consistently to the task
-  and captured evidence. Task requirements, numeric fixtures, model outputs,
-  verifier rewards, and trial ordering are unchanged.
-- **Redaction:**
-  [`sample-run/indexes/redaction-manifest.json`](sample-run/indexes/redaction-manifest.json)
-  records the credential and local-path scrub applied before publication.
+  records the identifier-only transformation applied consistently to the tasks
+  and captured evidence.
 
 ## Reproduction
 

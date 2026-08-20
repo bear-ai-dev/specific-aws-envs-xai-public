@@ -1,0 +1,2254 @@
+{
+  "bundles": {
+    "07-multi-region-sweep": {
+      "bundle_sha256": "c742f18184acd6726dc6029811101a51fff539e81ed45053fccdea5d4a15042f",
+      "controls": {
+        "nop": 0.0,
+        "oracle": 1.0
+      },
+      "counts": {
+        "grok_trajectories": 8,
+        "grok_verification_results": 8,
+        "opus_trajectories": 8,
+        "opus_verification_results": 8,
+        "published_files": 212,
+        "touched_file_snapshots": 69
+      },
+      "files": [
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/README.md",
+          "sha256": "16d433f569a594eb46d27f5021d0ec970215d85ed73bffd283afef8e0725fa59",
+          "size_bytes": 5362
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/controls/nop/harbor-result.json",
+          "sha256": "aff026440caadd08f4c39eeddab17b4831564ec7cda3ba34360f93f40de915d0",
+          "size_bytes": 1017
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/controls/nop/verifier/observed.json",
+          "sha256": "20c25bfe4962470879c7d73fa3ca0e1ac7b3b3260e29433d47221aea876634bb",
+          "size_bytes": 413
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/controls/nop/verifier/report.txt",
+          "sha256": "5474f48f0af19a3812e76825e70ff77fa98adcb204a59f0914e02176ba3f2a59",
+          "size_bytes": 266
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/controls/nop/verifier/reward.json",
+          "sha256": "3cc7c85354d48e58389806dd160d251fb096338ddaa168a7148b95297feb2250",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/controls/nop/verifier/reward.txt",
+          "sha256": "51ff0d2f0d3a5d61edec31785532ea0d570f8c348d58b15b94ff9c2ca6e926a4",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/controls/nop/verifier/test-stdout.txt",
+          "sha256": "d8394d9972eeda913ba452ebe587ef00ed77e10177daeb8b18c03ba0f03ab328",
+          "size_bytes": 438
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/controls/oracle/agent.txt",
+          "sha256": "4677e723ff589977bc75464c2c67d07bdf92fc875858339e5771393d672f1236",
+          "size_bytes": 146
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/controls/oracle/harbor-result.json",
+          "sha256": "f9237a46ef4842d14a49eccce5596cbc05ce9daa25aa91a9137b3578d203abbc",
+          "size_bytes": 1020
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/controls/oracle/verifier/observed.json",
+          "sha256": "f5b96b3be9bcf1a7aed98f459224eb006b385b29db008f5f6245ab64621ef61d",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/controls/oracle/verifier/report.txt",
+          "sha256": "f833d0d86746e52e900712a43e86b7c03e7fe0ca8c4d56cb235cb76aed5d8495",
+          "size_bytes": 11
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/controls/oracle/verifier/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/controls/oracle/verifier/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/controls/oracle/verifier/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-01/awsEc2.spec.ts",
+          "sha256": "b22525270b0a16918c2aaa186cff2cd8c23ba3c1ae70b07f347ae6bca5cf4b1b",
+          "size_bytes": 3983
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-01/awsEc2.ts",
+          "sha256": "a31ca301fcca8b14fb95b03dae2d5a8051e8f0acb76a2e9e3512fd96c48b01f3",
+          "size_bytes": 10941
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-02/awsEc2.ts",
+          "sha256": "1f82e65ba9251e038c5270224a090cdbc2e5451fd9f4cb59711aeac0fa217599",
+          "size_bytes": 10553
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-03/awsEc2.spec.ts",
+          "sha256": "acbfc036a93a7aaa66a4212714924d2ef206ded820e53a20da46841dbbda9dcc",
+          "size_bytes": 4702
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-03/awsEc2.ts",
+          "sha256": "e165b89215f5735a22e5f2f3276e62dbafc00aad350eec8f5f1dcf8e8bd1fdfa",
+          "size_bytes": 10570
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-04/awsEc2.ts",
+          "sha256": "d18b19435e90aadc33773317f329a20b2d694b8c917129b2fb9acbe68ca4cf15",
+          "size_bytes": 10555
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-05/awsEc2.ts",
+          "sha256": "9754d46cb3a50d8ed5d2b3cdc1e8d80b4a3180c0654a9d8dc34627d96dfe7a9f",
+          "size_bytes": 11537
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-06/awsEc2.spec.ts",
+          "sha256": "a35df75250f4dec9c2cc9f22fb5aa470f09425fa12b52715224afef6102b637e",
+          "size_bytes": 5291
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-06/awsEc2.ts",
+          "sha256": "c3576726a997a679f72ca9863105c6b3643463cef1526bf289de89b5c8aa8a2e",
+          "size_bytes": 11639
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-07/awsEc2.spec.ts",
+          "sha256": "6de4853ef6fc4be9e879726da2d3a00c35ac12b5c51c67827958015eade25947",
+          "size_bytes": 6033
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-07/awsEc2.ts",
+          "sha256": "b2b4671c4197b41f58f1cc985444ffb4937bb35824ddf47dc47d2282ddc47507",
+          "size_bytes": 9830
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/grok-solution/trial-08/awsEc2.ts",
+          "sha256": "96c75f7b0dc6eeb5b796b7d7fce310e2b255245365c5b6630696a38b72400ac8",
+          "size_bytes": 10644
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-01/app/src/utils/aws/awsEc2.spec.ts",
+          "sha256": "e3fb611a1dc7c9af9fb4dccc1d07b00524d437454607f3a9776120e2ae083e9b",
+          "size_bytes": 3995
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-01/app/src/utils/aws/awsEc2.ts",
+          "sha256": "a31ca301fcca8b14fb95b03dae2d5a8051e8f0acb76a2e9e3512fd96c48b01f3",
+          "size_bytes": 10941
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-01/tmp/probe-all.js",
+          "sha256": "8312281edb9f8cd2c14c3a8a65e36b6fe6e4e7bbf6076f3974adc03e645fb40a",
+          "size_bytes": 1769
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-01/tmp/probe-aws.js",
+          "sha256": "b354393494bd1588d1a9559153ab077393d47a631cce769d33620a5da21362de",
+          "size_bytes": 1655
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-01/tmp/probe-create.js",
+          "sha256": "8b5d5953d027c5c1e66bdb5aff3cce96d8a579ba7a7a19b9459e661205a1ee28",
+          "size_bytes": 1087
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-01/tmp/probe-error-shape.js",
+          "sha256": "ec6444ac9561b8ccfb21f6b6b81e072cedaeb674a825d1bfc0cc1f08f5d429d3",
+          "size_bytes": 801
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-01/tmp/probe-more.js",
+          "sha256": "885a0b639e760dd2674d2bf31afe3a8f3c24cfdf91a0413d5c003555cbc4befd",
+          "size_bytes": 1516
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-01/tmp/probe-no-endpoint.js",
+          "sha256": "b7f0cb4784955fcb431a41156eecce07c587823cdd5c0a97fd3d8b8e1fe9beb4",
+          "size_bytes": 1008
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-01/tmp/probe-regions.js",
+          "sha256": "e205e41a64e7b8289ec2900e0230dce5435092ef655d1a12d1f441dda85890eb",
+          "size_bytes": 1581
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-01/tmp/probe-sa.js",
+          "sha256": "4c358fecbad76d22e48e9a9de54c73314fbfd4a47c9babcd58d8c98df99ab284",
+          "size_bytes": 1105
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-01/tmp/repro-getAllVolumes.mjs",
+          "sha256": "cb5ef34a7fb6a737c364d8bc2fc153a7639cfd94c75f3bd241d0d5813e2c0694",
+          "size_bytes": 1042
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-01/tmp/verify-getAllVolumes.ts",
+          "sha256": "0dbe328bc84ba48d606ede0d7ab3948b63144dcc2ccee32c279661023619e7d7",
+          "size_bytes": 1001
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-02/app/probe-ec2.mjs",
+          "sha256": "591fa23d4b62a3e610c41785f8a6f7c48ad25b8fe576509c006b0420d7fb5a01",
+          "size_bytes": 2261
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-02/app/repro-getAllVolumes.mjs",
+          "sha256": "949cd3cc7aa2de0fefd926ce3d9fc2bd07a94b84cc57744a2fb08f15d94cde24",
+          "size_bytes": 1230
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-02/app/repro-getAllVolumes.ts",
+          "sha256": "7ecba13056f28b07d1259282b2b7204b8c66f45a5ccaee1cd882af1f9c06da13",
+          "size_bytes": 1817
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-02/app/src/utils/aws/awsEc2.ts",
+          "sha256": "1f82e65ba9251e038c5270224a090cdbc2e5451fd9f4cb59711aeac0fa217599",
+          "size_bytes": 10553
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-02/app/verify-inventory.ts",
+          "sha256": "abe0e6d06cbbc5dea903bfc0aa4c2e5a13ed580ecba55cb0d5a19b456672b6ce",
+          "size_bytes": 2543
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-02/tmp/probe-ec2.mjs",
+          "sha256": "591fa23d4b62a3e610c41785f8a6f7c48ad25b8fe576509c006b0420d7fb5a01",
+          "size_bytes": 2261
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-02/tmp/verify-inventory.ts",
+          "sha256": "abe0e6d06cbbc5dea903bfc0aa4c2e5a13ed580ecba55cb0d5a19b456672b6ce",
+          "size_bytes": 2543
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-03/app/probe-aws.mjs",
+          "sha256": "cfc53dc6b9da0f879dcf9eaeb245a78fcfbbe116af3abfcaa86a2c16ce040a0f",
+          "size_bytes": 1446
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-03/app/probe-getall.mjs",
+          "sha256": "458d4a738153de60a8ed9ee023aeceab58a38049026d0c7681b0e2dfa86e8eba",
+          "size_bytes": 1745
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-03/app/probe-more.mjs",
+          "sha256": "2ec2806e0c222cd8a6d9790a64f70cffaabf7cd6c0628b4f300c95f1dfd7202d",
+          "size_bytes": 2498
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-03/app/probe-no-endpoint.mjs",
+          "sha256": "03bed174aec3c1164e3edf5954492874cbf41520fe377f83d836737a2b593017",
+          "size_bytes": 892
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-03/app/probe-volumes.mjs",
+          "sha256": "f6170a9abbfe8e411218af9b339c83cc77552178995f983f8168e46d9e877e13",
+          "size_bytes": 2020
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-03/app/probe-volumes2.mjs",
+          "sha256": "817f108b222e322eb15f82c53deaba5af5861f1d9a0154cfecd6fe6b54ca7ae4",
+          "size_bytes": 1785
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-03/app/src/utils/aws/awsEc2.spec.ts",
+          "sha256": "acbfc036a93a7aaa66a4212714924d2ef206ded820e53a20da46841dbbda9dcc",
+          "size_bytes": 4702
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-03/app/src/utils/aws/awsEc2.ts",
+          "sha256": "e165b89215f5735a22e5f2f3276e62dbafc00aad350eec8f5f1dcf8e8bd1fdfa",
+          "size_bytes": 10570
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-03/tmp/probe-aws.mjs",
+          "sha256": "a60e510f1f03ccc274d353b4d15164d8dbfaba1644570e83bf8b681d964bd96d",
+          "size_bytes": 1280
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/app/src/utils/aws/awsEc2.ts",
+          "sha256": "d18b19435e90aadc33773317f329a20b2d694b8c917129b2fb9acbe68ca4cf15",
+          "size_bytes": 10555
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/create_vol.js",
+          "sha256": "26a2bb6edb48698213becdb37cfb04e300d3a160d22b8aa7a6086cd00c215168",
+          "size_bytes": 571
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/error_shape.js",
+          "sha256": "10807fe3468febcdb2263a1bbd65bd0d8e1201de62570ad4197fbe3a62d2a77b",
+          "size_bytes": 852
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/probe_all.js",
+          "sha256": "ab42595f51869339795fa06e195ac5fa4be04e4c8f15590bcc8b7aad6f41a2dc",
+          "size_bytes": 1788
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/probe_no_endpoint.js",
+          "sha256": "c5b2491ba5e99b2d9bd78c8574b07bc38bdd334881e2be5dcb4be3d20b7f66bf",
+          "size_bytes": 741
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/probe_regions.js",
+          "sha256": "a83e6ad87fefc45b95458ed96e913d2803b291a9634f5d6bd4d0beb503f47c74",
+          "size_bytes": 2018
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/probe_regions2.js",
+          "sha256": "b986cb0e5bec4fd5e06d4049e8f0d749f21db16f71f6a3a853973e27d6dffde9",
+          "size_bytes": 1406
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/probe_regions3.js",
+          "sha256": "3aed2e43548cb7e5172c8ebbd17148b705e1eabf9e5297c960f46a0bd36f2558",
+          "size_bytes": 2069
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/sa_east_retry.js",
+          "sha256": "cddf74a159a8abcc90e64ec0da5056a9418d17bc2e4b1e517f466db1e9dba9de",
+          "size_bytes": 588
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/sa_pattern.js",
+          "sha256": "f4660308326aeec50605f368565377d39ff0b6e72d1e991ca946cedc77dd9343",
+          "size_bytes": 1175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/test_getall.mjs",
+          "sha256": "c154021c6a7e347a4d7f31496c5e22cd2f05ba68e676f675d31d2ba47bb48d55",
+          "size_bytes": 253
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/test_getall.ts",
+          "sha256": "cb251c552fcf48c50d3b3106c4a9ec6a77992bc4f7dde1b04062138aa4bda841",
+          "size_bytes": 816
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/test_getall2.ts",
+          "sha256": "be68df2d668494ad769e0b6c97aed4e312fc496fbe1deef571d09dc55c0a6acb",
+          "size_bytes": 844
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/test_getall3.ts",
+          "sha256": "652f9c8dda338ced01cfd969d8556d17ec0bc3ccd766cb3f842ecdbb2b48c467",
+          "size_bytes": 4063
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/test_regions.js",
+          "sha256": "171fb9487d8bd947bf4d2332ed25dc7f4db34e5e9efb2012c6df75aeb7f4edce",
+          "size_bytes": 1270
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-04/tmp/verify_inventory.js",
+          "sha256": "1a1baf833243225651bae57d807ee0b0bab3b3996828b1c0dd19b2af885598e8",
+          "size_bytes": 3539
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-05/app/probe.mjs",
+          "sha256": "bd087236e89aa7082d507e0d5a7389b23af67109bbfbaeb6f56eec317a1090c1",
+          "size_bytes": 2292
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-05/app/repro-block-storage.cjs",
+          "sha256": "16f7a8b9f8bb332aa557d865f484ffeb80aa92a1e89a88f69e6b6d205c198349",
+          "size_bytes": 1750
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-05/app/repro-block-storage.js",
+          "sha256": "5df4c0303ef331364541e015af0e16f388cce3fcdabaa8b45fc052580e96b9a9",
+          "size_bytes": 1429
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-05/app/repro-block-storage.mts",
+          "sha256": "c483a35030ecfa04c2673ae096cbe78689c5c34bb5a95f4e47849fb06b2c5061",
+          "size_bytes": 1618
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-05/app/src/utils/aws/awsEc2.ts",
+          "sha256": "9754d46cb3a50d8ed5d2b3cdc1e8d80b4a3180c0654a9d8dc34627d96dfe7a9f",
+          "size_bytes": 11537
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-05/tmp/probe.mjs",
+          "sha256": "bd087236e89aa7082d507e0d5a7389b23af67109bbfbaeb6f56eec317a1090c1",
+          "size_bytes": 2292
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-05/tmp/repro-block-storage.js",
+          "sha256": "0a3c1585c00da6706458b364a5dd4130d803033204400cbf0d904e2fcc7aac1f",
+          "size_bytes": 1445
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-05/tmp/repro-block-storage.mts",
+          "sha256": "04a47e9619d251815ffce3e1d23b8962985f06e59a618eec49fd274c7a0512a9",
+          "size_bytes": 2107
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-06/app/probe-ec2.mjs",
+          "sha256": "b6c66d7f914a557d984111432a5312ea3300a94a33282ee1301f6d095c047e0d",
+          "size_bytes": 1924
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-06/app/repro-compiled.cjs",
+          "sha256": "64d0556bdb3649de46cbc92f5e9b98f5f63d57b02440e4a1319c2a7996099717",
+          "size_bytes": 1901
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-06/app/reproduce-ebs-inventory.mjs",
+          "sha256": "98f518da307308f289bc2d4a2a3536ae8e2597aea3f88f840012121c0a9bdeaf",
+          "size_bytes": 3260
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-06/app/src/utils/aws/awsEc2.spec.ts",
+          "sha256": "4169e3acf933cffc1d73dab38c89d9395941a4fc36e79acb30c0cdb7d83550c3",
+          "size_bytes": 5301
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-06/app/src/utils/aws/awsEc2.ts",
+          "sha256": "c3576726a997a679f72ca9863105c6b3643463cef1526bf289de89b5c8aa8a2e",
+          "size_bytes": 11639
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-06/tmp/probe-ec2.mjs",
+          "sha256": "b6c66d7f914a557d984111432a5312ea3300a94a33282ee1301f6d095c047e0d",
+          "size_bytes": 1924
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-06/tmp/repro-compiled.cjs",
+          "sha256": "6f6710a45baf68c26f26776b0ed3c1e120a4cacd9a4ea0576088475b159e3f67",
+          "size_bytes": 1911
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-07/app/probe-ec2.mjs",
+          "sha256": "15be258e2cc3a80d25e203f2156b0ffc828cd041e3dfea65ea317ca3889bbffb",
+          "size_bytes": 865
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-07/app/reproduce-getAllVolumes.mjs",
+          "sha256": "5c5df59da2956a78c246af11d57d1d72e46683fb0792975db16e472a710415d9",
+          "size_bytes": 1139
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-07/app/src/utils/aws/awsEc2.spec.ts",
+          "sha256": "6de4853ef6fc4be9e879726da2d3a00c35ac12b5c51c67827958015eade25947",
+          "size_bytes": 6033
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-07/app/src/utils/aws/awsEc2.ts",
+          "sha256": "b2b4671c4197b41f58f1cc985444ffb4937bb35824ddf47dc47d2282ddc47507",
+          "size_bytes": 9830
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-07/app/test-getAllVolumes.mjs",
+          "sha256": "2099c82b96846b1808f6a02d284dbf5ea3a50f119d54cf847088a64b238a2271",
+          "size_bytes": 145
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-07/app/test-getAllVolumes.ts",
+          "sha256": "5a652ce53670aa85db35d4b4ddbedfa96959b47fb92e00a3b3337ed4c6f4adf6",
+          "size_bytes": 1174
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-07/tmp/probe-ec2.mjs",
+          "sha256": "6a29efc11145cffd01a0e14221c3e846402ba68dfa83830514ab6144957632ba",
+          "size_bytes": 1101
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-08/app/reproduce-ebs-inventory.ts",
+          "sha256": "c915651dcc4c9a60f209531269c7c5560ab3686ec3a46b49b468cb8102c6a480",
+          "size_bytes": 666
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-08/app/src/utils/aws/awsEc2.ts",
+          "sha256": "96c75f7b0dc6eeb5b796b7d7fce310e2b255245365c5b6630696a38b72400ac8",
+          "size_bytes": 10644
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/touched-files/trial-08/tmp/test-ebs-inventory.ts",
+          "sha256": "c915651dcc4c9a60f209531269c7c5560ab3686ec3a46b49b468cb8102c6a480",
+          "size_bytes": 666
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-01.json",
+          "sha256": "ba2e787a4ac3358e5f8098ac636da30e997e45370bf5682ceebd8ccc3162aa1c",
+          "size_bytes": 2697416
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-02.json",
+          "sha256": "39dd69c3a8ddc1243facfe9c5407173c58d3f4ea739a7fbf363a3a6baae1c6a2",
+          "size_bytes": 1434100
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-03.json",
+          "sha256": "d64c51ac9f177fcb506733cde675438091241db331df785fc2bcfc49f0744cfb",
+          "size_bytes": 1447058
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-04.json",
+          "sha256": "783186c4f66abcb80d6c3ad6484fbaf933af315295cb362aa7967e93badc3c8e",
+          "size_bytes": 1259557
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-05.json",
+          "sha256": "bf5f73eb72b881e887f59b207d0730c9ecbfce1d39dabf06bc7b1e1117f73035",
+          "size_bytes": 1539476
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-06.json",
+          "sha256": "cae81c132322de4a9a2e8814aaf3ce4c4491f0dfb5556c903f78607ae2e593b4",
+          "size_bytes": 1583648
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-07.json",
+          "sha256": "ab0266b3531312521842ee714da9cf1397ab1a5866c90eda986edb97e45b77ff",
+          "size_bytes": 1041643
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-08.json",
+          "sha256": "004523c9ea395c3bd751be619d49262f971d15e642b89a54c1910f97c59b81e8",
+          "size_bytes": 1194547
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/opus/trial-01.json",
+          "sha256": "6cc822dbb959f93dec9463f973f4b33ce249d8e9f7a946aa07636e1b5dcb8bce",
+          "size_bytes": 768388
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/opus/trial-02.json",
+          "sha256": "5eec6af68883500a7f3c846be6d1de480d969b41b777161208c5655b021417d3",
+          "size_bytes": 305944
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/opus/trial-03.json",
+          "sha256": "0096743f3fe3f6fd11425140eb265da3634ea5ecfaf155c2847148b78249ae59",
+          "size_bytes": 362749
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/opus/trial-04.json",
+          "sha256": "a5047dee1824ff907261611cacab999d4851bd01cc16073c3bfbf0784221619e",
+          "size_bytes": 573040
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/opus/trial-05.json",
+          "sha256": "11e5817b923c743829bf1da2a8b6e75fcae0c11529dbcf7f9ad08dd48c7ff697",
+          "size_bytes": 551792
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/opus/trial-06.json",
+          "sha256": "a4e0c30803b0f80dbb13862b3b8d4d0e8d3562f77ba25d01746b088af4e8b8de",
+          "size_bytes": 686554
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/opus/trial-07.json",
+          "sha256": "2ecb08dd2dae00c9fcedc25ea0a425602ebfc1669bed507ae761dd26d1abc491",
+          "size_bytes": 474100
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/opus/trial-08.json",
+          "sha256": "02ec9acbdf7367719c942f392ce489297ed93fc5cf9bb75b034aa6989980cee7",
+          "size_bytes": 709404
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-01/harbor-result.json",
+          "sha256": "794b37e07d6530a6de41dff1effd402ac68e75f9be8f9a98a6b5a51570338e73",
+          "size_bytes": 1101
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-01/observed.json",
+          "sha256": "f7136027f6206ddf60f74e64611c24b595b0dc4b3c4ed178a928044d6a363f31",
+          "size_bytes": 957
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-01/report.txt",
+          "sha256": "7e795698bbe8c625482d5b023528ab94462f59ed5d4e2496a959f7c3b6fe0fc5",
+          "size_bytes": 450
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-01/reward.json",
+          "sha256": "3cc7c85354d48e58389806dd160d251fb096338ddaa168a7148b95297feb2250",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-01/reward.txt",
+          "sha256": "51ff0d2f0d3a5d61edec31785532ea0d570f8c348d58b15b94ff9c2ca6e926a4",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-01/test-stdout.txt",
+          "sha256": "9aa26a5589ad609c298210e0234e54a0b5f779e59d765357d1171eb50734370c",
+          "size_bytes": 304
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-02/harbor-result.json",
+          "sha256": "d7ab540f063301b5b41e1dd77dc8cb35d93c803d75b25671e04cbb8487a5ec66",
+          "size_bytes": 1101
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-02/observed.json",
+          "sha256": "f5b96b3be9bcf1a7aed98f459224eb006b385b29db008f5f6245ab64621ef61d",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-02/report.txt",
+          "sha256": "cad0c4afccfd5a2d69e363d58167957d1effb0ab3565f8fed51ed3691bf631af",
+          "size_bytes": 426
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-02/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-02/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-02/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-03/harbor-result.json",
+          "sha256": "f4abc45f3d4fa28db425bd49c23446b457988f3113da5ccc836e07f6c7fe59a0",
+          "size_bytes": 1101
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-03/observed.json",
+          "sha256": "f5b96b3be9bcf1a7aed98f459224eb006b385b29db008f5f6245ab64621ef61d",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-03/report.txt",
+          "sha256": "cad0c4afccfd5a2d69e363d58167957d1effb0ab3565f8fed51ed3691bf631af",
+          "size_bytes": 426
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-03/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-03/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-03/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-04/harbor-result.json",
+          "sha256": "6bbd29788ae2d5cdccfaf5e178903cbc8ff9ca86e648c06facbd89647ed17c80",
+          "size_bytes": 1101
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-04/observed.json",
+          "sha256": "f5b96b3be9bcf1a7aed98f459224eb006b385b29db008f5f6245ab64621ef61d",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-04/report.txt",
+          "sha256": "cad0c4afccfd5a2d69e363d58167957d1effb0ab3565f8fed51ed3691bf631af",
+          "size_bytes": 426
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-04/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-04/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-04/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-05/harbor-result.json",
+          "sha256": "388d8da630eeda6e89a8badd2d8da9518fc59c6290ce43d6907be321261f81b7",
+          "size_bytes": 1101
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-05/observed.json",
+          "sha256": "f5b96b3be9bcf1a7aed98f459224eb006b385b29db008f5f6245ab64621ef61d",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-05/report.txt",
+          "sha256": "cad0c4afccfd5a2d69e363d58167957d1effb0ab3565f8fed51ed3691bf631af",
+          "size_bytes": 426
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-05/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-05/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-05/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-06/harbor-result.json",
+          "sha256": "75264c275faaacfcfdc1ca5766e8cbeab4683571af9e701539800ea3bf759335",
+          "size_bytes": 1101
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-06/observed.json",
+          "sha256": "649104764214fd64d09fb9499c2835d60d55e473ce53f2cdec8c4feb5c251d20",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-06/report.txt",
+          "sha256": "cad0c4afccfd5a2d69e363d58167957d1effb0ab3565f8fed51ed3691bf631af",
+          "size_bytes": 426
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-06/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-06/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-06/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-07/harbor-result.json",
+          "sha256": "6b05d6a4d64609b52d38ee676e51fb83ba3ad0d766ecbf445535e81c27222b5c",
+          "size_bytes": 1101
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-07/observed.json",
+          "sha256": "817025228538ecad10545779cd8ba53a8f352025d670bc72773cc07a2c2049a9",
+          "size_bytes": 957
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-07/report.txt",
+          "sha256": "7e795698bbe8c625482d5b023528ab94462f59ed5d4e2496a959f7c3b6fe0fc5",
+          "size_bytes": 450
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-07/reward.json",
+          "sha256": "3cc7c85354d48e58389806dd160d251fb096338ddaa168a7148b95297feb2250",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-07/reward.txt",
+          "sha256": "51ff0d2f0d3a5d61edec31785532ea0d570f8c348d58b15b94ff9c2ca6e926a4",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-07/test-stdout.txt",
+          "sha256": "9aa26a5589ad609c298210e0234e54a0b5f779e59d765357d1171eb50734370c",
+          "size_bytes": 304
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-08/harbor-result.json",
+          "sha256": "a6e0ff9597b6f57d4da4efd6c6a511de1f3c370239c2335fc170a93ab78b2daa",
+          "size_bytes": 1101
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-08/observed.json",
+          "sha256": "a9fa5a181089c552e590ab4213fb31f1d399a4e453d304c89f6134bcafd0b4c3",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-08/report.txt",
+          "sha256": "cad0c4afccfd5a2d69e363d58167957d1effb0ab3565f8fed51ed3691bf631af",
+          "size_bytes": 426
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-08/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-08/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/grok/trial-08/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-01/harbor-result.json",
+          "sha256": "e61c458c94761b08995788ec12a45bef0542df8f869e4a9e7bc381fdea4b7cc8",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-01/observed.json",
+          "sha256": "f5b96b3be9bcf1a7aed98f459224eb006b385b29db008f5f6245ab64621ef61d",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-01/report.txt",
+          "sha256": "cad0c4afccfd5a2d69e363d58167957d1effb0ab3565f8fed51ed3691bf631af",
+          "size_bytes": 426
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-01/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-01/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-01/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-02/harbor-result.json",
+          "sha256": "11d4d70edaf3c95446cdbeec8f80c3fd24f7acdbab9020c313d85ad16e881a94",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-02/observed.json",
+          "sha256": "f5b96b3be9bcf1a7aed98f459224eb006b385b29db008f5f6245ab64621ef61d",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-02/report.txt",
+          "sha256": "cad0c4afccfd5a2d69e363d58167957d1effb0ab3565f8fed51ed3691bf631af",
+          "size_bytes": 426
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-02/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-02/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-02/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-03/harbor-result.json",
+          "sha256": "0d7f857a6da46bdeaaeb1d59ff5c8ff6094a57d78447287cce75df75af773f39",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-03/observed.json",
+          "sha256": "f5b96b3be9bcf1a7aed98f459224eb006b385b29db008f5f6245ab64621ef61d",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-03/report.txt",
+          "sha256": "cad0c4afccfd5a2d69e363d58167957d1effb0ab3565f8fed51ed3691bf631af",
+          "size_bytes": 426
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-03/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-03/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-03/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-04/harbor-result.json",
+          "sha256": "dea0d8ada7ee76a096c6f0a6f8b469da10420b04ea144a9349c28c4c219f52de",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-04/observed.json",
+          "sha256": "f5b96b3be9bcf1a7aed98f459224eb006b385b29db008f5f6245ab64621ef61d",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-04/report.txt",
+          "sha256": "cad0c4afccfd5a2d69e363d58167957d1effb0ab3565f8fed51ed3691bf631af",
+          "size_bytes": 426
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-04/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-04/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-04/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-05/harbor-result.json",
+          "sha256": "1e6c4a5e0f0c776cf08ba1e94f4efb69244135eadca6b6563ba9d165ca370525",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-05/observed.json",
+          "sha256": "f5b96b3be9bcf1a7aed98f459224eb006b385b29db008f5f6245ab64621ef61d",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-05/report.txt",
+          "sha256": "cad0c4afccfd5a2d69e363d58167957d1effb0ab3565f8fed51ed3691bf631af",
+          "size_bytes": 426
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-05/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-05/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-05/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-06/harbor-result.json",
+          "sha256": "c93f75e5d5a6d2bff59881c58f8df279922ff18560213ba528a6521d4779352e",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-06/observed.json",
+          "sha256": "f5b96b3be9bcf1a7aed98f459224eb006b385b29db008f5f6245ab64621ef61d",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-06/report.txt",
+          "sha256": "cad0c4afccfd5a2d69e363d58167957d1effb0ab3565f8fed51ed3691bf631af",
+          "size_bytes": 426
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-06/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-06/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-06/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-07/harbor-result.json",
+          "sha256": "27a59dda91ce99e40aae22998d029686ffc7f57803788c070b8774ee1beefcc8",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-07/observed.json",
+          "sha256": "f5b96b3be9bcf1a7aed98f459224eb006b385b29db008f5f6245ab64621ef61d",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-07/report.txt",
+          "sha256": "cad0c4afccfd5a2d69e363d58167957d1effb0ab3565f8fed51ed3691bf631af",
+          "size_bytes": 426
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-07/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-07/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-07/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-08/harbor-result.json",
+          "sha256": "8a574c3fb43907fc1b190056146b2406c28bd2fed4d78474076ec232556f93df",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-08/observed.json",
+          "sha256": "f5b96b3be9bcf1a7aed98f459224eb006b385b29db008f5f6245ab64621ef61d",
+          "size_bytes": 1463
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-08/report.txt",
+          "sha256": "cad0c4afccfd5a2d69e363d58167957d1effb0ab3565f8fed51ed3691bf631af",
+          "size_bytes": 426
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-08/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-08/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verification-results/opus/trial-08/test-stdout.txt",
+          "sha256": "44220f601a980e412bc326d2b9704529973fc7233f8b63575e8645f9bcdd54ad",
+          "size_bytes": 175
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verifier/execution/drive.ts",
+          "sha256": "cc6e14b99ee62fedadfd811a9bc108ecf0f9b9ea1494733c9c265ff31822b205",
+          "size_bytes": 3994
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verifier/execution/test.sh",
+          "sha256": "53659c78cc70ec42a34512ad5462b1356f8fc5d9eb931a69be64698cb6b253fb",
+          "size_bytes": 5472
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verifier/scoring/compute_reward.py",
+          "sha256": "fc699d7b15b61ce690274e122e7dedb3af9fa31c170cc860c14a04ce390d02e6",
+          "size_bytes": 7150
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verifier/scoring/holdout.json",
+          "sha256": "3b802a2b378b695bc91811c40af2d44d5d4fa107018643f7e1c6c91fd26663a0",
+          "size_bytes": 19381
+        },
+        {
+          "path": "sample-run/review-bundle/07-multi-region-sweep/verifier/scoring/run-spec.json",
+          "sha256": "12a51c9bd6e214b014fe538165da7bae40f0d6b2618b61635d2729be13f27d09",
+          "size_bytes": 562
+        }
+      ],
+      "public_task_sha256": "a7564eb1f7f467a1c80c0e903992ea10ccb4f6563de14a2725f44009b9e1655b",
+      "recorded_runtime_task_checksum": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
+      "solves": {
+        "grok": 6,
+        "opus": 8
+      },
+      "task_label": "Task 7"
+    },
+    "14-iam-role-validation": {
+      "bundle_sha256": "6882d7d1c575bcaaf7c34032b488017186babf1f8856c6200f24a0ebed6c3fb3",
+      "controls": {
+        "nop": 0.0,
+        "oracle": 1.0
+      },
+      "counts": {
+        "grok_trajectories": 8,
+        "grok_verification_results": 8,
+        "opus_trajectories": 8,
+        "opus_verification_results": 8,
+        "published_files": 228,
+        "touched_file_snapshots": 56
+      },
+      "files": [
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/README.md",
+          "sha256": "ada8946c5277f981b9347a7c2ed9f3028630489b9f4d762d32cbaacf72d9a3f9",
+          "size_bytes": 6166
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/controls/nop/harbor-result.json",
+          "sha256": "5832d9792a9f3f619acf6c893463b4985a34c1e996d5f687431341ba77ae4fd1",
+          "size_bytes": 1019
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/controls/nop/verifier/observed.json",
+          "sha256": "4574bfb1b64bcc04e7b7ac9072ee8ea9179c2156741af74d81306d037171246d",
+          "size_bytes": 6919
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/controls/nop/verifier/report.txt",
+          "sha256": "c09ba8b19afd96c496edcfc465df5cb1c65a4cc26565229ee9a6b06843dc1278",
+          "size_bytes": 4532
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/controls/nop/verifier/reward.json",
+          "sha256": "3cc7c85354d48e58389806dd160d251fb096338ddaa168a7148b95297feb2250",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/controls/nop/verifier/reward.txt",
+          "sha256": "51ff0d2f0d3a5d61edec31785532ea0d570f8c348d58b15b94ff9c2ca6e926a4",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/controls/nop/verifier/test-stdout.txt",
+          "sha256": "c83bacad8ef54f23630050bb9401ac7ec80e031ad50f99b9fa6d21dda970744b",
+          "size_bytes": 4815
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/controls/oracle/agent.txt",
+          "sha256": "5783183589a93ecb9685c9b3e0eb8ceaf2074f7e3c9a0853a1c2d662691c9126",
+          "size_bytes": 262
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/controls/oracle/harbor-result.json",
+          "sha256": "205e19813441248044a5791002cf72c49cba0b683161b6218b2db71221f5614e",
+          "size_bytes": 1022
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/controls/oracle/verifier/observed.json",
+          "sha256": "0370c090ff93c6f8db7e5aa964664b27bd8255fbdbfc6829db4c957881654cdc",
+          "size_bytes": 7156
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/controls/oracle/verifier/report.txt",
+          "sha256": "f833d0d86746e52e900712a43e86b7c03e7fe0ca8c4d56cb235cb76aed5d8495",
+          "size_bytes": 11
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/controls/oracle/verifier/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/controls/oracle/verifier/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/controls/oracle/verifier/test-stdout.txt",
+          "sha256": "d8150194569feeeb722066eb305ec49f1d90a4d5c534d94079c19722eee6fc4f",
+          "size_bytes": 236
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-01/settings.service.spec.ts",
+          "sha256": "e27aedd932e5cde11c5e011fcd208cab8d50c518b2f5317f0e725bd7aedff953",
+          "size_bytes": 7973
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-01/settings.service.ts",
+          "sha256": "35a3b553122db22428569d225b87ecee22679e9428cd628eb5ad7a47bf2e1891",
+          "size_bytes": 11591
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-01/sts.spec.ts",
+          "sha256": "1c8ef73ed984c356b25dc6df0f001400d9e25b9c79931fea5e22d6a6b7bd359f",
+          "size_bytes": 1241
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-01/sts.ts",
+          "sha256": "d1dc59d856bc3461303ae2e0c1a8ade747b06d38778f1482918a2433b871ad3c",
+          "size_bytes": 2209
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-01/update-settings.dto.ts",
+          "sha256": "9c1824a263df3dcdd08d99f0d9bd79d1d2ddde91de30b949af15ad3544f1e3e8",
+          "size_bytes": 19234
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-02/settings.service.spec.ts",
+          "sha256": "4dae0e73bb441fde0e1995746423188e611e82b75aca33aa57e34fda46573c1f",
+          "size_bytes": 6831
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-02/settings.service.ts",
+          "sha256": "7049ed42182fb4e24cd63062069587e96c28d14dc81388eac48d3d33f04f37af",
+          "size_bytes": 11570
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-02/sts.spec.ts",
+          "sha256": "acc2e01789e84de4c098b4cedade24f1f6d1a3a7de921df69f3d0174419b9efa",
+          "size_bytes": 2276
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-02/sts.ts",
+          "sha256": "bb2929fcb03c63d6a960d27caabcff08d1bf3a1219c412173a611f7f9ad3f70d",
+          "size_bytes": 2029
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-02/update-settings.dto.ts",
+          "sha256": "b36f962f427eb9e0c4492e30d38762498d62e070ec12e48151148280d8a09156",
+          "size_bytes": 19129
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-03/package.json",
+          "sha256": "ec947dc2b88123cdd588138d08ee92a4719007dac6a38621b44ca184c489a1ec",
+          "size_bytes": 9843
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-03/settings.service.spec.ts",
+          "sha256": "27bd31c6bd31e80286bd834ed39d4d705860caae54c6b2e15d9927f32cdcdd81",
+          "size_bytes": 9450
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-03/settings.service.ts",
+          "sha256": "ceaaa1eb984cf7b1b7dcce00a154509cc054d700074c89c981268187465ffd8f",
+          "size_bytes": 13584
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-03/sts.ts",
+          "sha256": "4b91f0fab4f17b1027d86f59162bb894ebe373e07b7bd76bcda17c59fa610d14",
+          "size_bytes": 920
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-03/update-settings.dto.ts",
+          "sha256": "b3df951496478f17625c3eb36a081781afe42db7c6adfd6ce696ddbdb1f552fc",
+          "size_bytes": 19426
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-04/settings.service.spec.ts",
+          "sha256": "a1ff026d2f46523b625de8668fa6a2cff16a3b0406cf71d6b8c41d83d028139e",
+          "size_bytes": 7988
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-04/settings.service.ts",
+          "sha256": "bd77806f58061e84ca451c8dafb173d40b0a9e81f3b9c78f43a932c310b28e24",
+          "size_bytes": 11869
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-04/sts.spec.ts",
+          "sha256": "80ceb86071cbe0c42cfd11cf2a72e0a055f04b09e74a765566cd9ff11fcaa58b",
+          "size_bytes": 1724
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-04/sts.ts",
+          "sha256": "91138376392bee84c13a320ea89f2febb2ca8856b36d7168bd8e23077ba9ae16",
+          "size_bytes": 2973
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-04/update-settings.dto.ts",
+          "sha256": "6a0cc0ddc6a475aad3026d147086ce4809dc894b016284646adf44f8ed356fec",
+          "size_bytes": 19922
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-05/awsEc2.ts",
+          "sha256": "44a941c834a3ca52793e99e02946964066bf4040e293241c695cb83dd204af42",
+          "size_bytes": 10888
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-05/settings.service.spec.ts",
+          "sha256": "4515343e00c3b457909a4549439289f5db700e397df9fde0a1a7d160e4f100e8",
+          "size_bytes": 8454
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-05/settings.service.ts",
+          "sha256": "a9faf237502b3ef6dcd67877ba0e12d193d4e67368c114cb0f27119652859e0d",
+          "size_bytes": 12170
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-05/update-settings.dto.ts",
+          "sha256": "6b243e1fbca41cc5650e479d556ead23026347922b9d05ecab38fabba948aa15",
+          "size_bytes": 19183
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-06/scraperRole.spec.ts",
+          "sha256": "ea10b16546ff6e206a00facd5484495cbb187af23efb0549110fdc0c856630ec",
+          "size_bytes": 7248
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-06/scraperRole.ts",
+          "sha256": "ea7671b25c846a8cc3c1ba3bba3a8864abf2b418cd48beb24fc24e675c3c352b",
+          "size_bytes": 3480
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-06/settings.service.spec.ts",
+          "sha256": "3401e979a916923ebc866d609f39d35a43dcee0088683badcaf511680e315fe7",
+          "size_bytes": 8179
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-06/settings.service.ts",
+          "sha256": "b911668d0130e7b1b11caa37f382502666c5ef5b6ebcf16e72b22810608b339f",
+          "size_bytes": 10801
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-06/update-settings.dto.ts",
+          "sha256": "bef4097e41142579adf58b9aaac87ece8ed7bc477713fc5ebb3d8f79361c09ee",
+          "size_bytes": 19214
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-07/package.json",
+          "sha256": "ec947dc2b88123cdd588138d08ee92a4719007dac6a38621b44ca184c489a1ec",
+          "size_bytes": 9843
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-07/settings.service.spec.ts",
+          "sha256": "11415b02b4f93f8ef0043613339bf2f54e10671d1ad93ebddc9c9683be7c2441",
+          "size_bytes": 8713
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-07/settings.service.ts",
+          "sha256": "cdc409fe16ae6f6e799a8e5d69db7ee3ca11ef5e38806047513911fe9832fbe1",
+          "size_bytes": 11940
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-07/sts.spec.ts",
+          "sha256": "cb5abe27a8441ad6f3d09d487a06a04a0c2d79d1d7e91d515777f5c5ac195f1a",
+          "size_bytes": 2180
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-07/sts.ts",
+          "sha256": "a88de7d869df61edf2d7b8d8826fcd8678fea704ced1970b7c994d0d90866ddc",
+          "size_bytes": 1585
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-07/update-settings.dto.ts",
+          "sha256": "c2b6d697df6a50aa58630fc81eddc86a1349eada80356ee48c6b75e6e7ae3949",
+          "size_bytes": 19163
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-08/scraperRole.spec.ts",
+          "sha256": "388596202af3a485dff8b185770baba41bf95e17edf0eb35c972e63bef5e66ce",
+          "size_bytes": 3007
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-08/scraperRole.ts",
+          "sha256": "33dfb821a838942afa7c347ca8839894f987ab89347fab02823be8bfff67f840",
+          "size_bytes": 2587
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-08/settings.service.spec.ts",
+          "sha256": "d4deae84f54dcf649fe699adbb9109898dc975cf1260cc4d21ab1062a80bfcd5",
+          "size_bytes": 7803
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-08/settings.service.ts",
+          "sha256": "90c3ddd5dd7d2595a6ed7a8b284266fa0621451a3e2cd901be2d17eb2fa194ed",
+          "size_bytes": 11103
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-08/update-settings.dto.ts",
+          "sha256": "830912d403cd822326c719349c86ed7df69fed62e1b30b925cf38f9d9a760f0b",
+          "size_bytes": 19208
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-01/app/src/setting/dto/update-settings.dto.ts",
+          "sha256": "9c1824a263df3dcdd08d99f0d9bd79d1d2ddde91de30b949af15ad3544f1e3e8",
+          "size_bytes": 19234
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-01/app/src/setting/settings.service.spec.ts",
+          "sha256": "e27aedd932e5cde11c5e011fcd208cab8d50c518b2f5317f0e725bd7aedff953",
+          "size_bytes": 7973
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-01/app/src/setting/settings.service.ts",
+          "sha256": "35a3b553122db22428569d225b87ecee22679e9428cd628eb5ad7a47bf2e1891",
+          "size_bytes": 11591
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-01/app/src/utils/aws/sts.spec.ts",
+          "sha256": "1c8ef73ed984c356b25dc6df0f001400d9e25b9c79931fea5e22d6a6b7bd359f",
+          "size_bytes": 1241
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-01/app/src/utils/aws/sts.ts",
+          "sha256": "d1dc59d856bc3461303ae2e0c1a8ade747b06d38778f1482918a2433b871ad3c",
+          "size_bytes": 2209
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-01/tmp/repro-scraper-role.mjs",
+          "sha256": "4e37dcf701835135acb26abbb6ec4be9179babbcaba755eb959ceb677965bf9a",
+          "size_bytes": 192
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-02/app/repro-scraper-role.cjs",
+          "sha256": "f596bf9b45673c4ff6345190d99ec844fb64001df88bea7350d3ebebbe7050ac",
+          "size_bytes": 3217
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-02/app/src/setting/dto/update-settings.dto.ts",
+          "sha256": "b36f962f427eb9e0c4492e30d38762498d62e070ec12e48151148280d8a09156",
+          "size_bytes": 19129
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-02/app/src/setting/settings.service.spec.ts",
+          "sha256": "4dae0e73bb441fde0e1995746423188e611e82b75aca33aa57e34fda46573c1f",
+          "size_bytes": 6831
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-02/app/src/setting/settings.service.ts",
+          "sha256": "7049ed42182fb4e24cd63062069587e96c28d14dc81388eac48d3d33f04f37af",
+          "size_bytes": 11570
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-02/app/src/utils/aws/sts.spec.ts",
+          "sha256": "af163cbe14fd37cfd412a4edc6a9a55c3de32563b83f54f88dbd4fcab94fd4a3",
+          "size_bytes": 2302
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-02/app/src/utils/aws/sts.ts",
+          "sha256": "bb2929fcb03c63d6a960d27caabcff08d1bf3a1219c412173a611f7f9ad3f70d",
+          "size_bytes": 2029
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-02/tmp/repro-scraper-role.cjs",
+          "sha256": "f596bf9b45673c4ff6345190d99ec844fb64001df88bea7350d3ebebbe7050ac",
+          "size_bytes": 3217
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-02/tmp/repro-scraper-role.mjs",
+          "sha256": "bd36cdcbc4fb9aaac1540e7def886188fcc38c9915eb567db42f6c2a95c43e34",
+          "size_bytes": 171
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-02/tmp/repro-scraper-role.ts",
+          "sha256": "b4a0484677c5e2defa2bf16408447e9f81456fee985c7d01296c081a32092203",
+          "size_bytes": 1917
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-03/app/package.json",
+          "sha256": "ec947dc2b88123cdd588138d08ee92a4719007dac6a38621b44ca184c489a1ec",
+          "size_bytes": 9843
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-03/app/src/setting/dto/update-settings.dto.ts",
+          "sha256": "b3df951496478f17625c3eb36a081781afe42db7c6adfd6ce696ddbdb1f552fc",
+          "size_bytes": 19426
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-03/app/src/setting/settings.service.spec.ts",
+          "sha256": "06588916aa90e6abaad819f38e0aa4d909bf0eeee42dead580bb57a46f3ec844",
+          "size_bytes": 9476
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-03/app/src/setting/settings.service.ts",
+          "sha256": "ceaaa1eb984cf7b1b7dcce00a154509cc054d700074c89c981268187465ffd8f",
+          "size_bytes": 13584
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-03/app/src/utils/aws/sts.ts",
+          "sha256": "4b91f0fab4f17b1027d86f59162bb894ebe373e07b7bd76bcda17c59fa610d14",
+          "size_bytes": 920
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-03/tmp/verify-scraper-role.mjs",
+          "sha256": "52b1d954cd1c90609d374fb033618ef45e2edfeb79ead446513a2358a89bb843",
+          "size_bytes": 1988
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-04/app/repro-scraper-role.mjs",
+          "sha256": "67e4720be5279da6e3100fe123f38bdefd7889d224d239e99b20256ee20a0001",
+          "size_bytes": 3515
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-04/app/src/setting/dto/update-settings.dto.ts",
+          "sha256": "6a0cc0ddc6a475aad3026d147086ce4809dc894b016284646adf44f8ed356fec",
+          "size_bytes": 19922
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-04/app/src/setting/settings.service.spec.ts",
+          "sha256": "a1ff026d2f46523b625de8668fa6a2cff16a3b0406cf71d6b8c41d83d028139e",
+          "size_bytes": 7988
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-04/app/src/setting/settings.service.ts",
+          "sha256": "bd77806f58061e84ca451c8dafb173d40b0a9e81f3b9c78f43a932c310b28e24",
+          "size_bytes": 11869
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-04/app/src/utils/aws/sts.spec.ts",
+          "sha256": "80ceb86071cbe0c42cfd11cf2a72e0a055f04b09e74a765566cd9ff11fcaa58b",
+          "size_bytes": 1724
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-04/app/src/utils/aws/sts.ts",
+          "sha256": "91138376392bee84c13a320ea89f2febb2ca8856b36d7168bd8e23077ba9ae16",
+          "size_bytes": 2973
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-04/tmp/repro-scraper-role.mjs",
+          "sha256": "67e4720be5279da6e3100fe123f38bdefd7889d224d239e99b20256ee20a0001",
+          "size_bytes": 3515
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-05/app/src/setting/dto/update-settings.dto.ts",
+          "sha256": "6b243e1fbca41cc5650e479d556ead23026347922b9d05ecab38fabba948aa15",
+          "size_bytes": 19183
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-05/app/src/setting/settings.service.spec.ts",
+          "sha256": "257f7b53c85c11d718c39d0751f8b142818d58cc292a71c9ea73fede2535d786",
+          "size_bytes": 8462
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-05/app/src/setting/settings.service.ts",
+          "sha256": "a9faf237502b3ef6dcd67877ba0e12d193d4e67368c114cb0f27119652859e0d",
+          "size_bytes": 12170
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-05/app/src/utils/aws/awsEc2.ts",
+          "sha256": "44a941c834a3ca52793e99e02946964066bf4040e293241c695cb83dd204af42",
+          "size_bytes": 10888
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-05/tmp/repro-scraper-role.mjs",
+          "sha256": "f053c22f66b6257b283e19dea0709d096be7c39a45ad75452c97959b7fe909e5",
+          "size_bytes": 274
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-06/app/repro-scraper-role.ts",
+          "sha256": "a3a169676b951ee4357c34d8eda3460382ce19a348ecacc6f3cf083f616d615d",
+          "size_bytes": 3229
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-06/app/src/setting/dto/update-settings.dto.ts",
+          "sha256": "bef4097e41142579adf58b9aaac87ece8ed7bc477713fc5ebb3d8f79361c09ee",
+          "size_bytes": 19214
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-06/app/src/setting/settings.service.spec.ts",
+          "sha256": "3401e979a916923ebc866d609f39d35a43dcee0088683badcaf511680e315fe7",
+          "size_bytes": 8179
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-06/app/src/setting/settings.service.ts",
+          "sha256": "b911668d0130e7b1b11caa37f382502666c5ef5b6ebcf16e72b22810608b339f",
+          "size_bytes": 10801
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-06/app/src/utils/aws/scraperRole.spec.ts",
+          "sha256": "a0b8b2a78c7b68898a122bf0bf34a14359d9345310917d18f250031ee101051b",
+          "size_bytes": 7259
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-06/app/src/utils/aws/scraperRole.ts",
+          "sha256": "ea7671b25c846a8cc3c1ba3bba3a8864abf2b418cd48beb24fc24e675c3c352b",
+          "size_bytes": 3480
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-06/tmp/repro-scraper-role.ts",
+          "sha256": "a3a169676b951ee4357c34d8eda3460382ce19a348ecacc6f3cf083f616d615d",
+          "size_bytes": 3229
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-07/app/package.json",
+          "sha256": "ec947dc2b88123cdd588138d08ee92a4719007dac6a38621b44ca184c489a1ec",
+          "size_bytes": 9843
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-07/app/src/setting/dto/update-settings.dto.ts",
+          "sha256": "c2b6d697df6a50aa58630fc81eddc86a1349eada80356ee48c6b75e6e7ae3949",
+          "size_bytes": 19163
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-07/app/src/setting/settings.service.spec.ts",
+          "sha256": "11415b02b4f93f8ef0043613339bf2f54e10671d1ad93ebddc9c9683be7c2441",
+          "size_bytes": 8713
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-07/app/src/setting/settings.service.ts",
+          "sha256": "cdc409fe16ae6f6e799a8e5d69db7ee3ca11ef5e38806047513911fe9832fbe1",
+          "size_bytes": 11940
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-07/app/src/utils/aws/sts.spec.ts",
+          "sha256": "cb5abe27a8441ad6f3d09d487a06a04a0c2d79d1d7e91d515777f5c5ac195f1a",
+          "size_bytes": 2180
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-07/app/src/utils/aws/sts.ts",
+          "sha256": "a88de7d869df61edf2d7b8d8826fcd8678fea704ced1970b7c994d0d90866ddc",
+          "size_bytes": 1585
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-07/tmp/repro-scraper-role.ts",
+          "sha256": "36538be3004da54798dfe6d26858f90c8882d3ee68047bbde28c34f9af9e4e6e",
+          "size_bytes": 959
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-08/app/inspect-aws.mjs",
+          "sha256": "c30e479f962bbf2107abf48b3a0b11230ea89a4e9e2bc9e5f5263e29a6ad35ad",
+          "size_bytes": 2958
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-08/app/live-scraper-check.mjs",
+          "sha256": "17795446ec6fe50f9a070540e3f2b057a75938bcbe33e6edd1799b89a754bf05",
+          "size_bytes": 2203
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-08/app/src/setting/dto/update-settings.dto.ts",
+          "sha256": "830912d403cd822326c719349c86ed7df69fed62e1b30b925cf38f9d9a760f0b",
+          "size_bytes": 19208
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-08/app/src/setting/settings.service.spec.ts",
+          "sha256": "d4deae84f54dcf649fe699adbb9109898dc975cf1260cc4d21ab1062a80bfcd5",
+          "size_bytes": 7803
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-08/app/src/setting/settings.service.ts",
+          "sha256": "90c3ddd5dd7d2595a6ed7a8b284266fa0621451a3e2cd901be2d17eb2fa194ed",
+          "size_bytes": 11103
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-08/app/src/utils/aws/scraperRole.spec.ts",
+          "sha256": "94f363d63c3e04eec94db54b467186eb2187b59d6d7797455c542ad7659597c8",
+          "size_bytes": 3013
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-08/app/src/utils/aws/scraperRole.ts",
+          "sha256": "33dfb821a838942afa7c347ca8839894f987ab89347fab02823be8bfff67f840",
+          "size_bytes": 2587
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-08/tmp/inspect-aws.mjs",
+          "sha256": "e42655307092c1c3f0a644d3dbc46bac4a07447f4e54ae0b143422a1fe7aba5b",
+          "size_bytes": 1639
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-08/tmp/live-scraper-check.mjs",
+          "sha256": "b96d8d506a71063a3834843ec50099f8ee696f168eafd90763627e383ad4884b",
+          "size_bytes": 79
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-01.json",
+          "sha256": "a31ef67fe88f9d8033f9ff6a559dd2408e11772e09493d8ac78dc86ba98a58e7",
+          "size_bytes": 4086087
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-02.json",
+          "sha256": "7df125182ef6315c8bcc835dfacd67ccb8e6f7bd57619ccdf0cafe122dca5474",
+          "size_bytes": 2740345
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-03.json",
+          "sha256": "a952d113d9208a94280a8732117d9b817c1b19d06f64c3759487705c941d7215",
+          "size_bytes": 2757360
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-04.json",
+          "sha256": "4d5c01303c4de16a59156dcfe66f7da3ee3d4c02146ba0dd0f20eb85767a25f7",
+          "size_bytes": 3445733
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-05.json",
+          "sha256": "76d16becb6387898c07056557f24c94f4a7bcc7ff05061da4f143aa053190ef7",
+          "size_bytes": 2827779
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-06.json",
+          "sha256": "845c22d630d82fc618634def14d39438c7b1733ee4e18102bc8fcc50702433f1",
+          "size_bytes": 3754714
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-07.json",
+          "sha256": "8bbeff2c4882f29f1624f93567926461e83e75f6480580c8357576b87e01b6c2",
+          "size_bytes": 2884335
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-08.json",
+          "sha256": "0c8e0efd634c26154f1c766d8bee65ca875c5128336f94ec084ef846f43027f4",
+          "size_bytes": 3080902
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/opus/trial-01.json",
+          "sha256": "1b0ad4d7148534378a4db300b26c947372f4912005faf5da855615323571ce1c",
+          "size_bytes": 1077360
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/opus/trial-02.json",
+          "sha256": "1aaa5d24a607339dbb6279570ef944b7b6601bb82cecbd922393557ce144dbf3",
+          "size_bytes": 902088
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/opus/trial-03.json",
+          "sha256": "421f97cb973bc06884fda84e50aaec9f580bcc93683dec010acc9aeefaafb690",
+          "size_bytes": 1256945
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/opus/trial-04.json",
+          "sha256": "97b3dee807713637f5d38e65f4f742cbf2ecf95d354eba6cac84b48155749e2c",
+          "size_bytes": 1505415
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/opus/trial-05.json",
+          "sha256": "c389b76d57550253c01ca511e894270e817fceab1cf7a7b60b28ca954991ccbd",
+          "size_bytes": 1373459
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/opus/trial-06.json",
+          "sha256": "85d7fe569e3dd0cd03fd49621b3be523565aa274b02be2efa617b121cbd9ed57",
+          "size_bytes": 828140
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/opus/trial-07.json",
+          "sha256": "0c4fba0ba6f1eac83349cc7da5217dad259b7a0f6c06645caa8848fb0c69d43e",
+          "size_bytes": 1510303
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/opus/trial-08.json",
+          "sha256": "5ed0cba38e35f8bbd6bfff7f1a5376fb991dca6d0fc50120a9e898e2b4d858d5",
+          "size_bytes": 1231690
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-01/harbor-result.json",
+          "sha256": "06e5cc9ebed58afb8bd9f3eb0110f711b0b1808bb7b73522f9826b3eecacb58d",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-01/observed.json",
+          "sha256": "626f23437ee4b1a199e9593182106eed40d1abdc36bf88e3326cf785080ed013",
+          "size_bytes": 7150
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-01/report.txt",
+          "sha256": "f956d5a2c0a99a4b14cf16cce921bcc1a458ba7648cba6236a6ff2a1205e9da9",
+          "size_bytes": 498
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-01/reward.json",
+          "sha256": "3cc7c85354d48e58389806dd160d251fb096338ddaa168a7148b95297feb2250",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-01/reward.txt",
+          "sha256": "51ff0d2f0d3a5d61edec31785532ea0d570f8c348d58b15b94ff9c2ca6e926a4",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-01/test-stdout.txt",
+          "sha256": "9e4ae09ebe10577edb9f140f6ce5af7f6bd8e6bfa92814ea934469dcc0537b8b",
+          "size_bytes": 382
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-02/harbor-result.json",
+          "sha256": "c78c4844988ed15795729e611a935bdb0f1bb4daf48f8e449a8d2ff0a1675986",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-02/observed.json",
+          "sha256": "626f23437ee4b1a199e9593182106eed40d1abdc36bf88e3326cf785080ed013",
+          "size_bytes": 7150
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-02/report.txt",
+          "sha256": "f956d5a2c0a99a4b14cf16cce921bcc1a458ba7648cba6236a6ff2a1205e9da9",
+          "size_bytes": 498
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-02/reward.json",
+          "sha256": "3cc7c85354d48e58389806dd160d251fb096338ddaa168a7148b95297feb2250",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-02/reward.txt",
+          "sha256": "51ff0d2f0d3a5d61edec31785532ea0d570f8c348d58b15b94ff9c2ca6e926a4",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-02/test-stdout.txt",
+          "sha256": "9e4ae09ebe10577edb9f140f6ce5af7f6bd8e6bfa92814ea934469dcc0537b8b",
+          "size_bytes": 382
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-03/harbor-result.json",
+          "sha256": "9d1d39ab185b9dc25d6a8028bf835f001ab3a4c7ad7de0740e5c26dfe81e8e17",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-03/observed.json",
+          "sha256": "626f23437ee4b1a199e9593182106eed40d1abdc36bf88e3326cf785080ed013",
+          "size_bytes": 7150
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-03/report.txt",
+          "sha256": "f956d5a2c0a99a4b14cf16cce921bcc1a458ba7648cba6236a6ff2a1205e9da9",
+          "size_bytes": 498
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-03/reward.json",
+          "sha256": "3cc7c85354d48e58389806dd160d251fb096338ddaa168a7148b95297feb2250",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-03/reward.txt",
+          "sha256": "51ff0d2f0d3a5d61edec31785532ea0d570f8c348d58b15b94ff9c2ca6e926a4",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-03/test-stdout.txt",
+          "sha256": "9e4ae09ebe10577edb9f140f6ce5af7f6bd8e6bfa92814ea934469dcc0537b8b",
+          "size_bytes": 382
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-04/harbor-result.json",
+          "sha256": "5590a37c89c171c0d4c35f364c6911d7686fbac43f9495b9665ae2b5475455f7",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-04/observed.json",
+          "sha256": "626f23437ee4b1a199e9593182106eed40d1abdc36bf88e3326cf785080ed013",
+          "size_bytes": 7150
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-04/report.txt",
+          "sha256": "f956d5a2c0a99a4b14cf16cce921bcc1a458ba7648cba6236a6ff2a1205e9da9",
+          "size_bytes": 498
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-04/reward.json",
+          "sha256": "3cc7c85354d48e58389806dd160d251fb096338ddaa168a7148b95297feb2250",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-04/reward.txt",
+          "sha256": "51ff0d2f0d3a5d61edec31785532ea0d570f8c348d58b15b94ff9c2ca6e926a4",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-04/test-stdout.txt",
+          "sha256": "9e4ae09ebe10577edb9f140f6ce5af7f6bd8e6bfa92814ea934469dcc0537b8b",
+          "size_bytes": 382
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-05/harbor-result.json",
+          "sha256": "9b77cee71df49515fd1ea5177e1afdeb8f0843b5659980d7cc7dd736d10d4a9a",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-05/observed.json",
+          "sha256": "626f23437ee4b1a199e9593182106eed40d1abdc36bf88e3326cf785080ed013",
+          "size_bytes": 7150
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-05/report.txt",
+          "sha256": "f956d5a2c0a99a4b14cf16cce921bcc1a458ba7648cba6236a6ff2a1205e9da9",
+          "size_bytes": 498
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-05/reward.json",
+          "sha256": "3cc7c85354d48e58389806dd160d251fb096338ddaa168a7148b95297feb2250",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-05/reward.txt",
+          "sha256": "51ff0d2f0d3a5d61edec31785532ea0d570f8c348d58b15b94ff9c2ca6e926a4",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-05/test-stdout.txt",
+          "sha256": "9e4ae09ebe10577edb9f140f6ce5af7f6bd8e6bfa92814ea934469dcc0537b8b",
+          "size_bytes": 382
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-06/harbor-result.json",
+          "sha256": "2418e2197b14c034a2ac5ec2735b3fdd3e4790c266fb1b72d6a15d7f51a05082",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-06/observed.json",
+          "sha256": "0370c090ff93c6f8db7e5aa964664b27bd8255fbdbfc6829db4c957881654cdc",
+          "size_bytes": 7156
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-06/report.txt",
+          "sha256": "f4b62dfce1a213626d49955dd15554734917bf43a1dc495cd495018b2c5ab1f9",
+          "size_bytes": 471
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-06/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-06/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-06/test-stdout.txt",
+          "sha256": "d8150194569feeeb722066eb305ec49f1d90a4d5c534d94079c19722eee6fc4f",
+          "size_bytes": 236
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-07/harbor-result.json",
+          "sha256": "ae84f90bc04537ec019cc38861e7f1ba916bc9ae5f9144368fce3728a20069f5",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-07/observed.json",
+          "sha256": "0370c090ff93c6f8db7e5aa964664b27bd8255fbdbfc6829db4c957881654cdc",
+          "size_bytes": 7156
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-07/report.txt",
+          "sha256": "f4b62dfce1a213626d49955dd15554734917bf43a1dc495cd495018b2c5ab1f9",
+          "size_bytes": 471
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-07/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-07/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-07/test-stdout.txt",
+          "sha256": "d8150194569feeeb722066eb305ec49f1d90a4d5c534d94079c19722eee6fc4f",
+          "size_bytes": 236
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-08/harbor-result.json",
+          "sha256": "e4ed7f2ddfe429afd76d9e5f7ec3b22d3890714ad417bc5edfa7322b30f6d9ca",
+          "size_bytes": 1103
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-08/observed.json",
+          "sha256": "0370c090ff93c6f8db7e5aa964664b27bd8255fbdbfc6829db4c957881654cdc",
+          "size_bytes": 7156
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-08/report.txt",
+          "sha256": "f4b62dfce1a213626d49955dd15554734917bf43a1dc495cd495018b2c5ab1f9",
+          "size_bytes": 471
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-08/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-08/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-08/test-stdout.txt",
+          "sha256": "7d28d589cf9fcc531d939b30d9ceb88d53ea99bd38e577d38bacfef021324c18",
+          "size_bytes": 236
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-01/harbor-result.json",
+          "sha256": "f5ceeac9e1fdcd275af407f238c522bf56ffb8e2399a9d4e6b3e069f311f82b4",
+          "size_bytes": 1105
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-01/observed.json",
+          "sha256": "0370c090ff93c6f8db7e5aa964664b27bd8255fbdbfc6829db4c957881654cdc",
+          "size_bytes": 7156
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-01/report.txt",
+          "sha256": "f4b62dfce1a213626d49955dd15554734917bf43a1dc495cd495018b2c5ab1f9",
+          "size_bytes": 471
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-01/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-01/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-01/test-stdout.txt",
+          "sha256": "d8150194569feeeb722066eb305ec49f1d90a4d5c534d94079c19722eee6fc4f",
+          "size_bytes": 236
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-02/harbor-result.json",
+          "sha256": "4400a12726fbeb6f09a31af3853d7688774d7cd48aa479ead32b80475c082258",
+          "size_bytes": 1105
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-02/observed.json",
+          "sha256": "0370c090ff93c6f8db7e5aa964664b27bd8255fbdbfc6829db4c957881654cdc",
+          "size_bytes": 7156
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-02/report.txt",
+          "sha256": "f4b62dfce1a213626d49955dd15554734917bf43a1dc495cd495018b2c5ab1f9",
+          "size_bytes": 471
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-02/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-02/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-02/test-stdout.txt",
+          "sha256": "d8150194569feeeb722066eb305ec49f1d90a4d5c534d94079c19722eee6fc4f",
+          "size_bytes": 236
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-03/harbor-result.json",
+          "sha256": "7ffb9361af2be563e16b5223fc95668a00fe7fe19e06afdb18a5e67e1484e101",
+          "size_bytes": 1105
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-03/observed.json",
+          "sha256": "0370c090ff93c6f8db7e5aa964664b27bd8255fbdbfc6829db4c957881654cdc",
+          "size_bytes": 7156
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-03/report.txt",
+          "sha256": "f4b62dfce1a213626d49955dd15554734917bf43a1dc495cd495018b2c5ab1f9",
+          "size_bytes": 471
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-03/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-03/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-03/test-stdout.txt",
+          "sha256": "d8150194569feeeb722066eb305ec49f1d90a4d5c534d94079c19722eee6fc4f",
+          "size_bytes": 236
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-04/harbor-result.json",
+          "sha256": "5f5f1d4c1db28697bff53771ce0ac442480d68948a07a185f9b1af572a3161ef",
+          "size_bytes": 1105
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-04/observed.json",
+          "sha256": "0370c090ff93c6f8db7e5aa964664b27bd8255fbdbfc6829db4c957881654cdc",
+          "size_bytes": 7156
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-04/report.txt",
+          "sha256": "f4b62dfce1a213626d49955dd15554734917bf43a1dc495cd495018b2c5ab1f9",
+          "size_bytes": 471
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-04/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-04/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-04/test-stdout.txt",
+          "sha256": "d8150194569feeeb722066eb305ec49f1d90a4d5c534d94079c19722eee6fc4f",
+          "size_bytes": 236
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-05/harbor-result.json",
+          "sha256": "8c6db1340d0469ae92f9e6c126c01a5adca9295eaf13d1566990d2f795662174",
+          "size_bytes": 1105
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-05/observed.json",
+          "sha256": "0370c090ff93c6f8db7e5aa964664b27bd8255fbdbfc6829db4c957881654cdc",
+          "size_bytes": 7156
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-05/report.txt",
+          "sha256": "f4b62dfce1a213626d49955dd15554734917bf43a1dc495cd495018b2c5ab1f9",
+          "size_bytes": 471
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-05/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-05/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-05/test-stdout.txt",
+          "sha256": "d8150194569feeeb722066eb305ec49f1d90a4d5c534d94079c19722eee6fc4f",
+          "size_bytes": 236
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-06/harbor-result.json",
+          "sha256": "44afade989d3ac1fe7b349040b61e1e81fd1e32238247ef9609fcc4e25658d10",
+          "size_bytes": 1105
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-06/observed.json",
+          "sha256": "0370c090ff93c6f8db7e5aa964664b27bd8255fbdbfc6829db4c957881654cdc",
+          "size_bytes": 7156
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-06/report.txt",
+          "sha256": "f4b62dfce1a213626d49955dd15554734917bf43a1dc495cd495018b2c5ab1f9",
+          "size_bytes": 471
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-06/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-06/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-06/test-stdout.txt",
+          "sha256": "d8150194569feeeb722066eb305ec49f1d90a4d5c534d94079c19722eee6fc4f",
+          "size_bytes": 236
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-07/harbor-result.json",
+          "sha256": "ac551f834f66685eeb68ed71b8919f2bed913d6a295c4763b99f84aec6397d12",
+          "size_bytes": 1105
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-07/observed.json",
+          "sha256": "0370c090ff93c6f8db7e5aa964664b27bd8255fbdbfc6829db4c957881654cdc",
+          "size_bytes": 7156
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-07/report.txt",
+          "sha256": "f4b62dfce1a213626d49955dd15554734917bf43a1dc495cd495018b2c5ab1f9",
+          "size_bytes": 471
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-07/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-07/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-07/test-stdout.txt",
+          "sha256": "d8150194569feeeb722066eb305ec49f1d90a4d5c534d94079c19722eee6fc4f",
+          "size_bytes": 236
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-08/harbor-result.json",
+          "sha256": "366c28beb74df1665c26b63fc7a1de33f1a03b802e79f3b05b1b8537bc244467",
+          "size_bytes": 1105
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-08/observed.json",
+          "sha256": "0370c090ff93c6f8db7e5aa964664b27bd8255fbdbfc6829db4c957881654cdc",
+          "size_bytes": 7156
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-08/report.txt",
+          "sha256": "f4b62dfce1a213626d49955dd15554734917bf43a1dc495cd495018b2c5ab1f9",
+          "size_bytes": 471
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-08/reward.json",
+          "sha256": "6506d72761f7a79710dc512ba3841ce48ec6435bfef6c0226433c94a2c98ac06",
+          "size_bytes": 30
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-08/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/opus/trial-08/test-stdout.txt",
+          "sha256": "d8150194569feeeb722066eb305ec49f1d90a4d5c534d94079c19722eee6fc4f",
+          "size_bytes": 236
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verifier/execution/drive.ts",
+          "sha256": "3642853d0bfb0e32f0dbb262c4f23c4c865d0db5f5048894c54816193310dab6",
+          "size_bytes": 8336
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verifier/execution/test.sh",
+          "sha256": "13dd95009b41a523c077d413cf30696af394c4913135972c604d4fb3b2dbc08f",
+          "size_bytes": 6428
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verifier/execution/tsconfig.verifier.json",
+          "sha256": "98b602827b843ce90d907cadc940f1f2acb2dea75207c3227901c753df2774d4",
+          "size_bytes": 1015
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verifier/scoring/compute_reward.py",
+          "sha256": "823dc90a230d1c1d8590b709bcf9e13b98c7d76b8e8f6b2e0e23ef05e6e3285e",
+          "size_bytes": 12414
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verifier/scoring/holdout.json",
+          "sha256": "f04f3b864ee59af3401ab072db28f7eae2a15393f05340032012945fb06192e5",
+          "size_bytes": 12404
+        },
+        {
+          "path": "sample-run/review-bundle/14-iam-role-validation/verifier/scoring/run-spec.json",
+          "sha256": "15b47a6ec802cf7bcdcbb4e01d1055c022308cb141c5f84bc815b71c2ca20950",
+          "size_bytes": 4392
+        }
+      ],
+      "public_task_sha256": "3a2b258e99dd6c88541dd19924126969b9743e16d5f14c577563c4126ec9400a",
+      "recorded_runtime_task_checksum": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2",
+      "solves": {
+        "grok": 3,
+        "opus": 8
+      },
+      "task_label": "Task 14"
+    }
+  },
+  "schema_version": 1,
+  "scope": "Tasks 7 and 14 publication-normalized review bundles"
+}

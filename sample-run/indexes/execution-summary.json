@@ -1,16 +1,21 @@
 {
   "cohort_directory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
-  "scored_valid_trials": 16,
+  "scored_valid_trials": 48,
   "completed_trials_excluded_from_denominator": 0,
   "controls": {
     "oracle": {
-      "count": 1,
+      "count": 3,
       "all_reward_one": true
     },
     "nop": {
-      "count": 1,
+      "count": 3,
       "all_reward_zero": true
     }
   },
-  "denominator_policy": "numeric verifier reward, complete trajectory, complete verifier artifact, and no Harbor exception"
+  "denominator_policy": "numeric verifier reward, complete trajectory, complete verifier artifact, and no Harbor exception",
+  "evidence_roots": [
+    "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
+    "sample-run/review-bundle/07-multi-region-sweep",
+    "sample-run/review-bundle/14-iam-role-validation"
+  ]
 }

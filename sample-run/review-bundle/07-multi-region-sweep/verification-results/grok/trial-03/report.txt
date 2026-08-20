@@ -1,0 +1,10 @@
+Reviewer annotation (added after the recorded run; original verifier output is preserved below).
+
+Passed behavioral checks:
+- enabled-region discovery and complete readable-region coverage
+- retry of transient throttles without dropping the region
+- omission of permanently unreadable and never-enabled regions
+- exact per-region block-storage inventory, including readable empty regions
+
+Original verifier output:
+reward=1.0
