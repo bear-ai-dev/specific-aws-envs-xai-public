@@ -8,7 +8,6 @@ solved 8/8 attempts on each corresponding task.
 
 - [Pass@k matrix](#passk-matrix)
 - [Task inventory](#task-inventory)
-- [How to interpret the results](#how-to-interpret-the-results)
 - [Failure mode analysis](#failure-mode-analysis)
 - [Evidence and controls](#evidence-and-controls)
 - [Reproduction](#reproduction)
@@ -41,22 +40,6 @@ least one of `k` sampled attempts succeeds.
 The source task numbers are retained in task paths, headings, review bundles,
 and recorded trial names so every result resolves to the exact frozen task that
 produced it.
-
-## How to interpret the results
-
-All three tasks are comparator-reachable: Opus solved all eight attempts in
-every cell under the same task, verifier, harness, agent, provider, and
-reasoning settings used for Grok. Task 2 is a repeated full failure. Tasks 7
-and 14 show that Grok can solve the task, but does so less reliably than Opus.
-
-The successful Grok runs are not accidental verifier passes. On Task 7 they
-route both volume and snapshot collection through the multi-region sweep. On
-Task 14 they explicitly distinguish an omitted cloud block from an invalid
-present block. The failed runs omit those exact behaviors. The measured gap is
-therefore completeness and consistency, not basic AWS API knowledge.
-
-See [the full cohort analysis](sample-run/analysis.md) for trial links,
-attribution evidence, and validity boundaries.
 
 ## Failure mode analysis
 
