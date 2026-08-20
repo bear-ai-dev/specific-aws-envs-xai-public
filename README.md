@@ -17,16 +17,17 @@ solved 8/8 attempts on each corresponding task.
 Each row contains eight valid Harbor trials. `c/n` is the observed solve count.
 The table uses `pass@k = 1 - C(n-c, k) / C(n, k)`, the estimated chance that at
 least one of `k` sampled attempts succeeds.
+Rows are grouped by model; a blank model cell continues the model named above.
 
 <!-- MINI_SWE_MATRIX_START -->
-| Task | Model | Solves `c/n` | pass@1 | pass@3 | pass@8 |
+| Model | Task | Solves `c/n` | pass@1 | pass@3 | pass@8 |
 | --- | --- | ---: | ---: | ---: | ---: |
-| [Task 2](tasks/02-entitlement-overage-lines/instruction.md) | Grok 4.6 | 0/8 | 0.0000 | 0.0000 | 0.0000 |
-| [Task 2](tasks/02-entitlement-overage-lines/instruction.md) | Opus 5 | 8/8 | 1.0000 | 1.0000 | 1.0000 |
-| [Task 7](tasks/07-multi-region-sweep/instruction.md) | Grok 4.6 | 6/8 | 0.7500 | 1.0000 | 1.0000 |
-| [Task 7](tasks/07-multi-region-sweep/instruction.md) | Opus 5 | 8/8 | 1.0000 | 1.0000 | 1.0000 |
-| [Task 14](tasks/14-iam-role-validation/instruction.md) | Grok 4.6 | 3/8 | 0.3750 | 0.8214 | 1.0000 |
-| [Task 14](tasks/14-iam-role-validation/instruction.md) | Opus 5 | 8/8 | 1.0000 | 1.0000 | 1.0000 |
+| Grok 4.6 | [Task 2](tasks/02-entitlement-overage-lines/instruction.md) | 0/8 | 0.0000 | 0.0000 | 0.0000 |
+|  | [Task 7](tasks/07-multi-region-sweep/instruction.md) | 6/8 | 0.7500 | 1.0000 | 1.0000 |
+|  | [Task 14](tasks/14-iam-role-validation/instruction.md) | 3/8 | 0.3750 | 0.8214 | 1.0000 |
+| Opus 5 | [Task 2](tasks/02-entitlement-overage-lines/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
+|  | [Task 7](tasks/07-multi-region-sweep/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
+|  | [Task 14](tasks/14-iam-role-validation/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 <!-- MINI_SWE_MATRIX_END -->
 
 ## Task inventory

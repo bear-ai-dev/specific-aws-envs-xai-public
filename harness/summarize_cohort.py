@@ -214,18 +214,19 @@ def render_matrix(trials: list[dict], models: tuple[str, ...] | None = None) -> 
             cells[(trial["task"], trial["model"])].append(trial)
     lines = [
         START,
-        "| Task | Model | Solves `c/n` | pass@1 | pass@3 | pass@8 |",
+        "| Model | Task | Solves `c/n` | pass@1 | pass@3 | pass@8 |",
         "| --- | --- | ---: | ---: | ---: | ---: |",
     ]
-    for task in TASKS:
-        for model in models:
+    for model in models:
+        for task_index, task in enumerate(TASKS):
             valid = cells[(task, model)]
             n = len(valid)
             c = sum(item["passed"] for item in valid)
             values = [pass_at_k(n, c, k) for k in (1, 3, 8)]
+            model_label = ALIASES[model] if task_index == 0 else ""
             lines.append(
-                f"| [{TASK_LABELS[task]}](tasks/{task}/instruction.md) | "
-                f"{ALIASES[model]} | {c}/{n} | "
+                f"| {model_label} | "
+                f"[{TASK_LABELS[task]}](tasks/{task}/instruction.md) | {c}/{n} | "
                 + " | ".join(f"{value:.4f}" for value in values)
                 + " |"
             )
