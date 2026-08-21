@@ -23,6 +23,8 @@ EVIDENCE_CONTROLS = "xai-public-controls-20260819"
 REVIEW_BUNDLE_TASKS = (
     "07-multi-region-sweep",
     "14-iam-role-validation",
+    "27-tax-jurisdiction",
+    "31-customer-onboarding",
 )
 REVIEW_MODELS = {
     "grok": "bedrock/converse/us.xai.grok-4.6",
@@ -301,6 +303,8 @@ def execution_summary(trials: list[dict], raw_dir: Path) -> dict:
             display_path(cohort_directory),
             "sample-run/review-bundle/07-multi-region-sweep",
             "sample-run/review-bundle/14-iam-role-validation",
+            "sample-run/review-bundle/27-tax-jurisdiction",
+            "sample-run/review-bundle/31-customer-onboarding",
         ]
     return summary
 

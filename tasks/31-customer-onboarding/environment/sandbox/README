@@ -1,0 +1,63 @@
+Local sandbox
+=============
+
+This box has no route off itself. Stripe, Influx, Auth0 and Amazon are all
+unreachable. What the backend would send to Amazon is answered by an emulator
+listening on http://127.0.0.1:4566, which speaks the same wire protocols the
+AWS SDK uses; AWS_ENDPOINT_URL is already exported, so clients constructed the
+way the project constructs them land there with no code change.
+
+    platform account   647662420899
+    region             us-east-1
+    STAGE              dev
+    INFLUX_ORG         meteringco
+
+Because Stripe cannot be reached, the helper this project uses to put a
+customer on the payment rail -- CustomerEntity.createStripeCustomer in
+src/customer/entities/customer.entity.ts -- is stood in for when the service is
+exercised. Code that reaches Stripe by some other route will simply hang.
+
+The archive
+-----------
+
+The business this sandbox serves is biz_apex. Last month's customer
+provisioning for it was archived object by object and is still there:
+
+    aws s3 ls s3://meteringco-config-archive-dev/customer-provisioning/2026-08/
+    aws s3 cp s3://meteringco-config-archive-dev/customer-provisioning/2026-08/manual-with-a-free-trial.ndjson -
+
+or, without the SDK,
+
+    curl -s http://127.0.0.1:4566/meteringco-config-archive-dev/customer-provisioning/2026-08/card-on-a-connected-account.ndjson
+
+Each object is one onboarding: the request that came in, the state it met on
+the way through -- the caller's customer allowance, the ids the business was
+already using, its settings row, the contract that came back for the offering
+named, whether metering was up -- and, under `outcome`, what came back out of
+the service. `influxWrites` is the configuration row it persisted, in line
+protocol. `webhookEvents` is what subscribers were told. `auditEvents` is what
+was recorded when something went wrong. `response` is what the caller got back,
+or `error` if it was turned away.
+
+It is a thin month. Six onboardings survive retention, one for each shape the
+platform bothers to keep: an exhausted allowance, an identifier already in use,
+a card customer on a business that never connected its payment account, a card
+customer the platform opened a rail customer for, a card customer that brought
+its own, and a manual customer on a contract carrying a free trial. What the
+service asked of Stripe, Influx, the contract service and the token consumer on
+the way is not kept -- only what it persisted, announced, recorded and returned.
+Real months carry far more of all of it, so treat this as a sample rather than
+the shape of the world.
+
+Running things
+--------------
+
+TypeScript in this project can be run directly with tsx, for example
+
+    tsx -e "import('./src/customer/customer.service.js').then(m => console.log(Object.keys(m)))"
+
+To point the emulator at a different document, restart it yourself:
+
+    pkill -f mockaws
+    PYTHONPATH=/opt/mockaws python3 -m mockaws \
+        --scenario /path/to/your.json --host 127.0.0.1 --port 4566 --seed 7 &

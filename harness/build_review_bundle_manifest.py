@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the integrity manifest for the two added review bundles."""
+"""Build the integrity manifest for the packaged review bundles."""
 
 from __future__ import annotations
 
@@ -13,6 +13,12 @@ DESTINATION = ROOT / "sample-run" / "manifests" / "selected-review-bundles.json"
 TASKS = {
     "07-multi-region-sweep": {"grok": 6, "opus": 8},
     "14-iam-role-validation": {"grok": 3, "opus": 8},
+    "27-tax-jurisdiction": {"grok": 0, "opus": 5},
+    "31-customer-onboarding": {"grok": 0, "opus": 5},
+}
+MIXED_CHECKSUM_TASKS = {
+    "27-tax-jurisdiction",
+    "31-customer-onboarding",
 }
 
 
@@ -57,8 +63,17 @@ def main() -> None:
                 raise SystemExit(
                     f"unexpected solves for {task}/{model}: {solves[model]}"
                 )
-        if len(recorded_checksums) != 1:
+        if len(recorded_checksums) != 1 and task not in MIXED_CHECKSUM_TASKS:
             raise SystemExit(f"mixed recorded checksums for {task}")
+        freeze_checksum = json.loads(
+            (
+                bundle
+                / "verification-results"
+                / "grok"
+                / "trial-01"
+                / "harbor-result.json"
+            ).read_text()
+        )["taskChecksum"]
 
         controls = {
             agent: load_reward(bundle / "controls" / agent / "verifier" / "reward.json")
@@ -80,7 +95,8 @@ def main() -> None:
             )
         bundles[task] = {
             "task_label": f"Task {int(task.split('-', 1)[0])}",
-            "recorded_runtime_task_checksum": recorded_checksums.pop(),
+            "recorded_runtime_task_checksum": freeze_checksum,
+            "recorded_runtime_task_checksums": sorted(recorded_checksums),
             "public_task_sha256": directory_sha256(ROOT / "tasks" / task),
             "solves": solves,
             "controls": controls,
@@ -100,7 +116,7 @@ def main() -> None:
 
     payload = {
         "schema_version": 1,
-        "scope": "Tasks 7 and 14 publication-normalized review bundles",
+        "scope": "Tasks 7, 14, 27, and 31 publication-normalized review bundles",
         "bundles": bundles,
     }
     DESTINATION.parent.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,61 @@
+schema_version = "1.4"
+
+[task]
+name = "meteringco/tax-computation-jurisdiction-resolution"
+version = "1.0.0"
+description = "Restore tax determination on issued invoices: the regime each business is configured with decides whether the rate is the one it maintains, one quoted by the tax authority for the buyer's destination, or nothing; a held exemption overrides all of them; quotes go to the sandbox or production authority according to the account, carrying both addresses, the priced lines and the business' product tax category; a refused address is reported without blocking the invoice; and a settled invoice is filed back to the authority under its own number."
+keywords = ["tax", "vat", "sales-tax", "jurisdiction", "invoicing", "billing", "typescript", "nestjs", "taxjar"]
+
+[[task.authors]]
+name = "meteringco-rl-envs"
+
+[metadata]
+difficulty = "hard"
+category = "billing-tax"
+source = "meteringco-codebases"
+codebase = "meteringco-backend/top-up-billing-lifecycle"
+task_kind = "feature-removal"
+tags = [
+    "real-codebase",
+    "tax-determination",
+    "jurisdiction-resolution",
+    "exemption-precedence",
+    "vat-identity",
+    "sandbox-production-routing",
+    "transaction-filing",
+    "error-absorption",
+]
+
+[agent]
+user = "agent"
+timeout_sec = 14400
+
+[verifier]
+user = "root"
+timeout_sec = 1800
+
+[environment]
+workdir = "/app"
+build_timeout_sec = 2400
+cpus = 2
+memory_mb = 6144
+storage_mb = 20480
+network_mode = "public"
+
+[environment.env]
+TZ = "Etc/UTC"
+# The two authority endpoints the repository's settings documentation names.
+# Which one applies to a given business is decided by that business' account.
+TAX_JAR_URL = "http://127.0.0.1:4566/taxjar/sandbox"
+PROD_TAX_JAR_URL = "http://127.0.0.1:4566/taxjar/production"
+INFLUX_URL = "http://127.0.0.1:4566/influx"
+INFLUX_ORG = "meteringco"
+INFLUX_TOKEN = "local"
+STAGE = "dev"
+
+[environment.healthcheck]
+command = "test -f /tmp/task-infra/.ready"
+interval_sec = 5
+timeout_sec = 5
+start_period_sec = 30
+retries = 12

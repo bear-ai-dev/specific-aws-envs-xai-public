@@ -1,0 +1,13 @@
+Reviewer annotation (added after the recorded run; original verifier output is preserved below).
+
+Passed behavioral checks:
+- regime, exemption, and destination-priced authority lookup
+- unrounded rate and tax persistence
+- VAT identity wording for European parties
+- refused-address reporting without blocking the invoice
+- filing only eligible settled sales
+
+Original verifier output:
+all 256 checks passed
+reward=1.0
+

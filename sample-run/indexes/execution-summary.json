@@ -1,14 +1,14 @@
 {
   "cohort_directory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
-  "scored_valid_trials": 48,
+  "scored_valid_trials": 80,
   "completed_trials_excluded_from_denominator": 0,
   "controls": {
     "oracle": {
-      "count": 3,
+      "count": 5,
       "all_reward_one": true
     },
     "nop": {
-      "count": 3,
+      "count": 5,
       "all_reward_zero": true
     }
   },
@@ -16,6 +16,8 @@
   "evidence_roots": [
     "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
     "sample-run/review-bundle/07-multi-region-sweep",
-    "sample-run/review-bundle/14-iam-role-validation"
+    "sample-run/review-bundle/14-iam-role-validation",
+    "sample-run/review-bundle/27-tax-jurisdiction",
+    "sample-run/review-bundle/31-customer-onboarding"
   ]
 }

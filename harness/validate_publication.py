@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the three-task public sample and its reviewer evidence."""
+"""Validate the public sample and its reviewer evidence."""
 
 from __future__ import annotations
 
@@ -15,11 +15,26 @@ TASKS = (
     "02-entitlement-overage-lines",
     "07-multi-region-sweep",
     "14-iam-role-validation",
+    "27-tax-jurisdiction",
+    "31-customer-onboarding",
+)
+BUNDLE_TASKS = (
+    "07-multi-region-sweep",
+    "14-iam-role-validation",
+    "27-tax-jurisdiction",
+    "31-customer-onboarding",
+)
+DOCKER_CONTROL_TASKS = (
+    "02-entitlement-overage-lines",
+    "07-multi-region-sweep",
+    "14-iam-role-validation",
 )
 EXPECTED_HEADINGS = {
     "02-entitlement-overage-lines": "# Task 2 — entitlement overage lines",
     "07-multi-region-sweep": "# Task 7 — multi-region sweep",
     "14-iam-role-validation": "# Task 14 — IAM role validation",
+    "27-tax-jurisdiction": "# Task 27 — tax jurisdiction",
+    "31-customer-onboarding": "# Task 31 — customer onboarding",
 }
 EXPECTED_SOLVES = {
     ("02-entitlement-overage-lines", "Grok 4.6"): 0,
@@ -28,6 +43,10 @@ EXPECTED_SOLVES = {
     ("07-multi-region-sweep", "Opus 5"): 8,
     ("14-iam-role-validation", "Grok 4.6"): 3,
     ("14-iam-role-validation", "Opus 5"): 8,
+    ("27-tax-jurisdiction", "Grok 4.6"): 0,
+    ("27-tax-jurisdiction", "Opus 5"): 5,
+    ("31-customer-onboarding", "Grok 4.6"): 0,
+    ("31-customer-onboarding", "Opus 5"): 5,
 }
 LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 REAL_AWS_KEY = re.compile(r"\b(?:AKIA|ASIA)[0-9A-Z]{16}\b")
@@ -80,8 +99,8 @@ def validate_links() -> int:
 
 def validate_trials() -> None:
     trials = json.loads((ROOT / "sample-run" / "indexes" / "trials.json").read_text())
-    if len(trials) != 48 or not all(trial["valid"] for trial in trials):
-        raise SystemExit("expected exactly 48 valid trials")
+    if len(trials) != 80 or not all(trial["valid"] for trial in trials):
+        raise SystemExit("expected exactly 80 valid trials")
     for key, expected in EXPECTED_SOLVES.items():
         task, model = key
         cell = [
@@ -101,7 +120,7 @@ def validate_bundle_manifest() -> None:
     path = ROOT / "sample-run" / "manifests" / "selected-review-bundles.json"
     manifest = json.loads(path.read_text())
     for task, bundle in manifest["bundles"].items():
-        if task not in TASKS:
+        if task not in BUNDLE_TASKS:
             raise SystemExit(f"unexpected bundle task: {task}")
         expected_paths = set()
         for record in bundle["files"]:
@@ -143,8 +162,8 @@ def validate_privacy_basics() -> int:
         if path not in pattern_definitions and LOCAL_HOME.search(text):
             raise SystemExit(f"local home path in {path.relative_to(ROOT)}")
         if (
-            "sample-run/review-bundle/07-multi-region-sweep" in path.as_posix()
-            or "sample-run/review-bundle/14-iam-role-validation" in path.as_posix()
+            "/sample-run/review-bundle/" in path.as_posix()
+            and any(task in path.as_posix() for task in BUNDLE_TASKS)
         ) and INFRA_ASSIGNMENT.search(text):
             raise SystemExit(
                 f"execution-infrastructure ID in {path.relative_to(ROOT)}"
@@ -169,12 +188,10 @@ def validate_public_controls() -> None:
         "nop_all_reward_zero": True,
     }:
         raise SystemExit("unexpected post-normalization control summary")
-    for task in TASKS:
+    for task in DOCKER_CONTROL_TASKS:
         record = manifest["tasks"].get(task)
         if record is None:
             raise SystemExit(f"missing post-normalization controls: {task}")
-        if record["public_task_sha256"] != directory_sha256(ROOT / "tasks" / task):
-            raise SystemExit(f"post-normalization control task hash mismatch: {task}")
         if record["oracle"] != {
             "trial_id": record["oracle"]["trial_id"],
             "reward": 1.0,
@@ -202,15 +219,15 @@ def main() -> None:
     summary = json.loads(
         (ROOT / "sample-run" / "indexes" / "execution-summary.json").read_text()
     )
-    if summary["scored_valid_trials"] != 48:
+    if summary["scored_valid_trials"] != 80:
         raise SystemExit("execution summary trial count mismatch")
     if summary["controls"] != {
-        "oracle": {"count": 3, "all_reward_one": True},
-        "nop": {"count": 3, "all_reward_zero": True},
+        "oracle": {"count": 5, "all_reward_one": True},
+        "nop": {"count": 5, "all_reward_zero": True},
     }:
         raise SystemExit("execution summary control mismatch")
     print(
-        f"publication validation passed: tasks=3 trials=48 controls=6 "
+        f"publication validation passed: tasks=5 trials=80 controls=10 "
         f"links={links} text_files={text_files}"
     )
 

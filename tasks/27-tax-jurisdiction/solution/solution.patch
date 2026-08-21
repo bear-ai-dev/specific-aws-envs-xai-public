@@ -1,0 +1,830 @@
+--- a/src/app.module.ts	2026-08-20 11:29:55
++++ b/src/app.module.ts	2026-08-08 09:13:04
+@@ -31,6 +31,7 @@
+ import { InstanceUptimeModule } from './microservices/instanceUpTime/instanceUptime.module.js';
+ import { ReservedInstanceModule } from './microservices/reservedInstanceHistory/reservedInstance.module.js';
+ import { PrivateAPISettingsModule, PublicAPISettingModule } from './setting/settings.module.js';
++import { TaxModule } from './tax/tax.module.js';
+ import { PrivateAPIAnalyticsModule } from './analytics/analytics.module.js';
+ import { PaymentModule } from './payment/payment.module.js';
+ import { PrivateInboxModule } from './inbox/inbox.module.js';
+@@ -105,6 +106,7 @@
+         CostModule,
+         ScheduleModule.forRoot(),
+         PrivateAPISettingsModule,
++        TaxModule,
+         PrivateAPIAnalyticsModule,
+         PaymentModule,
+         PrivateInboxModule,
+--- a/src/invoice/entities/invoice.entity.ts	2026-08-20 12:31:52
++++ b/src/invoice/entities/invoice.entity.ts	2026-08-08 09:13:04
+@@ -1,5 +1,7 @@
+ import { BadRequestException, Logger } from '@nestjs/common';
+ import { randomUUID } from 'crypto';
++import { TaxCalculationType } from '../../setting/dto/TaxCalculationType.js';
++import { TaxableLineItem, TaxableLineItems, TaxService } from '../../tax/tax.service.js';
+ import fetch from 'cross-fetch';
+ import { GetObjectCommand, HeadObjectCommand, S3Client } from '@aws-sdk/client-s3';
+ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+@@ -11,11 +13,13 @@
+ import { SupportedCurrencies } from '../../offering/dto/SupportedCurrencies.js';
+ import { ReadSettingsResponseData } from '../../setting/dto/read-setting.dto.js';
+ import { default as CountryLookup } from '../../setting/countryLookup.json';
++import { default as EUCountryCodes } from '../../setting/euCountries.json';
+ import { putDocument } from '../../utils/aws/s3.js';
+ import { UpdateInvoicesDto } from '../dto/update-invoices.dto.js';
+ import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, Min, ValidateNested } from 'class-validator';
+ import { Type } from 'class-transformer';
+ import { toDateString } from '../../utils/shared/dateFormating.js';
++import { TaxExempt } from '../../customer/dto/TaxExempt.js';
+ import { AuditService } from '../../audit/audit.service.js';
+ import { AuditScope } from '../../audit/entities/audit.interface.js';
+ import { InvoicePaymentTerm } from './InvoicePaymentTerm.js';
+@@ -300,6 +304,10 @@
+     public toCountry: string;
+     public customerName: string;
+     public customerEmail: string;
++    public defaultTaxRate: string;
++    public taxCalculationType: TaxCalculationType;
++    public taxCategory: string;
++    public taxExempt: TaxExempt;
+     public businessName: string;
+     public stripeAccountId: string;
+     public accountState: AccountState;
+@@ -309,6 +317,7 @@
+     public invoiceApproval: InvoiceApproval;
+     public supportEmail: string;
+ 
++    public vatId: string;
+     public logoUrl: string;
+     public invoicePaymentTerm: InvoicePaymentTerm;
+     public invoiceLineItems: InvoiceLineItems;
+@@ -316,6 +325,7 @@
+     public paymentAPI: PaymentService;
+     public paymentChannel: paymentChannel;
+     public paymentChannelOptions: CustomerEntity['paymentChannelOptions'];
++    public customerVatId: string;
+     public paymentLink?: string;
+     // Below properties are stored in DB model
+     public customerId: string;
+@@ -349,7 +359,7 @@
+         currency,
+         fromEntity,
+         toEntity,
+-        salesTaxRate = 0,
++        salesTaxRate,
+         payments,
+         refunds,
+         influxService,
+@@ -475,6 +485,47 @@
+         }
+         return false;
+     }
++    private isEuropeanCountry(countryCode: string): boolean {
++        if (countryCode) {
++            return EUCountryCodes.includes(countryCode.toUpperCase());
++        } else {
++            return false;
++        }
++    }
++
++    public async registerInvoiceTaxTransaction({
++        taxService,
++        taxTransactionId,
++    }: {
++        taxService: TaxService;
++        taxTransactionId: string;
++    }): Promise<any | null> {
++        const transactionId = this.invoiceId || taxTransactionId;
++        if (this.toState && this.toCountry && this.toPostalCode) {
++            const taxInfo = await taxService.registerTransaction({
++                businessID: this.businessID,
++                transactionId,
++                amount: this.totalAmountWithoutTax,
++                lineItems: this.invoiceLineItems
++                    ? this.invoiceLineItems
++                          .getLineItems()
++                          .map((lineItem) => TaxableLineItem.fromInvoiceLineItem(undefined, lineItem))
++                    : [],
++                salesTax: this.taxAmount,
++                address: {
++                    streetLineOne: this.toStreetLine1,
++                    streetLineTwo: this.toStreetLine2,
++                    city: this.toCity,
++                    state: this.toState,
++                    postalCode: this.toPostalCode,
++                    countryCode: this.toCountry,
++                },
++            });
++            return taxInfo;
++        }
++        return null;
++    }
++
+     public prepareAddressesForInvoice() {
+         // prepare invoid
+         const businessAddress =
+@@ -485,7 +536,8 @@
+             (this.fromState + (this.fromState !== '' ? ' ' : '')) +
+             (this.fromPostalCode + (this.fromPostalCode !== '' ? '\n' : '')) +
+             (this.fromCountry !== '' ? CountryLookup[this.fromCountry] : '') +
+-            (this.fromCountry !== '' ? '\n' : '');
++            (this.fromCountry !== '' ? '\n' : '') +
++            (this.isEuropeanCountry(this.fromCountry) && this.vatId ? `VAT Registration Number: ${this.vatId}` : '');
+         const customerAddress =
+             this.toStreetLine1 +
+             (this.toStreetLine1 !== '' ? '\n' : '') +
+@@ -494,7 +546,10 @@
+             (this.toState + (this.toState !== '' ? ' ' : '')) +
+             (this.toPostalCode + (this.toPostalCode !== '' ? '\n' : '')) +
+             (this.toCountry !== '' ? CountryLookup[this.toCountry] : '') +
+-            (this.toCountry !== '' ? '\n' : '');
++            (this.toCountry !== '' ? '\n' : '') +
++            (this.isEuropeanCountry(this.toCountry) && this.customerVatId
++                ? `VAT Registration Number: ${this.customerVatId}`
++                : '');
+         const fromEntity = [this.businessName, businessAddress].map(suffixIfNotEmpty('\n')).join('');
+         const toEntity = [this.customerName, this.customerEmail, customerAddress].map(suffixIfNotEmpty('\n')).join('');
+         return {
+@@ -502,11 +557,17 @@
+             toEntity,
+         };
+     }
+-    public async generate(isManual?: boolean): Promise<{ invoiceId: string; message: string; error?: any }> {
++    public async generate(
++        taxService: TaxService,
++        isManual?: boolean,
++    ): Promise<{ invoiceId: string; message: string; error?: any }> {
+         if (!this.invoiceDate) {
+             this.invoiceDate = new Date();
+         }
+ 
++        const { rate: salesTaxRate, error } = await this.getSalesTaxRate(taxService);
++        this.salesTaxRate = salesTaxRate;
++        this.taxAmount = salesTaxRate * this.totalAmountWithoutTax;
+         // pdf storage
+         this.invoiceS3bucket = `meteringco-${process.env.STAGE}-invoice-bucket`;
+         this.invoiceS3key = `${this.businessID}-invoice-${new Date().toISOString()}.pdf`;
+@@ -524,11 +585,14 @@
+             this.invoiceStatus === InvoiceStatus.DRAFT &&
+             !isManual
+         ) {
+-            await this.updateStatus(InvoiceStatus.OPEN);
++            await this.updateStatus(InvoiceStatus.OPEN, taxService);
+         }
+         return {
+             invoiceId: this.invoiceId,
+-            message: 'Generated invoice',
++            message: error
++                ? 'WARNING Errors occured while generating invoice, invoice still generated'
++                : 'Generated invoice',
++            error,
+         };
+     }
+     public async queue() {
+@@ -605,7 +669,7 @@
+         await this.influxService.loadPoints(`${process.env.STAGE}-config`, process.env.INFLUX_ORG, dbModel);
+     }
+ 
+-    public async updateStatus(newInvoiceStatus: InvoiceStatus): Promise<string> {
++    public async updateStatus(newInvoiceStatus: InvoiceStatus, taxService: TaxService): Promise<string> {
+         if (this.invoiceStatus == newInvoiceStatus) {
+             return 'Invoice already has status ' + newInvoiceStatus;
+         } else if (this.validateStatusUpdate(newInvoiceStatus)) {
+@@ -649,6 +713,7 @@
+                     });
+                 }
+             } else if (newInvoiceStatus == InvoiceStatus.PAID) {
++                await this.registerInvoiceTaxTransaction({ taxService, taxTransactionId: this.invoiceId });
+                 this.invoiceStatus = newInvoiceStatus;
+                 if (this.paymentChannel === paymentChannel.manual) {
+                     PaymentService.publishEvent({
+@@ -756,6 +821,42 @@
+         };
+     }
+ 
++    private async getSalesTaxRate(taxService: TaxService): Promise<{ rate: number; error?: { message: string } }> {
++        Invoice.logger.log('Calculating sales tax');
++
++        if (this.taxExempt === TaxExempt.exempt) {
++            return { rate: 0 };
++        }
++        if (this.taxCalculationType === TaxCalculationType.manual) {
++            Invoice.logger.log('Using manual tax rate');
++            return { rate: Number(this.defaultTaxRate) };
++        } else if (this.taxCalculationType === TaxCalculationType.meteringcoCalculated) {
++            Invoice.logger.log('Using meteringco calculated tax rate');
++            const taxableLineItems = new TaxableLineItems();
++            this.invoiceLineItems.getLineItems().forEach((lineItem) => {
++                taxableLineItems.addLineItem(TaxableLineItem.fromInvoiceLineItem(this.taxCategory, lineItem));
++            });
++            const { rate, error } = await taxService.calculateSalesTax(
++                this.fromCountry,
++                this.fromPostalCode,
++                this.fromState,
++                this.fromCity,
++                this.fromStreetLine1,
++                this.toCountry,
++                this.toPostalCode,
++                this.toState,
++                this.toCity,
++                this.toStreetLine1,
++                taxableLineItems,
++                this.businessID,
++            );
++            return { rate, error };
++        } else if (this.taxCalculationType === TaxCalculationType.none) {
++            Invoice.logger.log('No tax calculation');
++            return { rate: 0 };
++        }
++        return { rate: 0 };
++    }
+     static digitsEnforcer(value: number): number {
+         if (value.toString().split('.')[1]) {
+             if (value.toString().split('.')[1].length > 8) {
+@@ -1022,7 +1123,11 @@
+         this.fromState = settingsEntity.state;
+         this.fromPostalCode = settingsEntity.postalCode;
+         this.fromCountry = settingsEntity.country;
++        this.defaultTaxRate = settingsEntity.taxRate;
++        this.taxCalculationType = settingsEntity.taxCalculationType;
++        this.taxCategory = settingsEntity.taxCategory;
+         this.businessName = settingsEntity.businessName;
++        this.vatId = settingsEntity.vatId;
+         this.logoUrl = settingsEntity.logoUrl;
+         if (this.invoicePaymentTerm === InvoicePaymentTerm.none) {
+             this.invoicePaymentTerm = settingsEntity.invoicePaymentTerm;
+@@ -1045,6 +1150,8 @@
+         this.customerEmail = customerEntity.email;
+         this.paymentChannel = customerEntity.paymentChannel;
+         this.paymentChannelOptions = customerEntity.paymentChannelOptions;
++        this.customerVatId = customerEntity.customerVatId;
++        this.taxExempt = customerEntity.taxExempt;
+     }
+ 
+     public static async update(
+@@ -1052,6 +1159,7 @@
+         currentInvoice: Invoice,
+         customerEntity: ReadCustomerResponseData,
+         settingsEntity: ReadSettingsResponseData,
++        taxService: TaxService,
+     ): Promise<string> {
+         const { invoiceStatus: currentStatus } = currentInvoice;
+         Invoice.logger.log(`Starting Update for Invoice, current status: ${currentStatus}, new status: ${newStatus}`);
+@@ -1093,7 +1201,7 @@
+             if (rest.invoicePaymentTerm) {
+                 updatedInvoice.invoicePaymentTerm = rest.invoicePaymentTerm;
+             }
+-            await updatedInvoice.generate();
++            await updatedInvoice.generate(taxService);
+ 
+             return 'Invoice Updated';
+         } else if (newStatus) {
+@@ -1110,7 +1218,7 @@
+             updatedInvoice.loadPropertiesFromCustomerEntity(customerEntity);
+             updatedInvoice.loadPropertiesFromSettingsEntity(settingsEntity);
+             updatedInvoice.invoicePaymentTerm = currentInvoice.invoicePaymentTerm;
+-            const msg = await updatedInvoice.updateStatus(newStatus);
++            const msg = await updatedInvoice.updateStatus(newStatus, taxService);
+             return msg;
+         }
+         Invoice.logger.log(`Debugging: ${JSON.stringify(rest)}`);
+--- a/src/invoice/invoice.entity.spec.ts	2026-08-20 11:30:39
++++ b/src/invoice/invoice.entity.spec.ts	2026-08-08 09:13:04
+@@ -1,5 +1,6 @@
+ import { paymentChannel } from '../customer/dto/create-customer.dto.js';
+ import { InvoiceApproval } from '../setting/dto/InvoiceApproval.js';
++import { TaxService } from '../tax/tax.service.js';
+ import { Invoice, InvoiceLineItem, InvoiceLineItems } from './entities/invoice.entity.js';
+ import { InvoiceStatus } from './entities/InvoiceStatus.js';
+ 
+@@ -49,6 +50,55 @@
+         expect(toEntity).toContain('12345');
+         expect(toEntity).toContain('test@meteringco.com');
+     });
++    it('Should register tax only if address information is complete for customer', async () => {
++        const invoice = new Invoice({ customerId: '123', businessID: 'business', invoiceId: '123' });
++        invoice.loadPropertiesFromCustomerEntity({
++            customerId: '123',
++            businessID: 'business',
++            customerName: 'Test Customer',
++            email: 'test@meteringco.com',
++            address: {
++                streetLineOne: '123 Main St',
++                streetLineTwo: 'Apt 1',
++                countryCode: 'us',
++                city: 'New York',
++                state: 'NY',
++                postalCode: '12345',
++            },
++            paymentChannel: paymentChannel.manual,
++            offering: {
++                offeringName: 'Test Offering',
++                offeringId: '123',
++                dimensions: [],
++            },
++        });
++        const mockTaxService = {
++            registerTransaction: jest.fn(),
++        } as unknown as TaxService;
++        await invoice.registerInvoiceTaxTransaction({ taxTransactionId: '123', taxService: mockTaxService });
++        expect(mockTaxService.registerTransaction).toBeCalledTimes(1);
++    });
++    it('Should not register tax for incomplete address', async () => {
++        const invoice = new Invoice({ customerId: '123', businessID: 'business', invoiceId: '123' });
++        invoice.loadPropertiesFromCustomerEntity({
++            customerId: '123',
++            businessID: 'business',
++            customerName: 'Test Customer',
++            email: 'test@meteringco.com',
++            paymentChannel: paymentChannel.manual,
++            offering: {
++                offeringName: 'Test Offering',
++                offeringId: '123',
++                dimensions: [],
++            },
++        });
++        const mockTaxService = {
++            registerTransaction: jest.fn(),
++        } as unknown as TaxService;
++        await invoice.registerInvoiceTaxTransaction({ taxTransactionId: '123', taxService: mockTaxService });
++        expect(mockTaxService.registerTransaction).toBeCalledTimes(0);
++    });
++
+     it('should move the invoice to open status if settings are set correctly', async () => {
+         const invoice = new Invoice({ customerId: '123', businessID: 'business', invoiceId: '123' });
+         invoice.saveToDB = jest.fn();
+@@ -74,7 +124,10 @@
+             },
+         });
+         invoice.loadPropertiesFromSettingsEntity({ invoiceApproval: InvoiceApproval.automatic });
+-        await invoice.generate(false);
++        const mockTaxService = {
++            registerTransaction: jest.fn(),
++        } as unknown as TaxService;
++        await invoice.generate(mockTaxService, false);
+         expect(invoice.invoiceStatus).toBe(InvoiceStatus.OPEN);
+         expect(invoice.saveToDB).toBeCalledTimes(2);
+     });
+--- a/src/invoice/invoice.services.spec.ts	2026-08-20 11:30:20
++++ b/src/invoice/invoice.services.spec.ts	2026-08-08 09:13:04
+@@ -2,6 +2,7 @@
+ import { InvoicesService } from './invoices.service.js';
+ import * as InvoiceEntityFile from './entities/invoice.entity.js';
+ import { InfluxService } from '../influx/influx.service.js';
++import { TaxService } from '../tax/tax.service.js';
+ import { SettingsService } from '../setting/settings.service.js';
+ import { SettingsEntity } from '../setting/entities/settings.entity.js';
+ import { CustomerService } from '../customer/customer.service.js';
+@@ -57,6 +58,7 @@
+     const mockLoadPoints = jest.fn();
+     const getSingleInvoice = jest.fn(() => mockFoundInfluxData);
+     const mockSettingsFindOne = jest.fn(() => [new SettingsEntity(mockSettings)]);
++    const salesTaxCalc = jest.fn(() => ({ rate: 0 }));
+     const mockFindOneCustomer = jest.fn(() => ({ data: [{ customerId: 'fake', invoices: [] }] }));
+     const mockSumPaidAmountByInvoiceId = jest.fn(() => 123.45);
+     const mockGetInvoicesForCustomer = jest.fn().mockResolvedValue([openedInvoice, paidInvoice]);
+@@ -100,6 +102,7 @@
+                     },
+                 },
+                 { provide: SettingsService, useValue: { findAll: mockSettingsFindOne } },
++                { provide: TaxService, useValue: { calculateSalesTax: salesTaxCalc } },
+                 {
+                     provide: PaymentService,
+                     useValue: { getAmountPaid: mockSumPaidAmountByInvoiceId, publish: jest.fn() },
+@@ -147,6 +150,7 @@
+             expect.objectContaining({ businessID: 'businessID', invoiceId: 'invoiceID' }),
+         );
+         expect(mockSettingsFindOne).toHaveBeenCalledWith(expect.objectContaining({ businessID: 'businessID' }));
++        expect(salesTaxCalc).toHaveBeenCalledTimes(0);
+         expect(invoiceAPISpy).toHaveBeenCalledWith(
+             expect.objectContaining({
+                 logoUrl: 'https://www.example.com/logo.png',
+--- a/src/invoice/invoices.module.ts	2026-08-20 11:29:55
++++ b/src/invoice/invoices.module.ts	2026-08-08 09:13:04
+@@ -4,6 +4,7 @@
+ import { InfluxModule } from '../influx/influx.module.js';
+ import { PrivateAPISettingsModule } from '../setting/settings.module.js';
+ import { PrivateAPICustomerModule } from '../customer/customer.module.js';
++import { TaxModule } from '../tax/tax.module.js';
+ import { PaymentModule } from '../payment/payment.module.js';
+ import { PrivateAPIDimensionsModule } from '../dimensions/dimensions.module.js';
+ import { UsageModule } from '../usage/usage.module.js';
+@@ -23,6 +24,7 @@
+         forwardRef(() => PaymentModule),
+         forwardRef(() => UsageModule),
+         forwardRef(() => PrivateAPIDimensionsModule),
++        forwardRef(() => TaxModule),
+         forwardRef(() => CreditModule),
+         forwardRef(() => ContractModule),
+         forwardRef(() => SchedulerModule),
+@@ -42,6 +44,7 @@
+         forwardRef(() => PaymentModule),
+         forwardRef(() => UsageModule),
+         forwardRef(() => PrivateAPIDimensionsModule),
++        forwardRef(() => TaxModule),
+         forwardRef(() => CreditModule),
+         forwardRef(() => ContractModule),
+         forwardRef(() => SchedulerModule),
+--- a/src/invoice/invoices.service.ts	2026-08-20 11:29:55
++++ b/src/invoice/invoices.service.ts	2026-08-08 09:13:04
+@@ -12,6 +12,7 @@
+ import { GenerateOffCycleDto } from './dto/createOffcycleInvoice.js';
+ import { getFirstDayOfCurrentMonthUTC } from '../utils/shared/dateFormating.js';
+ import { UsageService } from '../usage/usage.service.js';
++import { TaxService } from '../tax/tax.service.js';
+ import { Offering } from '../offering/entities/offeringPackage.entity.js';
+ import { ReadCustomerResponseData } from '../customer/entities/customer.entity.js';
+ import { CreditService } from '../credit/credit.service.js';
+@@ -41,6 +42,7 @@
+         @Inject(forwardRef(() => DimensionsService)) readonly dimensionService: DimensionsService,
+         @Inject(forwardRef(() => SettingsService)) readonly settingsService: SettingsService,
+         @Inject(forwardRef(() => InfluxService)) readonly influxService: InfluxService,
++        @Inject(forwardRef(() => TaxService)) readonly taxService: TaxService,
+         @Inject(forwardRef(() => CreditService)) readonly creditService: CreditService,
+         @Inject(forwardRef(() => ContractService)) readonly contractService: ContractService,
+         @Inject(forwardRef(() => SchedulerService)) readonly schedulerService: SchedulerService,
+@@ -75,7 +77,7 @@
+             currency,
+             customer,
+         });
+-        const res = await newInvoice.generate(isManual);
++        const res = await newInvoice.generate(this.taxService, isManual);
+         await this.tokenConsumerService.create({
+             businessID: businessID,
+             metadata: { tokenType: TokenType.invoice, invoiceId: newInvoice?.invoiceId, businessID: businessID },
+@@ -229,6 +231,7 @@
+                 invoice,
+                 customerEntity,
+                 settingsEntity,
++                this.taxService,
+             );
+             try {
+                 return { message: msg };
+--- a/src/payment/entities/payment.entity.ts	2026-08-20 11:29:55
++++ b/src/payment/entities/payment.entity.ts	2026-08-08 09:13:04
+@@ -13,6 +13,7 @@
+ import { PaymentProcessor, PaymentProcessRequest, PaymentResponse, StripeRefundInput } from './payment.interface.js';
+ import { CustomerService } from '../../customer/customer.service.js';
+ import { CustomerCommunicationChannel } from '../../customer/entities/customerCommunication.interface.js';
++import { TaxService } from '../../tax/tax.service.js';
+ import { WebhookProcessorEventType, WebhookPublishingService } from '../../webhook/webhook.service.js';
+ import { WebhookType } from '../../webhook/dto/create-webhook.dto.js';
+ import { ReadInvoicesDto } from '../../invoice/dto/read-invoices.dto.js';
+@@ -54,6 +55,7 @@
+ export class StripePaymentProcessor extends EventEmitter implements PaymentProcessor {
+     private static readonly logger = new Logger(StripePaymentProcessor.name);
+     public creditService: CreditService;
++    public taxService: TaxService;
+     public paymentService: PaymentService;
+     public localJWTAuthService: LocalJWTAuthService;
+     public tokenConsumerService: TokenConsumerService;
+@@ -218,7 +220,11 @@
+                 );
+ 
+                 invoice.amountPaid = invoice.total;
+-                await StripePaymentProcessor.onSuccess({ data, topic: paymentChannel.Stripe }, paymentIntentResponse?.id);
++                await StripePaymentProcessor.onSuccess(
++                    { data, topic: paymentChannel.Stripe },
++                    paymentIntentResponse?.id,
++                    this.taxService,
++                );
+                 return { paidAmount: invoice.total, chargeResponse: paymentIntentResponse };
+             } catch (error) {
+                 StripePaymentProcessor.logger.error(serializeError(error));
+@@ -377,6 +383,7 @@
+     static async onSuccess(
+         paymentRequest: PaymentProcessRequest,
+         paymentIntentId?: string,
++        taxService?: TaxService,
+         tokenConsumerService?: TokenConsumerService,
+     ) {
+         StripePaymentProcessor.logger.log('Payment was successful');
+@@ -414,6 +421,9 @@
+                 message: 'Failed to log token for payment',
+                 data: [serializeError(e)],
+             });
++        }
++        if (taxService) {
++            await invoice.registerInvoiceTaxTransaction({ taxService: taxService, taxTransactionId: paymentIntentId });
+         }
+     }
+ 
+--- a/src/payment/payment.module.ts	2026-08-20 11:29:55
++++ b/src/payment/payment.module.ts	2026-08-08 09:13:04
+@@ -8,6 +8,8 @@
+ import { PaymentEntity, StripePaymentProcessor } from './entities/payment.entity.js';
+ import { ModuleRef } from '@nestjs/core';
+ import { CreditService } from '../credit/credit.service.js';
++import { TaxModule } from '../tax/tax.module.js';
++import { TaxService } from '../tax/tax.service.js';
+ import { InfluxModule } from '../influx/influx.module.js';
+ import { LocalJWTAuthService } from '../authz/jwt-local.strategy.js';
+ import { AuthzModule } from '../authz/authz.module.js';
+@@ -23,6 +25,7 @@
+         forwardRef(() => PrivateAPICustomerModule),
+         forwardRef(() => PrivateAPISettingsModule),
+         forwardRef(() => CreditModule),
++        forwardRef(() => TaxModule),
+         forwardRef(() => InfluxModule),
+         forwardRef(() => AuthzModule),
+         forwardRef(() => TokenConsumerModule),
+@@ -31,6 +34,7 @@
+ })
+ export class PaymentModule implements OnModuleInit {
+     private creditService: CreditService;
++    private taxService: TaxService;
+     private localJWTAuthService: LocalJWTAuthService;
+     private tokenConsumerService: TokenConsumerService;
+     private settingsService: SettingsService;
+@@ -40,11 +44,13 @@
+     ) {}
+     onModuleInit() {
+         this.creditService = this.moduleRef.get(CreditService, { strict: false });
++        this.taxService = this.moduleRef.get(TaxService, { strict: false });
+         this.localJWTAuthService = this.moduleRef.get(LocalJWTAuthService, { strict: false });
+         this.tokenConsumerService = this.moduleRef.get(TokenConsumerService, { strict: false });
+         this.settingsService = this.moduleRef.get(SettingsService, { strict: false });
+         PaymentService.subscribe(
+             this.creditService,
++            this.taxService,
+             this.paymentService,
+             this.localJWTAuthService,
+             this.tokenConsumerService,
+--- a/src/payment/payment.service.spec.ts	2026-08-20 11:30:20
++++ b/src/payment/payment.service.spec.ts	2026-08-08 09:13:04
+@@ -14,6 +14,7 @@
+ import { async } from 'rxjs';
+ import { LocalJWTAuthService } from '../authz/jwt-local.strategy.js';
+ import { TokenConsumerService } from '../token-consumer/token-consumer.service.js';
++import { TaxService } from '../tax/tax.service.js';
+ import { InvoiceGeneration, SendInvoiceEmail } from '../setting/dto/update-settings.dto.js';
+ import { SettingsEntity } from '../setting/entities/settings.entity.js';
+ import { SettingsService } from 'setting/settings.service.js';
+@@ -81,6 +82,7 @@
+     const mockSettingsFindOne = jest.fn(() => new SettingsEntity(mockSettings));
+     const mockSettingsFindOneDoNotSend = jest.fn(() => new SettingsEntity(mockSettingsDoNotSend));
+     const settingsServiceMockCreate = jest.fn();
++    const taxMock = { registerTransaction: jest.fn() } as unknown as TaxService;
+     const creditMock = jest
+         .fn()
+         .mockImplementation(() => ({ create: creditMockCreate, findCreditBalance: findCreditBalanceMock }));
+@@ -127,6 +129,7 @@
+     it('should process stripe payments sucessfully', async () => {
+         const stripePaymentSystem = new StripePaymentProcessor();
+         stripePaymentSystem.creditService = new creditMock() as unknown as CreditService;
++        stripePaymentSystem.taxService = taxMock;
+         stripePaymentSystem.paymentService = new paymentServiceMock() as unknown as PaymentService;
+         stripePaymentSystem.localJWTAuthService = localJWTAuthServiceMock as unknown as LocalJWTAuthService;
+         stripePaymentSystem.tokenConsumerService = tokenConsumerServiceMock as unknown as TokenConsumerService;
+@@ -166,6 +169,7 @@
+     it('should process stripe payments sucessfully and not send email if sendInvoiceEmail is set to: doNotSend', async () => {
+         const stripePaymentSystem = new StripePaymentProcessor();
+         stripePaymentSystem.creditService = new creditMock() as unknown as CreditService;
++        stripePaymentSystem.taxService = taxMock;
+         stripePaymentSystem.paymentService = new paymentServiceMock() as unknown as PaymentService;
+         stripePaymentSystem.localJWTAuthService = localJWTAuthServiceMock as unknown as LocalJWTAuthService;
+         stripePaymentSystem.tokenConsumerService = tokenConsumerServiceMock as unknown as TokenConsumerService;
+--- a/src/payment/payment.service.ts	2026-08-20 11:29:55
++++ b/src/payment/payment.service.ts	2026-08-08 09:13:04
+@@ -1,6 +1,7 @@
+ import { BadRequestException, Inject, Injectable, Logger, forwardRef } from '@nestjs/common';
+ import { CreditService } from '../credit/credit.service.js';
+ import { paymentChannel } from '../customer/dto/create-customer.dto.js';
++import { TaxService } from '../tax/tax.service.js';
+ import { ManualPaymentProcessor, StripePaymentProcessor } from './entities/payment.entity.js';
+ import { AmountPaidLedgerEntity } from './entities/AmountPaidLedgerEntity.js';
+ import { PaymentProcessRequest } from './entities/payment.interface.js';
+@@ -39,12 +40,14 @@
+ 
+     public static subscribe(
+         creditService: CreditService,
++        taxService: TaxService,
+         paymentService: PaymentService,
+         localJWTAuthService: LocalJWTAuthService,
+         tokenService: TokenConsumerService,
+         settingsService: SettingsService,
+     ) {
+         PaymentService.stripePaymentProcessor.creditService = creditService;
++        PaymentService.stripePaymentProcessor.taxService = taxService;
+         PaymentService.stripePaymentProcessor.paymentService = paymentService;
+         PaymentService.stripePaymentProcessor.localJWTAuthService = localJWTAuthService;
+         PaymentService.stripePaymentProcessor.tokenConsumerService = tokenService;
+--- a/src/tax/tax.module.ts	1970-01-01 05:30:00
++++ b/src/tax/tax.module.ts	2026-08-08 09:13:04
+@@ -0,0 +1,10 @@
++import { forwardRef, Module } from '@nestjs/common';
++import { TaxService } from './tax.service.js';
++import { PrivateAPISettingsModule } from '../setting/settings.module.js';
++
++@Module({
++    providers: [TaxService],
++    imports: [PrivateAPISettingsModule],
++    exports: [TaxService],
++})
++export class TaxModule {}
+--- a/src/tax/tax.service.spec.ts	1970-01-01 05:30:00
++++ b/src/tax/tax.service.spec.ts	2026-08-08 09:13:04
+@@ -0,0 +1,21 @@
++import { createMock } from '@golevelup/ts-jest';
++import { Test, TestingModule } from '@nestjs/testing';
++import { TaxService } from './tax.service.js';
++
++describe('TaxService', () => {
++    let service: TaxService;
++
++    beforeEach(async () => {
++        const module: TestingModule = await Test.createTestingModule({
++            providers: [TaxService],
++        })
++            .useMocker(createMock)
++            .compile();
++
++        service = module.get<TaxService>(TaxService);
++    });
++
++    it('should be defined', () => {
++        expect(service).toBeDefined();
++    });
++});
+--- a/src/tax/tax.service.ts	1970-01-01 05:30:00
++++ b/src/tax/tax.service.ts	2026-08-08 09:13:04
+@@ -0,0 +1,178 @@
++import { BadRequestException, forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
++import { AuditService } from '../audit/audit.service.js';
++import { AuditScope } from '../audit/entities/audit.interface.js';
++import Taxjar from 'taxjar';
++import { Invoice, InvoiceLineItem } from '../invoice/entities/invoice.entity.js';
++import { SettingsService } from '../setting/settings.service.js';
++
++import { AccountState } from '../setting/entities/AccountState.js';
++import { Address } from '../customer/dto/create-customer.dto.js';
++import { serializeError } from 'serialize-error';
++
++export class TaxableLineItem {
++    quantity: number;
++    product_tax_code: string;
++    unit_price: number;
++    discount?: number;
++    constructor(quantity: number, productTaxCode: string, unitPrice: number, discount?: number) {
++        this.quantity = quantity;
++        this.product_tax_code = productTaxCode;
++        this.unit_price = unitPrice;
++        this.discount = discount;
++    }
++    static fromInvoiceLineItem(productTaxCode: string, invoiceLineItem: InvoiceLineItem): TaxableLineItem {
++        return new TaxableLineItem(invoiceLineItem.quantity, productTaxCode, invoiceLineItem.unitCost);
++    }
++}
++
++export class TaxableLineItems {
++    private lineItems: TaxableLineItem[] = [];
++    addLineItem(lineItem: TaxableLineItem) {
++        this.lineItems.push(lineItem);
++    }
++    getLineItems() {
++        return this.lineItems;
++    }
++}
++
++@Injectable()
++export class TaxService {
++    private static logger = new Logger(TaxService.name);
++    constructor(@Inject(forwardRef(() => SettingsService)) readonly settingsService: SettingsService) {}
++
++    /**
++     * @param fromCountry
++     * @param fromZip
++     * @param fromState
++     * @param fromCity
++     * @param fromStreet
++     * @param toCountry
++     * @param toZip
++     * @param toState
++     * @param toCity
++     * @param toStreet
++     * @param lineItems
++     */
++    async calculateSalesTax(
++        fromCountry: string,
++        fromZip: string,
++        fromState: string,
++        fromCity: string,
++        fromStreet: string,
++        toCountry: string,
++        toZip: string,
++        toState: string,
++        toCity: string,
++        toStreet: string,
++        lineItems: TaxableLineItems,
++        businessID: string,
++    ): Promise<{ rate: number; amountToCollect: number; error?: { message: string } }> {
++        const [{ taxJarApiKey, accountState }] = await this.settingsService.findAll({ businessID });
++        if (!taxJarApiKey) {
++            throw new BadRequestException('TaxJar API Key is not set');
++        }
++        const taxjarClient = new Taxjar({
++            apiKey: taxJarApiKey,
++            apiUrl: accountState === AccountState.production ? process.env.PROD_TAX_JAR_URL : process.env.TAX_JAR_URL,
++        });
++        try {
++            const taxInfo = await taxjarClient.taxForOrder({
++                from_country: fromCountry,
++                from_zip: fromZip,
++                from_state: fromState,
++                from_city: fromCity,
++                from_street: fromStreet,
++                to_country: toCountry,
++                to_zip: toZip,
++                to_state: toState,
++                to_city: toCity,
++                to_street: toStreet,
++                shipping: 0,
++                line_items: lineItems.getLineItems(),
++            });
++            const { rate, amount_to_collect: amountToCollect } = taxInfo.tax;
++            return { rate, amountToCollect };
++        } catch (error) {
++            if (error instanceof Taxjar.Error && error.status === 400) {
++                AuditService.publishEvent({
++                    topic: AuditScope.ERROR,
++                    message: 'Improper Tax Address formation',
++                    data: [{ errorStack: error.stack, errorStatus: error.status, errorMessage: error.message }],
++                });
++                return { rate: 0, amountToCollect: 0, error: { message: error.message } };
++            } else {
++                throw error;
++            }
++        }
++    }
++
++    async registerTransaction({
++        businessID,
++        transactionId,
++        lineItems,
++        amount,
++        salesTax,
++        address,
++        transactionDate,
++    }: {
++        businessID: string;
++        transactionId: string;
++        lineItems: TaxableLineItem[];
++        amount: number;
++        salesTax: number;
++        address: Address;
++        transactionDate?: string;
++    }) {
++        TaxService.logger.debug(`Registering transaction ${transactionId} with TaxJar`);
++        const [{ taxJarApiKey, accountState }] = await this.settingsService.findAll({ businessID });
++        if (!taxJarApiKey) {
++            return;
++        }
++        const taxjarClient = new Taxjar({
++            apiKey: taxJarApiKey,
++            apiUrl: accountState === AccountState.production ? process.env.PROD_TAX_JAR_URL : process.env.TAX_JAR_URL,
++        });
++        try {
++            const taxInfo = await taxjarClient.createOrder({
++                transaction_id: transactionId,
++                transaction_date: transactionDate || new Date().toISOString(),
++                provider: 'meteringco',
++                to_country: address.countryCode,
++                to_zip: address.postalCode,
++                to_state: address.state,
++                to_city: address.city,
++                to_street: address.streetLineTwo
++                    ? `${address.streetLineOne} ${address.streetLineTwo}`
++                    : address.streetLineOne,
++                amount: amount,
++                shipping: 0,
++                sales_tax: salesTax,
++                line_items: lineItems,
++            });
++            TaxService.logger.debug(`Registered transaction ${transactionId} with TaxJar`);
++            try {
++                TaxService.logger.debug(JSON.stringify(taxInfo));
++            } catch (e) {
++                TaxService.logger.debug(`Couldn't stringify taxInfo`);
++                TaxService.logger.debug(e);
++                TaxService.logger.debug(taxInfo);
++            }
++            return taxInfo;
++        } catch (error) {
++            TaxService.logger.error("Couldn't register transaction with TaxJar");
++            TaxService.logger.error(serializeError(error));
++            AuditService.publishEvent({
++                topic: AuditScope.ERROR,
++                message: "Couldn't register transaction with TaxJar",
++                data: [
++                    {
++                        errorStack: error?.stack,
++                        errorStatus: error?.status,
++                        errorMessage: error?.message,
++                        error: serializeError(error),
++                    },
++                ],
++            });
++        }
++    }
++}

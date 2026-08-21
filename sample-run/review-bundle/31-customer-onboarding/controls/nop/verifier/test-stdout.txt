@@ -1,0 +1,5 @@
+=== Snapshot the deliverable for audit ===
+=== Stop the agent-facing endpoint ===
+driver diagnostic exit: 0
+=== Compute reward (root, no submitted code loaded) ===
+reward 0: 12 of 12 requests wrong; first is manual-no-offering: the customer allowance was consulted once: expected 1, saw 0

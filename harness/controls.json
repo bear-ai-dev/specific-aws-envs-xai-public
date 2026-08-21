@@ -2,7 +2,7 @@
   "job_name": "xai-public-controls-20260820",
   "jobs_dir": "sample-run/raw",
   "n_attempts": 1,
-  "n_concurrent_trials": 6,
+  "n_concurrent_trials": 10,
   "quiet": false,
   "environment": {
     "type": "daytona",
@@ -31,6 +31,12 @@
     },
     {
       "path": "tasks/14-iam-role-validation"
+    },
+    {
+      "path": "tasks/27-tax-jurisdiction"
+    },
+    {
+      "path": "tasks/31-customer-onboarding"
     }
   ]
 }

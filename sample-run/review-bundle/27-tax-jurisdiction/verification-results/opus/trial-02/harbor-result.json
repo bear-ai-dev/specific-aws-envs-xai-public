@@ -1,0 +1,39 @@
+{
+  "id": "c4687025-8ce2-431f-b459-50fc3195f38f",
+  "taskName": "meteringco/tax-computation-jurisdiction-resolution",
+  "trialName": "27-tax-jurisdiction__La3RrRt",
+  "taskChecksum": "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "us.anthropic.claude-opus-5",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0,
+      "score": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-20T22:26:18.246461Z",
+  "finishedAt": "2026-08-20T22:51:01.970808Z",
+  "environmentSetup": {
+    "started_at": "2026-08-20T22:26:19.032386Z",
+    "finished_at": "2026-08-20T22:26:26.641218Z"
+  },
+  "agentSetup": {
+    "started_at": "2026-08-20T22:26:27.948075Z",
+    "finished_at": "2026-08-20T22:26:41.982640Z"
+  },
+  "agentExecution": {
+    "started_at": "2026-08-20T22:26:41.983038Z",
+    "finished_at": "2026-08-20T22:50:41.904304Z"
+  },
+  "verifier": {
+    "started_at": "2026-08-20T22:50:50.470470Z",
+    "finished_at": "2026-08-20T22:51:01.640487Z"
+  }
+}

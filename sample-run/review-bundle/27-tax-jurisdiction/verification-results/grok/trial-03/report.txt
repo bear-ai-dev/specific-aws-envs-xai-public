@@ -1,0 +1,50 @@
+Reviewer annotation (added after the recorded run; original verifier output is preserved below).
+
+Failed behavioral check: Preserve exact tax, VAT, refusal, and filing semantics through the authority workflow.
+Expected-value rule: compute_reward.py::expected_invoice and expected_authority
+Output assertion: compute_reward.py::grade
+
+Original verifier output:
+44 of 218 checks failed:
+  - calloway-marlowe-sanfrancisco: tax is 94.03, expected 94.03125
+  - calloway-marlowe-sanfrancisco: expected one rate lookup, saw 0
+  - calloway-marlowe-sanfrancisco: transaction provider is 'api'
+  - calloway-marlowe-sanfrancisco: transaction to_country is 'US', expected 'us'
+  - calloway-marlowe-sanfrancisco: transaction tax is 94.03, expected 94.03125
+  - calloway-tarrant-exempt-chicago: transaction provider is 'api'
+  - calloway-tarrant-exempt-chicago: transaction to_country is 'US', expected 'us'
+  - calloway-ellery-postcode-mismatch: an address the authority rejects should be reported, not swallowed silently
+  - calloway-ellery-postcode-mismatch: from_country sent as 'US', expected 'us'
+  - calloway-ellery-postcode-mismatch: to_country sent as 'US', expected 'us'
+  - verdant-ostergaard-stockholm: tax is 184.38, expected 184.375
+  - verdant-ostergaard-stockholm: seller block is 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\n\nVAT: IE 9825613N\n', expected 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\nVAT Registration Number: IE 9825613N\n'
+  - verdant-ostergaard-stockholm: customer block is 'Ostergaard Kraft AB\nfaktura@ostergaard.example\nKungsgatan 8\nStockholm, 111 22\nSweden\n\nVAT: SE 556036 0793\n', expected 'Ostergaard Kraft AB\nfaktura@ostergaard.example\nKungsgatan 8\nStockholm, 111 22\nSweden\nVAT Registration Number: SE 556036 0793\n'
+  - verdant-ostergaard-stockholm: from_country sent as 'IE', expected 'ie'
+  - verdant-ostergaard-stockholm: from_state sent as None, expected ''
+  - verdant-ostergaard-stockholm: to_country sent as 'SE', expected 'se'
+  - verdant-ostergaard-stockholm: to_state sent as None, expected ''
+  - verdant-ostergaard-stockholm: no transaction should have been filed with the authority (1 seen)
+  - verdant-fenwick-london: seller block is 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\n\nVAT: IE 9825613N\n', expected 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\nVAT Registration Number: IE 9825613N\n'
+  - verdant-fenwick-london: customer block is 'Fenwick Analytics Ltd\nap@fenwick.example\n40 Bowling Green Lane\nLondon, EC1V 9BW\nUnited Kingdom of Great Britain and Northern Ireland\n\nVAT: GB 245 7761 30\n', expected 'Fenwick Analytics Ltd\nap@fenwick.example\n40 Bowling Green Lane\nLondon, EC1V 9BW\nUnited Kingdom of Great Britain and Northern Ireland\nVAT Registration Number: GB 245 7761 30\n'
+  - verdant-fenwick-london: from_country sent as 'IE', expected 'ie'
+  - verdant-fenwick-london: from_state sent as None, expected ''
+  - verdant-fenwick-london: to_country sent as 'GB', expected 'gb'
+  - verdant-fenwick-london: to_state sent as None, expected ''
+  - verdant-navarro-sydney: seller block is 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\n\n', expected 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\nVAT Registration Number: IE 9825613N\n'
+  - verdant-navarro-sydney: from_country sent as 'IE', expected 'ie'
+  - verdant-navarro-sydney: from_state sent as None, expected ''
+  - verdant-navarro-sydney: to_country sent as 'AU', expected 'au'
+  - verdant-navarro-sydney: transaction provider is 'api'
+  - verdant-navarro-sydney: transaction to_country is 'AU', expected 'au'
+  - verdant-quillon-osaka-no-state: seller block is 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\n\n', expected 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\nVAT Registration Number: IE 9825613N\n'
+  - verdant-quillon-osaka-no-state: from_country sent as 'IE', expected 'ie'
+  - verdant-quillon-osaka-no-state: from_state sent as None, expected ''
+  - verdant-quillon-osaka-no-state: to_country sent as 'JP', expected 'jp'
+  - verdant-quillon-osaka-no-state: to_state sent as None, expected ''
+  - verdant-quillon-osaka-no-state: no transaction should have been filed with the authority (1 seen)
+  - ostara-bellhaven-manual: tax is 286.13, expected 286.125
+  - ostara-bellhaven-manual: seller block is 'Ostara Netwerk BV\nKeizersgracht 555\nAmsterdam, 1017 DR\nNetherlands\n\nVAT: NL 8123 45 678 B01\n', expected 'Ostara Netwerk BV\nKeizersgracht 555\nAmsterdam, 1017 DR\nNetherlands\nVAT Registration Number: NL 8123 45 678 B01\n'
+  - ostara-bellhaven-manual: customer block is 'Bellhaven Havens BV\ncrediteuren@bellhaven.example\nWeena 505\nRotterdam, Zuid-Holland 3013 AL\nNetherlands\n\nVAT: NL 8099 12 345 B01\n', expected 'Bellhaven Havens BV\ncrediteuren@bellhaven.example\nWeena 505\nRotterdam, Zuid-Holland 3013 AL\nNetherlands\nVAT Registration Number: NL 8099 12 345 B01\n'
+  - ostara-bellhaven-manual: expected one filed transaction, saw 0
+reward=0.0
+

@@ -1,0 +1,565 @@
+{
+  "cases": [
+    {
+      "label": "calloway-marlowe-sanfrancisco",
+      "settings": {
+        "businessID": "biz_calloway",
+        "businessName": "Calloway Instrumentation",
+        "addressLine1": "245 Main Street",
+        "addressLine2": "",
+        "city": "Cambridge",
+        "state": "ma",
+        "country": "us",
+        "postalCode": "02139",
+        "vatId": "US-EIN-84-2213097",
+        "taxCalculationType": "meteringcoCalculated",
+        "taxRate": "0",
+        "taxCategory": "31000",
+        "taxJarApiKey": "tjk_sbx_calloway_5e83",
+        "accountState": "sandbox",
+        "invoiceApproval": "automatic",
+        "invoicePaymentTerm": "none",
+        "supportEmail": "billing@calloway.example",
+        "currency": "USD"
+      },
+      "customer": {
+        "customerId": "cus_marlowe",
+        "customerName": "Marlowe Robotics",
+        "email": "ap@marlowe.example",
+        "taxExempt": "none",
+        "customerVatId": "",
+        "address": {
+          "streetLineOne": "500 Howard Street",
+          "streetLineTwo": "Suite 210",
+          "city": "San Francisco",
+          "state": "ca",
+          "postalCode": "94105",
+          "countryCode": "us"
+        }
+      },
+      "items": [
+        {
+          "name": "Platform subscription",
+          "quantity": 1,
+          "unitCost": 1250
+        },
+        {
+          "name": "API calls (millions)",
+          "quantity": 12,
+          "unitCost": 18.75
+        }
+      ],
+      "settle": true
+    },
+    {
+      "label": "calloway-tarrant-exempt-chicago",
+      "settings": {
+        "businessID": "biz_calloway",
+        "businessName": "Calloway Instrumentation",
+        "addressLine1": "245 Main Street",
+        "addressLine2": "",
+        "city": "Cambridge",
+        "state": "ma",
+        "country": "us",
+        "postalCode": "02139",
+        "vatId": "US-EIN-84-2213097",
+        "taxCalculationType": "meteringcoCalculated",
+        "taxRate": "0",
+        "taxCategory": "31000",
+        "taxJarApiKey": "tjk_sbx_calloway_5e83",
+        "accountState": "sandbox",
+        "invoiceApproval": "automatic",
+        "invoicePaymentTerm": "none",
+        "supportEmail": "billing@calloway.example",
+        "currency": "USD"
+      },
+      "customer": {
+        "customerId": "cus_tarrant",
+        "customerName": "Tarrant Civic Trust",
+        "email": "finance@tarrant.example",
+        "taxExempt": "exempt",
+        "customerVatId": "",
+        "address": {
+          "streetLineOne": "233 South Wacker Drive",
+          "streetLineTwo": "",
+          "city": "Chicago",
+          "state": "il",
+          "postalCode": "60601",
+          "countryCode": "us"
+        }
+      },
+      "items": [
+        {
+          "name": "Engineer seats",
+          "quantity": 18,
+          "unitCost": 65
+        },
+        {
+          "name": "Support retainer",
+          "quantity": 1,
+          "unitCost": 192.5
+        }
+      ],
+      "settle": true
+    },
+    {
+      "label": "calloway-ellery-postcode-mismatch",
+      "settings": {
+        "businessID": "biz_calloway",
+        "businessName": "Calloway Instrumentation",
+        "addressLine1": "245 Main Street",
+        "addressLine2": "",
+        "city": "Cambridge",
+        "state": "ma",
+        "country": "us",
+        "postalCode": "02139",
+        "vatId": "US-EIN-84-2213097",
+        "taxCalculationType": "meteringcoCalculated",
+        "taxRate": "0",
+        "taxCategory": "31000",
+        "taxJarApiKey": "tjk_sbx_calloway_5e83",
+        "accountState": "sandbox",
+        "invoiceApproval": "automatic",
+        "invoicePaymentTerm": "none",
+        "supportEmail": "billing@calloway.example",
+        "currency": "USD"
+      },
+      "customer": {
+        "customerId": "cus_ellery",
+        "customerName": "Ellery Foods",
+        "email": "ar@ellery.example",
+        "taxExempt": "none",
+        "customerVatId": "",
+        "address": {
+          "streetLineOne": "1 Front Street",
+          "streetLineTwo": "",
+          "city": "San Francisco",
+          "state": "ca",
+          "postalCode": "60601",
+          "countryCode": "us"
+        }
+      },
+      "items": [
+        {
+          "name": "Ingest volume (GB)",
+          "quantity": 340,
+          "unitCost": 0.85
+        },
+        {
+          "name": "Retained series",
+          "quantity": 25,
+          "unitCost": 44.0
+        }
+      ],
+      "settle": false
+    },
+    {
+      "label": "verdant-ostergaard-stockholm",
+      "settings": {
+        "businessID": "biz_verdant",
+        "businessName": "Verdant Signal Ltd",
+        "addressLine1": "1 Grand Canal Square",
+        "addressLine2": "",
+        "city": "Dublin",
+        "state": "",
+        "country": "ie",
+        "postalCode": "D02 P820",
+        "vatId": "IE 9825613N",
+        "taxCalculationType": "meteringcoCalculated",
+        "taxRate": "0",
+        "taxCategory": "40030",
+        "taxJarApiKey": "tjk_prd_verdant_2a19",
+        "accountState": "production",
+        "invoiceApproval": "automatic",
+        "invoicePaymentTerm": "none",
+        "supportEmail": "billing@verdant.example",
+        "currency": "USD"
+      },
+      "customer": {
+        "customerId": "cus_ostergaard",
+        "customerName": "Ostergaard Kraft AB",
+        "email": "faktura@ostergaard.example",
+        "taxExempt": "none",
+        "customerVatId": "SE 556036 0793",
+        "address": {
+          "streetLineOne": "Kungsgatan 8",
+          "streetLineTwo": "",
+          "city": "Stockholm",
+          "state": "",
+          "postalCode": "111 22",
+          "countryCode": "se"
+        }
+      },
+      "items": [
+        {
+          "name": "Platform subscription",
+          "quantity": 1,
+          "unitCost": 1250
+        },
+        {
+          "name": "API calls (millions)",
+          "quantity": 12,
+          "unitCost": 18.75
+        }
+      ],
+      "settle": true
+    },
+    {
+      "label": "verdant-fenwick-london",
+      "settings": {
+        "businessID": "biz_verdant",
+        "businessName": "Verdant Signal Ltd",
+        "addressLine1": "1 Grand Canal Square",
+        "addressLine2": "",
+        "city": "Dublin",
+        "state": "",
+        "country": "ie",
+        "postalCode": "D02 P820",
+        "vatId": "IE 9825613N",
+        "taxCalculationType": "meteringcoCalculated",
+        "taxRate": "0",
+        "taxCategory": "40030",
+        "taxJarApiKey": "tjk_prd_verdant_2a19",
+        "accountState": "production",
+        "invoiceApproval": "automatic",
+        "invoicePaymentTerm": "none",
+        "supportEmail": "billing@verdant.example",
+        "currency": "USD"
+      },
+      "customer": {
+        "customerId": "cus_fenwick",
+        "customerName": "Fenwick Analytics Ltd",
+        "email": "ap@fenwick.example",
+        "taxExempt": "none",
+        "customerVatId": "GB 245 7761 30",
+        "address": {
+          "streetLineOne": "40 Bowling Green Lane",
+          "streetLineTwo": "",
+          "city": "London",
+          "state": "",
+          "postalCode": "EC1V 9BW",
+          "countryCode": "gb"
+        }
+      },
+      "items": [
+        {
+          "name": "Engineer seats",
+          "quantity": 18,
+          "unitCost": 65
+        },
+        {
+          "name": "Support retainer",
+          "quantity": 1,
+          "unitCost": 192.5
+        }
+      ],
+      "settle": false
+    },
+    {
+      "label": "verdant-navarro-sydney",
+      "settings": {
+        "businessID": "biz_verdant",
+        "businessName": "Verdant Signal Ltd",
+        "addressLine1": "1 Grand Canal Square",
+        "addressLine2": "",
+        "city": "Dublin",
+        "state": "",
+        "country": "ie",
+        "postalCode": "D02 P820",
+        "vatId": "IE 9825613N",
+        "taxCalculationType": "meteringcoCalculated",
+        "taxRate": "0",
+        "taxCategory": "40030",
+        "taxJarApiKey": "tjk_prd_verdant_2a19",
+        "accountState": "production",
+        "invoiceApproval": "automatic",
+        "invoicePaymentTerm": "none",
+        "supportEmail": "billing@verdant.example",
+        "currency": "USD"
+      },
+      "customer": {
+        "customerId": "cus_navarro",
+        "customerName": "Navarro Pty Ltd",
+        "email": "accounts@navarro.example",
+        "taxExempt": "none",
+        "customerVatId": "AU 51 824 753 556",
+        "address": {
+          "streetLineOne": "55 Pitt Street",
+          "streetLineTwo": "",
+          "city": "Sydney",
+          "state": "nsw",
+          "postalCode": "2000",
+          "countryCode": "au"
+        }
+      },
+      "items": [
+        {
+          "name": "Ingest volume (GB)",
+          "quantity": 340,
+          "unitCost": 0.85
+        },
+        {
+          "name": "Retained series",
+          "quantity": 25,
+          "unitCost": 44.0
+        }
+      ],
+      "settle": true
+    },
+    {
+      "label": "verdant-quillon-osaka-no-state",
+      "settings": {
+        "businessID": "biz_verdant",
+        "businessName": "Verdant Signal Ltd",
+        "addressLine1": "1 Grand Canal Square",
+        "addressLine2": "",
+        "city": "Dublin",
+        "state": "",
+        "country": "ie",
+        "postalCode": "D02 P820",
+        "vatId": "IE 9825613N",
+        "taxCalculationType": "meteringcoCalculated",
+        "taxRate": "0",
+        "taxCategory": "40030",
+        "taxJarApiKey": "tjk_prd_verdant_2a19",
+        "accountState": "production",
+        "invoiceApproval": "automatic",
+        "invoicePaymentTerm": "none",
+        "supportEmail": "billing@verdant.example",
+        "currency": "USD"
+      },
+      "customer": {
+        "customerId": "cus_quillon",
+        "customerName": "Quillon KK",
+        "email": "keiri@quillon.example",
+        "taxExempt": "none",
+        "customerVatId": "",
+        "address": {
+          "streetLineOne": "1-1-88 Oyodonaka",
+          "streetLineTwo": "",
+          "city": "Osaka",
+          "state": "",
+          "postalCode": "5310076",
+          "countryCode": "jp"
+        }
+      },
+      "items": [
+        {
+          "name": "Platform subscription",
+          "quantity": 1,
+          "unitCost": 1250
+        },
+        {
+          "name": "API calls (millions)",
+          "quantity": 12,
+          "unitCost": 18.75
+        }
+      ],
+      "settle": true
+    },
+    {
+      "label": "ostara-bellhaven-manual",
+      "settings": {
+        "businessID": "biz_ostara",
+        "businessName": "Ostara Netwerk BV",
+        "addressLine1": "Keizersgracht 555",
+        "addressLine2": "",
+        "city": "Amsterdam",
+        "state": "",
+        "country": "nl",
+        "postalCode": "1017 DR",
+        "vatId": "NL 8123 45 678 B01",
+        "taxCalculationType": "manual",
+        "taxRate": "0.21",
+        "taxCategory": "",
+        "taxJarApiKey": "tjk_sbx_ostara_6d44",
+        "accountState": "sandbox",
+        "invoiceApproval": "automatic",
+        "invoicePaymentTerm": "none",
+        "supportEmail": "billing@ostara.example",
+        "currency": "USD"
+      },
+      "customer": {
+        "customerId": "cus_bellhaven",
+        "customerName": "Bellhaven Havens BV",
+        "email": "crediteuren@bellhaven.example",
+        "taxExempt": "none",
+        "customerVatId": "NL 8099 12 345 B01",
+        "address": {
+          "streetLineOne": "Weena 505",
+          "streetLineTwo": "",
+          "city": "Rotterdam",
+          "state": "Zuid-Holland",
+          "postalCode": "3013 AL",
+          "countryCode": "nl"
+        }
+      },
+      "items": [
+        {
+          "name": "Engineer seats",
+          "quantity": 18,
+          "unitCost": 65
+        },
+        {
+          "name": "Support retainer",
+          "quantity": 1,
+          "unitCost": 192.5
+        }
+      ],
+      "settle": true
+    },
+    {
+      "label": "ostara-pelham-exempt-manual",
+      "settings": {
+        "businessID": "biz_ostara",
+        "businessName": "Ostara Netwerk BV",
+        "addressLine1": "Keizersgracht 555",
+        "addressLine2": "",
+        "city": "Amsterdam",
+        "state": "",
+        "country": "nl",
+        "postalCode": "1017 DR",
+        "vatId": "NL 8123 45 678 B01",
+        "taxCalculationType": "manual",
+        "taxRate": "0.21",
+        "taxCategory": "",
+        "taxJarApiKey": "tjk_sbx_ostara_6d44",
+        "accountState": "sandbox",
+        "invoiceApproval": "automatic",
+        "invoicePaymentTerm": "none",
+        "supportEmail": "billing@ostara.example",
+        "currency": "USD"
+      },
+      "customer": {
+        "customerId": "cus_pelham",
+        "customerName": "Pelham Onderwijs Stichting",
+        "email": "financien@pelham.example",
+        "taxExempt": "exempt",
+        "customerVatId": "NL 8044 55 123 B01",
+        "address": {
+          "streetLineOne": "Sint Jacobsstraat 200",
+          "streetLineTwo": "",
+          "city": "Utrecht",
+          "state": "Utrecht",
+          "postalCode": "3511 BT",
+          "countryCode": "nl"
+        }
+      },
+      "items": [
+        {
+          "name": "Platform subscription",
+          "quantity": 1,
+          "unitCost": 1250
+        },
+        {
+          "name": "API calls (millions)",
+          "quantity": 12,
+          "unitCost": 18.75
+        }
+      ],
+      "settle": true
+    },
+    {
+      "label": "tidewell-marchmont-no-regime",
+      "settings": {
+        "businessID": "biz_tidewell",
+        "businessName": "Tidewell Compute",
+        "addressLine1": "1301 2nd Avenue",
+        "addressLine2": "",
+        "city": "Seattle",
+        "state": "wa",
+        "country": "us",
+        "postalCode": "98104",
+        "vatId": "",
+        "taxCalculationType": "",
+        "taxRate": "0.0625",
+        "taxCategory": "31000",
+        "taxJarApiKey": "",
+        "accountState": "sandbox",
+        "invoiceApproval": "automatic",
+        "invoicePaymentTerm": "none",
+        "supportEmail": "billing@tidewell.example",
+        "currency": "USD"
+      },
+      "customer": {
+        "customerId": "cus_marchmont",
+        "customerName": "Marchmont Health",
+        "email": "ap@marchmont.example",
+        "taxExempt": "none",
+        "customerVatId": "",
+        "address": {
+          "streetLineOne": "701 Pike Street",
+          "streetLineTwo": "",
+          "city": "Seattle",
+          "state": "wa",
+          "postalCode": "98104",
+          "countryCode": "us"
+        }
+      },
+      "items": [
+        {
+          "name": "Ingest volume (GB)",
+          "quantity": 340,
+          "unitCost": 0.85
+        },
+        {
+          "name": "Retained series",
+          "quantity": 25,
+          "unitCost": 44.0
+        }
+      ],
+      "settle": true
+    },
+    {
+      "label": "solano-ridley-no-credential",
+      "settings": {
+        "businessID": "biz_solano",
+        "businessName": "Solano Edge Inc",
+        "addressLine1": "2100 Ross Avenue",
+        "addressLine2": "",
+        "city": "Dallas",
+        "state": "tx",
+        "country": "us",
+        "postalCode": "75201",
+        "vatId": "",
+        "taxCalculationType": "meteringcoCalculated",
+        "taxRate": "0",
+        "taxCategory": "31000",
+        "taxJarApiKey": "",
+        "accountState": "sandbox",
+        "invoiceApproval": "automatic",
+        "invoicePaymentTerm": "none",
+        "supportEmail": "billing@solano.example",
+        "currency": "USD"
+      },
+      "customer": {
+        "customerId": "cus_ridley",
+        "customerName": "Ridley Freightworks",
+        "email": "ap@ridley.example",
+        "taxExempt": "none",
+        "customerVatId": "",
+        "address": {
+          "streetLineOne": "400 South Record Street",
+          "streetLineTwo": "",
+          "city": "Dallas",
+          "state": "tx",
+          "postalCode": "75201",
+          "countryCode": "us"
+        }
+      },
+      "items": [
+        {
+          "name": "Engineer seats",
+          "quantity": 18,
+          "unitCost": 65
+        },
+        {
+          "name": "Support retainer",
+          "quantity": 1,
+          "unitCost": 192.5
+        }
+      ],
+      "settle": false
+    }
+  ]
+}

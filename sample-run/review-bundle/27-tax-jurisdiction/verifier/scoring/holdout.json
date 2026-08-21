@@ -1,0 +1,223 @@
+{
+  "region": "us-east-1",
+  "tax_authority": {
+    "api_keys": {
+      "tjk_sbx_calloway_5e83": "acct_calloway",
+      "tjk_prd_verdant_2a19": "acct_verdant",
+      "tjk_sbx_ostara_6d44": "acct_ostara"
+    },
+    "environments": {
+      "sandbox": {
+        "us/ny/10018": {
+          "rate": 0.06,
+          "name": "Test NYC",
+          "has_nexus": true
+        },
+        "us/ca/94105": {
+          "rate": 0.06375,
+          "name": "Test SF",
+          "has_nexus": true
+        },
+        "us/wa/98104": {
+          "rate": 0.06,
+          "name": "Test Seattle",
+          "has_nexus": true
+        },
+        "us/il/60601": {
+          "rate": 0.06,
+          "name": "Test Chicago",
+          "has_nexus": true
+        },
+        "us/ma/02139": {
+          "rate": 0.06,
+          "name": "Test Cambridge",
+          "has_nexus": true
+        },
+        "us/tx/78701": {
+          "rate": 0.06,
+          "name": "Test Austin",
+          "has_nexus": true
+        },
+        "us/or": {
+          "rate": 0.0,
+          "name": "Test Oregon",
+          "has_nexus": true
+        },
+        "us": {
+          "rate": 0.06,
+          "name": "Test United States",
+          "has_nexus": true
+        },
+        "de": {
+          "rate": 0.12,
+          "name": "Test Germany",
+          "has_nexus": true
+        },
+        "fr": {
+          "rate": 0.12,
+          "name": "Test France",
+          "has_nexus": true
+        },
+        "ie": {
+          "rate": 0.12,
+          "name": "Test Ireland",
+          "has_nexus": true
+        },
+        "gb": {
+          "rate": 0.12,
+          "name": "Test United Kingdom",
+          "has_nexus": true
+        },
+        "nl": {
+          "rate": 0.12,
+          "name": "Test Netherlands",
+          "has_nexus": true
+        },
+        "se": {
+          "rate": 0.12,
+          "name": "Test Sweden",
+          "has_nexus": true
+        },
+        "au": {
+          "rate": 0.06,
+          "name": "Test Australia",
+          "has_nexus": true
+        },
+        "jp": {
+          "rate": 0.06,
+          "name": "Test Japan",
+          "has_nexus": true
+        }
+      },
+      "production": {
+        "us/ny/10018": {
+          "rate": 0.08875,
+          "name": "New York City",
+          "has_nexus": true
+        },
+        "us/ny": {
+          "rate": 0.08,
+          "name": "New York",
+          "has_nexus": true
+        },
+        "us/ca/94105": {
+          "rate": 0.08625,
+          "name": "San Francisco",
+          "has_nexus": true
+        },
+        "us/ca": {
+          "rate": 0.0725,
+          "name": "California",
+          "has_nexus": true
+        },
+        "us/tx/78701": {
+          "rate": 0.0825,
+          "name": "Austin",
+          "has_nexus": true
+        },
+        "us/tx": {
+          "rate": 0.0625,
+          "name": "Texas",
+          "has_nexus": true
+        },
+        "us/wa/98104": {
+          "rate": 0.1025,
+          "name": "Seattle",
+          "has_nexus": true
+        },
+        "us/ma/02139": {
+          "rate": 0.0625,
+          "name": "Cambridge",
+          "has_nexus": true
+        },
+        "us/il/60601": {
+          "rate": 0.1025,
+          "name": "Chicago",
+          "has_nexus": true
+        },
+        "us/fl/33101": {
+          "rate": 0.07,
+          "name": "Miami",
+          "has_nexus": true
+        },
+        "us/or": {
+          "rate": 0.0,
+          "name": "Oregon",
+          "has_nexus": true
+        },
+        "us/de": {
+          "rate": 0.0,
+          "name": "Delaware",
+          "has_nexus": true
+        },
+        "us": {
+          "rate": 0.0,
+          "name": "United States",
+          "has_nexus": false
+        },
+        "de": {
+          "rate": 0.19,
+          "name": "Germany",
+          "has_nexus": true
+        },
+        "fr": {
+          "rate": 0.2,
+          "name": "France",
+          "has_nexus": true
+        },
+        "ie": {
+          "rate": 0.23,
+          "name": "Ireland",
+          "has_nexus": true
+        },
+        "gb": {
+          "rate": 0.2,
+          "name": "United Kingdom",
+          "has_nexus": true
+        },
+        "nl": {
+          "rate": 0.21,
+          "name": "Netherlands",
+          "has_nexus": true
+        },
+        "se": {
+          "rate": 0.25,
+          "name": "Sweden",
+          "has_nexus": true
+        },
+        "au": {
+          "rate": 0.1,
+          "name": "Australia",
+          "has_nexus": true
+        },
+        "jp": {
+          "rate": 0.1,
+          "name": "Japan",
+          "has_nexus": true
+        }
+      }
+    },
+    "product_tax_codes": {
+      "31000": 1.0,
+      "40030": 0.5,
+      "81100": 0.0
+    },
+    "zip_state": {
+      "10018": "ny",
+      "94105": "ca",
+      "78701": "tx",
+      "98104": "wa",
+      "02139": "ma",
+      "33101": "fl",
+      "60601": "il",
+      "19801": "de",
+      "97204": "or",
+      "75201": "tx"
+    },
+    "category_names": {
+      "31000": "General Merchandise",
+      "40030": "Digital Goods (partially taxable)",
+      "81100": "Non-Taxable Service"
+    }
+  }
+}
