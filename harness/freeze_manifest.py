@@ -8,6 +8,8 @@ import json
 import subprocess
 from pathlib import Path
 
+from cohort_provenance import RECORDED_RUNTIME_STRATA
+
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = json.loads((ROOT / "harness" / "cohort.json").read_text())
@@ -44,6 +46,8 @@ def main() -> None:
             "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
             "sample-run/review-bundle/07-multi-region-sweep",
             "sample-run/review-bundle/14-iam-role-validation",
+            "sample-run/review-bundle/27-tax-jurisdiction",
+            "sample-run/review-bundle/31-customer-onboarding",
         ],
         "evidence_controls": {
             "02-entitlement-overage-lines": (
@@ -55,6 +59,12 @@ def main() -> None:
             "14-iam-role-validation": (
                 "sample-run/review-bundle/14-iam-role-validation/controls"
             ),
+            "27-tax-jurisdiction": (
+                "sample-run/review-bundle/27-tax-jurisdiction/controls"
+            ),
+            "31-customer-onboarding": (
+                "sample-run/review-bundle/31-customer-onboarding/controls"
+            ),
         },
         "publication_normalization": (
             "sample-run/manifests/public-transformation.json"
@@ -62,21 +72,23 @@ def main() -> None:
         "publication_controls_validation": (
             "sample-run/manifests/public-controls-validation.json"
         ),
-        "recorded_runtime_task_sha256": {
-            "02-entitlement-overage-lines": (
-                "92e4b98286ca4dd72881f59542ae4c17ad010f9910e29839c725cedbffe00ab3"
-            ),
-            "07-multi-region-sweep": (
-                "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a"
-            ),
-            "14-iam-role-validation": (
-                "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2"
-            ),
+        "recorded_runtime_strata": {
+            task: [
+                {
+                    "name": stratum["name"],
+                    "environment": stratum["environment"],
+                    "trial_numbers": list(stratum["trial_numbers"]),
+                    "task_checksum": stratum["task_checksum"],
+                }
+                for stratum in strata
+            ]
+            for task, strata in RECORDED_RUNTIME_STRATA.items()
         },
         "attempts_per_task_model": CONFIG["n_attempts"],
         "validity_rule": (
             "numeric verifier reward, complete trajectory, complete verifier "
-            "artifact, no Harbor exception, and exact frozen task/config variant"
+            "artifact, no Harbor exception, and model matching within each "
+            "recorded runtime-checksum stratum"
         ),
         "harbor_version": version(["harbor", "--version"]),
         "mini_swe_agent_version": "2.4.5",
@@ -86,7 +98,13 @@ def main() -> None:
         },
         "agent": "mini-swe-agent",
         "reasoning_effort": "high",
-        "environment": "daytona",
+        "environments": ["daytona", "aws-fargate"],
+        "pooled_result_boundary": (
+            "Tasks 27 and 31 report pooled descriptive eight-attempt counts "
+            "across a four-attempt Daytona stratum and a four-attempt AWS "
+            "Fargate stratum. They are not represented as one frozen runtime "
+            "configuration."
+        ),
         "task_labels": task_labels,
         "public_task_sha256": tasks,
         "cohort_config_sha256": hashlib.sha256(

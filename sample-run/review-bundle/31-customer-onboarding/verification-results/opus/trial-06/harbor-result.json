@@ -1,0 +1,39 @@
+{
+  "id": "8d3f9655-aff4-4a2a-8d2d-31f6f399f3f4",
+  "taskName": "meteringco/customer-onboarding-provisioning",
+  "trialName": "meteringco-customer-onboarding-provis__PcvsnzH",
+  "taskChecksum": "300de7ec965118c1c47d15bb4160a740a042b60cfae9ba29e4df03ca9d8aa0e4",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "us.anthropic.claude-opus-5",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1,
+      "score": 1
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-21T08:24:00.541255Z",
+  "finishedAt": "2026-08-21T08:43:12.926484Z",
+  "environmentSetup": {
+    "started_at": "2026-08-21T08:24:02.794603Z",
+    "finished_at": "2026-08-21T08:25:33.096932Z"
+  },
+  "agentSetup": {
+    "started_at": "2026-08-21T08:25:33.112464Z",
+    "finished_at": "2026-08-21T08:25:46.233975Z"
+  },
+  "agentExecution": {
+    "started_at": "2026-08-21T08:25:46.234262Z",
+    "finished_at": "2026-08-21T08:42:59.308191Z"
+  },
+  "verifier": {
+    "started_at": "2026-08-21T08:43:05.969968Z",
+    "finished_at": "2026-08-21T08:43:12.836642Z"
+  }
+}

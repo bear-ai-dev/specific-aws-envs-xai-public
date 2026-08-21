@@ -1,0 +1,253 @@
+{
+  "note": "The tax authority's own record of every request the platform made for these accounts in July 2026. Correlate by to_street with recorded-invoices.json.",
+  "rate_lookups": [
+    {
+      "at": "2026-07-03T09:15:00.000Z",
+      "environment": "sandbox",
+      "resource": "taxes",
+      "method": "POST",
+      "api_key": "tjk_sbx_northwind_a41f",
+      "request": {
+        "from_country": "us",
+        "from_zip": "19801",
+        "from_state": "de",
+        "from_city": "Wilmington",
+        "from_street": "1209 Orange Street",
+        "to_country": "us",
+        "to_zip": "10018",
+        "to_state": "ny",
+        "to_city": "New York",
+        "to_street": "412 West 38th Street",
+        "shipping": 0,
+        "line_items": [
+          {
+            "quantity": 1,
+            "product_tax_code": "31000",
+            "unit_price": 1250
+          },
+          {
+            "quantity": 12,
+            "product_tax_code": "31000",
+            "unit_price": 18.75
+          }
+        ]
+      },
+      "response": {
+        "tax": {
+          "rate": 0.06,
+          "amount_to_collect": 88.5
+        }
+      }
+    },
+    {
+      "at": "2026-07-07T09:15:00.000Z",
+      "environment": "sandbox",
+      "resource": "taxes",
+      "method": "POST",
+      "api_key": "tjk_sbx_northwind_a41f",
+      "request": {
+        "from_country": "us",
+        "from_zip": "19801",
+        "from_state": "de",
+        "from_city": "Wilmington",
+        "from_street": "1209 Orange Street",
+        "to_country": "us",
+        "to_zip": "33101",
+        "to_state": "ny",
+        "to_city": "New York",
+        "to_street": "77 Water Street",
+        "shipping": 0,
+        "line_items": [
+          {
+            "quantity": 1,
+            "product_tax_code": "31000",
+            "unit_price": 1250
+          },
+          {
+            "quantity": 12,
+            "product_tax_code": "31000",
+            "unit_price": 18.75
+          }
+        ]
+      },
+      "response": {
+        "error": "Bad Request",
+        "detail": "to_zip is not a valid postal code for to_state",
+        "status": 400
+      }
+    },
+    {
+      "at": "2026-07-09T09:15:00.000Z",
+      "environment": "sandbox",
+      "resource": "taxes",
+      "method": "POST",
+      "api_key": "tjk_sbx_northwind_a41f",
+      "request": {
+        "from_country": "us",
+        "from_zip": "19801",
+        "from_state": "de",
+        "from_city": "Wilmington",
+        "from_street": "1209 Orange Street",
+        "to_country": "jp",
+        "to_zip": "5300001",
+        "to_state": "",
+        "to_city": "Osaka",
+        "to_street": "2-4-9 Umeda",
+        "shipping": 0,
+        "line_items": [
+          {
+            "quantity": 340,
+            "product_tax_code": "31000",
+            "unit_price": 0.85
+          },
+          {
+            "quantity": 25,
+            "product_tax_code": "31000",
+            "unit_price": 44.0
+          }
+        ]
+      },
+      "response": {
+        "tax": {
+          "rate": 0.06,
+          "amount_to_collect": 83.34
+        }
+      }
+    },
+    {
+      "at": "2026-07-11T09:15:00.000Z",
+      "environment": "production",
+      "resource": "taxes",
+      "method": "POST",
+      "api_key": "tjk_prd_lumen_7c30",
+      "request": {
+        "from_country": "gb",
+        "from_zip": "EC2A 1AS",
+        "from_state": "",
+        "from_city": "London",
+        "from_street": "12 Finsbury Square",
+        "to_country": "us",
+        "to_zip": "78701",
+        "to_state": "tx",
+        "to_city": "Austin",
+        "to_street": "301 Congress Avenue",
+        "shipping": 0,
+        "line_items": [
+          {
+            "quantity": 18,
+            "product_tax_code": "40030",
+            "unit_price": 65
+          },
+          {
+            "quantity": 1,
+            "product_tax_code": "40030",
+            "unit_price": 192.5
+          }
+        ]
+      },
+      "response": {
+        "tax": {
+          "rate": 0.04125,
+          "amount_to_collect": 56.2
+        }
+      }
+    }
+  ],
+  "filed_transactions": [
+    {
+      "at": "2026-07-03T09:15:00.000Z",
+      "environment": "sandbox",
+      "resource": "transactions/orders",
+      "method": "POST",
+      "api_key": "tjk_sbx_northwind_a41f",
+      "request": {
+        "provider": "meteringco",
+        "to_country": "us",
+        "to_zip": "10018",
+        "to_state": "ny",
+        "to_city": "New York",
+        "to_street": "412 West 38th Street Floor 6",
+        "amount": 1475.0,
+        "shipping": 0.0,
+        "sales_tax": 88.5,
+        "transaction_id": "e8baf17d-b259-5107-b42b-9e06e2a81545"
+      }
+    },
+    {
+      "at": "2026-07-05T09:15:00.000Z",
+      "environment": "sandbox",
+      "resource": "transactions/orders",
+      "method": "POST",
+      "api_key": "tjk_sbx_northwind_a41f",
+      "request": {
+        "provider": "meteringco",
+        "to_country": "us",
+        "to_zip": "10018",
+        "to_state": "ny",
+        "to_city": "New York",
+        "to_street": "80 Pine Street",
+        "amount": 1362.5,
+        "shipping": 0.0,
+        "sales_tax": 0.0,
+        "transaction_id": "d4ad8fef-face-5f08-b908-574cecacad77"
+      }
+    },
+    {
+      "at": "2026-07-11T09:15:00.000Z",
+      "environment": "production",
+      "resource": "transactions/orders",
+      "method": "POST",
+      "api_key": "tjk_prd_lumen_7c30",
+      "request": {
+        "provider": "meteringco",
+        "to_country": "us",
+        "to_zip": "78701",
+        "to_state": "tx",
+        "to_city": "Austin",
+        "to_street": "301 Congress Avenue",
+        "amount": 1362.5,
+        "shipping": 0.0,
+        "sales_tax": 56.203125,
+        "transaction_id": "52dd6948-109f-5f95-b49d-0a0e2dc5a47f"
+      }
+    },
+    {
+      "at": "2026-07-13T09:15:00.000Z",
+      "environment": "sandbox",
+      "resource": "transactions/orders",
+      "method": "POST",
+      "api_key": "tjk_sbx_harbourgate_9b12",
+      "request": {
+        "provider": "meteringco",
+        "to_country": "ie",
+        "to_zip": "D02 X285",
+        "to_state": "Leinster",
+        "to_city": "Dublin",
+        "to_street": "25 Sir John Rogerson's Quay",
+        "amount": 1475.0,
+        "shipping": 0.0,
+        "sales_tax": 280.25,
+        "transaction_id": "3b81c0c4-6772-5aba-b2b6-3667d06c504d"
+      }
+    },
+    {
+      "at": "2026-07-15T09:15:00.000Z",
+      "environment": "sandbox",
+      "resource": "transactions/orders",
+      "method": "POST",
+      "api_key": "tjk_sbx_harbourgate_9b12",
+      "request": {
+        "provider": "meteringco",
+        "to_country": "de",
+        "to_zip": "10178",
+        "to_state": "Berlin",
+        "to_city": "Berlin",
+        "to_street": "Alexanderplatz 7",
+        "amount": 1362.5,
+        "shipping": 0.0,
+        "sales_tax": 0.0,
+        "transaction_id": "ab9efedb-298e-5e39-b2c1-3c85049b917c"
+      }
+    }
+  ]
+}

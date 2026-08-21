@@ -1,0 +1,9 @@
+=== Snapshot the deliverable for audit ===
+=== Stop the agent-facing endpoint ===
+driver diagnostic exit: 0
+=== Compute reward (root, no submitted code loaded) ===
+reward=0.0
+3 of 256 checks failed:
+  - verdant-ostergaard-stockholm: no transaction should have been filed with the authority (1 seen)
+  - verdant-quillon-osaka-no-state: no transaction should have been filed with the authority (1 seen)
+  - the authority holds 7 filed transactions, expected 5

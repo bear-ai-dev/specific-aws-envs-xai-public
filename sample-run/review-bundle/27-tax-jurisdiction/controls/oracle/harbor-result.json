@@ -1,0 +1,36 @@
+{
+  "id": "392791c5-9a02-4181-bf34-59701265db40",
+  "taskName": "meteringco/tax-computation-jurisdiction-resolution",
+  "trialName": "27-tax-jurisdiction__r8Mkuw2",
+  "taskChecksum": "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98",
+  "agent": {
+    "name": "oracle",
+    "version": "1.0.0",
+    "model_info": null
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0,
+      "score": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-20T22:26:06.497882Z",
+  "finishedAt": "2026-08-20T22:26:37.591098Z",
+  "environmentSetup": {
+    "started_at": "2026-08-20T22:26:06.666283Z",
+    "finished_at": "2026-08-20T22:26:11.688476Z"
+  },
+  "agentSetup": {
+    "started_at": "2026-08-20T22:26:12.807367Z",
+    "finished_at": "2026-08-20T22:26:12.807520Z"
+  },
+  "agentExecution": {
+    "started_at": "2026-08-20T22:26:12.807661Z",
+    "finished_at": "2026-08-20T22:26:17.501393Z"
+  },
+  "verifier": {
+    "started_at": "2026-08-20T22:26:24.619422Z",
+    "finished_at": "2026-08-20T22:26:37.384122Z"
+  }
+}

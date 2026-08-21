@@ -2,7 +2,7 @@
   "job_name": "xai-selected-eight-rollout-reproduction",
   "jobs_dir": "sample-run/raw",
   "n_attempts": 8,
-  "n_concurrent_trials": 48,
+  "n_concurrent_trials": 80,
   "quiet": false,
   "retry": {
     "max_retries": 2,
@@ -72,6 +72,12 @@
     },
     {
       "path": "tasks/14-iam-role-validation"
+    },
+    {
+      "path": "tasks/27-tax-jurisdiction"
+    },
+    {
+      "path": "tasks/31-customer-onboarding"
     }
   ]
 }

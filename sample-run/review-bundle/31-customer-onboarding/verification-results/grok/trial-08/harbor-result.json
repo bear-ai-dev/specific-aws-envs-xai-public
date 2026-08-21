@@ -1,0 +1,39 @@
+{
+  "id": "76a20b94-c98a-40bb-ae14-514c1c87336f",
+  "taskName": "meteringco/customer-onboarding-provisioning",
+  "trialName": "meteringco-customer-onboarding-provis__jMW3M8b",
+  "taskChecksum": "300de7ec965118c1c47d15bb4160a740a042b60cfae9ba29e4df03ca9d8aa0e4",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "converse/us.xai.grok-4.6",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 0,
+      "score": 0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-21T08:24:02.705344Z",
+  "finishedAt": "2026-08-21T09:16:12.970577Z",
+  "environmentSetup": {
+    "started_at": "2026-08-21T08:24:02.943741Z",
+    "finished_at": "2026-08-21T08:25:26.011915Z"
+  },
+  "agentSetup": {
+    "started_at": "2026-08-21T08:25:26.025695Z",
+    "finished_at": "2026-08-21T08:25:38.910504Z"
+  },
+  "agentExecution": {
+    "started_at": "2026-08-21T08:25:38.910690Z",
+    "finished_at": "2026-08-21T09:15:58.288550Z"
+  },
+  "verifier": {
+    "started_at": "2026-08-21T09:16:05.228112Z",
+    "finished_at": "2026-08-21T09:16:12.886315Z"
+  }
+}

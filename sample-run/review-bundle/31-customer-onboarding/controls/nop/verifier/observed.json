@@ -1,0 +1,244 @@
+{
+  "runs": {
+    "manual-no-offering": {
+      "entitlementCalls": [],
+      "latestCustomerCalls": [],
+      "settingsCalls": [],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "TypeError",
+        "message": "service.create is not a function",
+        "status": null
+      },
+      "startedAt": "2026-08-20T17:51:31.866Z",
+      "finishedAt": "2026-08-20T17:51:31.866Z"
+    },
+    "caller-supplied-id-free": {
+      "entitlementCalls": [],
+      "latestCustomerCalls": [],
+      "settingsCalls": [],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "TypeError",
+        "message": "service.create is not a function",
+        "status": null
+      },
+      "startedAt": "2026-08-20T17:51:31.896Z",
+      "finishedAt": "2026-08-20T17:51:31.896Z"
+    },
+    "caller-supplied-id-taken": {
+      "entitlementCalls": [],
+      "latestCustomerCalls": [],
+      "settingsCalls": [],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "TypeError",
+        "message": "service.create is not a function",
+        "status": null
+      },
+      "startedAt": "2026-08-20T17:51:31.898Z",
+      "finishedAt": "2026-08-20T17:51:31.898Z"
+    },
+    "entitlement-reached": {
+      "entitlementCalls": [],
+      "latestCustomerCalls": [],
+      "settingsCalls": [],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "TypeError",
+        "message": "service.create is not a function",
+        "status": null
+      },
+      "startedAt": "2026-08-20T17:51:31.900Z",
+      "finishedAt": "2026-08-20T17:51:31.900Z"
+    },
+    "stripe-without-connect": {
+      "entitlementCalls": [],
+      "latestCustomerCalls": [],
+      "settingsCalls": [],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "TypeError",
+        "message": "service.create is not a function",
+        "status": null
+      },
+      "startedAt": "2026-08-20T17:51:31.902Z",
+      "finishedAt": "2026-08-20T17:51:31.902Z"
+    },
+    "stripe-on-connected-business": {
+      "entitlementCalls": [],
+      "latestCustomerCalls": [],
+      "settingsCalls": [],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "TypeError",
+        "message": "service.create is not a function",
+        "status": null
+      },
+      "startedAt": "2026-08-20T17:51:31.905Z",
+      "finishedAt": "2026-08-20T17:51:31.905Z"
+    },
+    "stripe-caller-brought-its-own-customer": {
+      "entitlementCalls": [],
+      "latestCustomerCalls": [],
+      "settingsCalls": [],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "TypeError",
+        "message": "service.create is not a function",
+        "status": null
+      },
+      "startedAt": "2026-08-20T17:51:31.907Z",
+      "finishedAt": "2026-08-20T17:51:31.907Z"
+    },
+    "offering-with-prepaid-credit": {
+      "entitlementCalls": [],
+      "latestCustomerCalls": [],
+      "settingsCalls": [],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "TypeError",
+        "message": "service.create is not a function",
+        "status": null
+      },
+      "startedAt": "2026-08-20T17:51:31.909Z",
+      "finishedAt": "2026-08-20T17:51:31.910Z"
+    },
+    "offering-with-free-trial": {
+      "entitlementCalls": [],
+      "latestCustomerCalls": [],
+      "settingsCalls": [],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "TypeError",
+        "message": "service.create is not a function",
+        "status": null
+      },
+      "startedAt": "2026-08-20T17:51:31.913Z",
+      "finishedAt": "2026-08-20T17:51:31.913Z"
+    },
+    "offering-without-free-trial": {
+      "entitlementCalls": [],
+      "latestCustomerCalls": [],
+      "settingsCalls": [],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "TypeError",
+        "message": "service.create is not a function",
+        "status": null
+      },
+      "startedAt": "2026-08-20T17:51:31.917Z",
+      "finishedAt": "2026-08-20T17:51:31.918Z"
+    },
+    "token-metering-unavailable": {
+      "entitlementCalls": [],
+      "latestCustomerCalls": [],
+      "settingsCalls": [],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "TypeError",
+        "message": "service.create is not a function",
+        "status": null
+      },
+      "startedAt": "2026-08-20T17:51:31.920Z",
+      "finishedAt": "2026-08-20T17:51:31.920Z"
+    },
+    "address-metadata-and-tax": {
+      "entitlementCalls": [],
+      "latestCustomerCalls": [],
+      "settingsCalls": [],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "TypeError",
+        "message": "service.create is not a function",
+        "status": null
+      },
+      "startedAt": "2026-08-20T17:51:31.922Z",
+      "finishedAt": "2026-08-20T17:51:31.922Z"
+    }
+  }
+}

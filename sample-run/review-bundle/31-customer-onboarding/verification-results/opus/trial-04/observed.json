@@ -1,0 +1,853 @@
+{
+  "runs": {
+    "manual-no-offering": {
+      "entitlementCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "entitlementType": "customers"
+        }
+      ],
+      "latestCustomerCalls": [],
+      "settingsCalls": [
+        {
+          "businessID": "biz_northwind"
+        }
+      ],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [
+        {
+          "bucket": "dev-config",
+          "org": "meteringco",
+          "lines": [
+            "CustomerConfig,businessID=biz_northwind,customerId=7237ea70-89c4-48d7-9e10-13937a712c06,email=ap@cascadefreight.example,paymentChannel=manual,taxExempt=none customerName=\"Cascade Freight\" 1787251916422105957"
+          ]
+        }
+      ],
+      "tokenCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "businessID": "biz_northwind",
+          "tokenAmount": "1",
+          "metadata": {
+            "tokenType": "customer",
+            "customerId": "7237ea70-89c4-48d7-9e10-13937a712c06"
+          }
+        }
+      ],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [
+        {
+          "topic": "Standard",
+          "type": "CUSTOMER_CREATED",
+          "businessID": "biz_northwind",
+          "payload": {
+            "customerId": "7237ea70-89c4-48d7-9e10-13937a712c06",
+            "customerName": "Cascade Freight",
+            "paymentChannel": "manual",
+            "email": "ap@cascadefreight.example",
+            "taxExempt": "none",
+            "currency": "USD",
+            "invoices": [],
+            "children": []
+          }
+        }
+      ],
+      "auditEvents": [],
+      "ok": true,
+      "response": {
+        "message": "New customer added",
+        "customerId": "7237ea70-89c4-48d7-9e10-13937a712c06",
+        "portalUrl": null
+      },
+      "startedAt": "2026-08-20T18:51:56.420Z",
+      "finishedAt": "2026-08-20T18:51:56.423Z"
+    },
+    "caller-supplied-id-free": {
+      "entitlementCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "entitlementType": "customers"
+        }
+      ],
+      "latestCustomerCalls": [
+        {
+          "businessID": "biz_northwind",
+          "customerId": "nw-1042"
+        }
+      ],
+      "settingsCalls": [
+        {
+          "businessID": "biz_northwind"
+        }
+      ],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [
+        {
+          "bucket": "dev-config",
+          "org": "meteringco",
+          "lines": [
+            "CustomerConfig,businessID=biz_northwind,customerId=nw-1042,customerVatId=GB482910337,email=billing@harborline.example,paymentChannel=manual,taxExempt=none customerName=\"Harborline Logistics\" 1787251916456684294"
+          ]
+        }
+      ],
+      "tokenCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "businessID": "biz_northwind",
+          "tokenAmount": "1",
+          "metadata": {
+            "tokenType": "customer",
+            "customerId": "nw-1042"
+          }
+        }
+      ],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [
+        {
+          "topic": "Standard",
+          "type": "CUSTOMER_CREATED",
+          "businessID": "biz_northwind",
+          "payload": {
+            "customerId": "nw-1042",
+            "customerName": "Harborline Logistics",
+            "paymentChannel": "manual",
+            "email": "billing@harborline.example",
+            "customerVatId": "GB482910337",
+            "taxExempt": "none",
+            "currency": "USD",
+            "invoices": [],
+            "children": []
+          }
+        }
+      ],
+      "auditEvents": [],
+      "ok": true,
+      "response": {
+        "message": "New customer added",
+        "customerId": "nw-1042",
+        "portalUrl": null
+      },
+      "startedAt": "2026-08-20T18:51:56.457Z",
+      "finishedAt": "2026-08-20T18:51:56.457Z"
+    },
+    "caller-supplied-id-taken": {
+      "entitlementCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "entitlementType": "customers"
+        }
+      ],
+      "latestCustomerCalls": [
+        {
+          "businessID": "biz_northwind",
+          "customerId": "nw-0008"
+        }
+      ],
+      "settingsCalls": [],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "BadRequestException",
+        "message": "Failed to create customer. customerId: nw-0008 already exists.",
+        "status": 400
+      },
+      "startedAt": "2026-08-20T18:51:56.459Z",
+      "finishedAt": "2026-08-20T18:51:56.459Z"
+    },
+    "entitlement-reached": {
+      "entitlementCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "entitlementType": "customers"
+        }
+      ],
+      "latestCustomerCalls": [],
+      "settingsCalls": [],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "ConflictException",
+        "message": "Failed to create customer. Customer entitlement limit of 250 has been reached.",
+        "status": 409
+      },
+      "startedAt": "2026-08-20T18:51:56.461Z",
+      "finishedAt": "2026-08-20T18:51:56.462Z"
+    },
+    "stripe-without-connect": {
+      "entitlementCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "entitlementType": "customers"
+        }
+      ],
+      "latestCustomerCalls": [],
+      "settingsCalls": [
+        {
+          "businessID": "biz_northwind"
+        }
+      ],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [],
+      "tokenCalls": [],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [],
+      "auditEvents": [],
+      "ok": false,
+      "error": {
+        "name": "BadRequestException",
+        "message": "Failed to create customer. Must enable Stripe Connect in order to automatically add customer to Stripe.",
+        "status": 400
+      },
+      "startedAt": "2026-08-20T18:51:56.464Z",
+      "finishedAt": "2026-08-20T18:51:56.464Z"
+    },
+    "stripe-on-connected-business": {
+      "entitlementCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "entitlementType": "customers"
+        }
+      ],
+      "latestCustomerCalls": [],
+      "settingsCalls": [
+        {
+          "businessID": "biz_northwind"
+        }
+      ],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [
+        {
+          "bucket": "dev-config",
+          "org": "meteringco",
+          "lines": [
+            "CustomerConfig,businessID=biz_northwind,customerId=baa51dc0-9406-4f3f-9d5d-a0cf9f547f56,email=ap@beaconrobotics.example,paymentChannel=Stripe,paymentChannelOptions_stripeCustomerId=cus_QeR8zTn1WkP2Lm,taxExempt=none customerName=\"Beacon Robotics\" 1787251916465870432"
+          ]
+        }
+      ],
+      "tokenCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "businessID": "biz_northwind",
+          "tokenAmount": "1",
+          "metadata": {
+            "tokenType": "customer",
+            "customerId": "baa51dc0-9406-4f3f-9d5d-a0cf9f547f56"
+          }
+        }
+      ],
+      "stripeCustomerCalls": [
+        {
+          "customerName": "Beacon Robotics",
+          "email": "ap@beaconrobotics.example",
+          "businessStripeAccount": "acct_1PmQ4ZBw3nLxTgVe",
+          "accountState": "production"
+        }
+      ],
+      "webhookEvents": [
+        {
+          "topic": "Standard",
+          "type": "CUSTOMER_CREATED",
+          "businessID": "biz_northwind",
+          "payload": {
+            "customerId": "baa51dc0-9406-4f3f-9d5d-a0cf9f547f56",
+            "customerName": "Beacon Robotics",
+            "paymentChannel": "Stripe",
+            "email": "ap@beaconrobotics.example",
+            "paymentChannelOptions": {
+              "stripeCustomerId": "cus_QeR8zTn1WkP2Lm"
+            },
+            "taxExempt": "none",
+            "currency": "USD",
+            "invoices": [],
+            "children": []
+          }
+        }
+      ],
+      "auditEvents": [],
+      "ok": true,
+      "response": {
+        "message": "New customer added",
+        "customerId": "baa51dc0-9406-4f3f-9d5d-a0cf9f547f56",
+        "portalUrl": "https://billing.stripe.com/p/session/live_YWNjdF8xUG1RNFo"
+      },
+      "startedAt": "2026-08-20T18:51:56.466Z",
+      "finishedAt": "2026-08-20T18:51:56.466Z"
+    },
+    "stripe-caller-brought-its-own-customer": {
+      "entitlementCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "entitlementType": "customers"
+        }
+      ],
+      "latestCustomerCalls": [],
+      "settingsCalls": [
+        {
+          "businessID": "biz_northwind"
+        }
+      ],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [
+        {
+          "bucket": "dev-config",
+          "org": "meteringco",
+          "lines": [
+            "CustomerConfig,businessID=biz_northwind,customerId=36c3ae24-19ba-4066-b28e-ed2076521e1a,email=ap@ridgeway.example,paymentChannel=Stripe,paymentChannelOptions_stripeCustomerId=cus_ExIsTiNg4Ridgeway,taxExempt=none customerName=\"Ridgeway Freight\" 1787251916468106678"
+          ]
+        }
+      ],
+      "tokenCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "businessID": "biz_northwind",
+          "tokenAmount": "1",
+          "metadata": {
+            "tokenType": "customer",
+            "customerId": "36c3ae24-19ba-4066-b28e-ed2076521e1a"
+          }
+        }
+      ],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [
+        {
+          "topic": "Standard",
+          "type": "CUSTOMER_CREATED",
+          "businessID": "biz_northwind",
+          "payload": {
+            "customerId": "36c3ae24-19ba-4066-b28e-ed2076521e1a",
+            "customerName": "Ridgeway Freight",
+            "paymentChannel": "Stripe",
+            "email": "ap@ridgeway.example",
+            "paymentChannelOptions": {
+              "stripeCustomerId": "cus_ExIsTiNg4Ridgeway"
+            },
+            "taxExempt": "none",
+            "currency": "USD",
+            "invoices": [],
+            "children": []
+          }
+        }
+      ],
+      "auditEvents": [],
+      "ok": true,
+      "response": {
+        "message": "New customer added",
+        "customerId": "36c3ae24-19ba-4066-b28e-ed2076521e1a",
+        "portalUrl": null
+      },
+      "startedAt": "2026-08-20T18:51:56.468Z",
+      "finishedAt": "2026-08-20T18:51:56.468Z"
+    },
+    "offering-with-prepaid-credit": {
+      "entitlementCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "entitlementType": "customers"
+        }
+      ],
+      "latestCustomerCalls": [
+        {
+          "businessID": "biz_northwind",
+          "customerId": "nw-1043"
+        }
+      ],
+      "settingsCalls": [
+        {
+          "businessID": "biz_northwind"
+        }
+      ],
+      "contractCreateCalls": [
+        {
+          "customerId": "nw-1043",
+          "offeringId": "off_metered_growth",
+          "businessID": "biz_northwind",
+          "settingsBusinessID": "biz_northwind",
+          "usageOverrides": [
+            {
+              "dimensionId": "dim_api_calls",
+              "value": "12000"
+            }
+          ]
+        }
+      ],
+      "enrollCalls": [
+        {
+          "contractMessage": "contract created",
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "customerId": "nw-1043"
+        }
+      ],
+      "influxWrites": [
+        {
+          "bucket": "dev-config",
+          "org": "meteringco",
+          "lines": [
+            "CustomerConfig,businessID=biz_northwind,creditBalance=500.00,customerId=nw-1043,email=ap@tidewater.example,offeringEnrollmentDate=2026-07-14T00:00:00.000Z,offeringId=off_metered_growth,offeringIds=[\"off_metered_growth\"],paymentChannel=manual,taxExempt=none customerName=\"Tidewater Compute\" 1787251916470566826"
+          ]
+        }
+      ],
+      "tokenCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "businessID": "biz_northwind",
+          "tokenAmount": "1",
+          "metadata": {
+            "tokenType": "customer",
+            "customerId": "nw-1043"
+          }
+        }
+      ],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [
+        {
+          "topic": "Standard",
+          "type": "CUSTOMER_CREATED",
+          "businessID": "biz_northwind",
+          "payload": {
+            "customerId": "nw-1043",
+            "customerName": "Tidewater Compute",
+            "paymentChannel": "manual",
+            "email": "ap@tidewater.example",
+            "taxExempt": "none",
+            "offeringId": "off_metered_growth",
+            "offeringIds": [
+              "off_metered_growth"
+            ],
+            "creditBalance": "500.00",
+            "offeringEnrollmentDate": "2026-07-14T00:00:00.000Z",
+            "currency": "USD",
+            "invoices": [],
+            "offering": {
+              "offeringId": "off_metered_growth",
+              "offeringName": "Growth (metered)",
+              "offeringType": "usageBased",
+              "currency": "USD",
+              "dimensions": []
+            },
+            "enrollments": [
+              {
+                "offering": {
+                  "offeringId": "off_metered_growth",
+                  "offeringName": "Growth (metered)",
+                  "offeringType": "usageBased",
+                  "currency": "USD",
+                  "dimensions": []
+                },
+                "offeringEnrollmentDate": "2026-07-14T00:00:00.000Z",
+                "overrides": {}
+              }
+            ],
+            "children": []
+          }
+        }
+      ],
+      "auditEvents": [],
+      "ok": true,
+      "response": {
+        "message": "New customer added",
+        "customerId": "nw-1043",
+        "portalUrl": null
+      },
+      "startedAt": "2026-08-20T18:51:56.470Z",
+      "finishedAt": "2026-08-20T18:51:56.471Z"
+    },
+    "offering-with-free-trial": {
+      "entitlementCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "entitlementType": "customers"
+        }
+      ],
+      "latestCustomerCalls": [
+        {
+          "businessID": "biz_northwind",
+          "customerId": "nw-1044"
+        }
+      ],
+      "settingsCalls": [
+        {
+          "businessID": "biz_northwind"
+        }
+      ],
+      "contractCreateCalls": [
+        {
+          "customerId": "nw-1044",
+          "offeringId": "off_metered_growth",
+          "businessID": "biz_northwind",
+          "settingsBusinessID": "biz_northwind",
+          "usageOverrides": null
+        }
+      ],
+      "enrollCalls": [
+        {
+          "contractMessage": "contract created",
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "customerId": "nw-1044"
+        }
+      ],
+      "influxWrites": [
+        {
+          "bucket": "dev-config",
+          "org": "meteringco",
+          "lines": [
+            "CustomerConfig,businessID=biz_northwind,customerId=nw-1044,email=ap@larkspur.example,freeTrialEndDate=2026-09-12T00:00:00.000Z,freeTrialStartDate=2026-08-20T18:51:56.473Z,offeringEnrollmentDate=2026-07-14T00:00:00.000Z,offeringId=off_metered_growth,offeringIds=[\"off_metered_growth\"],paymentChannel=manual,taxExempt=none customerName=\"Larkspur Media\" 1787251916472767802"
+          ]
+        }
+      ],
+      "tokenCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "businessID": "biz_northwind",
+          "tokenAmount": "1",
+          "metadata": {
+            "tokenType": "customer",
+            "customerId": "nw-1044"
+          }
+        }
+      ],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [
+        {
+          "topic": "Standard",
+          "type": "CUSTOMER_CREATED",
+          "businessID": "biz_northwind",
+          "payload": {
+            "customerId": "nw-1044",
+            "customerName": "Larkspur Media",
+            "paymentChannel": "manual",
+            "email": "ap@larkspur.example",
+            "taxExempt": "none",
+            "offeringId": "off_metered_growth",
+            "offeringIds": [
+              "off_metered_growth"
+            ],
+            "freeTrialEndDate": "2026-09-12T00:00:00.000Z",
+            "offeringEnrollmentDate": "2026-07-14T00:00:00.000Z",
+            "freeTrialStartDate": "2026-08-20T18:51:56.473Z",
+            "currency": "USD",
+            "invoices": [],
+            "offering": {
+              "offeringId": "off_metered_growth",
+              "offeringName": "Growth (metered)",
+              "offeringType": "usageBased",
+              "currency": "USD",
+              "dimensions": []
+            },
+            "enrollments": [
+              {
+                "offering": {
+                  "offeringId": "off_metered_growth",
+                  "offeringName": "Growth (metered)",
+                  "offeringType": "usageBased",
+                  "currency": "USD",
+                  "dimensions": []
+                },
+                "offeringEnrollmentDate": "2026-07-14T00:00:00.000Z",
+                "overrides": {
+                  "freeTrialEndDate": "2026-09-12T00:00:00.000Z"
+                }
+              }
+            ],
+            "children": []
+          }
+        }
+      ],
+      "auditEvents": [],
+      "ok": true,
+      "response": {
+        "message": "New customer added",
+        "customerId": "nw-1044",
+        "portalUrl": null
+      },
+      "startedAt": "2026-08-20T18:51:56.473Z",
+      "finishedAt": "2026-08-20T18:51:56.473Z"
+    },
+    "offering-without-free-trial": {
+      "entitlementCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "entitlementType": "customers"
+        }
+      ],
+      "latestCustomerCalls": [
+        {
+          "businessID": "biz_northwind",
+          "customerId": "nw-1045"
+        }
+      ],
+      "settingsCalls": [
+        {
+          "businessID": "biz_northwind"
+        }
+      ],
+      "contractCreateCalls": [
+        {
+          "customerId": "nw-1045",
+          "offeringId": "off_metered_growth",
+          "businessID": "biz_northwind",
+          "settingsBusinessID": "biz_northwind",
+          "usageOverrides": null
+        }
+      ],
+      "enrollCalls": [
+        {
+          "contractMessage": "contract created",
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "customerId": "nw-1045"
+        }
+      ],
+      "influxWrites": [
+        {
+          "bucket": "dev-config",
+          "org": "meteringco",
+          "lines": [
+            "CustomerConfig,businessID=biz_northwind,customerId=nw-1045,email=ap@copperfield.example,offeringEnrollmentDate=2026-07-14T00:00:00.000Z,offeringId=off_metered_growth,offeringIds=[\"off_metered_growth\"],paymentChannel=manual,taxExempt=none customerName=\"Copperfield Labs\" 1787251916475947132"
+          ]
+        }
+      ],
+      "tokenCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "businessID": "biz_northwind",
+          "tokenAmount": "1",
+          "metadata": {
+            "tokenType": "customer",
+            "customerId": "nw-1045"
+          }
+        }
+      ],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [
+        {
+          "topic": "Standard",
+          "type": "CUSTOMER_CREATED",
+          "businessID": "biz_northwind",
+          "payload": {
+            "customerId": "nw-1045",
+            "customerName": "Copperfield Labs",
+            "paymentChannel": "manual",
+            "email": "ap@copperfield.example",
+            "taxExempt": "none",
+            "offeringId": "off_metered_growth",
+            "offeringIds": [
+              "off_metered_growth"
+            ],
+            "offeringEnrollmentDate": "2026-07-14T00:00:00.000Z",
+            "currency": "USD",
+            "invoices": [],
+            "offering": {
+              "offeringId": "off_metered_growth",
+              "offeringName": "Growth (metered)",
+              "offeringType": "usageBased",
+              "currency": "USD",
+              "dimensions": []
+            },
+            "enrollments": [
+              {
+                "offering": {
+                  "offeringId": "off_metered_growth",
+                  "offeringName": "Growth (metered)",
+                  "offeringType": "usageBased",
+                  "currency": "USD",
+                  "dimensions": []
+                },
+                "offeringEnrollmentDate": "2026-07-14T00:00:00.000Z",
+                "overrides": {}
+              }
+            ],
+            "children": []
+          }
+        }
+      ],
+      "auditEvents": [],
+      "ok": true,
+      "response": {
+        "message": "New customer added",
+        "customerId": "nw-1045",
+        "portalUrl": null
+      },
+      "startedAt": "2026-08-20T18:51:56.476Z",
+      "finishedAt": "2026-08-20T18:51:56.476Z"
+    },
+    "token-metering-unavailable": {
+      "entitlementCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "entitlementType": "customers"
+        }
+      ],
+      "latestCustomerCalls": [
+        {
+          "businessID": "biz_northwind",
+          "customerId": "nw-1046"
+        }
+      ],
+      "settingsCalls": [
+        {
+          "businessID": "biz_northwind"
+        }
+      ],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [
+        {
+          "bucket": "dev-config",
+          "org": "meteringco",
+          "lines": [
+            "CustomerConfig,businessID=biz_northwind,customerId=nw-1046,email=ap@ashgrove.example,paymentChannel=manual,taxExempt=none customerName=\"Ashgrove Foods\" 1787251916478451150"
+          ]
+        }
+      ],
+      "tokenCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "businessID": "biz_northwind",
+          "tokenAmount": "1",
+          "metadata": {
+            "tokenType": "customer",
+            "customerId": "nw-1046"
+          }
+        }
+      ],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [
+        {
+          "topic": "Standard",
+          "type": "CUSTOMER_CREATED",
+          "businessID": "biz_northwind",
+          "payload": {
+            "customerId": "nw-1046",
+            "customerName": "Ashgrove Foods",
+            "paymentChannel": "manual",
+            "email": "ap@ashgrove.example",
+            "taxExempt": "none",
+            "currency": "USD",
+            "invoices": [],
+            "children": []
+          }
+        }
+      ],
+      "auditEvents": [
+        {
+          "topic": "ERROR",
+          "message": "Failed to meter token for customer",
+          "data": [
+            {
+              "customerId": "nw-1046",
+              "businessID": "biz_northwind",
+              "error": {
+                "name": "Error",
+                "message": "token consumer unavailable",
+                "stack": "Error: token consumer unavailable\n    at Object.create (/app/.verifier-drive.ts:134:23)\n    at CustomerService.create (/app/src/customer/customer.service.ts:638:45)\n    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)\n    at async runOne (/app/.verifier-drive.ts:196:26)\n    at async main (/app/.verifier-drive.ts:238:24)"
+              }
+            }
+          ]
+        }
+      ],
+      "ok": true,
+      "response": {
+        "message": "New customer added",
+        "customerId": "nw-1046",
+        "portalUrl": null
+      },
+      "startedAt": "2026-08-20T18:51:56.478Z",
+      "finishedAt": "2026-08-20T18:51:56.484Z"
+    },
+    "address-metadata-and-tax": {
+      "entitlementCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "entitlementType": "customers"
+        }
+      ],
+      "latestCustomerCalls": [
+        {
+          "businessID": "biz_northwind",
+          "customerId": "nw-1047"
+        }
+      ],
+      "settingsCalls": [
+        {
+          "businessID": "biz_northwind"
+        }
+      ],
+      "contractCreateCalls": [],
+      "enrollCalls": [],
+      "influxWrites": [
+        {
+          "bucket": "dev-config",
+          "org": "meteringco",
+          "lines": [
+            "CustomerConfig,address={\"countryCode\":\"IE\"\\,\"postalCode\":\"D02\\ AF30\"\\,\"city\":\"Dublin\"\\,\"streetLineOne\":\"12\\ Merrion\\ Square\"\\,\"state\":\"Leinster\"},businessID=biz_northwind,currency=EUR,customerId=nw-1047,email=ap@selkirk.example,metadata={\"segment\":\"enterprise\"\\,\"region\":\"emea\"},paymentChannel=manual,taxExempt=exempt customerName=\"Selkirk Instruments\" 1787251916486356763"
+          ]
+        }
+      ],
+      "tokenCalls": [
+        {
+          "subject": "auth0|6913f0c7a41d2b5e8fd41c72",
+          "businessID": "biz_northwind",
+          "tokenAmount": "1",
+          "metadata": {
+            "tokenType": "customer",
+            "customerId": "nw-1047"
+          }
+        }
+      ],
+      "stripeCustomerCalls": [],
+      "webhookEvents": [
+        {
+          "topic": "Standard",
+          "type": "CUSTOMER_CREATED",
+          "businessID": "biz_northwind",
+          "payload": {
+            "customerId": "nw-1047",
+            "customerName": "Selkirk Instruments",
+            "paymentChannel": "manual",
+            "email": "ap@selkirk.example",
+            "address": {
+              "countryCode": "IE",
+              "postalCode": "D02 AF30",
+              "city": "Dublin",
+              "streetLineOne": "12 Merrion Square",
+              "state": "Leinster"
+            },
+            "taxExempt": "exempt",
+            "currency": "EUR",
+            "metadata": {
+              "segment": "enterprise",
+              "region": "emea"
+            },
+            "invoices": [],
+            "children": []
+          }
+        }
+      ],
+      "auditEvents": [],
+      "ok": true,
+      "response": {
+        "message": "New customer added",
+        "customerId": "nw-1047",
+        "portalUrl": null
+      },
+      "startedAt": "2026-08-20T18:51:56.486Z",
+      "finishedAt": "2026-08-20T18:51:56.487Z"
+    }
+  }
+}

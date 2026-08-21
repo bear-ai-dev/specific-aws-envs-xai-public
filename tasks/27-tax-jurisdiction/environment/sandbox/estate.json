@@ -1,0 +1,242 @@
+{
+  "note": "Configuration of the accounts this box serves, as the settings and customer APIs return them.",
+  "settings": [
+    {
+      "businessID": "biz_northwind",
+      "businessName": "Northwind Analytics",
+      "addressLine1": "1209 Orange Street",
+      "addressLine2": "Suite 400",
+      "city": "Wilmington",
+      "state": "de",
+      "country": "us",
+      "postalCode": "19801",
+      "vatId": "US-EIN-51-0793344",
+      "taxCalculationType": "meteringcoCalculated",
+      "taxRate": "0",
+      "taxCategory": "31000",
+      "taxJarApiKey": "tjk_sbx_northwind_a41f",
+      "accountState": "sandbox",
+      "invoiceApproval": "automatic",
+      "invoicePaymentTerm": "none",
+      "supportEmail": "billing@northwind.example",
+      "currency": "USD"
+    },
+    {
+      "businessID": "biz_lumen",
+      "businessName": "Lumen Grid Ltd",
+      "addressLine1": "12 Finsbury Square",
+      "addressLine2": "",
+      "city": "London",
+      "state": "",
+      "country": "gb",
+      "postalCode": "EC2A 1AS",
+      "vatId": "GB 428 6721 09",
+      "taxCalculationType": "meteringcoCalculated",
+      "taxRate": "0",
+      "taxCategory": "40030",
+      "taxJarApiKey": "tjk_prd_lumen_7c30",
+      "accountState": "production",
+      "invoiceApproval": "automatic",
+      "invoicePaymentTerm": "none",
+      "supportEmail": "billing@lumen.example",
+      "currency": "USD"
+    },
+    {
+      "businessID": "biz_harbourgate",
+      "businessName": "Harbourgate Systems GmbH",
+      "addressLine1": "Rosenthaler Strasse 40",
+      "addressLine2": "",
+      "city": "Berlin",
+      "state": "",
+      "country": "de",
+      "postalCode": "10178",
+      "vatId": "DE 129 273 060",
+      "taxCalculationType": "manual",
+      "taxRate": "0.19",
+      "taxCategory": "",
+      "taxJarApiKey": "tjk_sbx_harbourgate_9b12",
+      "accountState": "sandbox",
+      "invoiceApproval": "automatic",
+      "invoicePaymentTerm": "none",
+      "supportEmail": "billing@harbourgate.example",
+      "currency": "USD"
+    },
+    {
+      "businessID": "biz_marchetti",
+      "businessName": "Marchetti Interactive",
+      "addressLine1": "88 Kearny Street",
+      "addressLine2": "",
+      "city": "San Francisco",
+      "state": "ca",
+      "country": "us",
+      "postalCode": "94108",
+      "vatId": "",
+      "taxCalculationType": "meteringcoCalculated",
+      "taxRate": "0",
+      "taxCategory": "31000",
+      "taxJarApiKey": "",
+      "accountState": "sandbox",
+      "invoiceApproval": "automatic",
+      "invoicePaymentTerm": "none",
+      "supportEmail": "billing@marchetti.example",
+      "currency": "USD"
+    },
+    {
+      "businessID": "biz_pinecrest",
+      "businessName": "Pinecrest Labs",
+      "addressLine1": "600 1st Avenue",
+      "addressLine2": "",
+      "city": "Seattle",
+      "state": "wa",
+      "country": "us",
+      "postalCode": "98104",
+      "vatId": "",
+      "taxCalculationType": "",
+      "taxRate": "0.07",
+      "taxCategory": "31000",
+      "taxJarApiKey": "",
+      "accountState": "sandbox",
+      "invoiceApproval": "automatic",
+      "invoicePaymentTerm": "none",
+      "supportEmail": "billing@pinecrest.example",
+      "currency": "USD"
+    }
+  ],
+  "customers": [
+    {
+      "customerId": "cus_hartwell",
+      "customerName": "Hartwell Media",
+      "email": "ap@hartwell.example",
+      "taxExempt": "none",
+      "customerVatId": "",
+      "address": {
+        "streetLineOne": "412 West 38th Street",
+        "streetLineTwo": "Floor 6",
+        "city": "New York",
+        "state": "ny",
+        "postalCode": "10018",
+        "countryCode": "us"
+      }
+    },
+    {
+      "customerId": "cus_larkspur",
+      "customerName": "Larkspur Foundation",
+      "email": "finance@larkspur.example",
+      "taxExempt": "exempt",
+      "customerVatId": "",
+      "address": {
+        "streetLineOne": "80 Pine Street",
+        "streetLineTwo": "",
+        "city": "New York",
+        "state": "ny",
+        "postalCode": "10018",
+        "countryCode": "us"
+      }
+    },
+    {
+      "customerId": "cus_seaford",
+      "customerName": "Seaford Logistics",
+      "email": "ar@seaford.example",
+      "taxExempt": "none",
+      "customerVatId": "",
+      "address": {
+        "streetLineOne": "77 Water Street",
+        "streetLineTwo": "",
+        "city": "New York",
+        "state": "ny",
+        "postalCode": "33101",
+        "countryCode": "us"
+      }
+    },
+    {
+      "customerId": "cus_wexley",
+      "customerName": "Wexley KK",
+      "email": "keiri@wexley.example",
+      "taxExempt": "none",
+      "customerVatId": "",
+      "address": {
+        "streetLineOne": "2-4-9 Umeda",
+        "streetLineTwo": "",
+        "city": "Osaka",
+        "state": "",
+        "postalCode": "5300001",
+        "countryCode": "jp"
+      }
+    },
+    {
+      "customerId": "cus_ironvale",
+      "customerName": "Ironvale Systems",
+      "email": "ap@ironvale.example",
+      "taxExempt": "none",
+      "customerVatId": "US-TX-99881",
+      "address": {
+        "streetLineOne": "301 Congress Avenue",
+        "streetLineTwo": "",
+        "city": "Austin",
+        "state": "tx",
+        "postalCode": "78701",
+        "countryCode": "us"
+      }
+    },
+    {
+      "customerId": "cus_dunmore",
+      "customerName": "Dunmore Trading",
+      "email": "accounts@dunmore.example",
+      "taxExempt": "none",
+      "customerVatId": "IE 6388047V",
+      "address": {
+        "streetLineOne": "25 Sir John Rogerson's Quay",
+        "streetLineTwo": "",
+        "city": "Dublin",
+        "state": "Leinster",
+        "postalCode": "D02 X285",
+        "countryCode": "ie"
+      }
+    },
+    {
+      "customerId": "cus_fairholme",
+      "customerName": "Fairholme Bildungswerk",
+      "email": "buchhaltung@fairholme.example",
+      "taxExempt": "exempt",
+      "customerVatId": "DE 305 118 947",
+      "address": {
+        "streetLineOne": "Alexanderplatz 7",
+        "streetLineTwo": "",
+        "city": "Berlin",
+        "state": "Berlin",
+        "postalCode": "10178",
+        "countryCode": "de"
+      }
+    },
+    {
+      "customerId": "cus_caldwell",
+      "customerName": "Caldwell Studios",
+      "email": "ap@caldwell.example",
+      "taxExempt": "none",
+      "customerVatId": "",
+      "address": {
+        "streetLineOne": "1355 Market Street",
+        "streetLineTwo": "",
+        "city": "San Francisco",
+        "state": "ca",
+        "postalCode": "94103",
+        "countryCode": "us"
+      }
+    },
+    {
+      "customerId": "cus_ashgrove",
+      "customerName": "Ashgrove Retail",
+      "email": "ap@ashgrove.example",
+      "taxExempt": "none",
+      "customerVatId": "",
+      "address": {
+        "streetLineOne": "1200 5th Avenue",
+        "streetLineTwo": "",
+        "city": "Seattle",
+        "state": "wa",
+        "postalCode": "98104",
+        "countryCode": "us"
+      }
+    }
+  ]
+}
