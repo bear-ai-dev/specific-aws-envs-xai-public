@@ -24,7 +24,7 @@ describe('Test EC2 Egress Measurement', () => {
         measurement = new EC2EgressMeasurement();
         await measurement.create({
             name: 'Measure EC2',
-            iamRoleArn: 'arn:aws:iam::647662420899:role/meteringco-read-only',
+            iamRoleArn: 'arn:aws:iam::123456789012:role/meteringco-read-only',
             externalId: '',
             region: 'us-east-1',
         });

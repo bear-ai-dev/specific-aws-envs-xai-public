@@ -8,6 +8,8 @@ import json
 import subprocess
 from pathlib import Path
 
+from cohort_provenance import RECORDED_RUNTIME_STRATA
+
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG = json.loads((ROOT / "harness" / "cohort.json").read_text())
@@ -70,27 +72,23 @@ def main() -> None:
         "publication_controls_validation": (
             "sample-run/manifests/public-controls-validation.json"
         ),
-        "recorded_runtime_task_sha256": {
-            "02-entitlement-overage-lines": (
-                "92e4b98286ca4dd72881f59542ae4c17ad010f9910e29839c725cedbffe00ab3"
-            ),
-            "07-multi-region-sweep": (
-                "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a"
-            ),
-            "14-iam-role-validation": (
-                "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2"
-            ),
-            "27-tax-jurisdiction": (
-                "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98"
-            ),
-            "31-customer-onboarding": (
-                "950d0ade6a83cf835be13d0efb123daa33f0dc0d43542493d045d08ea183c6a2"
-            ),
+        "recorded_runtime_strata": {
+            task: [
+                {
+                    "name": stratum["name"],
+                    "environment": stratum["environment"],
+                    "trial_numbers": list(stratum["trial_numbers"]),
+                    "task_checksum": stratum["task_checksum"],
+                }
+                for stratum in strata
+            ]
+            for task, strata in RECORDED_RUNTIME_STRATA.items()
         },
         "attempts_per_task_model": CONFIG["n_attempts"],
         "validity_rule": (
             "numeric verifier reward, complete trajectory, complete verifier "
-            "artifact, no Harbor exception, and exact frozen task/config variant"
+            "artifact, no Harbor exception, and model matching within each "
+            "recorded runtime-checksum stratum"
         ),
         "harbor_version": version(["harbor", "--version"]),
         "mini_swe_agent_version": "2.4.5",
@@ -100,7 +98,13 @@ def main() -> None:
         },
         "agent": "mini-swe-agent",
         "reasoning_effort": "high",
-        "environment": "daytona",
+        "environments": ["daytona", "aws-fargate"],
+        "pooled_result_boundary": (
+            "Tasks 27 and 31 report pooled descriptive eight-attempt counts "
+            "across a four-attempt Daytona stratum and a four-attempt AWS "
+            "Fargate stratum. They are not represented as one frozen runtime "
+            "configuration."
+        ),
         "task_labels": task_labels,
         "public_task_sha256": tasks,
         "cohort_config_sha256": hashlib.sha256(

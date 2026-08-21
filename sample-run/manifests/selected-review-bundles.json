@@ -1,7 +1,8 @@
 {
   "bundles": {
     "07-multi-region-sweep": {
-      "bundle_sha256": "2c671406490e4f89d4d67c28a7d1e14963a8b01eb62c429beed3248b47afa051",
+      "bundle_sha256": "99e1049760da68c8117b87a07949c19430eed43f76f551c1031d2812a4e1cc16",
+      "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -492,8 +493,8 @@
         },
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-01.json",
-          "sha256": "ba2e787a4ac3358e5f8098ac636da30e997e45370bf5682ceebd8ccc3162aa1c",
-          "size_bytes": 2697416
+          "sha256": "926d120460e764785d14a125052014d471ed2fb7713acb4e8cfee31287fa832b",
+          "size_bytes": 2697422
         },
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-02.json",
@@ -502,23 +503,23 @@
         },
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-03.json",
-          "sha256": "d64c51ac9f177fcb506733cde675438091241db331df785fc2bcfc49f0744cfb",
-          "size_bytes": 1447058
+          "sha256": "c7aa9cb9b4ff9613108746f820a252c470232f1e32f2a4ef32763938e4511729",
+          "size_bytes": 1447067
         },
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-04.json",
-          "sha256": "783186c4f66abcb80d6c3ad6484fbaf933af315295cb362aa7967e93badc3c8e",
-          "size_bytes": 1259557
+          "sha256": "fe3684b9bb6581a65072970f09c4a1b9fb74b9a7ec8339cb8808a071460daeeb",
+          "size_bytes": 1259566
         },
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-05.json",
-          "sha256": "bf5f73eb72b881e887f59b207d0730c9ecbfce1d39dabf06bc7b1e1117f73035",
-          "size_bytes": 1539476
+          "sha256": "5187fb26551b55f8eddd0ac76a3f91591e7d2401a542b8e544eeea884093eae8",
+          "size_bytes": 1539482
         },
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-06.json",
-          "sha256": "cae81c132322de4a9a2e8814aaf3ce4c4491f0dfb5556c903f78607ae2e593b4",
-          "size_bytes": 1583648
+          "sha256": "e044000dc9889d035243850755615186b596367669787c11fe7ee33feca6aee5",
+          "size_bytes": 1583654
         },
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-07.json",
@@ -527,8 +528,8 @@
         },
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/grok/trial-08.json",
-          "sha256": "004523c9ea395c3bd751be619d49262f971d15e642b89a54c1910f97c59b81e8",
-          "size_bytes": 1194547
+          "sha256": "0bedd2432923a5b31994f286925d3b25beedac20370bb6fee1580010ab69f982",
+          "size_bytes": 1194556
         },
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/opus/trial-01.json",
@@ -542,8 +543,8 @@
         },
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/opus/trial-03.json",
-          "sha256": "0096743f3fe3f6fd11425140eb265da3634ea5ecfaf155c2847148b78249ae59",
-          "size_bytes": 362749
+          "sha256": "ba62df82845fabfe93e6f80a6395e4a71add1f3cfdff00beda251156b422ed46",
+          "size_bytes": 362755
         },
         {
           "path": "sample-run/review-bundle/07-multi-region-sweep/trajectories/opus/trial-04.json",
@@ -1076,10 +1077,34 @@
           "size_bytes": 562
         }
       ],
-      "public_task_sha256": "87472ee3fa08204c53f389c462cb36fdbb44878c6f2830f866aeca9808071471",
-      "recorded_runtime_task_checksum": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
+      "public_task_sha256": "ac07cba5cbef3b999d548bdf443fe54b679f26e439e4aac3a6cb5a2df85a1d46",
+      "recorded_control_task_checksums": {
+        "nop": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
+        "oracle": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a"
+      },
       "recorded_runtime_task_checksums": [
         "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a"
+      ],
+      "runtime_strata": [
+        {
+          "environment": "daytona",
+          "name": "daytona-01-08",
+          "solves": {
+            "grok": 6,
+            "opus": 8
+          },
+          "task_checksum": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
+          "trial_numbers": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        }
       ],
       "solves": {
         "grok": 6,
@@ -1088,7 +1113,8 @@
       "task_label": "Task 7"
     },
     "14-iam-role-validation": {
-      "bundle_sha256": "145a457f966cedce7082b28e40eb8c9e51fe18f00f0c61b3d992c4bfd8038138",
+      "bundle_sha256": "145f504eec55322126a77f73f52cb00cacf0d46df3240a2247da62d679f805cd",
+      "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -1224,8 +1250,8 @@
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-03/package.json",
-          "sha256": "ec947dc2b88123cdd588138d08ee92a4719007dac6a38621b44ca184c489a1ec",
-          "size_bytes": 9843
+          "sha256": "6bfdefc48455b2f8f8017ee1247f28f28b6f0fba6a55e4dbcdc9c5cda4fb857f",
+          "size_bytes": 9846
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-03/settings.service.spec.ts",
@@ -1319,8 +1345,8 @@
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-07/package.json",
-          "sha256": "ec947dc2b88123cdd588138d08ee92a4719007dac6a38621b44ca184c489a1ec",
-          "size_bytes": 9843
+          "sha256": "6bfdefc48455b2f8f8017ee1247f28f28b6f0fba6a55e4dbcdc9c5cda4fb857f",
+          "size_bytes": 9846
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/grok-solution/trial-07/settings.service.spec.ts",
@@ -1449,8 +1475,8 @@
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-03/app/package.json",
-          "sha256": "ec947dc2b88123cdd588138d08ee92a4719007dac6a38621b44ca184c489a1ec",
-          "size_bytes": 9843
+          "sha256": "6bfdefc48455b2f8f8017ee1247f28f28b6f0fba6a55e4dbcdc9c5cda4fb857f",
+          "size_bytes": 9846
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-03/app/src/setting/dto/update-settings.dto.ts",
@@ -1574,8 +1600,8 @@
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-07/app/package.json",
-          "sha256": "ec947dc2b88123cdd588138d08ee92a4719007dac6a38621b44ca184c489a1ec",
-          "size_bytes": 9843
+          "sha256": "6bfdefc48455b2f8f8017ee1247f28f28b6f0fba6a55e4dbcdc9c5cda4fb857f",
+          "size_bytes": 9846
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/touched-files/trial-07/app/src/setting/dto/update-settings.dto.ts",
@@ -1654,8 +1680,8 @@
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-01.json",
-          "sha256": "a31ef67fe88f9d8033f9ff6a559dd2408e11772e09493d8ac78dc86ba98a58e7",
-          "size_bytes": 4086087
+          "sha256": "47d740741e7215b48c991bd91a9d835667daf09b060140fc0213e5fafb7fafb3",
+          "size_bytes": 4086093
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-02.json",
@@ -1669,28 +1695,28 @@
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-04.json",
-          "sha256": "4d5c01303c4de16a59156dcfe66f7da3ee3d4c02146ba0dd0f20eb85767a25f7",
-          "size_bytes": 3445733
+          "sha256": "c6a6df780dce7579b8d19d22c7abaa875452e243368e32a733d4afb2d87cc3d7",
+          "size_bytes": 3445742
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-05.json",
-          "sha256": "76d16becb6387898c07056557f24c94f4a7bcc7ff05061da4f143aa053190ef7",
-          "size_bytes": 2827779
+          "sha256": "4bb5bb3803c2b3ee16ba430a180de71345c539b000d7abd15b476cce79868648",
+          "size_bytes": 2827785
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-06.json",
-          "sha256": "845c22d630d82fc618634def14d39438c7b1733ee4e18102bc8fcc50702433f1",
-          "size_bytes": 3754714
+          "sha256": "705118e1fccad2c4cb44f4d58a41769d34de985c3a5a86a263ce07a1eb432a16",
+          "size_bytes": 3754723
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-07.json",
-          "sha256": "8bbeff2c4882f29f1624f93567926461e83e75f6480580c8357576b87e01b6c2",
-          "size_bytes": 2884335
+          "sha256": "2c7deb400e62151a3dcdf3939249b2162ac8078a7175dead31664079fe62e7d6",
+          "size_bytes": 2884341
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/grok/trial-08.json",
-          "sha256": "0c8e0efd634c26154f1c766d8bee65ca875c5128336f94ec084ef846f43027f4",
-          "size_bytes": 3080902
+          "sha256": "066972b451d149fdf386ea4fd88369068570ab188832bfd44d9544e78a1dd131",
+          "size_bytes": 3080908
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/opus/trial-01.json",
@@ -1729,8 +1755,8 @@
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/trajectories/opus/trial-08.json",
-          "sha256": "5ed0cba38e35f8bbd6bfff7f1a5376fb991dca6d0fc50120a9e898e2b4d858d5",
-          "size_bytes": 1231690
+          "sha256": "130f4f5168611d959a5c9f8d0d0e656049ae4d6527cc45f4efa0dc0941c77746",
+          "size_bytes": 1231696
         },
         {
           "path": "sample-run/review-bundle/14-iam-role-validation/verification-results/grok/trial-01/harbor-result.json",
@@ -2243,10 +2269,34 @@
           "size_bytes": 4392
         }
       ],
-      "public_task_sha256": "df5e474c7988f7534a3040e84d10c0b38983e88b81bc5aaf0a383816cd47c611",
-      "recorded_runtime_task_checksum": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2",
+      "public_task_sha256": "317335499a5fdede5a18946c6a4939073abf6a9f5d396a5f6a3ce83cf3c81b38",
+      "recorded_control_task_checksums": {
+        "nop": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2",
+        "oracle": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2"
+      },
       "recorded_runtime_task_checksums": [
         "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2"
+      ],
+      "runtime_strata": [
+        {
+          "environment": "daytona",
+          "name": "daytona-01-08",
+          "solves": {
+            "grok": 3,
+            "opus": 8
+          },
+          "task_checksum": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2",
+          "trial_numbers": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        }
       ],
       "solves": {
         "grok": 3,
@@ -2255,7 +2305,8 @@
       "task_label": "Task 14"
     },
     "27-tax-jurisdiction": {
-      "bundle_sha256": "08813a4ef402fdff1c5e88f23a3cfb50d3bcd30c1e703cceb89afb1e960246db",
+      "bundle_sha256": "012bd6c2c47e9df42cec124c8162b5f0d19248ee6c7ba909431ea774f5ee4924",
+      "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -2271,8 +2322,8 @@
       "files": [
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/README.md",
-          "sha256": "bb6d7b45b44f5c993df1088e84ed38a19cbb1df18389dd301ee5377718b9ed2c",
-          "size_bytes": 5489
+          "sha256": "fbc4e3f3dabc74796288495309c393ec6cbaec9b830833c8bc8fedc3a18b6232",
+          "size_bytes": 5824
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/controls/nop/harbor-result.json",
@@ -2356,8 +2407,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-01/invoice.entity.ts",
-          "sha256": "4c60d10f096b5a85859ba55ec158c149e2e867f80a89d7df8a4c3294f39d2d30",
-          "size_bytes": 50895
+          "sha256": "cafcb9938ae4360246977465534b99fae2aa2bd8c7bddd8d10a1378f74ced5d9",
+          "size_bytes": 50898
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-01/payment.entity.ts",
@@ -2406,8 +2457,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-02/invoice.entity.ts",
-          "sha256": "34723222957741eec738d25a60d461de664062a96614f9565cd4101fcfe17db2",
-          "size_bytes": 46946
+          "sha256": "78396b9ad769643fb8884a48604f3cba0e57d241250760877baacd297f584ed9",
+          "size_bytes": 46949
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-02/payment.entity.ts",
@@ -2446,8 +2497,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-03/invoice.entity.ts",
-          "sha256": "c487155e31cf5cb1fd2ac93bd398f6e1ddf63d4acdc50fe91e3dae62efbdcef1",
-          "size_bytes": 48927
+          "sha256": "86028a87eba29f2b54b315b0d9f132bf1184915c0bfbbdae048ff56f270e668a",
+          "size_bytes": 48930
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-03/read-invoices.dto.ts",
@@ -2481,8 +2532,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-04/invoice.entity.ts",
-          "sha256": "72a92eb835190557c6f8fc1121095e24318250ebfc1d2d8f864e5a19ea7b5a4f",
-          "size_bytes": 50762
+          "sha256": "531db8f0a16f26377519d2fcfddb43f6d801332f76f32824ef3711ec6f091762",
+          "size_bytes": 50765
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-04/payment.entity.ts",
@@ -2516,8 +2567,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-05/invoice.entity.ts",
-          "sha256": "cf502574471c4fc2c164db1f835cb4c30e33f32ec8c13f4c35016bb43198b0b7",
-          "size_bytes": 50905
+          "sha256": "6964688378ef390e1279bdd0cda9594867e51b2dc38ac22b48fbd685e45a02e5",
+          "size_bytes": 50908
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-05/payment.entity.ts",
@@ -2546,8 +2597,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-06/invoice.entity.ts",
-          "sha256": "89e4d0f3b18552af6373c5765ba41142ea8b54e99809da3c57f39f2d59e20a38",
-          "size_bytes": 50055
+          "sha256": "8fc97058f200df02b0d0553217cd14aab7257f7df65f7bec2a474b4f555aaf07",
+          "size_bytes": 50058
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-06/payment.entity.ts",
@@ -2591,8 +2642,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-07/invoice.entity.ts",
-          "sha256": "f819e5027be5fb61ce2ff8759db82100db524c0cd0d79e22c1af628b34e0fde9",
-          "size_bytes": 50942
+          "sha256": "426cc29bb808898abde630f3e6e2ad29322008a33e27615bf920b845c9a74573",
+          "size_bytes": 50945
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-07/invoice.tax.spec.ts",
@@ -2631,8 +2682,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-08/invoice.entity.ts",
-          "sha256": "7867d93290b88fc020988989f751507dc2b7198de5ab9497e5e7681a18f933c6",
-          "size_bytes": 47870
+          "sha256": "b770c0e1ba88d3c24739b850071d1fc11c42f3c5915e1e1b3a3850f64a8ff99f",
+          "size_bytes": 47873
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/grok-solution/trial-08/invoices.module.ts",
@@ -2696,8 +2747,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-01/app/src/invoice/entities/invoice.entity.ts",
-          "sha256": "4c60d10f096b5a85859ba55ec158c149e2e867f80a89d7df8a4c3294f39d2d30",
-          "size_bytes": 50895
+          "sha256": "cafcb9938ae4360246977465534b99fae2aa2bd8c7bddd8d10a1378f74ced5d9",
+          "size_bytes": 50898
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-01/app/src/invoice/invoice.entity.spec.ts",
@@ -2741,8 +2792,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-02/app/src/invoice/entities/invoice.entity.ts",
-          "sha256": "34723222957741eec738d25a60d461de664062a96614f9565cd4101fcfe17db2",
-          "size_bytes": 46946
+          "sha256": "78396b9ad769643fb8884a48604f3cba0e57d241250760877baacd297f584ed9",
+          "size_bytes": 46949
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-02/app/src/invoice/invoice.entity.spec.ts",
@@ -2786,8 +2837,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-03/app/src/invoice/entities/invoice.entity.ts",
-          "sha256": "c487155e31cf5cb1fd2ac93bd398f6e1ddf63d4acdc50fe91e3dae62efbdcef1",
-          "size_bytes": 48927
+          "sha256": "86028a87eba29f2b54b315b0d9f132bf1184915c0bfbbdae048ff56f270e668a",
+          "size_bytes": 48930
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-03/app/src/invoice/invoice.entity.spec.ts",
@@ -2816,8 +2867,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-04/app/src/invoice/entities/invoice.entity.ts",
-          "sha256": "72a92eb835190557c6f8fc1121095e24318250ebfc1d2d8f864e5a19ea7b5a4f",
-          "size_bytes": 50762
+          "sha256": "531db8f0a16f26377519d2fcfddb43f6d801332f76f32824ef3711ec6f091762",
+          "size_bytes": 50765
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-04/app/src/invoice/invoice.entity.spec.ts",
@@ -2851,8 +2902,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-05/app/src/invoice/entities/invoice.entity.ts",
-          "sha256": "cf502574471c4fc2c164db1f835cb4c30e33f32ec8c13f4c35016bb43198b0b7",
-          "size_bytes": 50905
+          "sha256": "6964688378ef390e1279bdd0cda9594867e51b2dc38ac22b48fbd685e45a02e5",
+          "size_bytes": 50908
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-05/app/src/invoice/invoice.entity.spec.ts",
@@ -2886,8 +2937,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-06/app/src/invoice/entities/invoice.entity.ts",
-          "sha256": "89e4d0f3b18552af6373c5765ba41142ea8b54e99809da3c57f39f2d59e20a38",
-          "size_bytes": 50055
+          "sha256": "8fc97058f200df02b0d0553217cd14aab7257f7df65f7bec2a474b4f555aaf07",
+          "size_bytes": 50058
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-06/app/src/payment/entities/payment.entity.ts",
@@ -2936,8 +2987,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-07/app/src/invoice/entities/invoice.entity.ts",
-          "sha256": "f819e5027be5fb61ce2ff8759db82100db524c0cd0d79e22c1af628b34e0fde9",
-          "size_bytes": 50942
+          "sha256": "426cc29bb808898abde630f3e6e2ad29322008a33e27615bf920b845c9a74573",
+          "size_bytes": 50945
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-07/app/src/invoice/invoice.tax.spec.ts",
@@ -2971,8 +3022,8 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-08/app/src/invoice/entities/invoice.entity.ts",
-          "sha256": "7867d93290b88fc020988989f751507dc2b7198de5ab9497e5e7681a18f933c6",
-          "size_bytes": 47870
+          "sha256": "b770c0e1ba88d3c24739b850071d1fc11c42f3c5915e1e1b3a3850f64a8ff99f",
+          "size_bytes": 47873
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/touched-files/trial-08/app/src/invoice/invoice.entity.spec.ts",
@@ -3021,77 +3072,77 @@
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/grok/trial-01.json",
-          "sha256": "73c38162495b196763a14ae9763321fa6d39183be0025fe3462f3df367a9d9e9",
-          "size_bytes": 4944382
+          "sha256": "6b89df6be61fc3be4e27f22dbf1a030701e40146c58aa3f7eac9116085cb2fe8",
+          "size_bytes": 4944406
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/grok/trial-02.json",
-          "sha256": "30e0bcf257c717755e4fefc2ea758b23edae4dadf822b15bad3231192378df3e",
-          "size_bytes": 3257907
+          "sha256": "fadad59a542472e358dc47322aa8962b3518f45e076c1ade4a378d81ab17482e",
+          "size_bytes": 3257931
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/grok/trial-03.json",
-          "sha256": "3030effafc3f4e9fca86216458ff29de4c8b07e73b2c65cbb9940cc74d3f7184",
-          "size_bytes": 3190631
+          "sha256": "d35725f821e61573572dd3058580cad0c856ec74ef960186d9a26b2d34bc93a4",
+          "size_bytes": 3190664
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/grok/trial-04.json",
-          "sha256": "a91da3eb4eae87afef1b6f41dcccb870bcc14a3288fb8b59ac8e5aef4296ecb6",
-          "size_bytes": 4088459
+          "sha256": "f7772e80c455d60623717fce4e220c78b5812c39fe390dfb7f312f1b20de67ed",
+          "size_bytes": 4088487
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/grok/trial-05.json",
-          "sha256": "eb478b4922dd9ca61576403d381a30a91bb68ba114e3714ebdc8b536efbef36f",
-          "size_bytes": 7533329
+          "sha256": "8b4bdff294ef73c6cea2a87f12a5072ea82c0b78a54ff5a2af10d9ac058e075c",
+          "size_bytes": 7533351
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/grok/trial-06.json",
-          "sha256": "f630fd765183716d8494e1987af78bb589f94d32379d8145214e1bdaa8e68fa8",
-          "size_bytes": 3714582
+          "sha256": "f89e4d1b342f8042905dfd5bcbecf021698d27e5d76948c9694c770c1ecadbd7",
+          "size_bytes": 3714590
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/grok/trial-07.json",
-          "sha256": "4561488645e08624674a86a4f4fd1d0b4d51d3ec7fbbad482835f2d6d8df24c3",
-          "size_bytes": 4647023
+          "sha256": "092722170b433fac6c11eedbc0044aa9ecc3664d78efeec73d4ca47b58bc1ec7",
+          "size_bytes": 4647046
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/grok/trial-08.json",
-          "sha256": "43953c1c6ee36ee833bd7e60f359a1f6e238b97c4b5490cdb2f78e738d0c099a",
-          "size_bytes": 3131500
+          "sha256": "31bab1718fb25bbee6d5f508ff21b297e3342d8970b4d1a95dff143d12a8e867",
+          "size_bytes": 3131529
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/opus/trial-01.json",
-          "sha256": "1f0cf4b6b4829aedd05b8d623a8c2a5d9d51c29c4bb254167753267e7fd74ae3",
-          "size_bytes": 2964570
+          "sha256": "0fdbfb34c202ba2beedf45399d64bf9d91eb6e24a68fac27de67be4d1d815c15",
+          "size_bytes": 2964577
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/opus/trial-02.json",
-          "sha256": "529546b01a672102f7ecf5df79652954b217e6acebc23eaf222b22f3eb1fe4ba",
-          "size_bytes": 1450236
+          "sha256": "f659fc09abd233362673b99bafcfa58f768b6094f60a5ef6a0cbfd3920312897",
+          "size_bytes": 1450242
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/opus/trial-03.json",
-          "sha256": "f768aa84bf9bd483b72c54ff57cf7690ccad5afd42d05d5d517248be1148407e",
-          "size_bytes": 1434168
+          "sha256": "666d8dbf4652004bb7ed6b5be112123eabe5f8844ce126c7a80b693a4bc1db8d",
+          "size_bytes": 1434180
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/opus/trial-04.json",
-          "sha256": "4312cb2510159e4522f9e561c6a71e2d4158d04e30bd0526eef53912c0355639",
+          "sha256": "cd17c8d770d841e0cdc39316a45c9387cdc44fd90060bac0f6381d3e789404b2",
           "size_bytes": 1250743
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/opus/trial-05.json",
-          "sha256": "66f0f848ea4cc09d2e707b5bd2c222c85da573c898206ac5a6e482ce7654c87d",
-          "size_bytes": 1163565
+          "sha256": "755ae0f5f41ca772e4c1dfb2e0f2f22be22913edcbc0d3bd92ea36028e963ae7",
+          "size_bytes": 1163571
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/opus/trial-06.json",
-          "sha256": "61246d1420dd1613f4958eef0c6ccb974f27fd27f5f97cab998ed183ade5f74b",
-          "size_bytes": 1697842
+          "sha256": "cd58cd57b4b99a6fa4c854f3281f002f156b302bdb054ad94865ffd0a611dc1b",
+          "size_bytes": 1697852
         },
         {
           "path": "sample-run/review-bundle/27-tax-jurisdiction/trajectories/opus/trial-07.json",
-          "sha256": "7b095f52b0297643cef60720a2bf91de2fe9fa042106c532db28e0b54ce193c8",
+          "sha256": "b3ae0e3b76240705311eba72d5fb5375f5773501f17984baa3e2169ca71f9976",
           "size_bytes": 1317296
         },
         {
@@ -3610,11 +3661,46 @@
           "size_bytes": 15967
         }
       ],
-      "public_task_sha256": "b9e19108f9256b02bacb7a313168dbaa27a6f9e068f9ce5668655f822a1cbff8",
-      "recorded_runtime_task_checksum": "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98",
+      "public_task_sha256": "f370acd4150972aeab6a3e0b540078d3b3a598b6da748817438817888a73e135",
+      "recorded_control_task_checksums": {
+        "nop": "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98",
+        "oracle": "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98"
+      },
       "recorded_runtime_task_checksums": [
         "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98",
         "bea753509f8689709ac2827ebc01c71b0cad2119ac99d51a87661c180ace6785"
+      ],
+      "runtime_strata": [
+        {
+          "environment": "daytona",
+          "name": "daytona-01-04",
+          "solves": {
+            "grok": 0,
+            "opus": 4
+          },
+          "task_checksum": "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98",
+          "trial_numbers": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "environment": "aws-fargate",
+          "name": "fargate-05-08",
+          "solves": {
+            "grok": 0,
+            "opus": 1
+          },
+          "task_checksum": "bea753509f8689709ac2827ebc01c71b0cad2119ac99d51a87661c180ace6785",
+          "trial_numbers": [
+            5,
+            6,
+            7,
+            8
+          ]
+        }
       ],
       "solves": {
         "grok": 0,
@@ -3623,7 +3709,8 @@
       "task_label": "Task 27"
     },
     "31-customer-onboarding": {
-      "bundle_sha256": "112a67d2de4b07df80b0f67bed087f2be2364f262f6d45e1283cdfeee994ac91",
+      "bundle_sha256": "b2f6c32b413c574591135c3d01df009159d4c869f2d91b91e70937a37d844601",
+      "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -3639,8 +3726,8 @@
       "files": [
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/README.md",
-          "sha256": "6ff22ff129146e6db36260317a1a886294dba2ccd5b057fb6d627215953cbe41",
-          "size_bytes": 4334
+          "sha256": "0ac3cabdfe51a3b8109f1d7e7ad0a40e95b42ed4b58d0c8008e868e6be7b7b16",
+          "size_bytes": 4662
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/controls/nop/harbor-result.json",
@@ -3909,82 +3996,82 @@
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/grok/trial-01.json",
-          "sha256": "dc64252b51190dee110e1be07821c047490cb8ee4657fc64b8d7cde441ff3e1c",
-          "size_bytes": 3198103
+          "sha256": "c299799a347f9b587540ebc22b62018d1d62ea06a0b5250aa3f91d4ac4efce83",
+          "size_bytes": 3198114
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/grok/trial-02.json",
-          "sha256": "dfdd7a0bb405467b49e20a2a21796c497a1ff3f6ce15d5908f4d6d5c39b4af9d",
-          "size_bytes": 3285615
+          "sha256": "72f8fadc2c755bb70914e8ed5b17e21a9ac61ea7542a66be1ef6a1ce24939082",
+          "size_bytes": 3285626
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/grok/trial-03.json",
-          "sha256": "0423cf64be90dab7843ec009460033518d48f0207bb9f8ae9a1583c33a92185f",
-          "size_bytes": 3063530
+          "sha256": "7e1cb09c5b38dd1506b1ddaebbf66b4f309c0526b34e23106624fcd831e0e7e2",
+          "size_bytes": 3063532
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/grok/trial-04.json",
-          "sha256": "e94331c7f06a4368b268809dda970c5add7c04a3869c4e72424c3ea873002e07",
-          "size_bytes": 3163114
+          "sha256": "f7ded2a8545b7144bfca324236688f91f8a497460bbcfed5b3ab8d644330bf07",
+          "size_bytes": 3163116
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/grok/trial-05.json",
-          "sha256": "31adaf9c7b53f2bae0d03bbdbadf88dad89cff8313e9795a323d633f8dff0ebb",
-          "size_bytes": 3228656
+          "sha256": "10f0e843fdbd9770c2bcffa35d058b9f98c4fdd5581b077e5721200622fc4037",
+          "size_bytes": 3228665
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/grok/trial-06.json",
-          "sha256": "4f184f385358f85d46a88fa7642766d2cc68d139d25ba319900cf810e4623e2c",
-          "size_bytes": 2929567
+          "sha256": "c4b600f36d4efcfd327cc6deb5a9c4c9fcaf669821eb1a202bc57abdaaabb34c",
+          "size_bytes": 2929578
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/grok/trial-07.json",
-          "sha256": "ee318020de87313e68f24f561b8645065a908c98aace3d861bb4b8e4d6790709",
-          "size_bytes": 3337923
+          "sha256": "1048000c90cd2f5d3fd73a85bf8e44714b186b17af9c78fe20dd3bb93aaddbeb",
+          "size_bytes": 3337934
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/grok/trial-08.json",
-          "sha256": "0418c4c8e3202f0120a39728ffc0bdbedf520c098e86739d4854be6204376218",
-          "size_bytes": 3327585
+          "sha256": "59c581bd8a53aac7d6d3cfe7e3aeef1d746d9dd4a90f21a54396c3b541f5f51c",
+          "size_bytes": 3327596
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/opus/trial-01.json",
-          "sha256": "b9aab2831db78134d3bb63c2277384ab153c89f2d57c5235ec46627596cb1108",
-          "size_bytes": 1764954
+          "sha256": "a2daa8eed6b73634d3f0c0aa2580588fcde958e158151e010ceb64ea508f528a",
+          "size_bytes": 1764956
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/opus/trial-02.json",
-          "sha256": "e47502001f652c24b2c55266f02443e7c7131c5a152b5d12d01d8526a3d9934c",
-          "size_bytes": 1729069
+          "sha256": "d7815bf14991af148296bc791bde25010e6592b9bd9a92173954f221f43c239f",
+          "size_bytes": 1729075
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/opus/trial-03.json",
-          "sha256": "6873947bd867ea4a557ca79c66e953c6a5f3a936e47930e61a552dd6f04745e7",
-          "size_bytes": 1799452
+          "sha256": "82d8facb76eeb8ebc97f032ac489969499a886ae45dae65f5ac4e7c1d5d3f158",
+          "size_bytes": 1799454
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/opus/trial-04.json",
-          "sha256": "9cd9534dd186d3a7726e2eaa2b0c0088e8eb356af309db74f5c4304e139359ae",
+          "sha256": "b1523c1ac1a46fa181cd48da27d3c6de063f6c61bfa7eac5f50053d21fc35fca",
           "size_bytes": 1712845
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/opus/trial-05.json",
-          "sha256": "4625e9011ca64641682c2b7ac897fb223ba5d848a95803207a97fc7346d2aed1",
+          "sha256": "8e8e15ff58fb06958c3f156e573c8d20b077d9cf7919daf1644ff5efdf1e834c",
           "size_bytes": 1824868
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/opus/trial-06.json",
-          "sha256": "ad7b489204a98775344ee0fc0f3d918ada0c36a0c6fad45c53ef02e29eeba7f5",
-          "size_bytes": 1691858
+          "sha256": "e9ff47afa54a443a42b24752d338790717d0724a0cf791a5450bc6688a2e2cc6",
+          "size_bytes": 1691864
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/opus/trial-07.json",
-          "sha256": "bf41701b2475e4b48f97dcc24ae8da001542dfa82c722f03c4b218b03ecfd708",
-          "size_bytes": 1608380
+          "sha256": "4e94c8584a9d53d6d0bceddb8bd67e9381a72d03e8a3a3d3d8d7f22c6f3ee479",
+          "size_bytes": 1608386
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/trajectories/opus/trial-08.json",
-          "sha256": "690c562f5908219edb500e6d6d97662948d88aff9dde448e632a41664f0d4c09",
+          "sha256": "16b6f66f4f80a50555ef60e6a303bb21d7db2e91621d8be72aab437c488af244",
           "size_bytes": 2155441
         },
         {
@@ -4484,7 +4571,7 @@
         },
         {
           "path": "sample-run/review-bundle/31-customer-onboarding/verifier/scoring/holdout.json",
-          "sha256": "c9fe57f96ed172d8b0f441461ddfe7ea7ac32f9a1e7b4c9a2978c79a2d0654ea",
+          "sha256": "2b7fb836d4dd74182fba7e396cb48c029d67212dbe6b1e9da8ddef255d42ae5f",
           "size_bytes": 1479
         },
         {
@@ -4493,11 +4580,46 @@
           "size_bytes": 11903
         }
       ],
-      "public_task_sha256": "a2085cdcf46d6168693fd3ce4fcfd488dcec026713333870ee371efdbfbf15b5",
-      "recorded_runtime_task_checksum": "950d0ade6a83cf835be13d0efb123daa33f0dc0d43542493d045d08ea183c6a2",
+      "public_task_sha256": "84d863939f2fcc908291fdd67a8b78fa3f978317866570ede35387faaca3f734",
+      "recorded_control_task_checksums": {
+        "nop": "950d0ade6a83cf835be13d0efb123daa33f0dc0d43542493d045d08ea183c6a2",
+        "oracle": "950d0ade6a83cf835be13d0efb123daa33f0dc0d43542493d045d08ea183c6a2"
+      },
       "recorded_runtime_task_checksums": [
         "300de7ec965118c1c47d15bb4160a740a042b60cfae9ba29e4df03ca9d8aa0e4",
         "950d0ade6a83cf835be13d0efb123daa33f0dc0d43542493d045d08ea183c6a2"
+      ],
+      "runtime_strata": [
+        {
+          "environment": "daytona",
+          "name": "daytona-01-04",
+          "solves": {
+            "grok": 0,
+            "opus": 3
+          },
+          "task_checksum": "950d0ade6a83cf835be13d0efb123daa33f0dc0d43542493d045d08ea183c6a2",
+          "trial_numbers": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "environment": "aws-fargate",
+          "name": "fargate-05-08",
+          "solves": {
+            "grok": 0,
+            "opus": 2
+          },
+          "task_checksum": "300de7ec965118c1c47d15bb4160a740a042b60cfae9ba29e4df03ca9d8aa0e4",
+          "trial_numbers": [
+            5,
+            6,
+            7,
+            8
+          ]
+        }
       ],
       "solves": {
         "grok": 0,

@@ -5,8 +5,11 @@
   "bedrock_config_sha256": "a8ebaf00aa24ccd8d8f0dcb074cc11b9349dcc163c6a2a67783402ab74b5c19c",
   "cohort": "xai-selected-eight-rollout-reproduction",
   "cohort_config_sha256": "d4ba20dd2169d49a4c31403831cac709fd41438644de85b6302b81a3573e7c18",
-  "controls_config_sha256": "a44f76b7feaf02e231bd814416f66eb56906b35e6f315d9cbb7b643abda9ffd7",
-  "environment": "daytona",
+  "controls_config_sha256": "6b9b5c4dca21e16d479ddeace8ac1c17a607e571f1d51664b79ffb2bb0113144",
+  "environments": [
+    "daytona",
+    "aws-fargate"
+  ],
   "evidence_controls": {
     "02-entitlement-overage-lines": "sample-run/raw/xai-public-controls-20260819",
     "07-multi-region-sweep": "sample-run/review-bundle/07-multi-region-sweep/controls",
@@ -29,23 +32,118 @@
     "grok-4.6": "bedrock/converse/us.xai.grok-4.6",
     "opus-5": "bedrock/us.anthropic.claude-opus-5"
   },
+  "pooled_result_boundary": "Tasks 27 and 31 report pooled descriptive eight-attempt counts across a four-attempt Daytona stratum and a four-attempt AWS Fargate stratum. They are not represented as one frozen runtime configuration.",
   "public_task_sha256": {
-    "02-entitlement-overage-lines": "5bbbb8c59292cf86d8cf3dd917f073be47dc64e28d00d2dbebb0e029232ec0eb",
-    "07-multi-region-sweep": "87472ee3fa08204c53f389c462cb36fdbb44878c6f2830f866aeca9808071471",
-    "14-iam-role-validation": "df5e474c7988f7534a3040e84d10c0b38983e88b81bc5aaf0a383816cd47c611",
-    "27-tax-jurisdiction": "b9e19108f9256b02bacb7a313168dbaa27a6f9e068f9ce5668655f822a1cbff8",
-    "31-customer-onboarding": "a2085cdcf46d6168693fd3ce4fcfd488dcec026713333870ee371efdbfbf15b5"
+    "02-entitlement-overage-lines": "200c5466dc556b329ac92ce4c521a032858245aded1673eb9b88115ccbd2ff01",
+    "07-multi-region-sweep": "ac07cba5cbef3b999d548bdf443fe54b679f26e439e4aac3a6cb5a2df85a1d46",
+    "14-iam-role-validation": "317335499a5fdede5a18946c6a4939073abf6a9f5d396a5f6a3ce83cf3c81b38",
+    "27-tax-jurisdiction": "f370acd4150972aeab6a3e0b540078d3b3a598b6da748817438817888a73e135",
+    "31-customer-onboarding": "84d863939f2fcc908291fdd67a8b78fa3f978317866570ede35387faaca3f734"
   },
   "publication_controls_validation": "sample-run/manifests/public-controls-validation.json",
-  "publication_controls_validation_sha256": "22fc254ceafeba04a346e3f4b41b303a0410f3373fe0dff3f103fb4cf342d27f",
+  "publication_controls_validation_sha256": "e1e4ac255dd3a3f10410296b83f2681675f0b611f201db159fc25164988d4177",
   "publication_normalization": "sample-run/manifests/public-transformation.json",
   "reasoning_effort": "high",
-  "recorded_runtime_task_sha256": {
-    "02-entitlement-overage-lines": "92e4b98286ca4dd72881f59542ae4c17ad010f9910e29839c725cedbffe00ab3",
-    "07-multi-region-sweep": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
-    "14-iam-role-validation": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2",
-    "27-tax-jurisdiction": "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98",
-    "31-customer-onboarding": "950d0ade6a83cf835be13d0efb123daa33f0dc0d43542493d045d08ea183c6a2"
+  "recorded_runtime_strata": {
+    "02-entitlement-overage-lines": [
+      {
+        "environment": "daytona",
+        "name": "daytona-01-08",
+        "task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
+        "trial_numbers": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      }
+    ],
+    "07-multi-region-sweep": [
+      {
+        "environment": "daytona",
+        "name": "daytona-01-08",
+        "task_checksum": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
+        "trial_numbers": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      }
+    ],
+    "14-iam-role-validation": [
+      {
+        "environment": "daytona",
+        "name": "daytona-01-08",
+        "task_checksum": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2",
+        "trial_numbers": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ]
+      }
+    ],
+    "27-tax-jurisdiction": [
+      {
+        "environment": "daytona",
+        "name": "daytona-01-04",
+        "task_checksum": "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98",
+        "trial_numbers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "environment": "aws-fargate",
+        "name": "fargate-05-08",
+        "task_checksum": "bea753509f8689709ac2827ebc01c71b0cad2119ac99d51a87661c180ace6785",
+        "trial_numbers": [
+          5,
+          6,
+          7,
+          8
+        ]
+      }
+    ],
+    "31-customer-onboarding": [
+      {
+        "environment": "daytona",
+        "name": "daytona-01-04",
+        "task_checksum": "950d0ade6a83cf835be13d0efb123daa33f0dc0d43542493d045d08ea183c6a2",
+        "trial_numbers": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "environment": "aws-fargate",
+        "name": "fargate-05-08",
+        "task_checksum": "300de7ec965118c1c47d15bb4160a740a042b60cfae9ba29e4df03ca9d8aa0e4",
+        "trial_numbers": [
+          5,
+          6,
+          7,
+          8
+        ]
+      }
+    ]
   },
   "task_labels": {
     "02-entitlement-overage-lines": "Task 2",
@@ -54,5 +152,5 @@
     "27-tax-jurisdiction": "Task 27",
     "31-customer-onboarding": "Task 31"
   },
-  "validity_rule": "numeric verifier reward, complete trajectory, complete verifier artifact, no Harbor exception, and exact frozen task/config variant"
+  "validity_rule": "numeric verifier reward, complete trajectory, complete verifier artifact, no Harbor exception, and model matching within each recorded runtime-checksum stratum"
 }

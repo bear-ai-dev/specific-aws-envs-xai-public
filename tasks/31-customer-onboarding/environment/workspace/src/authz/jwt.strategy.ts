@@ -18,8 +18,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
             audience: [
                 process.env.AUTH0_AUDIENCE,
                 'RA7Lh6NtIOw8dUC0E9DZpeqwakIygfhL',
-                'https://qnonyh1pc7.execute-api.us-east-1.amazonaws.com',
-                'https://dev-joaofx7i.us.auth0.com/userinfo',
+                'https://example1234.execute-api.us-east-1.amazonaws.com',
+                'https://example-tenant.us.auth0.com/userinfo',
             ],
             issuer: 'https://auth.meteringco.example/',
             algorithms: ['RS256'],

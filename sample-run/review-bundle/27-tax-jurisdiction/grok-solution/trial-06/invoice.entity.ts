@@ -845,7 +845,7 @@ export class Invoice {
             totalWithoutTax,
         };
         //  eslint-disable-next-line @typescript-eslint/no-var-requires
-        const MicroInvoice = require('@twosdai/microinvoice');
+        const MicroInvoice = require('@meteringco/microinvoice');
         const parts = items.map(({ name, quantity, unit_cost }) => [
             { value: name },
             { value: quantity },

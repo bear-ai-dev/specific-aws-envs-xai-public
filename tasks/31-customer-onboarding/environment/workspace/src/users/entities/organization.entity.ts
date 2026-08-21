@@ -157,7 +157,7 @@ export class OrganizationEntity {
                 body: new URLSearchParams({
                     client_id: process.env.METERINGCO_DASHBOARD_CLIENT_ID,
                     client_secret: process.env.METERINGCO_DASHBOARD_CLIENT_SECRET,
-                    audience: 'https://dev-joaofx7i.us.auth0.com/api/v2/',
+                    audience: 'https://example-tenant.us.auth0.com/api/v2/',
                     grant_type: 'client_credentials',
                     scope: 'create:organizations read:organizations update:organizations delete:organizations create:organization_members read:organization_members delete:organization_members update:users create:users create:user_tickets read:user_idp_tokens read:users',
                 }),

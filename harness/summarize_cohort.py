@@ -9,6 +9,8 @@ from collections import defaultdict
 from math import comb
 from pathlib import Path
 
+from cohort_provenance import RECORDED_RUNTIME_STRATA, stratum_for
+
 
 ROOT = Path(__file__).resolve().parent.parent
 START = "<!-- MINI_SWE_MATRIX_START -->"
@@ -110,6 +112,7 @@ def load_trials(raw_dir: Path) -> list[dict]:
                 ),
                 "verifier": display_path(verifier) if verifier else None,
                 "exception_info": result.get("exception_info"),
+                "recorded_runtime_task_checksum": result.get("task_checksum"),
                 "input_tokens": (result.get("agent_result") or {}).get(
                     "n_input_tokens"
                 ),
@@ -191,6 +194,17 @@ def load_trials(raw_dir: Path) -> list[dict]:
             trial["trial_label"] = (
                 f'{trial["model_label"]} Trial {trial_number}'
             )
+            if raw_dir == ROOT / "sample-run" / "raw":
+                stratum = stratum_for(trial["task"], trial_number)
+                recorded_checksum = trial.get("recorded_runtime_task_checksum")
+                if recorded_checksum != stratum["task_checksum"]:
+                    raise SystemExit(
+                        "recorded runtime checksum does not match declared "
+                        f"stratum for {trial['task']} trial {trial_number}: "
+                        f"{recorded_checksum} != {stratum['task_checksum']}"
+                    )
+                trial["environment"] = stratum["environment"]
+                trial["runtime_stratum"] = stratum["name"]
     trials.sort(
         key=lambda item: (
             item["task"], item["model_label"], item["trial_number"]
@@ -295,7 +309,8 @@ def execution_summary(trials: list[dict], raw_dir: Path) -> dict:
         },
         "denominator_policy": (
             "numeric verifier reward, complete trajectory, complete verifier "
-            "artifact, and no Harbor exception"
+            "artifact, no Harbor exception, and matching model attempts within "
+            "each recorded runtime-checksum stratum"
         ),
     }
     if raw_dir == packaged_raw:
@@ -306,6 +321,23 @@ def execution_summary(trials: list[dict], raw_dir: Path) -> dict:
             "sample-run/review-bundle/27-tax-jurisdiction",
             "sample-run/review-bundle/31-customer-onboarding",
         ]
+        summary["runtime_strata"] = {
+            task: [
+                {
+                    "name": stratum["name"],
+                    "environment": stratum["environment"],
+                    "trial_numbers": list(stratum["trial_numbers"]),
+                    "task_checksum": stratum["task_checksum"],
+                }
+                for stratum in strata
+            ]
+            for task, strata in RECORDED_RUNTIME_STRATA.items()
+        }
+        summary["pooled_result_boundary"] = (
+            "Tasks 27 and 31 pool descriptive eight-attempt counts across one "
+            "Daytona stratum and one AWS Fargate stratum. Model comparisons "
+            "remain matched within each four-attempt stratum."
+        )
     return summary
 
 

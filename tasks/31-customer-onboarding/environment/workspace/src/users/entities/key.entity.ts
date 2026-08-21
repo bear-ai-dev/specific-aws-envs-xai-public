@@ -48,7 +48,7 @@ export class KeyEntity {
                 body: new URLSearchParams({
                     client_id: process.env.METERINGCO_DASHBOARD_CLIENT_ID,
                     client_secret: process.env.METERINGCO_DASHBOARD_CLIENT_SECRET,
-                    audience: 'https://dev-joaofx7i.us.auth0.com/api/v2/',
+                    audience: 'https://example-tenant.us.auth0.com/api/v2/',
                     grant_type: 'client_credentials',
                     scope: 'read:clients read:client_keys read:client_credentials delete:client_keys delete:client_credentials update:clients create:clients update:client_keys update:client_credentials create:client_keys create:client_credentials',
                 }),

@@ -57,7 +57,7 @@ Your token will be different than the one below.
 
 ```txt
 AUTH0_ISSUER_URL=https://auth.meteringco.example/
-AUTH0_AUDIENCE=https://qnonyh1pc7.execute-api.us-east-1.amazonaws.com
+AUTH0_AUDIENCE=https://example1234.execute-api.us-east-1.amazonaws.com
 INFLUX_TOKEN=<fillmein>
 INFLUX_ORG=meteringco
 INFLUX_URL=http://localhost:8086
@@ -72,7 +72,7 @@ SESSION_SECRET=E9hnz1oqeGUeYYWb3Q
 METERINGCO_URL=http://localhost:3000
 METERINGCO_DASHBOARD_CLIENT_SECRET=<fillmein>
 METERINGCO_DASHBOARD_CLIENT_ID=<fillmein>
-METERINGCO_AWS_ACCOUNT=647662420899
+METERINGCO_AWS_ACCOUNT=123456789012
 TAX_JAR_URL=https://api.sandbox.taxjar.com/
 PROD_TAX_JAR_URL=https://api.taxjar.com
 JWT_SECRET=foobarfoobaroo
@@ -107,7 +107,7 @@ An example of a local `.env` file is the following
 
 ```txt
 AUTH0_ISSUER_URL=https://auth.meteringco.example/
-AUTH0_AUDIENCE=https://qnonyh1pc7.execute-api.us-east-1.amazonaws.com
+AUTH0_AUDIENCE=https://example1234.execute-api.us-east-1.amazonaws.com
 INFLUX_TOKEN=<fillmein>
 INFLUX_ORG=meteringco
 INFLUX_URL=http://localhost:8086
@@ -122,7 +122,7 @@ SESSION_SECRET=E9hnz1oqeGUeYYWb3Q
 METERINGCO_URL=http://localhost:3000
 METERINGCO_DASHBOARD_CLIENT_SECRET=<fillmein>
 METERINGCO_DASHBOARD_CLIENT_ID=<fillmein>
-METERINGCO_AWS_ACCOUNT=647662420899
+METERINGCO_AWS_ACCOUNT=123456789012
 TAX_JAR_URL=https://api.sandbox.taxjar.com/
 PROD_TAX_JAR_URL=https://api.taxjar.com
 JWT_SECRET=foobarfoobaroo
@@ -142,7 +142,7 @@ PROD_STRIPE_TOKEN=<fillmein>
 
 Yes its just an empty json file. This file gets used by the integration environment to cache secret credentials which are not committed, but it isn't sophisticated enough to create the file if it doesn't exist.
 
-Additionally you'll need a `secret.json` file in the `integration` directory (ping @Twosdai for creds). For the token values below. The `influx_token` should be from your local influxdb at `http://localhost:8086`
+Additionally you'll need a `secret.json` file in the `integration` directory (ping @maintainer for creds). For the token values below. The `influx_token` should be from your local influxdb at `http://localhost:8086`
 
 ```JSON
 {

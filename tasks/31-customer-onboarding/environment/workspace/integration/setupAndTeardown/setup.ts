@@ -226,7 +226,7 @@ export const sampleBasicSettings = {
     computeCostSource: ComputeCostSource.eks,
     storageCostSource: StorageCostSource.ebs,
     cloudIAM: {
-        iamRoleArn: 'arn:aws:iam::647662420899:role/meteringco-read-only',
+        iamRoleArn: 'arn:aws:iam::123456789012:role/meteringco-read-only',
         externalId: '',
     },
     invoiceApproval: 'manual',

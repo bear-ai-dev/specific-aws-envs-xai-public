@@ -1,7 +1,9 @@
 # Sample RL Tasks for AWS - xAI
 
-This sample contains five frozen tasks from the same NestJS billing backend,
-evaluated in matched eight-run Bedrock cohorts. Grok 4.6 solved 0/8, 6/8, 3/8,
+This sample contains five tasks from the same NestJS billing backend. Tasks 2,
+7, and 14 use one matched eight-run Daytona cohort. Tasks 27 and 31 each use
+two matched four-run strata, one on Daytona and one on AWS Fargate, with pooled
+descriptive totals of eight attempts per model. Grok 4.6 solved 0/8, 6/8, 3/8,
 0/8, and 0/8 attempts; Claude Opus 5 solved 8/8, 8/8, 8/8, 5/8, and 5/8 on the
 corresponding tasks.
 
@@ -20,13 +22,13 @@ corresponding tasks.
 
 ## Pass@k matrix
 
-Each row contains eight valid Harbor trials. `c/n` is the observed solve count.
-The table uses `pass@k = 1 - C(n-c, k) / C(n, k)`, the estimated chance that at
+Each row contains eight valid trials. `c/n` is the observed solve count. The
+table uses `pass@k = 1 - C(n-c, k) / C(n, k)`, the estimated chance that at
 least one of `k` sampled attempts succeeds.
 Rows are grouped by model; a blank model cell continues the model named above.
-Tasks 2, 7, and 14 are eight matched Daytona trials. Tasks 27 and 31 use four
-Daytona freeze trials plus four AWS Fargate fillers so those retained cells
-are also pass@8.
+Tasks 2, 7, and 14 are single matched Daytona cohorts. For Tasks 27 and 31,
+the eight-attempt rows are pooled descriptive estimates across the two equal
+backend strata below, not results from one frozen runtime configuration.
 
 <!-- MINI_SWE_MATRIX_START -->
 | Model | Task | Solves `c/n` | pass@1 | pass@3 | pass@8 |
@@ -43,6 +45,18 @@ are also pass@8.
 |  | [Task 31](tasks/31-customer-onboarding/instruction.md) | 5/8 | 0.6250 | 0.9821 | 1.0000 |
 <!-- MINI_SWE_MATRIX_END -->
 
+### Runtime-stratified results for Tasks 27 and 31
+
+Each model saw the same recorded task checksum within each four-run stratum.
+The model comparison is therefore matched within the rows below.
+
+| Task | Runtime stratum | Grok 4.6 | Opus 5 |
+| --- | --- | ---: | ---: |
+| Task 27 | Daytona, trials 01–04 | 0/4 | 4/4 |
+| Task 27 | AWS Fargate, trials 05–08 | 0/4 | 1/4 |
+| Task 31 | Daytona, trials 01–04 | 0/4 | 3/4 |
+| Task 31 | AWS Fargate, trials 05–08 | 0/4 | 2/4 |
+
 ## Task inventory
 
 | Task | What was asked |
@@ -54,8 +68,8 @@ are also pass@8.
 | [Task&nbsp;31](tasks/31-customer-onboarding/instruction.md) | Take on a new customer for a business: refuse a full plan or a reused identifier, settle on an identifier, open a contract on the offering they signed up to, put a card customer on the business' own connected payment account, persist the opening balance and free trial, meter the onboarding, and announce the new customer. |
 
 The source task numbers are retained in task paths, headings, review bundles,
-and recorded trial names so every result resolves to the exact frozen task that
-produced it.
+and recorded trial names so every result resolves to its recorded task and
+runtime-checksum stratum.
 
 ## Failure mode analysis
 
@@ -348,14 +362,14 @@ and
 
 - **Harness:** Harbor 0.18.0 with mini-SWE-agent 2.4.5 at high reasoning
   effort. Tasks 2, 7, and 14 ran in isolated Daytona sandboxes. Tasks 27 and 31
-  use four Daytona freeze trials plus four AWS Fargate fillers.
+  use separately matched four-run Daytona and AWS Fargate strata.
 - **Routes:** Grok 4.6 and Claude Opus 5 through Amazon Bedrock.
 - **Denominator:** All 80 packaged model trials have a numeric reward, complete
   native trajectory, complete verifier evidence, and no Harbor exception.
 - **Controls:** Every task has an oracle reward of `1.0` and a no-op reward of
   `0.0`. Recorded-runtime controls are included with the review bundles. A
   separate [post-normalization control manifest](sample-run/manifests/public-controls-validation.json)
-  records a clean six-trial Docker rerun on Tasks 2, 7, and 14.
+  records a clean ten-trial Docker rerun on all five runnable public tasks.
 - **Task 2 raw evidence:**
   [`sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/`](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/)
   contains all 16 full Harbor attempts.

@@ -5,6 +5,7 @@
     "organization email addresses and author names",
     "source ticket references",
     "example cloud account and endpoint identifiers",
+    "source package scope and dependency metadata",
     "task-local emulator credentials",
     "execution organization, sandbox, and snapshot identifiers"
   ],
@@ -15,7 +16,7 @@
     "verifier outputs and rewards",
     "recorded trial identifiers and chronological ordering"
   ],
-  "public_controls_reproduction_job": "xai-public-comment-controls-all-20260820",
+  "public_controls_reproduction_job": "xai-public-controls-pr2-qc-20260821",
   "public_evidence_layout": {
     "02-entitlement-overage-lines": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
     "07-multi-region-sweep": "sample-run/review-bundle/07-multi-region-sweep",
@@ -26,29 +27,23 @@
     "recorded_trial_identifiers": "preserved in compact Harbor results and sample-run/indexes/trials.json"
   },
   "public_task_sha256": {
-    "02-entitlement-overage-lines": "5bbbb8c59292cf86d8cf3dd917f073be47dc64e28d00d2dbebb0e029232ec0eb",
-    "07-multi-region-sweep": "87472ee3fa08204c53f389c462cb36fdbb44878c6f2830f866aeca9808071471",
-    "14-iam-role-validation": "df5e474c7988f7534a3040e84d10c0b38983e88b81bc5aaf0a383816cd47c611",
-    "27-tax-jurisdiction": "b9e19108f9256b02bacb7a313168dbaa27a6f9e068f9ce5668655f822a1cbff8",
-    "31-customer-onboarding": "a2085cdcf46d6168693fd3ce4fcfd488dcec026713333870ee371efdbfbf15b5"
+    "02-entitlement-overage-lines": "200c5466dc556b329ac92ce4c521a032858245aded1673eb9b88115ccbd2ff01",
+    "07-multi-region-sweep": "ac07cba5cbef3b999d548bdf443fe54b679f26e439e4aac3a6cb5a2df85a1d46",
+    "14-iam-role-validation": "317335499a5fdede5a18946c6a4939073abf6a9f5d396a5f6a3ce83cf3c81b38",
+    "27-tax-jurisdiction": "f370acd4150972aeab6a3e0b540078d3b3a598b6da748817438817888a73e135",
+    "31-customer-onboarding": "84d863939f2fcc908291fdd67a8b78fa3f978317866570ede35387faaca3f734"
   },
   "recorded_runtime_controls": {
     "nop_required": 0.0,
     "oracle_required": 1.0,
     "tasks_passing": 5
   },
-  "recorded_runtime_task_sha256": {
-    "02-entitlement-overage-lines": "92e4b98286ca4dd72881f59542ae4c17ad010f9910e29839c725cedbffe00ab3",
-    "07-multi-region-sweep": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
-    "14-iam-role-validation": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2",
-    "27-tax-jurisdiction": "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98",
-    "31-customer-onboarding": "950d0ade6a83cf835be13d0efb123daa33f0dc0d43542493d045d08ea183c6a2"
-  },
+  "recorded_runtime_provenance": "sample-run/manifests/frozen-cohort.json",
   "schema_version": 2,
   "scope": [
     "five task definitions and workspaces",
     "captured trajectories and verifier artifacts",
     "manifests, indexes, and documentation"
   ],
-  "transformation": "deterministic_identifier_only_publication_normalization"
+  "transformation": "deterministic_identifier_normalization_and_dependency_vendoring"
 }

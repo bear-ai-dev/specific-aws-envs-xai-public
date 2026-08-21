@@ -53,7 +53,7 @@ async function bootstrap() {
               body: JSON.stringify({
                 client_id: process.env.AUTH0_CLIENT_ID,
                 client_secret: process.env.AUTH0_CLIENT_SECRET,
-                audience: 'https://qnonyh1pc7.execute-api.us-east-1.amazonaws.com',
+                audience: 'https://example1234.execute-api.us-east-1.amazonaws.com',
                 grant_type: 'client_credentials',
               }),
             },

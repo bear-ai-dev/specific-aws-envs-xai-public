@@ -30,7 +30,7 @@ Steps to set up authentication:
 2. Make a POST request to the auth endpoint \`https://auth.meteringco.example/oauth/token\` with the following body:
 \`\`\`json
 {
-        audience: 'https://qnonyh1pc7.execute-api.us-east-1.amazonaws.com',
+        audience: 'https://example1234.execute-api.us-east-1.amazonaws.com',
         grant_type: 'client_credentials',
         client_id: <your client id>,
         client_secret: <your client secret>

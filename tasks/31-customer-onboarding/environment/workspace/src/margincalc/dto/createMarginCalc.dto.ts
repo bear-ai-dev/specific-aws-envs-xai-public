@@ -25,7 +25,7 @@ export class tagList {
 export class CreateMargincalcDto {
     /**
      *
-     * IAM role with proper user permissions for us to query for. This Role ARN should be associated with our AWS Account ID (647662420899) as a trusted entity
+     * IAM role with proper user permissions for us to query for. This Role ARN should be associated with our AWS Account ID (123456789012) as a trusted entity
      * @example arn:aws:iam::12222224444:role/test-metering-role
      */
 

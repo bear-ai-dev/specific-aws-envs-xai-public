@@ -18,7 +18,7 @@ describe('Analytics CRUD', () => {
         'Get all analytics should be defined given different parameter combinations',
         async (params) => {
             const res = await Setting.update({
-                cloudIAM: { iamRoleArn: 'arn:aws:iam::647662420899:role/meteringco-read-only' },
+                cloudIAM: { iamRoleArn: 'arn:aws:iam::123456789012:role/meteringco-read-only' },
             });
             sleep(2000);
             const response = await Analytics.getAll(params);
@@ -33,7 +33,7 @@ describe('Analytics CRUD', () => {
             const offering = await setupSimpleUsageBasedOffering([dimension.dimensionId]);
             const customer = await setupCustomerWallStrTrading({ offeringId: offering.offeringId });
             const res = await Setting.update({
-                cloudIAM: { iamRoleArn: 'arn:aws:iam::647662420899:role/meteringco-read-only' },
+                cloudIAM: { iamRoleArn: 'arn:aws:iam::123456789012:role/meteringco-read-only' },
             });
             sleep(2000);
             const analyticsResponse = await Analytics.getAll({ ...params, customerId: customer.customerId });

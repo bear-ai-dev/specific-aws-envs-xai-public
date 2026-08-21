@@ -178,7 +178,7 @@ export const ebsProvisionedVolumeMeasurementDto = {
     measurementName: 'ebsProvisionedVolume - Measurement - Integration Test',
     measurementMode: measurementMode.infrastructureBased,
     measurementConfiguration: {
-        iamRoleArn: 'arn:aws:iam::647662420899:role/meteringco-read-only',
+        iamRoleArn: 'arn:aws:iam::123456789012:role/meteringco-read-only',
         cloudPlatform: supportedCloudPlatforms.aws,
         region: 'us-east-1',
         resourceType: SupportedResources.ebs,
@@ -188,7 +188,7 @@ export const ebsSnapshotMeasurementDto = {
     measurementName: 'ebsProvisionedVolume - Measurement - Integration Test',
     measurementMode: measurementMode.infrastructureBased,
     measurementConfiguration: {
-        iamRoleArn: 'arn:aws:iam::647662420899:role/meteringco-read-only',
+        iamRoleArn: 'arn:aws:iam::123456789012:role/meteringco-read-only',
         cloudPlatform: supportedCloudPlatforms.aws,
         region: 'us-east-1',
         resourceType: SupportedResources.ebssnapshot,
@@ -199,7 +199,7 @@ export const podCpuHourMeasurement = {
     measurementName: 'ebsProvisionedVolume - Measurement - Integration Test',
     measurementMode: measurementMode.agentBased,
     measurementConfiguration: {
-        iamRoleArn: 'arn:aws:iam::647662420899:role/meteringco-read-only',
+        iamRoleArn: 'arn:aws:iam::123456789012:role/meteringco-read-only',
         hostingPlatform: SupportedAgentHostingPlatforms.eks,
     },
 };

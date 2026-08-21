@@ -609,7 +609,7 @@ export class DatastoreAccessInformation {
         if (platform === SupportedDatastores.s3) {
             const externalId = randomUUID();
             // Create a new IAM role for the business with the measurementId in the name
-            // It will use the following Policy ARN: arn:aws:iam::647662420899:policy/datastore-measurement-policy
+            // It will use the following Policy ARN: arn:aws:iam::123456789012:policy/datastore-measurement-policy
             // The trust policy will enable their account to assume the role and the policy will allow them to access the bucket
             // The cloudId is their AWS accountId
             const iam = new IAM({ region: 'us-east-1' });

@@ -85,7 +85,7 @@ export class UserEntity {
         if (permission && Array.isArray(permission)) {
             data = JSON.stringify({
                 permissions: permission.map((p) => ({
-                    resource_server_identifier: 'https://qnonyh1pc7.execute-api.us-east-1.amazonaws.com',
+                    resource_server_identifier: 'https://example1234.execute-api.us-east-1.amazonaws.com',
                     permission_name: p,
                 })),
             });
@@ -93,7 +93,7 @@ export class UserEntity {
             data = JSON.stringify({
                 permissions: [
                     {
-                        resource_server_identifier: 'https://qnonyh1pc7.execute-api.us-east-1.amazonaws.com',
+                        resource_server_identifier: 'https://example1234.execute-api.us-east-1.amazonaws.com',
                         permission_name: permission,
                     },
                 ],

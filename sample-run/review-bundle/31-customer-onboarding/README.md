@@ -1,16 +1,24 @@
 # Task 31 — customer onboarding review bundle
 
 The packaged evidence contains eight Grok 4.6 trials and eight Opus 5 trials.
-Trials 01–04 are the Daytona freeze; trials 05–08 are AWS Fargate fillers so
-the retained cell reports pass@8. This is a second directional Grok gap on
-shared context across collaborators.
+Trials 01–04 form one matched Daytona stratum; trials 05–08 form a separately
+matched AWS Fargate stratum. The pooled eight-attempt count is descriptive and
+is not represented as one frozen runtime configuration. Both strata show the
+same directional Grok gap on shared context across collaborators.
 
-## Headline result
+## Headline pooled result
 
 | Model | Solves `c/n` | pass@1 | pass@3 | pass@8 |
 | --- | ---: | ---: | ---: | ---: |
 | Grok 4.6 | 0/8 | 0.0000 | 0.0000 | 0.0000 |
 | Opus 5 | 5/8 | 0.6250 | 0.9821 | 1.0000 |
+
+## Runtime-stratified result
+
+| Runtime stratum | Grok 4.6 | Opus 5 |
+| --- | ---: | ---: |
+| Daytona, trials 01–04 | 0/4 | 3/4 |
+| AWS Fargate, trials 05–08 | 0/4 | 2/4 |
 
 | Folder | Contents |
 | --- | --- |
@@ -22,7 +30,7 @@ shared context across collaborators.
 | [`verifier/scoring/`](verifier/scoring/) | Held-out data, run specification, and independent Python scorer used to assign the binary reward |
 | [`verification-results/grok/`](verification-results/grok/) | Report, observation, reward, verifier stdout, and compact Harbor result for each Grok trial |
 | [`verification-results/opus/`](verification-results/opus/) | Report, observation, reward, verifier stdout, and compact Harbor result for each Opus trial |
-| [`controls/`](controls/) | Recorded-runtime oracle and no-op results with complete verifier evidence |
+| [`controls/`](controls/) | Recorded Daytona-stratum oracle and no-op results with complete verifier evidence |
 
 ## Cohort identity and result
 
@@ -83,6 +91,6 @@ observation, reward, verifier stdout, and compact Harbor result. The annotations
 point to the independent reference rule and assertion rather than inferring
 success from agent claims.
 
-Trajectories preserve native mini-SWE-agent structure. Only credentials and
-machine-local paths are redacted; the published manifest records the public
-file hashes.
+Trajectories preserve native mini-SWE-agent structure. Credentials,
+machine-local paths, and source-linked identifiers are normalized; the
+published manifest records the public file hashes.

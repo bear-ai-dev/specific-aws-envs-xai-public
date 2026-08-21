@@ -14,12 +14,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-01/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-01/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 2397326,
     "cache_tokens": 240384,
     "output_tokens": 81970,
     "reported_cost_usd": 5.418485599999999,
     "trial_number": 1,
-    "trial_label": "Grok 4.6 Trial 1"
+    "trial_label": "Grok 4.6 Trial 1",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -36,12 +39,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-02/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-02/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 3913031,
     "cache_tokens": 288640,
     "output_tokens": 114686,
     "reported_cost_usd": 8.889339800000002,
     "trial_number": 2,
-    "trial_label": "Grok 4.6 Trial 2"
+    "trial_label": "Grok 4.6 Trial 2",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -58,12 +64,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-03/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-03/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 2901537,
     "cache_tokens": 270336,
     "output_tokens": 88418,
     "reported_cost_usd": 6.520885800000002,
     "trial_number": 3,
-    "trial_label": "Grok 4.6 Trial 3"
+    "trial_label": "Grok 4.6 Trial 3",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -80,12 +89,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-04/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-04/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 3643109,
     "cache_tokens": 377216,
     "output_tokens": 106979,
     "reported_cost_usd": 8.0984948,
     "trial_number": 4,
-    "trial_label": "Grok 4.6 Trial 4"
+    "trial_label": "Grok 4.6 Trial 4",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -102,12 +114,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-05/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-05/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 3288566,
     "cache_tokens": 383744,
     "output_tokens": 95497,
     "reported_cost_usd": 7.231947799999999,
     "trial_number": 5,
-    "trial_label": "Grok 4.6 Trial 5"
+    "trial_label": "Grok 4.6 Trial 5",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -124,12 +139,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-06/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-06/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 3658803,
     "cache_tokens": 206976,
     "output_tokens": 128756,
     "reported_cost_usd": 8.557645800000001,
     "trial_number": 6,
-    "trial_label": "Grok 4.6 Trial 6"
+    "trial_label": "Grok 4.6 Trial 6",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -146,12 +164,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-07/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-07/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 3516520,
     "cache_tokens": 198784,
     "output_tokens": 93917,
     "reported_cost_usd": 8.0282026,
     "trial_number": 7,
-    "trial_label": "Grok 4.6 Trial 7"
+    "trial_label": "Grok 4.6 Trial 7",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -168,12 +189,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-08/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/grok-4.6-trial-08/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 2854333,
     "cache_tokens": 220288,
     "output_tokens": 82045,
     "reported_cost_usd": 6.457554400000001,
     "trial_number": 8,
-    "trial_label": "Grok 4.6 Trial 8"
+    "trial_label": "Grok 4.6 Trial 8",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -190,12 +214,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-01/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-01/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 2673973,
     "cache_tokens": 2575408,
     "output_tokens": 26491,
     "reported_cost_usd": 2.8224710249999996,
     "trial_number": 1,
-    "trial_label": "Opus 5 Trial 1"
+    "trial_label": "Opus 5 Trial 1",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -212,12 +239,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-02/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-02/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 2108796,
     "cache_tokens": 2027814,
     "output_tokens": 24224,
     "reported_cost_usd": 2.16265115,
     "trial_number": 2,
-    "trial_label": "Opus 5 Trial 2"
+    "trial_label": "Opus 5 Trial 2",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -234,12 +264,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-03/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-03/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 2057940,
     "cache_tokens": 1980882,
     "output_tokens": 19178,
     "reported_cost_usd": 1.9844255749999997,
     "trial_number": 3,
-    "trial_label": "Opus 5 Trial 3"
+    "trial_label": "Opus 5 Trial 3",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -256,12 +289,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-04/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-04/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 3255207,
     "cache_tokens": 3154909,
     "output_tokens": 23414,
     "reported_cost_usd": 3.068479700000001,
     "trial_number": 4,
-    "trial_label": "Opus 5 Trial 4"
+    "trial_label": "Opus 5 Trial 4",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -278,12 +314,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-05/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-05/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 3858940,
     "cache_tokens": 3757570,
     "output_tokens": 25794,
     "reported_cost_usd": 3.4727467500000007,
     "trial_number": 5,
-    "trial_label": "Opus 5 Trial 5"
+    "trial_label": "Opus 5 Trial 5",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -300,12 +339,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-06/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-06/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 2958531,
     "cache_tokens": 2861097,
     "output_tokens": 26424,
     "reported_cost_usd": 2.96997085,
     "trial_number": 6,
-    "trial_label": "Opus 5 Trial 6"
+    "trial_label": "Opus 5 Trial 6",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -322,12 +364,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-07/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-07/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 3397689,
     "cache_tokens": 3295490,
     "output_tokens": 26903,
     "reported_cost_usd": 3.2548216249999995,
     "trial_number": 7,
-    "trial_label": "Opus 5 Trial 7"
+    "trial_label": "Opus 5 Trial 7",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "02-entitlement-overage-lines",
@@ -344,12 +389,15 @@
     "trajectory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-08/agent/trajectory.json",
     "verifier": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-08/verifier/reward.json",
     "exception_info": null,
+    "recorded_runtime_task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
     "input_tokens": 4683528,
     "cache_tokens": 4587261,
     "output_tokens": 26884,
     "reported_cost_usd": 3.923938425000001,
     "trial_number": 8,
-    "trial_label": "Opus 5 Trial 8"
+    "trial_label": "Opus 5 Trial 8",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -372,7 +420,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 1,
-    "trial_label": "Grok 4.6 Trial 1"
+    "trial_label": "Grok 4.6 Trial 1",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -395,7 +445,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 2,
-    "trial_label": "Grok 4.6 Trial 2"
+    "trial_label": "Grok 4.6 Trial 2",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -418,7 +470,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 3,
-    "trial_label": "Grok 4.6 Trial 3"
+    "trial_label": "Grok 4.6 Trial 3",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -441,7 +495,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 4,
-    "trial_label": "Grok 4.6 Trial 4"
+    "trial_label": "Grok 4.6 Trial 4",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -464,7 +520,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 5,
-    "trial_label": "Grok 4.6 Trial 5"
+    "trial_label": "Grok 4.6 Trial 5",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -487,7 +545,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 6,
-    "trial_label": "Grok 4.6 Trial 6"
+    "trial_label": "Grok 4.6 Trial 6",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -510,7 +570,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 7,
-    "trial_label": "Grok 4.6 Trial 7"
+    "trial_label": "Grok 4.6 Trial 7",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -533,7 +595,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 8,
-    "trial_label": "Grok 4.6 Trial 8"
+    "trial_label": "Grok 4.6 Trial 8",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -556,7 +620,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 1,
-    "trial_label": "Opus 5 Trial 1"
+    "trial_label": "Opus 5 Trial 1",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -579,7 +645,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 2,
-    "trial_label": "Opus 5 Trial 2"
+    "trial_label": "Opus 5 Trial 2",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -602,7 +670,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 3,
-    "trial_label": "Opus 5 Trial 3"
+    "trial_label": "Opus 5 Trial 3",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -625,7 +695,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 4,
-    "trial_label": "Opus 5 Trial 4"
+    "trial_label": "Opus 5 Trial 4",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -648,7 +720,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 5,
-    "trial_label": "Opus 5 Trial 5"
+    "trial_label": "Opus 5 Trial 5",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -671,7 +745,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 6,
-    "trial_label": "Opus 5 Trial 6"
+    "trial_label": "Opus 5 Trial 6",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -694,7 +770,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 7,
-    "trial_label": "Opus 5 Trial 7"
+    "trial_label": "Opus 5 Trial 7",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "07-multi-region-sweep",
@@ -717,7 +795,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 8,
-    "trial_label": "Opus 5 Trial 8"
+    "trial_label": "Opus 5 Trial 8",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -740,7 +820,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 1,
-    "trial_label": "Grok 4.6 Trial 1"
+    "trial_label": "Grok 4.6 Trial 1",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -763,7 +845,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 2,
-    "trial_label": "Grok 4.6 Trial 2"
+    "trial_label": "Grok 4.6 Trial 2",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -786,7 +870,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 3,
-    "trial_label": "Grok 4.6 Trial 3"
+    "trial_label": "Grok 4.6 Trial 3",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -809,7 +895,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 4,
-    "trial_label": "Grok 4.6 Trial 4"
+    "trial_label": "Grok 4.6 Trial 4",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -832,7 +920,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 5,
-    "trial_label": "Grok 4.6 Trial 5"
+    "trial_label": "Grok 4.6 Trial 5",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -855,7 +945,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 6,
-    "trial_label": "Grok 4.6 Trial 6"
+    "trial_label": "Grok 4.6 Trial 6",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -878,7 +970,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 7,
-    "trial_label": "Grok 4.6 Trial 7"
+    "trial_label": "Grok 4.6 Trial 7",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -901,7 +995,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 8,
-    "trial_label": "Grok 4.6 Trial 8"
+    "trial_label": "Grok 4.6 Trial 8",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -924,7 +1020,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 1,
-    "trial_label": "Opus 5 Trial 1"
+    "trial_label": "Opus 5 Trial 1",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -947,7 +1045,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 2,
-    "trial_label": "Opus 5 Trial 2"
+    "trial_label": "Opus 5 Trial 2",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -970,7 +1070,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 3,
-    "trial_label": "Opus 5 Trial 3"
+    "trial_label": "Opus 5 Trial 3",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -993,7 +1095,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 4,
-    "trial_label": "Opus 5 Trial 4"
+    "trial_label": "Opus 5 Trial 4",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -1016,7 +1120,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 5,
-    "trial_label": "Opus 5 Trial 5"
+    "trial_label": "Opus 5 Trial 5",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -1039,7 +1145,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 6,
-    "trial_label": "Opus 5 Trial 6"
+    "trial_label": "Opus 5 Trial 6",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -1062,7 +1170,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 7,
-    "trial_label": "Opus 5 Trial 7"
+    "trial_label": "Opus 5 Trial 7",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "14-iam-role-validation",
@@ -1085,7 +1195,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 8,
-    "trial_label": "Opus 5 Trial 8"
+    "trial_label": "Opus 5 Trial 8",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-08"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1108,7 +1220,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 1,
-    "trial_label": "Grok 4.6 Trial 1"
+    "trial_label": "Grok 4.6 Trial 1",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1131,7 +1245,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 2,
-    "trial_label": "Grok 4.6 Trial 2"
+    "trial_label": "Grok 4.6 Trial 2",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1154,7 +1270,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 3,
-    "trial_label": "Grok 4.6 Trial 3"
+    "trial_label": "Grok 4.6 Trial 3",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1177,7 +1295,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 4,
-    "trial_label": "Grok 4.6 Trial 4"
+    "trial_label": "Grok 4.6 Trial 4",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1200,7 +1320,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 5,
-    "trial_label": "Grok 4.6 Trial 5"
+    "trial_label": "Grok 4.6 Trial 5",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1223,7 +1345,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 6,
-    "trial_label": "Grok 4.6 Trial 6"
+    "trial_label": "Grok 4.6 Trial 6",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1246,7 +1370,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 7,
-    "trial_label": "Grok 4.6 Trial 7"
+    "trial_label": "Grok 4.6 Trial 7",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1269,7 +1395,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 8,
-    "trial_label": "Grok 4.6 Trial 8"
+    "trial_label": "Grok 4.6 Trial 8",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1292,7 +1420,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 1,
-    "trial_label": "Opus 5 Trial 1"
+    "trial_label": "Opus 5 Trial 1",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1315,7 +1445,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 2,
-    "trial_label": "Opus 5 Trial 2"
+    "trial_label": "Opus 5 Trial 2",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1338,7 +1470,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 3,
-    "trial_label": "Opus 5 Trial 3"
+    "trial_label": "Opus 5 Trial 3",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1361,7 +1495,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 4,
-    "trial_label": "Opus 5 Trial 4"
+    "trial_label": "Opus 5 Trial 4",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1384,7 +1520,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 5,
-    "trial_label": "Opus 5 Trial 5"
+    "trial_label": "Opus 5 Trial 5",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1407,7 +1545,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 6,
-    "trial_label": "Opus 5 Trial 6"
+    "trial_label": "Opus 5 Trial 6",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1430,7 +1570,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 7,
-    "trial_label": "Opus 5 Trial 7"
+    "trial_label": "Opus 5 Trial 7",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "27-tax-jurisdiction",
@@ -1453,7 +1595,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 8,
-    "trial_label": "Opus 5 Trial 8"
+    "trial_label": "Opus 5 Trial 8",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "31-customer-onboarding",
@@ -1476,7 +1620,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 1,
-    "trial_label": "Grok 4.6 Trial 1"
+    "trial_label": "Grok 4.6 Trial 1",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "31-customer-onboarding",
@@ -1499,7 +1645,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 2,
-    "trial_label": "Grok 4.6 Trial 2"
+    "trial_label": "Grok 4.6 Trial 2",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "31-customer-onboarding",
@@ -1522,7 +1670,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 3,
-    "trial_label": "Grok 4.6 Trial 3"
+    "trial_label": "Grok 4.6 Trial 3",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "31-customer-onboarding",
@@ -1545,7 +1695,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 4,
-    "trial_label": "Grok 4.6 Trial 4"
+    "trial_label": "Grok 4.6 Trial 4",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "31-customer-onboarding",
@@ -1568,7 +1720,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 5,
-    "trial_label": "Grok 4.6 Trial 5"
+    "trial_label": "Grok 4.6 Trial 5",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "31-customer-onboarding",
@@ -1591,7 +1745,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 6,
-    "trial_label": "Grok 4.6 Trial 6"
+    "trial_label": "Grok 4.6 Trial 6",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "31-customer-onboarding",
@@ -1614,7 +1770,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 7,
-    "trial_label": "Grok 4.6 Trial 7"
+    "trial_label": "Grok 4.6 Trial 7",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "31-customer-onboarding",
@@ -1637,7 +1795,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 8,
-    "trial_label": "Grok 4.6 Trial 8"
+    "trial_label": "Grok 4.6 Trial 8",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "31-customer-onboarding",
@@ -1660,7 +1820,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 1,
-    "trial_label": "Opus 5 Trial 1"
+    "trial_label": "Opus 5 Trial 1",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "31-customer-onboarding",
@@ -1683,7 +1845,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 2,
-    "trial_label": "Opus 5 Trial 2"
+    "trial_label": "Opus 5 Trial 2",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "31-customer-onboarding",
@@ -1706,7 +1870,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 3,
-    "trial_label": "Opus 5 Trial 3"
+    "trial_label": "Opus 5 Trial 3",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "31-customer-onboarding",
@@ -1729,7 +1895,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 4,
-    "trial_label": "Opus 5 Trial 4"
+    "trial_label": "Opus 5 Trial 4",
+    "environment": "daytona",
+    "runtime_stratum": "daytona-01-04"
   },
   {
     "task": "31-customer-onboarding",
@@ -1752,7 +1920,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 5,
-    "trial_label": "Opus 5 Trial 5"
+    "trial_label": "Opus 5 Trial 5",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "31-customer-onboarding",
@@ -1775,7 +1945,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 6,
-    "trial_label": "Opus 5 Trial 6"
+    "trial_label": "Opus 5 Trial 6",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "31-customer-onboarding",
@@ -1798,7 +1970,9 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 7,
-    "trial_label": "Opus 5 Trial 7"
+    "trial_label": "Opus 5 Trial 7",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   },
   {
     "task": "31-customer-onboarding",
@@ -1821,6 +1995,8 @@
     "output_tokens": null,
     "reported_cost_usd": null,
     "trial_number": 8,
-    "trial_label": "Opus 5 Trial 8"
+    "trial_label": "Opus 5 Trial 8",
+    "environment": "aws-fargate",
+    "runtime_stratum": "fargate-05-08"
   }
 ]

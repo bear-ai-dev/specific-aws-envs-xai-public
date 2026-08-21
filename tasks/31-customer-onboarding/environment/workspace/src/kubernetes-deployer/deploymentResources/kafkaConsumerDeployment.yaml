@@ -35,7 +35,7 @@ spec:
                             path: logstash.conf
             containers:
                 - name: logstash-deployment-kafka
-                  image: 647662420899.dkr.ecr.us-east-1.amazonaws.com/meteringco-logstash:measurements
+                  image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/meteringco-logstash:measurements
                   imagePullPolicy: Always
                   readinessProbe:
                       httpGet:
@@ -70,7 +70,7 @@ spec:
                           memory: '4Gi'
                           cpu: '800m'
                 - name: meteringco-side-car
-                  image: 647662420899.dkr.ecr.us-east-1.amazonaws.com/meteringco-side-car:live
+                  image: 123456789012.dkr.ecr.us-east-1.amazonaws.com/meteringco-side-car:live
                   imagePullPolicy: Always
                   env:
                       - name: CLIENT_ID

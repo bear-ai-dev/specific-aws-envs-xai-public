@@ -42,8 +42,8 @@
         "build-docker-integration": "docker build -t meteringco-agent-transformer:local --no-cache .",
         "development:refresh:integration": "npm run build-docker-integration && kind load docker-image meteringco-agent-transformer:local && kubectl rollout restart deployment meteringco-agent-transformer",
         "run-docker": "docker run -p 3000:3000 meteringco-agent-transformer",
-        "push-image-dev": "docker tag meteringco-agent-transformer 647662420899.dkr.ecr.us-east-1.amazonaws.com/meteringco-agent-transformer:latest && docker push 647662420899.dkr.ecr.us-east-1.amazonaws.com/meteringco-agent-transformer:latest",
-        "push-image-prod": "docker tag meteringco-agent-transformer 647662420899.dkr.ecr.us-east-1.amazonaws.com/meteringco-agent-transformer:prod && docker push 647662420899.dkr.ecr.us-east-1.amazonaws.com/meteringco-agent-transformer:prod"
+        "push-image-dev": "docker tag meteringco-agent-transformer 123456789012.dkr.ecr.us-east-1.amazonaws.com/meteringco-agent-transformer:latest && docker push 123456789012.dkr.ecr.us-east-1.amazonaws.com/meteringco-agent-transformer:latest",
+        "push-image-prod": "docker tag meteringco-agent-transformer 123456789012.dkr.ecr.us-east-1.amazonaws.com/meteringco-agent-transformer:prod && docker push 123456789012.dkr.ecr.us-east-1.amazonaws.com/meteringco-agent-transformer:prod"
     },
     "keywords": [],
     "author": "",
@@ -94,7 +94,7 @@
         "@opentelemetry/sdk-node": "0.43.0",
         "@opentelemetry/semantic-conventions": "^1.17.1",
         "@opentelemetry/tracing": "^0.24.0",
-        "@twosdai/microinvoice": "^2.7.0",
+        "@meteringco/microinvoice": "file:vendor/microinvoice",
         "@types/multer": "^1.4.9",
         "@vendia/serverless-express": "^4.10.4",
         "aws-lambda": "^1.0.7",

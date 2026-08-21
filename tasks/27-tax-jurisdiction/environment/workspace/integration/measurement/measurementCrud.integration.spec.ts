@@ -13,7 +13,7 @@ describe('Measurement CRUD', () => {
     });
     test('Delete measurement should work', async () => {
         const measurementClient = new UsageRecordInS3Measurement();
-        await measurementClient.create({ name: 'measurement test', accountId: '647662420899' });
+        await measurementClient.create({ name: 'measurement test', accountId: '123456789012' });
         await sleep(2000)
         const getRes = await measurementClient.get();
         expect(getRes.measurementId).toEqual(expect.stringContaining(expect.anything()));

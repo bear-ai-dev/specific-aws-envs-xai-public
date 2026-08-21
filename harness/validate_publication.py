@@ -9,6 +9,8 @@ import re
 from pathlib import Path
 from urllib.parse import unquote
 
+from cohort_provenance import RECORDED_RUNTIME_STRATA, stratum_for
+
 
 ROOT = Path(__file__).resolve().parent.parent
 TASKS = (
@@ -23,11 +25,6 @@ BUNDLE_TASKS = (
     "14-iam-role-validation",
     "27-tax-jurisdiction",
     "31-customer-onboarding",
-)
-DOCKER_CONTROL_TASKS = (
-    "02-entitlement-overage-lines",
-    "07-multi-region-sweep",
-    "14-iam-role-validation",
 )
 EXPECTED_HEADINGS = {
     "02-entitlement-overage-lines": "# Task 2 — entitlement overage lines",
@@ -58,6 +55,15 @@ LOCAL_HOME = re.compile(
     r"(?:/Users/[^/\s]+/Desktop/|/home/[^/\s]+/(?:Desktop|Documents|Projects)/)"
     r"[^\s\"']+"
 )
+NON_EXAMPLE_API_GATEWAY = re.compile(
+    r"https://(?!example1234\.execute-api\.)"
+    r"[a-z0-9-]+\.execute-api\.[a-z0-9-]+\.amazonaws\.com"
+)
+NON_EXAMPLE_AUTH0 = re.compile(
+    r"https://(?!example-tenant\.(?:us\.)?auth0\.com)"
+    r"[a-z0-9-]+\.(?:us\.)?auth0\.com"
+)
+HARBOR_DIGEST = re.compile(r"^sha256:[0-9a-f]{64}$")
 
 
 def sha256(path: Path) -> str:
@@ -114,6 +120,43 @@ def validate_trials() -> None:
             for field in ("trajectory", "verifier"):
                 if not (ROOT / trial[field]).is_file():
                     raise SystemExit(f"missing {field}: {trial[field]}")
+            stratum = stratum_for(task, trial["trial_number"])
+            if trial.get("recorded_runtime_task_checksum") != stratum["task_checksum"]:
+                raise SystemExit(
+                    f"runtime checksum mismatch: {task}/{trial['trial_label']}"
+                )
+            if trial.get("environment") != stratum["environment"]:
+                raise SystemExit(
+                    f"runtime environment mismatch: {task}/{trial['trial_label']}"
+                )
+            if trial.get("runtime_stratum") != stratum["name"]:
+                raise SystemExit(
+                    f"runtime stratum mismatch: {task}/{trial['trial_label']}"
+                )
+
+    frozen = json.loads(
+        (ROOT / "sample-run" / "manifests" / "frozen-cohort.json").read_text()
+    )
+    expected_strata = {
+        task: [
+            {
+                "name": stratum["name"],
+                "environment": stratum["environment"],
+                "trial_numbers": list(stratum["trial_numbers"]),
+                "task_checksum": stratum["task_checksum"],
+            }
+            for stratum in strata
+        ]
+        for task, strata in RECORDED_RUNTIME_STRATA.items()
+    }
+    if frozen.get("recorded_runtime_strata") != expected_strata:
+        raise SystemExit("frozen cohort runtime strata mismatch")
+    if frozen.get("environments") != ["daytona", "aws-fargate"]:
+        raise SystemExit("frozen cohort environment declaration mismatch")
+    if "not represented as one frozen runtime configuration" not in frozen.get(
+        "pooled_result_boundary", ""
+    ):
+        raise SystemExit("missing pooled-result validity boundary")
 
 
 def validate_bundle_manifest() -> None:
@@ -168,6 +211,14 @@ def validate_privacy_basics() -> int:
             raise SystemExit(
                 f"execution-infrastructure ID in {path.relative_to(ROOT)}"
             )
+        if NON_EXAMPLE_API_GATEWAY.search(text):
+            raise SystemExit(
+                f"non-example API Gateway identifier in {path.relative_to(ROOT)}"
+            )
+        if NON_EXAMPLE_AUTH0.search(text):
+            raise SystemExit(
+                f"non-example Auth0 tenant in {path.relative_to(ROOT)}"
+            )
         checked += 1
     return checked
 
@@ -182,16 +233,28 @@ def validate_public_controls() -> None:
         ).read_text()
     )
     if manifest["summary"] != {
-        "trials": 6,
+        "trials": 10,
         "exceptions": 0,
         "oracle_all_reward_one": True,
         "nop_all_reward_zero": True,
     }:
         raise SystemExit("unexpected post-normalization control summary")
-    for task in DOCKER_CONTROL_TASKS:
+    if manifest.get("environment") != "docker":
+        raise SystemExit("post-normalization controls must run in Docker")
+    if manifest.get("config") != "harness/controls.json":
+        raise SystemExit("unexpected post-normalization control config")
+    if set(manifest["tasks"]) != set(TASKS):
+        raise SystemExit("post-normalization controls must cover every task")
+    for task in TASKS:
         record = manifest["tasks"].get(task)
         if record is None:
             raise SystemExit(f"missing post-normalization controls: {task}")
+        if record["public_task_sha256"] != directory_sha256(
+            ROOT / "tasks" / task
+        ):
+            raise SystemExit(f"post-normalization control task hash mismatch: {task}")
+        if not HARBOR_DIGEST.fullmatch(record.get("harbor_task_digest", "")):
+            raise SystemExit(f"invalid Harbor task digest: {task}")
         if record["oracle"] != {
             "trial_id": record["oracle"]["trial_id"],
             "reward": 1.0,
@@ -204,6 +267,15 @@ def validate_public_controls() -> None:
             "exception": None,
         }:
             raise SystemExit(f"invalid public no-op control: {task}")
+
+    transformation = json.loads(
+        (ROOT / "sample-run" / "manifests" / "public-transformation.json").read_text()
+    )
+    expected_hashes = {
+        task: directory_sha256(ROOT / "tasks" / task) for task in TASKS
+    }
+    if transformation.get("public_task_sha256") != expected_hashes:
+        raise SystemExit("public transformation task hashes are stale")
 
 
 def main() -> None:

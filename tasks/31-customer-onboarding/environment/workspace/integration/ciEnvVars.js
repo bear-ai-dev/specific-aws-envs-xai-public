@@ -12,7 +12,7 @@ const getAndSetToken = async () => {
         body: JSON.stringify({
             client_id: process.env.CLIENT_ID,
             client_secret: process.env.CLIENT_SECRET,
-            audience: 'https://qnonyh1pc7.execute-api.us-east-1.amazonaws.com',
+            audience: 'https://example1234.execute-api.us-east-1.amazonaws.com',
             grant_type: 'client_credentials',
         }),
     });
@@ -26,7 +26,7 @@ const getAndSetToken = async () => {
         body: JSON.stringify({
             client_id: process.env.ADMIN_CLIENT_ID,
             client_secret: process.env.ADMIN_CLIENT_SECRET,
-            audience: 'https://qnonyh1pc7.execute-api.us-east-1.amazonaws.com',
+            audience: 'https://example1234.execute-api.us-east-1.amazonaws.com',
             grant_type: 'client_credentials',
             scope: 'admin:admin',
         }),
@@ -40,7 +40,7 @@ const getAndSetToken = async () => {
         body: JSON.stringify({
             client_id: process.env.TEST_CLIENT_ID,
             client_secret: process.env.TEST_CLIENT_SECRET,
-            audience: 'https://qnonyh1pc7.execute-api.us-east-1.amazonaws.com',
+            audience: 'https://example1234.execute-api.us-east-1.amazonaws.com',
             grant_type: 'client_credentials',
         }),
     });

@@ -4322,7 +4322,7 @@
   "tags": [
     {
       "name": "Authentication",
-      "description": "MeteringCo API offers one form of authentication:\n        <br/>\n        <b>Bearer Authentication - Client Credentials</b>\n        <br>\n        <br>\n        To access the API first get your client ClientID and Secret my emailing founders@meteringco.example, after you have gotten your credentials, you must pass them into the Body of a POST request to the auth endpoint: https://auth.meteringco.example/oauth/token\n        <br>\n        <br>\n        See the Node JS fetch example below for a complete request which can be made\n\n        // This assumes you've set your AUTH0_CLIENT_ID and AUTH0_CLIENT_SECRET as process.env values\n        const response = await fetch(\n            'https://auth.meteringco.example/oauth/token',\n            {\n              method: 'POST',\n              headers: { 'content-type': 'application/json' },\n              body: JSON.stringify({\n                client_id: process.env.AUTH0_CLIENT_ID,\n                client_secret: process.env.AUTH0_CLIENT_SECRET,\n                audience: 'https://qnonyh1pc7.execute-api.us-east-1.amazonaws.com',\n                grant_type: 'client_credentials',\n              }),\n            },\n          );\n\n\n"
+      "description": "MeteringCo API offers one form of authentication:\n        <br/>\n        <b>Bearer Authentication - Client Credentials</b>\n        <br>\n        <br>\n        To access the API first get your client ClientID and Secret my emailing founders@meteringco.example, after you have gotten your credentials, you must pass them into the Body of a POST request to the auth endpoint: https://auth.meteringco.example/oauth/token\n        <br>\n        <br>\n        See the Node JS fetch example below for a complete request which can be made\n\n        // This assumes you've set your AUTH0_CLIENT_ID and AUTH0_CLIENT_SECRET as process.env values\n        const response = await fetch(\n            'https://auth.meteringco.example/oauth/token',\n            {\n              method: 'POST',\n              headers: { 'content-type': 'application/json' },\n              body: JSON.stringify({\n                client_id: process.env.AUTH0_CLIENT_ID,\n                client_secret: process.env.AUTH0_CLIENT_SECRET,\n                audience: 'https://example1234.execute-api.us-east-1.amazonaws.com',\n                grant_type: 'client_credentials',\n              }),\n            },\n          );\n\n\n"
     },
     {
       "name": "Offerings",
@@ -8576,7 +8576,7 @@
         "properties": {
           "iamRole": {
             "type": "string",
-            "description": "IAM role with proper user permissions for us to query for. This Role ARN should be associated with our AWS Account ID (647662420899) as a trusted entity",
+            "description": "IAM role with proper user permissions for us to query for. This Role ARN should be associated with our AWS Account ID (123456789012) as a trusted entity",
             "example": "arn:aws:iam::12222224444:role/test-metering-role"
           },
           "externalID": {

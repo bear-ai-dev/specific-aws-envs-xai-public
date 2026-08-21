@@ -142,7 +142,7 @@ PROD_STRIPE_TOKEN=<fillmein>
 
 Yes its just an empty json file. This file gets used by the integration environment to cache secret credentials which are not committed, but it isn't sophisticated enough to create the file if it doesn't exist.
 
-Additionally you'll need a `secret.json` file in the `integration` directory (ping @Twosdai for creds). For the token values below. The `influx_token` should be from your local influxdb at `http://localhost:8086`
+Additionally you'll need a `secret.json` file in the `integration` directory (ping @maintainer for creds). For the token values below. The `influx_token` should be from your local influxdb at `http://localhost:8086`
 
 ```JSON
 {

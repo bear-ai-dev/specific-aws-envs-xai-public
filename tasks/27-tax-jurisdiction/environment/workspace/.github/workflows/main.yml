@@ -60,7 +60,7 @@ jobs:
             - name: Build, tag, and push QA image to Amazon ECR
               env:
                   DEV_ENV_TRANSFORMER: ${{ secrets.DEV_ENV_TRANSFORMER }}
-              run: docker build -t 647662420899.dkr.ecr.us-east-1.amazonaws.com/meteringco-agent-transformer:${SHORT_SHA} . && docker push 647662420899.dkr.ecr.us-east-1.amazonaws.com/meteringco-agent-transformer:${SHORT_SHA}
+              run: docker build -t 123456789012.dkr.ecr.us-east-1.amazonaws.com/meteringco-agent-transformer:${SHORT_SHA} . && docker push 123456789012.dkr.ecr.us-east-1.amazonaws.com/meteringco-agent-transformer:${SHORT_SHA}
 
     docs:
         runs-on: [self-hosted]

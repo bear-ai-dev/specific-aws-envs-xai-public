@@ -7,7 +7,7 @@ listening on http://127.0.0.1:4566, which speaks the same wire protocols the
 AWS SDK uses; AWS_ENDPOINT_URL is already exported, so clients constructed the
 way the project constructs them land there with no code change.
 
-    platform account   647662420899
+    platform account   123456789012
     region             us-east-1
     STAGE              dev
     INFLUX_ORG         meteringco

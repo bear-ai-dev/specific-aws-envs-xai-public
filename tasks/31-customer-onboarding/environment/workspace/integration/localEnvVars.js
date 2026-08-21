@@ -57,7 +57,7 @@ const getAndSetTokenAndUser = async () => {
         body: JSON.stringify({
             client_id,
             client_secret,
-            audience: 'https://qnonyh1pc7.execute-api.us-east-1.amazonaws.com',
+            audience: 'https://example1234.execute-api.us-east-1.amazonaws.com',
             grant_type: 'client_credentials',
         }),
     });
@@ -72,7 +72,7 @@ const getAndSetTokenAndUser = async () => {
         body: JSON.stringify({
             client_id: admin_client_id,
             client_secret: admin_client_secret,
-            audience: 'https://qnonyh1pc7.execute-api.us-east-1.amazonaws.com',
+            audience: 'https://example1234.execute-api.us-east-1.amazonaws.com',
             grant_type: 'client_credentials',
             scope: 'admin:admin',
         }),
@@ -88,7 +88,7 @@ const getAndSetTokenAndUser = async () => {
         body: JSON.stringify({
             client_id: test_client_id,
             client_secret: test_client_secret,
-            audience: 'https://qnonyh1pc7.execute-api.us-east-1.amazonaws.com',
+            audience: 'https://example1234.execute-api.us-east-1.amazonaws.com',
             grant_type: 'client_credentials',
         }),
     });

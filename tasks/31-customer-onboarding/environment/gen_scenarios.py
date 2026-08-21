@@ -31,7 +31,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 
 REGION = "us-east-1"
-PLATFORM_ACCOUNT = "647662420899"
+PLATFORM_ACCOUNT = "123456789012"
 OBSERVATION_BUCKET = "meteringco-provisioning-audit-dev"
 RECORD_BUCKET = "meteringco-config-archive-dev"
 
