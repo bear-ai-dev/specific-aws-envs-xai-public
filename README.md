@@ -9,6 +9,9 @@ solved 8/8 attempts on each corresponding task.
 - [Pass@k matrix](#passk-matrix)
 - [Task inventory](#task-inventory)
 - [Failure mode analysis](#failure-mode-analysis)
+  - [Rule-combination error](#rule-combination-error)
+  - [Incomplete implementation](#incomplete-implementation)
+  - [Mock-only verification](#mock-only-verification)
 - [Evidence and controls](#evidence-and-controls)
 - [Reproduction](#reproduction)
 
@@ -44,12 +47,17 @@ produced it.
 
 ## Failure mode analysis
 
-### Task 2: chargeability and invoice visibility were collapsed
+<a id="rule-combination-error"></a>
 
-All eight Grok submissions calculated allowance and overage quantities, then
-made positive owed quantity a prerequisite for every invoice line. That drops
-zero-priced dimensions even when invoice settings say to show them. All eight
-Opus submissions kept chargeability and visibility separate.
+### Rule-combination error (Task 2: 8/8 Grok rollouts)
+
+These were eight independent attempts that repeated the same failure mode, not
+eight different billing defects. Every Grok submission calculated allowance
+and overage quantities, but combined the billing rules in the wrong order by
+making positive owed quantity a prerequisite for every invoice line. That let
+"nothing is owed" incorrectly remove zero-priced dimensions that the invoice
+settings required it to show. All eight Opus submissions kept "what to charge"
+separate from "what to show."
 
 Task 2 had no successful Grok runs, so there is no within-Grok success example
 for this task. The eight successful Opus runs provide the solving comparison.
@@ -96,12 +104,15 @@ if (isFreeDimension) {
 and
 [paired Opus deliverable](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/opus-5-trial-05/verifier/deliverable/offering/entities/offeringPackage.entity.ts)
 
-### Task 7: one sibling inventory workflow was left behind
+<a id="incomplete-implementation"></a>
 
-The two failed Grok runs implemented region discovery, retry handling, failure
-isolation, pagination, and empty-region reporting for volumes, but left
-snapshots on the original single-region path. The six solving Grok runs and all
-eight Opus runs used a shared region-sweep abstraction for both resource kinds.
+### Incomplete implementation (Task 7: 2/8 Grok rollouts)
+
+The two failed Grok runs built and tested region discovery, retry handling,
+failure isolation, pagination, and empty-region reporting for volumes, then
+declared the feature complete without applying it to the neighboring snapshot
+workflow. The six solving Grok runs and all eight Opus runs used a shared
+region-sweep abstraction for both resource kinds.
 
 A representative failed Grok implementation leaves snapshot collection tied to
 one configured region:
@@ -162,15 +173,19 @@ left on the single configured region.
 and
 [paired Opus trace](sample-run/review-bundle/07-multi-region-sweep/trajectories/opus/trial-01.json)
 
-### Task 14: an omitted optional block was treated as invalid
+<a id="mock-only-verification"></a>
+
+### Mock-only verification (Task 14: 5/8 Grok rollouts)
 
 Five Grok runs correctly implemented role assumption, external-ID handling,
-instance-inventory permission checks, atomic rejection, and disconnect. They
-still rejected an ordinary settings update carrying no `cloudIAM` block. Their
-property-existence check observed the transformed DTO's own `cloudIAM` property
-with value `undefined`, collapsing "absent" into "present but invalid." The
-three solving Grok runs and all eight Opus runs gated validation on an actual
-value and preserved the existing setting when the block was absent.
+instance-inventory permission checks, atomic rejection, and disconnect. Their
+focused service tests used simplified objects and did not reproduce the real
+HTTP framework's request transformation. On that path, an omitted `cloudIAM`
+block appeared as an owned property with value `undefined`; the submissions'
+property-existence check therefore collapsed "absent" into "present but
+invalid" and rejected an unrelated settings update. The three solving Grok
+runs and all eight Opus runs gated validation on an actual value, so the
+unrelated update was accepted.
 
 A representative failed Grok implementation checks whether the DTO owns the
 property, even when its value is `undefined`:
