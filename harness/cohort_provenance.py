@@ -1,9 +1,9 @@
 """Recorded runtime strata for the packaged model evidence.
 
-The first three tasks use one Daytona checksum stratum. Tasks 27 and 31 were
-completed in two separately frozen four-attempt strata, one on Daytona and one
-on AWS Fargate. Models are comparable within each stratum; the eight-attempt
-totals for those two tasks are pooled descriptive counts across the strata.
+The first three tasks use one Daytona checksum stratum. Task 27 was completed
+in two separately frozen four-attempt strata, one on Daytona and one on AWS
+Fargate. Models are comparable within each stratum; its eight-attempt totals
+are pooled descriptive counts across the strata.
 """
 
 from __future__ import annotations
@@ -46,20 +46,6 @@ RECORDED_RUNTIME_STRATA = {
             "environment": "aws-fargate",
             "trial_numbers": tuple(range(5, 9)),
             "task_checksum": "bea753509f8689709ac2827ebc01c71b0cad2119ac99d51a87661c180ace6785",
-        },
-    ),
-    "31-customer-onboarding": (
-        {
-            "name": "daytona-01-04",
-            "environment": "daytona",
-            "trial_numbers": tuple(range(1, 5)),
-            "task_checksum": "950d0ade6a83cf835be13d0efb123daa33f0dc0d43542493d045d08ea183c6a2",
-        },
-        {
-            "name": "fargate-05-08",
-            "environment": "aws-fargate",
-            "trial_numbers": tuple(range(5, 9)),
-            "task_checksum": "300de7ec965118c1c47d15bb4160a740a042b60cfae9ba29e4df03ca9d8aa0e4",
         },
     ),
 }

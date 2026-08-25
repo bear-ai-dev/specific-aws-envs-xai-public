@@ -1,14 +1,14 @@
 {
   "cohort_directory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
-  "scored_valid_trials": 80,
+  "scored_valid_trials": 64,
   "completed_trials_excluded_from_denominator": 0,
   "controls": {
     "oracle": {
-      "count": 5,
+      "count": 4,
       "all_reward_one": true
     },
     "nop": {
-      "count": 5,
+      "count": 4,
       "all_reward_zero": true
     }
   },
@@ -17,8 +17,7 @@
     "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
     "sample-run/review-bundle/07-multi-region-sweep",
     "sample-run/review-bundle/14-iam-role-validation",
-    "sample-run/review-bundle/27-tax-jurisdiction",
-    "sample-run/review-bundle/31-customer-onboarding"
+    "sample-run/review-bundle/27-tax-jurisdiction"
   ],
   "runtime_strata": {
     "02-entitlement-overage-lines": [
@@ -95,31 +94,7 @@
         ],
         "task_checksum": "bea753509f8689709ac2827ebc01c71b0cad2119ac99d51a87661c180ace6785"
       }
-    ],
-    "31-customer-onboarding": [
-      {
-        "name": "daytona-01-04",
-        "environment": "daytona",
-        "trial_numbers": [
-          1,
-          2,
-          3,
-          4
-        ],
-        "task_checksum": "950d0ade6a83cf835be13d0efb123daa33f0dc0d43542493d045d08ea183c6a2"
-      },
-      {
-        "name": "fargate-05-08",
-        "environment": "aws-fargate",
-        "trial_numbers": [
-          5,
-          6,
-          7,
-          8
-        ],
-        "task_checksum": "300de7ec965118c1c47d15bb4160a740a042b60cfae9ba29e4df03ca9d8aa0e4"
-      }
     ]
   },
-  "pooled_result_boundary": "Tasks 27 and 31 pool descriptive eight-attempt counts across one Daytona stratum and one AWS Fargate stratum. Model comparisons remain matched within each four-attempt stratum."
+  "pooled_result_boundary": "Task 27 pools descriptive eight-attempt counts across one Daytona stratum and one AWS Fargate stratum. Model comparisons remain matched within each four-attempt stratum."
 }

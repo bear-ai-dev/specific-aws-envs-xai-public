@@ -7,7 +7,7 @@
   "config": "harness/controls.json",
   "job_name": "xai-public-controls-pr2-qc-20260821",
   "summary": {
-    "trials": 10,
+    "trials": 8,
     "exceptions": 0,
     "oracle_all_reward_one": true,
     "nop_all_reward_zero": true
@@ -66,20 +66,6 @@
       "nop": {
         "trial_id": "n7hsAUf",
         "reward": 0.0,
-        "exception": null
-      }
-    },
-    "31-customer-onboarding": {
-      "public_task_sha256": "84d863939f2fcc908291fdd67a8b78fa3f978317866570ede35387faaca3f734",
-      "harbor_task_digest": "sha256:7b2b07c8e25ffd42a2bef886c5b4f271d4b91e834a73e5066a9f22ca84a80602",
-      "nop": {
-        "trial_id": "XtD5mAT",
-        "reward": 0.0,
-        "exception": null
-      },
-      "oracle": {
-        "trial_id": "gyARjgb",
-        "reward": 1.0,
         "exception": null
       }
     }

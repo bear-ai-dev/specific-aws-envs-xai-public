@@ -47,7 +47,6 @@ def main() -> None:
             "sample-run/review-bundle/07-multi-region-sweep",
             "sample-run/review-bundle/14-iam-role-validation",
             "sample-run/review-bundle/27-tax-jurisdiction",
-            "sample-run/review-bundle/31-customer-onboarding",
         ],
         "evidence_controls": {
             "02-entitlement-overage-lines": (
@@ -61,9 +60,6 @@ def main() -> None:
             ),
             "27-tax-jurisdiction": (
                 "sample-run/review-bundle/27-tax-jurisdiction/controls"
-            ),
-            "31-customer-onboarding": (
-                "sample-run/review-bundle/31-customer-onboarding/controls"
             ),
         },
         "publication_normalization": (
@@ -100,9 +96,9 @@ def main() -> None:
         "reasoning_effort": "high",
         "environments": ["daytona", "aws-fargate"],
         "pooled_result_boundary": (
-            "Tasks 27 and 31 report pooled descriptive eight-attempt counts "
-            "across a four-attempt Daytona stratum and a four-attempt AWS "
-            "Fargate stratum. They are not represented as one frozen runtime "
+            "Task 27 reports pooled descriptive eight-attempt counts across a "
+            "four-attempt Daytona stratum and a four-attempt AWS Fargate "
+            "stratum. It is not represented as one frozen runtime "
             "configuration."
         ),
         "task_labels": task_labels,

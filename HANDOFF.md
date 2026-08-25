@@ -1,6 +1,6 @@
-# Reproducing the five selected cohorts
+# Reproducing the four selected cohorts
 
-The repository contains all five selected task definitions, complete recorded
+The repository contains all four selected task definitions, complete recorded
 evidence, and a reproduction configuration with the same model, agent,
 reasoning, and verifier settings. The recorded runtime environment is declared
 per checksum stratum in the frozen manifest. Organization identifiers were
@@ -41,14 +41,14 @@ git diff --exit-code sample-run/manifests/frozen-cohort.json
 
 The reproduction job names differ from the stored evidence job names, so new
 results do not mix with any packaged denominator. The control configuration
-runs one oracle and one no-op attempt for each of Tasks 2, 7, 14, 27, and 31.
+runs one oracle and one no-op attempt for each of Tasks 2, 7, 14, and 27.
 
-All five public task directories were validated after identifier normalization
-with the same Docker control configuration. The ten
+All four public task directories were validated after identifier normalization
+with the same Docker control configuration. The eight
 outcomes and Harbor task digests are recorded in
 [`sample-run/manifests/public-controls-validation.json`](sample-run/manifests/public-controls-validation.json).
-Tasks 27 and 31 also ship recorded Daytona-stratum oracle and no-op evidence in
-their review bundles.
+Task 27 also ships recorded Daytona-stratum oracle and no-op evidence in its
+review bundle.
 
 ```sh
 harbor run --config harness/controls.json --yes
@@ -71,18 +71,18 @@ python3 harness/launch_remainders.py --model all
 
 ## 4. Index a reproduced cohort
 
-To verify and regenerate the packaged 80-trial index, use the default command:
+To verify and regenerate the packaged 64-trial index, use the default command:
 
 ```sh
 python3 harness/summarize_cohort.py
 ```
 
 The packaged Task 2 attempts are stored as full raw Harbor trees. Tasks 7, 14,
-27, and 31 use compact review bundles containing native trajectories, final
+and 27 use compact review bundles containing native trajectories, final
 code, touched files, and complete verifier evidence. The default indexer reads
-both evidence layouts. Packaged Tasks 27 and 31 include one matched four-run
+both evidence layouts. Packaged Task 27 includes one matched four-run
 Daytona stratum and one separately matched four-run AWS Fargate stratum per
-model. Their eight-attempt totals are pooled descriptive results, not one
+model. Its eight-attempt totals are pooled descriptive results, not one
 frozen runtime configuration.
 
 For a newly reproduced cohort, point the indexer at the new model job directory.

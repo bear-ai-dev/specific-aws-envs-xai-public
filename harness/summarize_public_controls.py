@@ -15,7 +15,6 @@ TASKS = (
     "07-multi-region-sweep",
     "14-iam-role-validation",
     "27-tax-jurisdiction",
-    "31-customer-onboarding",
 )
 
 

@@ -1,22 +1,21 @@
 # Sample RL Tasks for AWS - xAI
 
-This sample contains five tasks from the same NestJS billing backend. Tasks 2,
-7, and 14 use one matched eight-run Daytona cohort. Tasks 27 and 31 each use
-two matched four-run strata, one on Daytona and one on AWS Fargate, with pooled
-descriptive totals of eight attempts per model. Grok 4.6 solved 0/8, 6/8, 3/8,
-0/8, and 0/8 attempts; Claude Opus 5 solved 8/8, 8/8, 8/8, 5/8, and 5/8 on the
-corresponding tasks.
+This sample contains the four tasks analyzed in the accompanying report. Source
+Tasks 2, 7, and 14 use one matched eight-run Daytona cohort. Source Task 27
+uses two matched four-run strata, one on Daytona and one on AWS Fargate, with a
+pooled descriptive total of eight attempts per model. Grok 4.6 solved 0/8, 6/8,
+3/8, and 0/8 attempts; Claude Opus 5 solved 8/8, 8/8, 8/8, and 5/8 on the
+corresponding tasks. They appear as Tasks 1–4 in the report, in that order.
 
 ## Contents
 
 - [Pass@k matrix](#passk-matrix)
 - [Task inventory](#task-inventory)
 - [Failure mode analysis](#failure-mode-analysis)
-  - [Rule-combination error](#rule-combination-error)
-  - [Incomplete implementation](#incomplete-implementation)
-  - [Mock-only verification](#mock-only-verification)
-  - [Incomplete authority semantics](#incomplete-authority-semantics)
-  - [Dropped collaborator context](#dropped-collaborator-context)
+  - [Missed requirement: charging and printing](#rule-combination-error)
+  - [Missed requirement: both inventory sweeps](#incomplete-implementation)
+  - [Regression: omitted optional configuration](#mock-only-verification)
+  - [Unverified assumptions and wrong logic: tax](#incomplete-authority-semantics)
 - [Evidence and controls](#evidence-and-controls)
 - [Reproduction](#reproduction)
 
@@ -26,8 +25,8 @@ Each row contains eight valid trials. `c/n` is the observed solve count. The
 table uses `pass@k = 1 - C(n-c, k) / C(n, k)`, the estimated chance that at
 least one of `k` sampled attempts succeeds.
 Rows are grouped by model; a blank model cell continues the model named above.
-Tasks 2, 7, and 14 are single matched Daytona cohorts. For Tasks 27 and 31,
-the eight-attempt rows are pooled descriptive estimates across the two equal
+Tasks 2, 7, and 14 are single matched Daytona cohorts. For Task 27, the
+eight-attempt rows are pooled descriptive estimates across the two equal
 backend strata below, not results from one frozen runtime configuration.
 
 <!-- MINI_SWE_MATRIX_START -->
@@ -37,15 +36,13 @@ backend strata below, not results from one frozen runtime configuration.
 |  | [Task 7](tasks/07-multi-region-sweep/instruction.md) | 6/8 | 0.7500 | 1.0000 | 1.0000 |
 |  | [Task 14](tasks/14-iam-role-validation/instruction.md) | 3/8 | 0.3750 | 0.8214 | 1.0000 |
 |  | [Task 27](tasks/27-tax-jurisdiction/instruction.md) | 0/8 | 0.0000 | 0.0000 | 0.0000 |
-|  | [Task 31](tasks/31-customer-onboarding/instruction.md) | 0/8 | 0.0000 | 0.0000 | 0.0000 |
 | Opus 5 | [Task 2](tasks/02-entitlement-overage-lines/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 7](tasks/07-multi-region-sweep/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 14](tasks/14-iam-role-validation/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 27](tasks/27-tax-jurisdiction/instruction.md) | 5/8 | 0.6250 | 0.9821 | 1.0000 |
-|  | [Task 31](tasks/31-customer-onboarding/instruction.md) | 5/8 | 0.6250 | 0.9821 | 1.0000 |
 <!-- MINI_SWE_MATRIX_END -->
 
-### Runtime-stratified results for Tasks 27 and 31
+### Runtime-stratified results for Task 27
 
 Each model saw the same recorded task checksum within each four-run stratum.
 The model comparison is therefore matched within the rows below.
@@ -54,8 +51,6 @@ The model comparison is therefore matched within the rows below.
 | --- | --- | ---: | ---: |
 | Task 27 | Daytona, trials 01–04 | 0/4 | 4/4 |
 | Task 27 | AWS Fargate, trials 05–08 | 0/4 | 1/4 |
-| Task 31 | Daytona, trials 01–04 | 0/4 | 3/4 |
-| Task 31 | AWS Fargate, trials 05–08 | 0/4 | 2/4 |
 
 ## Task inventory
 
@@ -65,7 +60,6 @@ The model comparison is therefore matched within the rows below.
 | [Task&nbsp;7](tasks/07-multi-region-sweep/instruction.md) | Update block-storage collection to check every enabled AWS region, retry rate limits, keep readable regions even when they are empty, and skip permanently unreadable regions without stopping the whole sweep. |
 | [Task&nbsp;14](tasks/14-iam-role-validation/instruction.md) | Validate a customer's IAM role before saving it: assume the role with its external ID, confirm it can read instance inventory, reject the whole update if either check fails, and handle disconnects correctly. |
 | [Task&nbsp;27](tasks/27-tax-jurisdiction/instruction.md) | Restore tax determination on issued invoices: choose among destination-priced, manual, and no-tax regimes, let a held exemption override the regime, quote the authority for the buyer's destination on the right account, print VAT identities for European parties, report a refused address without blocking the invoice, and file eligible settled sales. |
-| [Task&nbsp;31](tasks/31-customer-onboarding/instruction.md) | Take on a new customer for a business: refuse a full plan or a reused identifier, settle on an identifier, open a contract on the offering they signed up to, put a card customer on the business' own connected payment account, persist the opening balance and free trial, meter the onboarding, and announce the new customer. |
 
 The source task numbers are retained in task paths, headings, review bundles,
 and recorded trial names so every result resolves to its recorded task and
@@ -75,7 +69,7 @@ runtime-checksum stratum.
 
 <a id="rule-combination-error"></a>
 
-### Rule-combination error (Task 2: 8/8 Grok rollouts)
+### Missed requirement: charging and printing (source Task 2; report Task 1)
 
 These were eight independent attempts that repeated the same failure mode, not
 eight different billing defects. Every Grok submission calculated allowance
@@ -132,7 +126,7 @@ and
 
 <a id="incomplete-implementation"></a>
 
-### Incomplete implementation (Task 7: 2/8 Grok rollouts)
+### Missed requirement: both inventory sweeps (source Task 7; report Task 2)
 
 The two failed Grok runs built and tested region discovery, retry handling,
 failure isolation, pagination, and empty-region reporting for volumes, then
@@ -201,7 +195,7 @@ and
 
 <a id="mock-only-verification"></a>
 
-### Mock-only verification (Task 14: 5/8 Grok rollouts)
+### Regression: omitted optional configuration (source Task 14; report Task 3)
 
 Five Grok runs correctly implemented role assumption, external-ID handling,
 instance-inventory permission checks, atomic rejection, and disconnect. Their
@@ -251,23 +245,22 @@ and
 
 <a id="incomplete-authority-semantics"></a>
 
-### Incomplete authority semantics (Task 27: 8/8 Grok rollouts)
+### Unverified assumptions and wrong logic (source Task 27; report Task 4)
 
-These were eight independent attempts at the same tax workflow, not eight
-different billing defects. Every Grok submission issued invoices and talked to
-the tax authority, then lost the exact values and branches the recorded month
-requires. A representative run rounded a maintained rate of `286.125` to
-`286.13`, inserted a blank line before VAT registrations, swallowed an address
-the authority refused instead of reporting it, and filed sales whose invoice
-state made them ineligible. The invoice still went out. The failure was not a
-crash or a provider error.
+The report assigns five Grok failures to **Unverified Assumption** and three to
+**Wrong Logic**. The first group guessed at least one authority message or sale
+eligibility rule instead of checking the recorded month. The second group found
+the relevant evidence but still rounded stored tax or put a registration line
+in the wrong part of the invoice. These were eight independent attempts at one
+tax workflow, not eight different billing defects.
 
 Task 27 had no successful Grok runs, so there is no within-Grok success example
 for this task. Five of the eight Opus runs kept the authority's unrounded rate
 and tax, used the established VAT wording, reported the refused address, and
-filed only the eligible settled sales. The three unsuccessful Opus runs missed
-the same filing eligibility on two held-out destinations; they are a shared
-near-miss, not a different task.
+filed only the eligible settled sales. The three unsuccessful Opus runs are
+also labeled **Unverified Assumption** in the report: they treated a non-US
+address with no state as complete and filed two sales that should have been
+skipped.
 
 A representative failed Grok implementation rounds the maintained tax before it
 is stored:
@@ -303,77 +296,25 @@ this.taxAmount = this.totalAmountWithoutTax * this.salesTaxRate;
 and
 [paired Opus trace](sample-run/review-bundle/27-tax-jurisdiction/trajectories/opus/trial-01.json)
 
-<a id="dropped-collaborator-context"></a>
-
-### Dropped collaborator context (Task 31: 8/8 Grok rollouts)
-
-All eight Grok runs implemented enrolment, opening balances, trials, metering,
-and the customer-created announcement. What they did not do was hand the
-business settings they had already read into contract creation. On every
-accepted offering path the surviving `CreateContractDto` carries
-`readSettingsResponseData`; the Grok submissions omitted it, so the contract
-collaborator saw `None` where the held-out business id belonged.
-
-Task 31 had no successful Grok runs, so there is no within-Grok success example
-for this task. Five of the eight Opus runs read settings for the accepted
-request and passed that entity into `ContractService.create`. The three
-unsuccessful Opus runs missed the same handoff, or wired it and then dropped
-an opening credit of `0.00` / a trial start date; they are useful shared
-failures rather than evidence of a Grok-only mechanism.
-
-A representative failed Grok implementation opens the contract without the
-settings already in hand:
-
-```ts
-if (createCustomerDto.offeringId) {
-    contract = await this.contractService.create({
-        offeringId: createCustomerDto.offeringId,
-        customerId,
-        businessID,
-        usageOverrides: usage,
-        offeringEnrollmentDate,
-    });
-}
-```
-
-A representative Opus implementation reads settings once for the accepted
-request and forwards them on the DTO the contract collaborator already names:
-
-```ts
-const [settingsEntity] = await this.settingsService.findAll({ businessID });
-if (offeringId) {
-    preparedContract = await this.contractService.create({
-        customerId,
-        businessID,
-        offeringId,
-        offeringEnrollmentDate,
-        usageOverrides: usage,
-        readSettingsResponseData: settingsEntity,
-    } as CreateContractDto);
-}
-```
-
-[Failed Grok code](sample-run/review-bundle/31-customer-onboarding/grok-solution/trial-01/customer.service.ts),
-[failed Grok trace](sample-run/review-bundle/31-customer-onboarding/trajectories/grok/trial-01.json),
-and
-[paired Opus trace](sample-run/review-bundle/31-customer-onboarding/trajectories/opus/trial-01.json)
-
 ## Evidence and controls
 
 - **Harness:** Harbor 0.18.0 with mini-SWE-agent 2.4.5 at high reasoning
-  effort. Tasks 2, 7, and 14 ran in isolated Daytona sandboxes. Tasks 27 and 31
-  use separately matched four-run Daytona and AWS Fargate strata.
+  effort. Tasks 2, 7, and 14 ran in isolated Daytona sandboxes. Task 27 uses
+  separately matched four-run Daytona and AWS Fargate strata.
 - **Routes:** Grok 4.6 and Claude Opus 5 through Amazon Bedrock.
-- **Denominator:** All 80 packaged model trials have a numeric reward, complete
+- **Denominator:** All 64 packaged model trials have a numeric reward, complete
   native trajectory, complete verifier evidence, and no Harbor exception.
-- **Controls:** Every task has an oracle reward of `1.0` and a no-op reward of
-  `0.0`. Recorded-runtime controls are included with the review bundles. A
-  separate [post-normalization control manifest](sample-run/manifests/public-controls-validation.json)
-  records a clean ten-trial Docker rerun on all five runnable public tasks.
+- **Controls:** The normalized public version of every task has an oracle
+  reward of `1.0` and a no-op reward of `0.0`; the
+  [post-normalization control manifest](sample-run/manifests/public-controls-validation.json)
+  records the clean eight-trial Docker rerun. Recorded-build coverage is
+  narrower, as Appendix A of the report states: source Task 2's stored control
+  predates its scored build, source Task 27 has a control for its Daytona
+  stratum only, and source Tasks 7 and 14 are fully covered.
 - **Task 2 raw evidence:**
   [`sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/`](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/)
   contains all 16 full Harbor attempts.
-- **Tasks 7, 14, 27, and 31 evidence:** their complete trajectories, final Grok
+- **Tasks 7, 14, and 27 evidence:** their complete trajectories, final Grok
   changes, touched files, raw verifier observations, rewards, stdout, held-out
   scoring assets, and controls are in the
   [`review bundle`](sample-run/review-bundle/).

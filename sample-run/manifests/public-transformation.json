@@ -22,7 +22,6 @@
     "07-multi-region-sweep": "sample-run/review-bundle/07-multi-region-sweep",
     "14-iam-role-validation": "sample-run/review-bundle/14-iam-role-validation",
     "27-tax-jurisdiction": "sample-run/review-bundle/27-tax-jurisdiction",
-    "31-customer-onboarding": "sample-run/review-bundle/31-customer-onboarding",
     "directory_label_policy": "task number, model name, and chronological trial number",
     "recorded_trial_identifiers": "preserved in compact Harbor results and sample-run/indexes/trials.json"
   },
@@ -30,18 +29,17 @@
     "02-entitlement-overage-lines": "200c5466dc556b329ac92ce4c521a032858245aded1673eb9b88115ccbd2ff01",
     "07-multi-region-sweep": "ac07cba5cbef3b999d548bdf443fe54b679f26e439e4aac3a6cb5a2df85a1d46",
     "14-iam-role-validation": "317335499a5fdede5a18946c6a4939073abf6a9f5d396a5f6a3ce83cf3c81b38",
-    "27-tax-jurisdiction": "f370acd4150972aeab6a3e0b540078d3b3a598b6da748817438817888a73e135",
-    "31-customer-onboarding": "84d863939f2fcc908291fdd67a8b78fa3f978317866570ede35387faaca3f734"
+    "27-tax-jurisdiction": "f370acd4150972aeab6a3e0b540078d3b3a598b6da748817438817888a73e135"
   },
   "recorded_runtime_controls": {
     "nop_required": 0.0,
     "oracle_required": 1.0,
-    "tasks_passing": 5
+    "tasks_passing": 4
   },
   "recorded_runtime_provenance": "sample-run/manifests/frozen-cohort.json",
   "schema_version": 2,
   "scope": [
-    "five task definitions and workspaces",
+    "four task definitions and workspaces",
     "captured trajectories and verifier artifacts",
     "manifests, indexes, and documentation"
   ],

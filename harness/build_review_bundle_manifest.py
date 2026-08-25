@@ -16,7 +16,6 @@ TASKS = {
     "07-multi-region-sweep": {"grok": 6, "opus": 8},
     "14-iam-role-validation": {"grok": 3, "opus": 8},
     "27-tax-jurisdiction": {"grok": 0, "opus": 5},
-    "31-customer-onboarding": {"grok": 0, "opus": 5},
 }
 
 
@@ -159,7 +158,7 @@ def main() -> None:
 
     payload = {
         "schema_version": 1,
-        "scope": "Tasks 7, 14, 27, and 31 publication-normalized review bundles",
+        "scope": "Tasks 7, 14, and 27 publication-normalized review bundles",
         "bundles": bundles,
     }
     DESTINATION.parent.mkdir(parents=True, exist_ok=True)

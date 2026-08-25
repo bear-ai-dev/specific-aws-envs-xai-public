@@ -12,7 +12,6 @@ BUNDLES = (
     ROOT / "sample-run" / "review-bundle" / "07-multi-region-sweep",
     ROOT / "sample-run" / "review-bundle" / "14-iam-role-validation",
     ROOT / "sample-run" / "review-bundle" / "27-tax-jurisdiction",
-    ROOT / "sample-run" / "review-bundle" / "31-customer-onboarding",
 )
 INFRA_KEYS = (
     "DAYTONA_ORGANIZATION_ID",

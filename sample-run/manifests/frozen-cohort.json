@@ -4,8 +4,8 @@
   "attempts_per_task_model": 8,
   "bedrock_config_sha256": "a8ebaf00aa24ccd8d8f0dcb074cc11b9349dcc163c6a2a67783402ab74b5c19c",
   "cohort": "xai-selected-eight-rollout-reproduction",
-  "cohort_config_sha256": "d4ba20dd2169d49a4c31403831cac709fd41438644de85b6302b81a3573e7c18",
-  "controls_config_sha256": "6b9b5c4dca21e16d479ddeace8ac1c17a607e571f1d51664b79ffb2bb0113144",
+  "cohort_config_sha256": "5395da8b8ac940d9b9fc7a398995d34d1f37fb8b4d8bf871cb1525b1db0615df",
+  "controls_config_sha256": "a9ee0b8ab691165a0c9fb67a9a3ef1927bf78290bb5dfcf7972f616eff7c8d59",
   "environments": [
     "daytona",
     "aws-fargate"
@@ -14,15 +14,13 @@
     "02-entitlement-overage-lines": "sample-run/raw/xai-public-controls-20260819",
     "07-multi-region-sweep": "sample-run/review-bundle/07-multi-region-sweep/controls",
     "14-iam-role-validation": "sample-run/review-bundle/14-iam-role-validation/controls",
-    "27-tax-jurisdiction": "sample-run/review-bundle/27-tax-jurisdiction/controls",
-    "31-customer-onboarding": "sample-run/review-bundle/31-customer-onboarding/controls"
+    "27-tax-jurisdiction": "sample-run/review-bundle/27-tax-jurisdiction/controls"
   },
   "evidence_roots": [
     "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
     "sample-run/review-bundle/07-multi-region-sweep",
     "sample-run/review-bundle/14-iam-role-validation",
-    "sample-run/review-bundle/27-tax-jurisdiction",
-    "sample-run/review-bundle/31-customer-onboarding"
+    "sample-run/review-bundle/27-tax-jurisdiction"
   ],
   "grok_bedrock_config_sha256": "c8c6d27b01da51699b578101552bb5d43bb9b8e072bac7e4ff275cc5550ef0f8",
   "grok_model_registry_sha256": "310dfa12cff09204d73ec8384b55397543f3f18974f422c158f688ae7bb2ecc5",
@@ -32,16 +30,15 @@
     "grok-4.6": "bedrock/converse/us.xai.grok-4.6",
     "opus-5": "bedrock/us.anthropic.claude-opus-5"
   },
-  "pooled_result_boundary": "Tasks 27 and 31 report pooled descriptive eight-attempt counts across a four-attempt Daytona stratum and a four-attempt AWS Fargate stratum. They are not represented as one frozen runtime configuration.",
+  "pooled_result_boundary": "Task 27 reports pooled descriptive eight-attempt counts across a four-attempt Daytona stratum and a four-attempt AWS Fargate stratum. It is not represented as one frozen runtime configuration.",
   "public_task_sha256": {
     "02-entitlement-overage-lines": "200c5466dc556b329ac92ce4c521a032858245aded1673eb9b88115ccbd2ff01",
     "07-multi-region-sweep": "ac07cba5cbef3b999d548bdf443fe54b679f26e439e4aac3a6cb5a2df85a1d46",
     "14-iam-role-validation": "317335499a5fdede5a18946c6a4939073abf6a9f5d396a5f6a3ce83cf3c81b38",
-    "27-tax-jurisdiction": "f370acd4150972aeab6a3e0b540078d3b3a598b6da748817438817888a73e135",
-    "31-customer-onboarding": "84d863939f2fcc908291fdd67a8b78fa3f978317866570ede35387faaca3f734"
+    "27-tax-jurisdiction": "f370acd4150972aeab6a3e0b540078d3b3a598b6da748817438817888a73e135"
   },
   "publication_controls_validation": "sample-run/manifests/public-controls-validation.json",
-  "publication_controls_validation_sha256": "e1e4ac255dd3a3f10410296b83f2681675f0b611f201db159fc25164988d4177",
+  "publication_controls_validation_sha256": "5936e177dfbe31b6f0d20cd314eda5eb5cff50e4249db89798c61413b5ca7da2",
   "publication_normalization": "sample-run/manifests/public-transformation.json",
   "reasoning_effort": "high",
   "recorded_runtime_strata": {
@@ -119,38 +116,13 @@
           8
         ]
       }
-    ],
-    "31-customer-onboarding": [
-      {
-        "environment": "daytona",
-        "name": "daytona-01-04",
-        "task_checksum": "950d0ade6a83cf835be13d0efb123daa33f0dc0d43542493d045d08ea183c6a2",
-        "trial_numbers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "environment": "aws-fargate",
-        "name": "fargate-05-08",
-        "task_checksum": "300de7ec965118c1c47d15bb4160a740a042b60cfae9ba29e4df03ca9d8aa0e4",
-        "trial_numbers": [
-          5,
-          6,
-          7,
-          8
-        ]
-      }
     ]
   },
   "task_labels": {
     "02-entitlement-overage-lines": "Task 2",
     "07-multi-region-sweep": "Task 7",
     "14-iam-role-validation": "Task 14",
-    "27-tax-jurisdiction": "Task 27",
-    "31-customer-onboarding": "Task 31"
+    "27-tax-jurisdiction": "Task 27"
   },
   "validity_rule": "numeric verifier reward, complete trajectory, complete verifier artifact, no Harbor exception, and model matching within each recorded runtime-checksum stratum"
 }

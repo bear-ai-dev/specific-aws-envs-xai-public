@@ -18,20 +18,17 @@ TASKS = (
     "07-multi-region-sweep",
     "14-iam-role-validation",
     "27-tax-jurisdiction",
-    "31-customer-onboarding",
 )
 BUNDLE_TASKS = (
     "07-multi-region-sweep",
     "14-iam-role-validation",
     "27-tax-jurisdiction",
-    "31-customer-onboarding",
 )
 EXPECTED_HEADINGS = {
     "02-entitlement-overage-lines": "# Task 2 — entitlement overage lines",
     "07-multi-region-sweep": "# Task 7 — multi-region sweep",
     "14-iam-role-validation": "# Task 14 — IAM role validation",
     "27-tax-jurisdiction": "# Task 27 — tax jurisdiction",
-    "31-customer-onboarding": "# Task 31 — customer onboarding",
 }
 EXPECTED_SOLVES = {
     ("02-entitlement-overage-lines", "Grok 4.6"): 0,
@@ -42,8 +39,6 @@ EXPECTED_SOLVES = {
     ("14-iam-role-validation", "Opus 5"): 8,
     ("27-tax-jurisdiction", "Grok 4.6"): 0,
     ("27-tax-jurisdiction", "Opus 5"): 5,
-    ("31-customer-onboarding", "Grok 4.6"): 0,
-    ("31-customer-onboarding", "Opus 5"): 5,
 }
 LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 REAL_AWS_KEY = re.compile(r"\b(?:AKIA|ASIA)[0-9A-Z]{16}\b")
@@ -105,8 +100,8 @@ def validate_links() -> int:
 
 def validate_trials() -> None:
     trials = json.loads((ROOT / "sample-run" / "indexes" / "trials.json").read_text())
-    if len(trials) != 80 or not all(trial["valid"] for trial in trials):
-        raise SystemExit("expected exactly 80 valid trials")
+    if len(trials) != 64 or not all(trial["valid"] for trial in trials):
+        raise SystemExit("expected exactly 64 valid trials")
     for key, expected in EXPECTED_SOLVES.items():
         task, model = key
         cell = [
@@ -233,7 +228,7 @@ def validate_public_controls() -> None:
         ).read_text()
     )
     if manifest["summary"] != {
-        "trials": 10,
+        "trials": 8,
         "exceptions": 0,
         "oracle_all_reward_one": True,
         "nop_all_reward_zero": True,
@@ -291,15 +286,15 @@ def main() -> None:
     summary = json.loads(
         (ROOT / "sample-run" / "indexes" / "execution-summary.json").read_text()
     )
-    if summary["scored_valid_trials"] != 80:
+    if summary["scored_valid_trials"] != 64:
         raise SystemExit("execution summary trial count mismatch")
     if summary["controls"] != {
-        "oracle": {"count": 5, "all_reward_one": True},
-        "nop": {"count": 5, "all_reward_zero": True},
+        "oracle": {"count": 4, "all_reward_one": True},
+        "nop": {"count": 4, "all_reward_zero": True},
     }:
         raise SystemExit("execution summary control mismatch")
     print(
-        f"publication validation passed: tasks=5 trials=80 controls=10 "
+        f"publication validation passed: tasks=4 trials=64 controls=8 "
         f"links={links} text_files={text_files}"
     )
 

@@ -26,7 +26,6 @@ REVIEW_BUNDLE_TASKS = (
     "07-multi-region-sweep",
     "14-iam-role-validation",
     "27-tax-jurisdiction",
-    "31-customer-onboarding",
 )
 REVIEW_MODELS = {
     "grok": "bedrock/converse/us.xai.grok-4.6",
@@ -319,7 +318,6 @@ def execution_summary(trials: list[dict], raw_dir: Path) -> dict:
             "sample-run/review-bundle/07-multi-region-sweep",
             "sample-run/review-bundle/14-iam-role-validation",
             "sample-run/review-bundle/27-tax-jurisdiction",
-            "sample-run/review-bundle/31-customer-onboarding",
         ]
         summary["runtime_strata"] = {
             task: [
@@ -334,9 +332,9 @@ def execution_summary(trials: list[dict], raw_dir: Path) -> dict:
             for task, strata in RECORDED_RUNTIME_STRATA.items()
         }
         summary["pooled_result_boundary"] = (
-            "Tasks 27 and 31 pool descriptive eight-attempt counts across one "
-            "Daytona stratum and one AWS Fargate stratum. Model comparisons "
-            "remain matched within each four-attempt stratum."
+            "Task 27 pools descriptive eight-attempt counts across one Daytona "
+            "stratum and one AWS Fargate stratum. Model comparisons remain "
+            "matched within each four-attempt stratum."
         )
     return summary
 
