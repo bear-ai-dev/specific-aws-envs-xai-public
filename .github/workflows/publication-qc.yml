@@ -22,7 +22,7 @@ jobs:
           python3 harness/validate_publication.py
 
   controls:
-    name: Five-task oracle and no-op controls
+    name: Four-task oracle and no-op controls
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 120
