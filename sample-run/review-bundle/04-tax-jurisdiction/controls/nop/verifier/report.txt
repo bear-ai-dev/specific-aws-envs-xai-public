@@ -1,0 +1,39 @@
+37 of 98 checks failed:
+  - calloway-marlowe-sanfrancisco: stored rate is 0, expected 0.06375
+  - calloway-marlowe-sanfrancisco: tax is 0, expected 94.03125
+  - calloway-marlowe-sanfrancisco: expected one rate lookup, saw 0
+  - calloway-marlowe-sanfrancisco: expected one filed transaction, saw 0
+  - calloway-tarrant-exempt-chicago: expected one filed transaction, saw 0
+  - calloway-ellery-postcode-mismatch: an address the authority rejects should be reported, not swallowed silently
+  - calloway-ellery-postcode-mismatch: expected one rate lookup, saw 0
+  - verdant-ostergaard-stockholm: stored rate is 0, expected 0.125
+  - verdant-ostergaard-stockholm: tax is 0, expected 184.375
+  - verdant-ostergaard-stockholm: seller block is 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\n\n', expected 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\nVAT Registration Number: IE 9825613N\n'
+  - verdant-ostergaard-stockholm: customer block is 'Ostergaard Kraft AB\nfaktura@ostergaard.example\nKungsgatan 8\nStockholm, 111 22\nSweden\n\n', expected 'Ostergaard Kraft AB\nfaktura@ostergaard.example\nKungsgatan 8\nStockholm, 111 22\nSweden\nVAT Registration Number: SE 556036 0793\n'
+  - verdant-ostergaard-stockholm: expected one rate lookup, saw 0
+  - verdant-fenwick-london: stored rate is 0, expected 0.1
+  - verdant-fenwick-london: tax is 0, expected 136.25
+  - verdant-fenwick-london: seller block is 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\n\n', expected 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\nVAT Registration Number: IE 9825613N\n'
+  - verdant-fenwick-london: customer block is 'Fenwick Analytics Ltd\nap@fenwick.example\n40 Bowling Green Lane\nLondon, EC1V 9BW\nUnited Kingdom of Great Britain and Northern Ireland\n\n', expected 'Fenwick Analytics Ltd\nap@fenwick.example\n40 Bowling Green Lane\nLondon, EC1V 9BW\nUnited Kingdom of Great Britain and Northern Ireland\nVAT Registration Number: GB 245 7761 30\n'
+  - verdant-fenwick-london: expected one rate lookup, saw 0
+  - verdant-navarro-sydney: stored rate is 0, expected 0.05
+  - verdant-navarro-sydney: tax is 0, expected 69.45
+  - verdant-navarro-sydney: seller block is 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\n\n', expected 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\nVAT Registration Number: IE 9825613N\n'
+  - verdant-navarro-sydney: expected one rate lookup, saw 0
+  - verdant-navarro-sydney: expected one filed transaction, saw 0
+  - verdant-quillon-osaka-no-state: stored rate is 0, expected 0.05
+  - verdant-quillon-osaka-no-state: tax is 0, expected 73.75
+  - verdant-quillon-osaka-no-state: seller block is 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\n\n', expected 'Verdant Signal Ltd\n1 Grand Canal Square\nDublin, D02 P820\nIreland\nVAT Registration Number: IE 9825613N\n'
+  - verdant-quillon-osaka-no-state: expected one rate lookup, saw 0
+  - ostara-bellhaven-manual: stored rate is 0, expected 0.21
+  - ostara-bellhaven-manual: tax is 0, expected 286.125
+  - ostara-bellhaven-manual: seller block is 'Ostara Netwerk BV\nKeizersgracht 555\nAmsterdam, 1017 DR\nNetherlands\n\n', expected 'Ostara Netwerk BV\nKeizersgracht 555\nAmsterdam, 1017 DR\nNetherlands\nVAT Registration Number: NL 8123 45 678 B01\n'
+  - ostara-bellhaven-manual: customer block is 'Bellhaven Havens BV\ncrediteuren@bellhaven.example\nWeena 505\nRotterdam, Zuid-Holland 3013 AL\nNetherlands\n\n', expected 'Bellhaven Havens BV\ncrediteuren@bellhaven.example\nWeena 505\nRotterdam, Zuid-Holland 3013 AL\nNetherlands\nVAT Registration Number: NL 8099 12 345 B01\n'
+  - ostara-bellhaven-manual: expected one filed transaction, saw 0
+  - ostara-pelham-exempt-manual: seller block is 'Ostara Netwerk BV\nKeizersgracht 555\nAmsterdam, 1017 DR\nNetherlands\n\n', expected 'Ostara Netwerk BV\nKeizersgracht 555\nAmsterdam, 1017 DR\nNetherlands\nVAT Registration Number: NL 8123 45 678 B01\n'
+  - ostara-pelham-exempt-manual: customer block is 'Pelham Onderwijs Stichting\nfinancien@pelham.example\nSint Jacobsstraat 200\nUtrecht, Utrecht 3511 BT\nNetherlands\n\n', expected 'Pelham Onderwijs Stichting\nfinancien@pelham.example\nSint Jacobsstraat 200\nUtrecht, Utrecht 3511 BT\nNetherlands\nVAT Registration Number: NL 8044 55 123 B01\n'
+  - ostara-pelham-exempt-manual: expected one filed transaction, saw 0
+  - solano-ridley-no-credential: issuing the invoice should have been refused as a bad request
+  - the authority saw 0 rate lookups in total, expected 6
+  - the authority holds 0 filed transactions, expected 5
+reward=0.0

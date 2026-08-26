@@ -1,17 +1,11 @@
 {
-  "schema_version": 2,
-  "transformation": "deterministic_identifier_only_publication_normalization",
-  "scope": [
-    "three task definitions and workspaces",
-    "captured trajectories and verifier artifacts",
-    "manifests, indexes, and documentation"
-  ],
   "normalized_identifier_classes": [
     "organization names and code symbols",
     "organization domains and repository references",
     "organization email addresses and author names",
     "source ticket references",
     "example cloud account and endpoint identifiers",
+    "source package scope and dependency metadata",
     "task-local emulator credentials",
     "execution organization, sandbox, and snapshot identifiers"
   ],
@@ -22,27 +16,38 @@
     "verifier outputs and rewards",
     "recorded trial identifiers and chronological ordering"
   ],
+  "public_controls_reproduction_job": "xai-task-renumber-controls-20260825",
   "public_evidence_layout": {
-    "02-entitlement-overage-lines": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
-    "07-multi-region-sweep": "sample-run/review-bundle/07-multi-region-sweep",
-    "14-iam-role-validation": "sample-run/review-bundle/14-iam-role-validation",
+    "01-entitlement-overage-lines": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
+    "02-multi-region-sweep": "sample-run/review-bundle/02-multi-region-sweep",
+    "03-iam-role-validation": "sample-run/review-bundle/03-iam-role-validation",
+    "04-tax-jurisdiction": "sample-run/review-bundle/04-tax-jurisdiction",
     "directory_label_policy": "task number, model name, and chronological trial number",
     "recorded_trial_identifiers": "preserved in compact Harbor results and sample-run/indexes/trials.json"
   },
-  "recorded_runtime_task_sha256": {
-    "02-entitlement-overage-lines": "92e4b98286ca4dd72881f59542ae4c17ad010f9910e29839c725cedbffe00ab3",
-    "07-multi-region-sweep": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
-    "14-iam-role-validation": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2"
+  "recorded_task_ids": {
+    "01-entitlement-overage-lines": "02-entitlement-overage-lines",
+    "02-multi-region-sweep": "07-multi-region-sweep",
+    "03-iam-role-validation": "14-iam-role-validation",
+    "04-tax-jurisdiction": "27-tax-jurisdiction"
   },
   "public_task_sha256": {
-    "02-entitlement-overage-lines": "c6a60ab17d77dbd7221a97a519e3062cdf4c2ba9a105acb41144d7a61138ae36",
-    "07-multi-region-sweep": "16af4e43e3e2b5b0da4eb73385bdbb89ce9e4b00c1b9c034a77667b8f73ff588",
-    "14-iam-role-validation": "38747a620a3dcdc45516f20d074bd98c7e127b8086b4b2630023354345214288"
+    "01-entitlement-overage-lines": "9a2cb9b18c32f44eeae716b21538a3d143be13fec1989c0f912c15a04e3b484a",
+    "02-multi-region-sweep": "24677e8a3ca232fd1e7af74156a8ce186075209e7e9cbc5539e6498720da0c37",
+    "03-iam-role-validation": "db8e647845c4b2ebb2e84558dcc8f1851267f060f93fb8125aeeebb51baff872",
+    "04-tax-jurisdiction": "14bed3b6424a462c369ed2d831e469ea7817bf9195418a40ac483034ef43097e"
   },
   "recorded_runtime_controls": {
-    "oracle_required": 1.0,
     "nop_required": 0.0,
-    "tasks_passing": 3
+    "oracle_required": 1.0,
+    "tasks_passing": 4
   },
-  "public_controls_reproduction_job": "xai-public-comment-controls-all-20260820"
+  "recorded_runtime_provenance": "sample-run/manifests/frozen-cohort.json",
+  "schema_version": 2,
+  "scope": [
+    "four task definitions and workspaces",
+    "captured trajectories and verifier artifacts",
+    "manifests, indexes, and documentation"
+  ],
+  "transformation": "deterministic_identifier_normalization_and_dependency_vendoring"
 }

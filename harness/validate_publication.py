@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the three-task public sample and its reviewer evidence."""
+"""Validate the public sample and its reviewer evidence."""
 
 from __future__ import annotations
 
@@ -9,25 +9,32 @@ import re
 from pathlib import Path
 from urllib.parse import unquote
 
+from cohort_provenance import RECORDED_RUNTIME_STRATA, stratum_for
+from task_catalog import PUBLIC_TASKS
+
 
 ROOT = Path(__file__).resolve().parent.parent
-TASKS = (
-    "02-entitlement-overage-lines",
-    "07-multi-region-sweep",
-    "14-iam-role-validation",
+TASKS = PUBLIC_TASKS
+BUNDLE_TASKS = (
+    "02-multi-region-sweep",
+    "03-iam-role-validation",
+    "04-tax-jurisdiction",
 )
 EXPECTED_HEADINGS = {
-    "02-entitlement-overage-lines": "# Task 2 — entitlement overage lines",
-    "07-multi-region-sweep": "# Task 7 — multi-region sweep",
-    "14-iam-role-validation": "# Task 14 — IAM role validation",
+    "01-entitlement-overage-lines": "# Task 1 — entitlement overage lines",
+    "02-multi-region-sweep": "# Task 2 — multi-region sweep",
+    "03-iam-role-validation": "# Task 3 — IAM role validation",
+    "04-tax-jurisdiction": "# Task 4 — tax jurisdiction",
 }
 EXPECTED_SOLVES = {
-    ("02-entitlement-overage-lines", "Grok 4.6"): 0,
-    ("02-entitlement-overage-lines", "Opus 5"): 8,
-    ("07-multi-region-sweep", "Grok 4.6"): 6,
-    ("07-multi-region-sweep", "Opus 5"): 8,
-    ("14-iam-role-validation", "Grok 4.6"): 3,
-    ("14-iam-role-validation", "Opus 5"): 8,
+    ("01-entitlement-overage-lines", "Grok 4.6"): 0,
+    ("01-entitlement-overage-lines", "Opus 5"): 8,
+    ("02-multi-region-sweep", "Grok 4.6"): 6,
+    ("02-multi-region-sweep", "Opus 5"): 8,
+    ("03-iam-role-validation", "Grok 4.6"): 3,
+    ("03-iam-role-validation", "Opus 5"): 8,
+    ("04-tax-jurisdiction", "Grok 4.6"): 0,
+    ("04-tax-jurisdiction", "Opus 5"): 5,
 }
 LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 REAL_AWS_KEY = re.compile(r"\b(?:AKIA|ASIA)[0-9A-Z]{16}\b")
@@ -39,6 +46,15 @@ LOCAL_HOME = re.compile(
     r"(?:/Users/[^/\s]+/Desktop/|/home/[^/\s]+/(?:Desktop|Documents|Projects)/)"
     r"[^\s\"']+"
 )
+NON_EXAMPLE_API_GATEWAY = re.compile(
+    r"https://(?!example1234\.execute-api\.)"
+    r"[a-z0-9-]+\.execute-api\.[a-z0-9-]+\.amazonaws\.com"
+)
+NON_EXAMPLE_AUTH0 = re.compile(
+    r"https://(?!example-tenant\.(?:us\.)?auth0\.com)"
+    r"[a-z0-9-]+\.(?:us\.)?auth0\.com"
+)
+HARBOR_DIGEST = re.compile(r"^sha256:[0-9a-f]{64}$")
 
 
 def sha256(path: Path) -> str:
@@ -80,8 +96,8 @@ def validate_links() -> int:
 
 def validate_trials() -> None:
     trials = json.loads((ROOT / "sample-run" / "indexes" / "trials.json").read_text())
-    if len(trials) != 48 or not all(trial["valid"] for trial in trials):
-        raise SystemExit("expected exactly 48 valid trials")
+    if len(trials) != 64 or not all(trial["valid"] for trial in trials):
+        raise SystemExit("expected exactly 64 valid trials")
     for key, expected in EXPECTED_SOLVES.items():
         task, model = key
         cell = [
@@ -95,13 +111,50 @@ def validate_trials() -> None:
             for field in ("trajectory", "verifier"):
                 if not (ROOT / trial[field]).is_file():
                     raise SystemExit(f"missing {field}: {trial[field]}")
+            stratum = stratum_for(task, trial["trial_number"])
+            if trial.get("recorded_runtime_task_checksum") != stratum["task_checksum"]:
+                raise SystemExit(
+                    f"runtime checksum mismatch: {task}/{trial['trial_label']}"
+                )
+            if trial.get("environment") != stratum["environment"]:
+                raise SystemExit(
+                    f"runtime environment mismatch: {task}/{trial['trial_label']}"
+                )
+            if trial.get("runtime_stratum") != stratum["name"]:
+                raise SystemExit(
+                    f"runtime stratum mismatch: {task}/{trial['trial_label']}"
+                )
+
+    frozen = json.loads(
+        (ROOT / "sample-run" / "manifests" / "frozen-cohort.json").read_text()
+    )
+    expected_strata = {
+        task: [
+            {
+                "name": stratum["name"],
+                "environment": stratum["environment"],
+                "trial_numbers": list(stratum["trial_numbers"]),
+                "task_checksum": stratum["task_checksum"],
+            }
+            for stratum in strata
+        ]
+        for task, strata in RECORDED_RUNTIME_STRATA.items()
+    }
+    if frozen.get("recorded_runtime_strata") != expected_strata:
+        raise SystemExit("frozen cohort runtime strata mismatch")
+    if frozen.get("environments") != ["daytona", "aws-fargate"]:
+        raise SystemExit("frozen cohort environment declaration mismatch")
+    if "not represented as one frozen runtime configuration" not in frozen.get(
+        "pooled_result_boundary", ""
+    ):
+        raise SystemExit("missing pooled-result validity boundary")
 
 
 def validate_bundle_manifest() -> None:
     path = ROOT / "sample-run" / "manifests" / "selected-review-bundles.json"
     manifest = json.loads(path.read_text())
     for task, bundle in manifest["bundles"].items():
-        if task not in TASKS:
+        if task not in BUNDLE_TASKS:
             raise SystemExit(f"unexpected bundle task: {task}")
         expected_paths = set()
         for record in bundle["files"]:
@@ -143,11 +196,19 @@ def validate_privacy_basics() -> int:
         if path not in pattern_definitions and LOCAL_HOME.search(text):
             raise SystemExit(f"local home path in {path.relative_to(ROOT)}")
         if (
-            "sample-run/review-bundle/07-multi-region-sweep" in path.as_posix()
-            or "sample-run/review-bundle/14-iam-role-validation" in path.as_posix()
+            "/sample-run/review-bundle/" in path.as_posix()
+            and any(task in path.as_posix() for task in BUNDLE_TASKS)
         ) and INFRA_ASSIGNMENT.search(text):
             raise SystemExit(
                 f"execution-infrastructure ID in {path.relative_to(ROOT)}"
+            )
+        if NON_EXAMPLE_API_GATEWAY.search(text):
+            raise SystemExit(
+                f"non-example API Gateway identifier in {path.relative_to(ROOT)}"
+            )
+        if NON_EXAMPLE_AUTH0.search(text):
+            raise SystemExit(
+                f"non-example Auth0 tenant in {path.relative_to(ROOT)}"
             )
         checked += 1
     return checked
@@ -163,18 +224,28 @@ def validate_public_controls() -> None:
         ).read_text()
     )
     if manifest["summary"] != {
-        "trials": 6,
+        "trials": 8,
         "exceptions": 0,
         "oracle_all_reward_one": True,
         "nop_all_reward_zero": True,
     }:
         raise SystemExit("unexpected post-normalization control summary")
+    if manifest.get("environment") != "docker":
+        raise SystemExit("post-normalization controls must run in Docker")
+    if manifest.get("config") != "harness/controls.json":
+        raise SystemExit("unexpected post-normalization control config")
+    if set(manifest["tasks"]) != set(TASKS):
+        raise SystemExit("post-normalization controls must cover every task")
     for task in TASKS:
         record = manifest["tasks"].get(task)
         if record is None:
             raise SystemExit(f"missing post-normalization controls: {task}")
-        if record["public_task_sha256"] != directory_sha256(ROOT / "tasks" / task):
+        if record["public_task_sha256"] != directory_sha256(
+            ROOT / "tasks" / task
+        ):
             raise SystemExit(f"post-normalization control task hash mismatch: {task}")
+        if not HARBOR_DIGEST.fullmatch(record.get("harbor_task_digest", "")):
+            raise SystemExit(f"invalid Harbor task digest: {task}")
         if record["oracle"] != {
             "trial_id": record["oracle"]["trial_id"],
             "reward": 1.0,
@@ -187,6 +258,15 @@ def validate_public_controls() -> None:
             "exception": None,
         }:
             raise SystemExit(f"invalid public no-op control: {task}")
+
+    transformation = json.loads(
+        (ROOT / "sample-run" / "manifests" / "public-transformation.json").read_text()
+    )
+    expected_hashes = {
+        task: directory_sha256(ROOT / "tasks" / task) for task in TASKS
+    }
+    if transformation.get("public_task_sha256") != expected_hashes:
+        raise SystemExit("public transformation task hashes are stale")
 
 
 def main() -> None:
@@ -202,15 +282,15 @@ def main() -> None:
     summary = json.loads(
         (ROOT / "sample-run" / "indexes" / "execution-summary.json").read_text()
     )
-    if summary["scored_valid_trials"] != 48:
+    if summary["scored_valid_trials"] != 64:
         raise SystemExit("execution summary trial count mismatch")
     if summary["controls"] != {
-        "oracle": {"count": 3, "all_reward_one": True},
-        "nop": {"count": 3, "all_reward_zero": True},
+        "oracle": {"count": 4, "all_reward_one": True},
+        "nop": {"count": 4, "all_reward_zero": True},
     }:
         raise SystemExit("execution summary control mismatch")
     print(
-        f"publication validation passed: tasks=3 trials=48 controls=6 "
+        f"publication validation passed: tasks=4 trials=64 controls=8 "
         f"links={links} text_files={text_files}"
     )
 

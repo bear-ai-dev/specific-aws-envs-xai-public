@@ -1,0 +1,12 @@
+{
+  "name": "@meteringco/microinvoice",
+  "version": "2.7.0",
+  "description": "Vendored MIT-licensed PDF invoice generator",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "lodash.merge": "4.6.2",
+    "pdfkit": "0.12.3",
+    "transliteration": "2.2.0"
+  }
+}

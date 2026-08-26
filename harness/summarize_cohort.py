@@ -9,6 +9,9 @@ from collections import defaultdict
 from math import comb
 from pathlib import Path
 
+from cohort_provenance import RECORDED_RUNTIME_STRATA, stratum_for
+from task_catalog import TASK_LABELS, public_task_for, recorded_task_for
+
 
 ROOT = Path(__file__).resolve().parent.parent
 START = "<!-- MINI_SWE_MATRIX_START -->"
@@ -21,17 +24,15 @@ COHORT = json.loads((ROOT / "harness" / "cohort.json").read_text())
 EVIDENCE_COHORT = "grok-4.6-and-opus-5-eight-rollouts-20260819"
 EVIDENCE_CONTROLS = "xai-public-controls-20260819"
 REVIEW_BUNDLE_TASKS = (
-    "07-multi-region-sweep",
-    "14-iam-role-validation",
+    "02-multi-region-sweep",
+    "03-iam-role-validation",
+    "04-tax-jurisdiction",
 )
 REVIEW_MODELS = {
     "grok": "bedrock/converse/us.xai.grok-4.6",
     "opus": "bedrock/us.anthropic.claude-opus-5",
 }
 TASKS = [Path(entry["path"]).name for entry in COHORT["tasks"]]
-TASK_LABELS = {
-    task: f"Task {int(task.split('-', 1)[0])}" for task in TASKS
-}
 TARGET_ATTEMPTS = int(COHORT["n_attempts"])
 REPRODUCTION_CONTROLS = json.loads(
     (ROOT / "harness" / "controls.json").read_text()
@@ -68,7 +69,7 @@ def load_trials(raw_dir: Path) -> list[dict]:
         agent_config = config.get("agent") or {}
         task_path = str(task_config.get("path") or "")
         historical_task = Path(task_path).name
-        task = historical_task
+        task = public_task_for(historical_task)
         model = agent_config.get("model_name")
         if task not in TASKS or model not in ALIASES:
             continue
@@ -108,6 +109,7 @@ def load_trials(raw_dir: Path) -> list[dict]:
                 ),
                 "verifier": display_path(verifier) if verifier else None,
                 "exception_info": result.get("exception_info"),
+                "recorded_runtime_task_checksum": result.get("task_checksum"),
                 "input_tokens": (result.get("agent_result") or {}).get(
                     "n_input_tokens"
                 ),
@@ -157,7 +159,7 @@ def load_trials(raw_dir: Path) -> list[dict]:
                     trials.append(
                         {
                             "task": task,
-                            "historical_task": task,
+                            "historical_task": recorded_task_for(task),
                             "task_label": TASK_LABELS[task],
                             "model": model,
                             "model_label": ALIASES[model],
@@ -189,6 +191,17 @@ def load_trials(raw_dir: Path) -> list[dict]:
             trial["trial_label"] = (
                 f'{trial["model_label"]} Trial {trial_number}'
             )
+            if raw_dir == ROOT / "sample-run" / "raw":
+                stratum = stratum_for(trial["task"], trial_number)
+                recorded_checksum = trial.get("recorded_runtime_task_checksum")
+                if recorded_checksum != stratum["task_checksum"]:
+                    raise SystemExit(
+                        "recorded runtime checksum does not match declared "
+                        f"stratum for {trial['task']} trial {trial_number}: "
+                        f"{recorded_checksum} != {stratum['task_checksum']}"
+                    )
+                trial["environment"] = stratum["environment"]
+                trial["runtime_stratum"] = stratum["name"]
     trials.sort(
         key=lambda item: (
             item["task"], item["model_label"], item["trial_number"]
@@ -293,15 +306,35 @@ def execution_summary(trials: list[dict], raw_dir: Path) -> dict:
         },
         "denominator_policy": (
             "numeric verifier reward, complete trajectory, complete verifier "
-            "artifact, and no Harbor exception"
+            "artifact, no Harbor exception, and matching model attempts within "
+            "each recorded runtime-checksum stratum"
         ),
     }
     if raw_dir == packaged_raw:
         summary["evidence_roots"] = [
             display_path(cohort_directory),
-            "sample-run/review-bundle/07-multi-region-sweep",
-            "sample-run/review-bundle/14-iam-role-validation",
+            "sample-run/review-bundle/01-entitlement-overage-lines",
+            "sample-run/review-bundle/02-multi-region-sweep",
+            "sample-run/review-bundle/03-iam-role-validation",
+            "sample-run/review-bundle/04-tax-jurisdiction",
         ]
+        summary["runtime_strata"] = {
+            task: [
+                {
+                    "name": stratum["name"],
+                    "environment": stratum["environment"],
+                    "trial_numbers": list(stratum["trial_numbers"]),
+                    "task_checksum": stratum["task_checksum"],
+                }
+                for stratum in strata
+            ]
+            for task, strata in RECORDED_RUNTIME_STRATA.items()
+        }
+        summary["pooled_result_boundary"] = (
+            "Task 4 pools descriptive eight-attempt counts across one Daytona "
+            "stratum and one AWS Fargate stratum. Model comparisons remain "
+            "matched within each four-attempt stratum."
+        )
     return summary
 
 

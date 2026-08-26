@@ -1,18 +1,11 @@
 {
-  "job_name": "xai-public-controls-20260820",
+  "job_name": "xai-public-controls-pr2-qc-20260821",
   "jobs_dir": "sample-run/raw",
   "n_attempts": 1,
-  "n_concurrent_trials": 6,
+  "n_concurrent_trials": 2,
   "quiet": false,
   "environment": {
-    "type": "daytona",
-    "override_storage_mb": 10240,
-    "kwargs": {
-      "connection_pool_maxsize": 32,
-      "labels": {
-        "cohort": "xai-public-controls-20260820"
-      }
-    }
+    "type": "docker"
   },
   "agents": [
     {
@@ -24,13 +17,16 @@
   ],
   "tasks": [
     {
-      "path": "tasks/02-entitlement-overage-lines"
+      "path": "tasks/01-entitlement-overage-lines"
     },
     {
-      "path": "tasks/07-multi-region-sweep"
+      "path": "tasks/02-multi-region-sweep"
     },
     {
-      "path": "tasks/14-iam-role-validation"
+      "path": "tasks/03-iam-role-validation"
+    },
+    {
+      "path": "tasks/04-tax-jurisdiction"
     }
   ]
 }

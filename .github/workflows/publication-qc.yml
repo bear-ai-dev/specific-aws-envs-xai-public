@@ -1,0 +1,62 @@
+name: Publication QC
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-qc:
+    name: Static publication validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the requested revision
+        uses: actions/checkout@v4
+
+      - name: Validate generated artifacts and publication boundaries
+        run: |
+          python3 -m py_compile harness/*.py
+          find harness -type f -name '*.sh' -print0 | xargs -0 -r -n1 bash -n
+          python3 harness/validate_publication.py
+
+  controls:
+    name: Four-task oracle and no-op controls
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - name: Check out the requested revision
+        uses: actions/checkout@v4
+
+      - name: Install Harbor
+        uses: astral-sh/setup-uv@v6
+
+      - name: Install Harbor 0.18.0
+        run: uv tool install harbor==0.18.0
+
+      - name: Run all public controls
+        run: harbor run --config harness/controls.json --yes
+
+      - name: Regenerate and validate publication artifacts
+        run: |
+          python3 harness/summarize_public_controls.py \
+            sample-run/raw/xai-public-controls-pr2-qc-20260821
+          python3 harness/summarize_cohort.py
+          python3 harness/build_review_bundle_manifest.py
+          python3 harness/freeze_manifest.py
+          python3 harness/validate_publication.py
+
+      - name: Upload exact control-backed manifests
+        uses: actions/upload-artifact@v4
+        with:
+          name: public-control-manifests
+          if-no-files-found: error
+          path: |
+            sample-run/indexes/execution-summary.json
+            sample-run/indexes/trials.json
+            sample-run/manifests/frozen-cohort.json
+            sample-run/manifests/public-controls-validation.json
+            sample-run/manifests/public-transformation.json
+            sample-run/manifests/selected-review-bundles.json

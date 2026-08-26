@@ -2,7 +2,7 @@
   "job_name": "xai-selected-eight-rollout-reproduction",
   "jobs_dir": "sample-run/raw",
   "n_attempts": 8,
-  "n_concurrent_trials": 48,
+  "n_concurrent_trials": 80,
   "quiet": false,
   "retry": {
     "max_retries": 2,
@@ -65,13 +65,16 @@
   ],
   "tasks": [
     {
-      "path": "tasks/02-entitlement-overage-lines"
+      "path": "tasks/01-entitlement-overage-lines"
     },
     {
-      "path": "tasks/07-multi-region-sweep"
+      "path": "tasks/02-multi-region-sweep"
     },
     {
-      "path": "tasks/14-iam-role-validation"
+      "path": "tasks/03-iam-role-validation"
+    },
+    {
+      "path": "tasks/04-tax-jurisdiction"
     }
   ]
 }

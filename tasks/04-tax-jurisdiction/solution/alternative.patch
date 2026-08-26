@@ -1,0 +1,293 @@
+--- a/src/invoice/entities/invoice.entity.ts	2026-08-20 12:31:52
++++ b/src/invoice/entities/invoice.entity.ts	2026-08-20 12:38:24
+@@ -11,6 +11,7 @@
+ import { SupportedCurrencies } from '../../offering/dto/SupportedCurrencies.js';
+ import { ReadSettingsResponseData } from '../../setting/dto/read-setting.dto.js';
+ import { default as CountryLookup } from '../../setting/countryLookup.json';
++import { determineRate, fileTransaction, vatLine } from '../taxDetermination.js';
+ import { putDocument } from '../../utils/aws/s3.js';
+ import { UpdateInvoicesDto } from '../dto/update-invoices.dto.js';
+ import { IsArray, IsNotEmpty, IsNumber, IsOptional, IsString, Min, ValidateNested } from 'class-validator';
+@@ -331,6 +332,13 @@
+     public fromEntity: string;
+     public toEntity: string;
+     public salesTaxRate: number;
++    public taxCalculationType: string;
++    public defaultTaxRate: string;
++    public taxCategory: string;
++    public taxJarApiKey: string;
++    public taxExempt: string;
++    public vatId: string;
++    public customerVatId: string;
+     public isManual: boolean;
+ 
+     constructor({
+@@ -485,7 +493,8 @@
+             (this.fromState + (this.fromState !== '' ? ' ' : '')) +
+             (this.fromPostalCode + (this.fromPostalCode !== '' ? '\n' : '')) +
+             (this.fromCountry !== '' ? CountryLookup[this.fromCountry] : '') +
+-            (this.fromCountry !== '' ? '\n' : '');
++            (this.fromCountry !== '' ? '\n' : '') +
++            vatLine(this.fromCountry, this.vatId);
+         const customerAddress =
+             this.toStreetLine1 +
+             (this.toStreetLine1 !== '' ? '\n' : '') +
+@@ -494,7 +503,8 @@
+             (this.toState + (this.toState !== '' ? ' ' : '')) +
+             (this.toPostalCode + (this.toPostalCode !== '' ? '\n' : '')) +
+             (this.toCountry !== '' ? CountryLookup[this.toCountry] : '') +
+-            (this.toCountry !== '' ? '\n' : '');
++            (this.toCountry !== '' ? '\n' : '') +
++            vatLine(this.toCountry, this.customerVatId);
+         const fromEntity = [this.businessName, businessAddress].map(suffixIfNotEmpty('\n')).join('');
+         const toEntity = [this.customerName, this.customerEmail, customerAddress].map(suffixIfNotEmpty('\n')).join('');
+         return {
+@@ -507,6 +517,30 @@
+             this.invoiceDate = new Date();
+         }
+ 
++        const { rate, error } = await determineRate({
++            accountState: this.accountState,
++            apiKey: this.taxJarApiKey,
++            exempt: this.taxExempt === 'exempt',
++            regime: this.taxCalculationType,
++            manualRate: this.defaultTaxRate,
++            taxCategory: this.taxCategory,
++            jurisdiction: {
++                fromCountry: this.fromCountry,
++                fromZip: this.fromPostalCode,
++                fromState: this.fromState,
++                fromCity: this.fromCity,
++                fromStreet: this.fromStreetLine1,
++                toCountry: this.toCountry,
++                toZip: this.toPostalCode,
++                toState: this.toState,
++                toCity: this.toCity,
++                toStreet: this.toStreetLine1,
++            },
++            lines: this.invoiceLineItems.getLineItems(),
++        });
++        this.salesTaxRate = rate;
++        this.taxAmount = rate * this.totalAmountWithoutTax;
++
+         // pdf storage
+         this.invoiceS3bucket = `meteringco-${process.env.STAGE}-invoice-bucket`;
+         this.invoiceS3key = `${this.businessID}-invoice-${new Date().toISOString()}.pdf`;
+@@ -528,7 +562,10 @@
+         }
+         return {
+             invoiceId: this.invoiceId,
+-            message: 'Generated invoice',
++            message: error
++                ? 'WARNING Errors occured while generating invoice, invoice still generated'
++                : 'Generated invoice',
++            error,
+         };
+     }
+     public async queue() {
+@@ -649,6 +686,23 @@
+                     });
+                 }
+             } else if (newInvoiceStatus == InvoiceStatus.PAID) {
++                await fileTransaction({
++                    accountState: this.accountState,
++                    apiKey: this.taxJarApiKey,
++                    transactionId: this.invoiceId,
++                    amount: this.totalAmountWithoutTax,
++                    salesTax: this.taxAmount,
++                    taxCategory: this.taxCategory,
++                    lines: this.invoiceLineItems ? this.invoiceLineItems.getLineItems() : [],
++                    address: {
++                        streetLineOne: this.toStreetLine1,
++                        streetLineTwo: this.toStreetLine2,
++                        city: this.toCity,
++                        state: this.toState,
++                        postalCode: this.toPostalCode,
++                        countryCode: this.toCountry,
++                    },
++                });
+                 this.invoiceStatus = newInvoiceStatus;
+                 if (this.paymentChannel === paymentChannel.manual) {
+                     PaymentService.publishEvent({
+@@ -1029,6 +1083,11 @@
+         }
+         this.stripeAccountId = settingsEntity.stripeAccountId;
+         this.accountState = settingsEntity.accountState;
++        this.taxCalculationType = (settingsEntity as any).taxCalculationType;
++        this.defaultTaxRate = (settingsEntity as any).taxRate;
++        this.taxCategory = (settingsEntity as any).taxCategory;
++        this.taxJarApiKey = (settingsEntity as any).taxJarApiKey;
++        this.vatId = (settingsEntity as any).vatId;
+         this.invoiceApproval = settingsEntity.invoiceApproval;
+         this.supportEmail = settingsEntity.supportEmail;
+     }
+@@ -1040,6 +1099,8 @@
+         this.toState = customerEntity.address?.state ? customerEntity.address?.state : '';
+         this.toPostalCode = customerEntity.address?.postalCode ? customerEntity.address?.postalCode : '';
+         this.toCountry = customerEntity.address?.countryCode ? customerEntity.address?.countryCode : '';
++        this.customerVatId = (customerEntity as any).customerVatId;
++        this.taxExempt = (customerEntity as any).taxExempt;
+         this.customerId = customerEntity.customerId;
+         this.customerName = customerEntity.customerName;
+         this.customerEmail = customerEntity.email;
+--- a/src/invoice/taxDetermination.ts	2026-08-20 12:58:35
++++ b/src/invoice/taxDetermination.ts	2026-08-20 12:37:55
+@@ -0,0 +1,158 @@
++/*
++ * Tax determination, written as plain functions rather than an injected
++ * service: the invoice already holds everything the authority needs, so there
++ * is nothing for a collaborator to look up.
++ */
++import { BadRequestException } from '@nestjs/common';
++
++const EU = new Set([
++    'AT', 'BE', 'BG', 'CY', 'CZ', 'DK', 'DE', 'EE', 'EL', 'ES', 'FI', 'FR', 'GR',
++    'HR', 'IT', 'HU', 'IE', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SI',
++    'SK', 'SE', 'GB', 'UK',
++]);
++
++export const inEuropeanUnion = (code: string): boolean => !!code && EU.has(code.toUpperCase());
++
++export const vatLine = (code: string, vatId: string): string =>
++    inEuropeanUnion(code) && vatId ? `VAT Registration Number: ${vatId}` : '';
++
++export type Jurisdiction = {
++    fromCountry: string;
++    fromZip: string;
++    fromState: string;
++    fromCity: string;
++    fromStreet: string;
++    toCountry: string;
++    toZip: string;
++    toState: string;
++    toCity: string;
++    toStreet: string;
++};
++
++export type PricedLine = { quantity: number; unitCost: number };
++
++const authorityBase = (accountState: string): string =>
++    accountState === 'production' ? process.env.PROD_TAX_JAR_URL : process.env.TAX_JAR_URL;
++
++async function callAuthority(accountState: string, apiKey: string, resource: string, payload: unknown) {
++    const response = await fetch(`${authorityBase(accountState)}/v2/${resource}`, {
++        method: 'POST',
++        headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
++        body: JSON.stringify(payload),
++    });
++    const body = await response.json().catch(() => ({}));
++    if (!response.ok) {
++        const detail = (body as any)?.detail ?? response.statusText;
++        const error: any = new Error(`${(body as any)?.error ?? 'Error'} - ${detail}`);
++        error.status = response.status;
++        throw error;
++    }
++    return body as any;
++}
++
++/* Returns the fraction of the net total this invoice owes. Anything the
++ * authority rejects for how the address is put together is reported back
++ * alongside a zero rate rather than stopping the invoice. */
++export async function determineRate(options: {
++    accountState: string;
++    apiKey: string;
++    exempt: boolean;
++    regime: string;
++    manualRate: string | number;
++    taxCategory: string;
++    jurisdiction: Jurisdiction;
++    lines: PricedLine[];
++}): Promise<{ rate: number; error?: { message: string } }> {
++    if (options.exempt) {
++        return { rate: 0 };
++    }
++    if (options.regime === 'manual') {
++        return { rate: Number(options.manualRate) };
++    }
++    if (options.regime !== 'meteringcoCalculated') {
++        return { rate: 0 };
++    }
++    if (!options.apiKey) {
++        throw new BadRequestException('TaxJar API Key is not set');
++    }
++    const j = options.jurisdiction;
++    try {
++        const quote = await callAuthority(options.accountState, options.apiKey, 'taxes', {
++            from_country: j.fromCountry,
++            from_zip: j.fromZip,
++            from_state: j.fromState,
++            from_city: j.fromCity,
++            from_street: j.fromStreet,
++            to_country: j.toCountry,
++            to_zip: j.toZip,
++            to_state: j.toState,
++            to_city: j.toCity,
++            to_street: j.toStreet,
++            shipping: 0,
++            line_items: options.lines.map((line) => ({
++                quantity: line.quantity,
++                product_tax_code: options.taxCategory,
++                unit_price: line.unitCost,
++            })),
++        });
++        return { rate: quote?.tax?.rate ?? 0 };
++    } catch (error: any) {
++        if (error?.status === 400) {
++            return { rate: 0, error: { message: error.message } };
++        }
++        throw error;
++    }
++}
++
++/* Files the settled invoice with the authority. A destination that is not
++ * pinned down to a state, country and postcode is not filed at all, and an
++ * account with no credential has nowhere to file it. */
++export async function fileTransaction(options: {
++    accountState: string;
++    apiKey: string;
++    transactionId: string;
++    amount: number;
++    salesTax: number;
++    taxCategory: string;
++    lines: PricedLine[];
++    address: {
++        streetLineOne: string;
++        streetLineTwo: string;
++        city: string;
++        state: string;
++        postalCode: string;
++        countryCode: string;
++    };
++}): Promise<unknown | null> {
++    const { address } = options;
++    if (!address.state || !address.countryCode || !address.postalCode) {
++        return null;
++    }
++    if (!options.apiKey) {
++        return null;
++    }
++    try {
++        return await callAuthority(options.accountState, options.apiKey, 'transactions/orders', {
++            transaction_id: options.transactionId,
++            transaction_date: new Date().toISOString(),
++            provider: 'meteringco',
++            to_country: address.countryCode,
++            to_zip: address.postalCode,
++            to_state: address.state,
++            to_city: address.city,
++            to_street: address.streetLineTwo
++                ? `${address.streetLineOne} ${address.streetLineTwo}`
++                : address.streetLineOne,
++            amount: options.amount,
++            shipping: 0,
++            sales_tax: options.salesTax,
++            line_items: options.lines.map((line) => ({
++                quantity: line.quantity,
++                product_tax_code: options.taxCategory,
++                unit_price: line.unitCost,
++            })),
++        });
++    } catch {
++        return null;
++    }
++}

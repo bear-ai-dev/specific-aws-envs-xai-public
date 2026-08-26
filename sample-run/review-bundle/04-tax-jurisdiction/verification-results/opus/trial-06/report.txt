@@ -1,0 +1,13 @@
+Reviewer annotation (added after the recorded run; original verifier output is preserved below).
+
+Failed behavioral check: Preserve exact tax, VAT, refusal, and filing semantics through the authority workflow.
+Expected-value rule: compute_reward.py::expected_invoice and expected_authority
+Output assertion: compute_reward.py::grade
+
+Original verifier output:
+3 of 256 checks failed:
+  - verdant-ostergaard-stockholm: no transaction should have been filed with the authority (1 seen)
+  - verdant-quillon-osaka-no-state: no transaction should have been filed with the authority (1 seen)
+  - the authority holds 7 filed transactions, expected 5
+reward=0.0
+

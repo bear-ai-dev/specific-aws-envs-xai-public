@@ -1,0 +1,225 @@
+{
+  "note": "Invoices these accounts issued in July 2026, as stored.",
+  "invoices": [
+    {
+      "invoiceId": "e8baf17d-b259-5107-b42b-9e06e2a81545",
+      "businessID": "biz_northwind",
+      "customerId": "cus_hartwell",
+      "invoiceDate": "2026-07-03T09:15:00.000Z",
+      "invoiceStatus": "Paid",
+      "currency": "USD",
+      "invoiceLineItems": [
+        {
+          "name": "Platform subscription",
+          "quantity": 1,
+          "unitCost": 1250
+        },
+        {
+          "name": "API calls (millions)",
+          "quantity": 12,
+          "unitCost": 18.75
+        }
+      ],
+      "totalAmountWithoutTax": 1475.0,
+      "salesTaxRate": 0.06,
+      "taxAmount": 88.5,
+      "total": 1563.5,
+      "fromEntity": "Northwind Analytics\n1209 Orange Street\nSuite 400\nWilmington, de 19801\nUnited States of America\n\n",
+      "toEntity": "Hartwell Media\nap@hartwell.example\n412 West 38th Street\nFloor 6\nNew York, ny 10018\nUnited States of America\n\n"
+    },
+    {
+      "invoiceId": "d4ad8fef-face-5f08-b908-574cecacad77",
+      "businessID": "biz_northwind",
+      "customerId": "cus_larkspur",
+      "invoiceDate": "2026-07-05T09:15:00.000Z",
+      "invoiceStatus": "Paid",
+      "currency": "USD",
+      "invoiceLineItems": [
+        {
+          "name": "Engineer seats",
+          "quantity": 18,
+          "unitCost": 65
+        },
+        {
+          "name": "Support retainer",
+          "quantity": 1,
+          "unitCost": 192.5
+        }
+      ],
+      "totalAmountWithoutTax": 1362.5,
+      "salesTaxRate": 0.0,
+      "taxAmount": 0.0,
+      "total": 1362.5,
+      "fromEntity": "Northwind Analytics\n1209 Orange Street\nSuite 400\nWilmington, de 19801\nUnited States of America\n\n",
+      "toEntity": "Larkspur Foundation\nfinance@larkspur.example\n80 Pine Street\nNew York, ny 10018\nUnited States of America\n\n"
+    },
+    {
+      "invoiceId": "346937b6-becd-5660-af86-ce2785120c87",
+      "businessID": "biz_northwind",
+      "customerId": "cus_seaford",
+      "invoiceDate": "2026-07-07T09:15:00.000Z",
+      "invoiceStatus": "Open",
+      "currency": "USD",
+      "invoiceLineItems": [
+        {
+          "name": "Platform subscription",
+          "quantity": 1,
+          "unitCost": 1250
+        },
+        {
+          "name": "API calls (millions)",
+          "quantity": 12,
+          "unitCost": 18.75
+        }
+      ],
+      "totalAmountWithoutTax": 1475.0,
+      "salesTaxRate": 0.0,
+      "taxAmount": 0.0,
+      "total": 1475.0,
+      "fromEntity": "Northwind Analytics\n1209 Orange Street\nSuite 400\nWilmington, de 19801\nUnited States of America\n\n",
+      "toEntity": "Seaford Logistics\nar@seaford.example\n77 Water Street\nNew York, ny 33101\nUnited States of America\n\n",
+      "warning": "WARNING Errors occured while generating invoice, invoice still generated"
+    },
+    {
+      "invoiceId": "8a146315-c97b-5950-ac6b-9f20263b0959",
+      "businessID": "biz_northwind",
+      "customerId": "cus_wexley",
+      "invoiceDate": "2026-07-09T09:15:00.000Z",
+      "invoiceStatus": "Paid",
+      "currency": "USD",
+      "invoiceLineItems": [
+        {
+          "name": "Ingest volume (GB)",
+          "quantity": 340,
+          "unitCost": 0.85
+        },
+        {
+          "name": "Retained series",
+          "quantity": 25,
+          "unitCost": 44.0
+        }
+      ],
+      "totalAmountWithoutTax": 1389.0,
+      "salesTaxRate": 0.06,
+      "taxAmount": 83.34,
+      "total": 1472.34,
+      "fromEntity": "Northwind Analytics\n1209 Orange Street\nSuite 400\nWilmington, de 19801\nUnited States of America\n\n",
+      "toEntity": "Wexley KK\nkeiri@wexley.example\n2-4-9 Umeda\nOsaka, 5300001\nJapan\n\n"
+    },
+    {
+      "invoiceId": "52dd6948-109f-5f95-b49d-0a0e2dc5a47f",
+      "businessID": "biz_lumen",
+      "customerId": "cus_ironvale",
+      "invoiceDate": "2026-07-11T09:15:00.000Z",
+      "invoiceStatus": "Paid",
+      "currency": "USD",
+      "invoiceLineItems": [
+        {
+          "name": "Engineer seats",
+          "quantity": 18,
+          "unitCost": 65
+        },
+        {
+          "name": "Support retainer",
+          "quantity": 1,
+          "unitCost": 192.5
+        }
+      ],
+      "totalAmountWithoutTax": 1362.5,
+      "salesTaxRate": 0.04125,
+      "taxAmount": 56.203125,
+      "total": 1418.703125,
+      "fromEntity": "Lumen Grid Ltd\n12 Finsbury Square\nLondon, EC2A 1AS\nUnited Kingdom of Great Britain and Northern Ireland\nVAT Registration Number: GB 428 6721 09\n",
+      "toEntity": "Ironvale Systems\nap@ironvale.example\n301 Congress Avenue\nAustin, tx 78701\nUnited States of America\n\n"
+    },
+    {
+      "invoiceId": "3b81c0c4-6772-5aba-b2b6-3667d06c504d",
+      "businessID": "biz_harbourgate",
+      "customerId": "cus_dunmore",
+      "invoiceDate": "2026-07-13T09:15:00.000Z",
+      "invoiceStatus": "Paid",
+      "currency": "USD",
+      "invoiceLineItems": [
+        {
+          "name": "Platform subscription",
+          "quantity": 1,
+          "unitCost": 1250
+        },
+        {
+          "name": "API calls (millions)",
+          "quantity": 12,
+          "unitCost": 18.75
+        }
+      ],
+      "totalAmountWithoutTax": 1475.0,
+      "salesTaxRate": 0.19,
+      "taxAmount": 280.25,
+      "total": 1755.25,
+      "fromEntity": "Harbourgate Systems GmbH\nRosenthaler Strasse 40\nBerlin, 10178\nGermany\nVAT Registration Number: DE 129 273 060\n",
+      "toEntity": "Dunmore Trading\naccounts@dunmore.example\n25 Sir John Rogerson's Quay\nDublin, Leinster D02 X285\nIreland\nVAT Registration Number: IE 6388047V\n"
+    },
+    {
+      "invoiceId": "ab9efedb-298e-5e39-b2c1-3c85049b917c",
+      "businessID": "biz_harbourgate",
+      "customerId": "cus_fairholme",
+      "invoiceDate": "2026-07-15T09:15:00.000Z",
+      "invoiceStatus": "Paid",
+      "currency": "USD",
+      "invoiceLineItems": [
+        {
+          "name": "Engineer seats",
+          "quantity": 18,
+          "unitCost": 65
+        },
+        {
+          "name": "Support retainer",
+          "quantity": 1,
+          "unitCost": 192.5
+        }
+      ],
+      "totalAmountWithoutTax": 1362.5,
+      "salesTaxRate": 0.0,
+      "taxAmount": 0.0,
+      "total": 1362.5,
+      "fromEntity": "Harbourgate Systems GmbH\nRosenthaler Strasse 40\nBerlin, 10178\nGermany\nVAT Registration Number: DE 129 273 060\n",
+      "toEntity": "Fairholme Bildungswerk\nbuchhaltung@fairholme.example\nAlexanderplatz 7\nBerlin, Berlin 10178\nGermany\nVAT Registration Number: DE 305 118 947\n"
+    },
+    {
+      "invoiceId": null,
+      "businessID": "biz_marchetti",
+      "customerId": "cus_caldwell",
+      "invoiceDate": "2026-07-17T09:15:00.000Z",
+      "invoiceStatus": "Rejected",
+      "error": {
+        "statusCode": 400,
+        "message": "TaxJar API Key is not set"
+      }
+    },
+    {
+      "invoiceId": "f2b6476f-66d0-561c-b554-399ca70cb602",
+      "businessID": "biz_pinecrest",
+      "customerId": "cus_ashgrove",
+      "invoiceDate": "2026-07-19T09:15:00.000Z",
+      "invoiceStatus": "Paid",
+      "currency": "USD",
+      "invoiceLineItems": [
+        {
+          "name": "Ingest volume (GB)",
+          "quantity": 340,
+          "unitCost": 0.85
+        },
+        {
+          "name": "Retained series",
+          "quantity": 25,
+          "unitCost": 44.0
+        }
+      ],
+      "totalAmountWithoutTax": 1389.0,
+      "salesTaxRate": 0.0,
+      "taxAmount": 0.0,
+      "total": 1389.0,
+      "fromEntity": "Pinecrest Labs\n600 1st Avenue\nSeattle, wa 98104\nUnited States of America\n\n",
+      "toEntity": "Ashgrove Retail\nap@ashgrove.example\n1200 5th Avenue\nSeattle, wa 98104\nUnited States of America\n\n"
+    }
+  ]
+}
