@@ -1,4 +1,4 @@
-# Task 7 — multi-region sweep review bundle
+# Task 2 — multi-region sweep review bundle
 
 The frozen matched cohort contains eight Grok 4.6 trials and eight Opus 5
 trials. This is the secondary directional Grok gap and measures complete
@@ -77,7 +77,7 @@ The driver asks the submitted collector to sweep two resource kinds. The indepen
 The held-out document was unavailable to both models. The Python scorer runs as
 root, loads no submitted code, and assigns only `0.0` or `1.0`. These are exact
 task-file copies arranged by role; the unchanged runnable Harbor layout is the
-[`07-multi-region-sweep` task](../../../tasks/07-multi-region-sweep/).
+[`02-multi-region-sweep` task](../../../tasks/02-multi-region-sweep/).
 
 ## Verification result
 

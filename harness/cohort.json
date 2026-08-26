@@ -65,16 +65,16 @@
   ],
   "tasks": [
     {
-      "path": "tasks/02-entitlement-overage-lines"
+      "path": "tasks/01-entitlement-overage-lines"
     },
     {
-      "path": "tasks/07-multi-region-sweep"
+      "path": "tasks/02-multi-region-sweep"
     },
     {
-      "path": "tasks/14-iam-role-validation"
+      "path": "tasks/03-iam-role-validation"
     },
     {
-      "path": "tasks/27-tax-jurisdiction"
+      "path": "tasks/04-tax-jurisdiction"
     }
   ]
 }

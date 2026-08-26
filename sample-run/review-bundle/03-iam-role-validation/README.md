@@ -1,4 +1,4 @@
-# Task 14 — IAM role validation review bundle
+# Task 3 — IAM role validation review bundle
 
 The frozen matched cohort contains eight Grok 4.6 trials and eight Opus 5
 trials. This is the primary directional Grok gap and measures optional
@@ -77,7 +77,7 @@ The driver replays 21 settings saves against held-out IAM accounts. The independ
 The held-out document was unavailable to both models. The Python scorer runs as
 root, loads no submitted code, and assigns only `0.0` or `1.0`. These are exact
 task-file copies arranged by role; the unchanged runnable Harbor layout is the
-[`14-iam-role-validation` task](../../../tasks/14-iam-role-validation/).
+[`03-iam-role-validation` task](../../../tasks/03-iam-role-validation/).
 
 ## Verification result
 

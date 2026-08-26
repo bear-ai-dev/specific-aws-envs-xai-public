@@ -41,13 +41,13 @@ git diff --exit-code sample-run/manifests/frozen-cohort.json
 
 The reproduction job names differ from the stored evidence job names, so new
 results do not mix with any packaged denominator. The control configuration
-runs one oracle and one no-op attempt for each of Tasks 2, 7, 14, and 27.
+runs one oracle and one no-op attempt for each of Tasks 1, 2, 3, and 4.
 
 All four public task directories were validated after identifier normalization
 with the same Docker control configuration. The eight
 outcomes and Harbor task digests are recorded in
 [`sample-run/manifests/public-controls-validation.json`](sample-run/manifests/public-controls-validation.json).
-Task 27 also ships recorded Daytona-stratum oracle and no-op evidence in its
+Task 4 also ships recorded Daytona-stratum oracle and no-op evidence in its
 review bundle.
 
 ```sh
@@ -77,10 +77,10 @@ To verify and regenerate the packaged 64-trial index, use the default command:
 python3 harness/summarize_cohort.py
 ```
 
-The packaged Task 2 attempts are stored as full raw Harbor trees. Tasks 7, 14,
-and 27 use compact review bundles containing native trajectories, final
+The packaged Task 1 attempts are stored as full raw Harbor trees. Tasks 2, 3,
+and 4 use compact review bundles containing native trajectories, final
 code, touched files, and complete verifier evidence. The default indexer reads
-both evidence layouts. Packaged Task 27 includes one matched four-run
+both evidence layouts. Packaged Task 4 includes one matched four-run
 Daytona stratum and one separately matched four-run AWS Fargate stratum per
 model. Its eight-attempt totals are pooled descriptive results, not one
 frozen runtime configuration.

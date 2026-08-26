@@ -10,35 +10,31 @@ from pathlib import Path
 from urllib.parse import unquote
 
 from cohort_provenance import RECORDED_RUNTIME_STRATA, stratum_for
+from task_catalog import PUBLIC_TASKS
 
 
 ROOT = Path(__file__).resolve().parent.parent
-TASKS = (
-    "02-entitlement-overage-lines",
-    "07-multi-region-sweep",
-    "14-iam-role-validation",
-    "27-tax-jurisdiction",
-)
+TASKS = PUBLIC_TASKS
 BUNDLE_TASKS = (
-    "07-multi-region-sweep",
-    "14-iam-role-validation",
-    "27-tax-jurisdiction",
+    "02-multi-region-sweep",
+    "03-iam-role-validation",
+    "04-tax-jurisdiction",
 )
 EXPECTED_HEADINGS = {
-    "02-entitlement-overage-lines": "# Task 2 — entitlement overage lines",
-    "07-multi-region-sweep": "# Task 7 — multi-region sweep",
-    "14-iam-role-validation": "# Task 14 — IAM role validation",
-    "27-tax-jurisdiction": "# Task 27 — tax jurisdiction",
+    "01-entitlement-overage-lines": "# Task 1 — entitlement overage lines",
+    "02-multi-region-sweep": "# Task 2 — multi-region sweep",
+    "03-iam-role-validation": "# Task 3 — IAM role validation",
+    "04-tax-jurisdiction": "# Task 4 — tax jurisdiction",
 }
 EXPECTED_SOLVES = {
-    ("02-entitlement-overage-lines", "Grok 4.6"): 0,
-    ("02-entitlement-overage-lines", "Opus 5"): 8,
-    ("07-multi-region-sweep", "Grok 4.6"): 6,
-    ("07-multi-region-sweep", "Opus 5"): 8,
-    ("14-iam-role-validation", "Grok 4.6"): 3,
-    ("14-iam-role-validation", "Opus 5"): 8,
-    ("27-tax-jurisdiction", "Grok 4.6"): 0,
-    ("27-tax-jurisdiction", "Opus 5"): 5,
+    ("01-entitlement-overage-lines", "Grok 4.6"): 0,
+    ("01-entitlement-overage-lines", "Opus 5"): 8,
+    ("02-multi-region-sweep", "Grok 4.6"): 6,
+    ("02-multi-region-sweep", "Opus 5"): 8,
+    ("03-iam-role-validation", "Grok 4.6"): 3,
+    ("03-iam-role-validation", "Opus 5"): 8,
+    ("04-tax-jurisdiction", "Grok 4.6"): 0,
+    ("04-tax-jurisdiction", "Opus 5"): 5,
 }
 LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 REAL_AWS_KEY = re.compile(r"\b(?:AKIA|ASIA)[0-9A-Z]{16}\b")

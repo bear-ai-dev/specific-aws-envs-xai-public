@@ -1,4 +1,4 @@
-# Task 7 — multi-region sweep
+# Task 2 — multi-region sweep
 
 ## Headline result
 

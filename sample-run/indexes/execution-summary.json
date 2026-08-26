@@ -15,12 +15,13 @@
   "denominator_policy": "numeric verifier reward, complete trajectory, complete verifier artifact, no Harbor exception, and matching model attempts within each recorded runtime-checksum stratum",
   "evidence_roots": [
     "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
-    "sample-run/review-bundle/07-multi-region-sweep",
-    "sample-run/review-bundle/14-iam-role-validation",
-    "sample-run/review-bundle/27-tax-jurisdiction"
+    "sample-run/review-bundle/01-entitlement-overage-lines",
+    "sample-run/review-bundle/02-multi-region-sweep",
+    "sample-run/review-bundle/03-iam-role-validation",
+    "sample-run/review-bundle/04-tax-jurisdiction"
   ],
   "runtime_strata": {
-    "02-entitlement-overage-lines": [
+    "01-entitlement-overage-lines": [
       {
         "name": "daytona-01-08",
         "environment": "daytona",
@@ -37,7 +38,7 @@
         "task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629"
       }
     ],
-    "07-multi-region-sweep": [
+    "02-multi-region-sweep": [
       {
         "name": "daytona-01-08",
         "environment": "daytona",
@@ -54,7 +55,7 @@
         "task_checksum": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a"
       }
     ],
-    "14-iam-role-validation": [
+    "03-iam-role-validation": [
       {
         "name": "daytona-01-08",
         "environment": "daytona",
@@ -71,7 +72,7 @@
         "task_checksum": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2"
       }
     ],
-    "27-tax-jurisdiction": [
+    "04-tax-jurisdiction": [
       {
         "name": "daytona-01-04",
         "environment": "daytona",
@@ -96,5 +97,5 @@
       }
     ]
   },
-  "pooled_result_boundary": "Task 27 pools descriptive eight-attempt counts across one Daytona stratum and one AWS Fargate stratum. Model comparisons remain matched within each four-attempt stratum."
+  "pooled_result_boundary": "Task 4 pools descriptive eight-attempt counts across one Daytona stratum and one AWS Fargate stratum. Model comparisons remain matched within each four-attempt stratum."
 }

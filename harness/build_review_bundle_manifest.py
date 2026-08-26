@@ -13,9 +13,9 @@ from cohort_provenance import RECORDED_RUNTIME_STRATA, stratum_for
 ROOT = Path(__file__).resolve().parent.parent
 DESTINATION = ROOT / "sample-run" / "manifests" / "selected-review-bundles.json"
 TASKS = {
-    "07-multi-region-sweep": {"grok": 6, "opus": 8},
-    "14-iam-role-validation": {"grok": 3, "opus": 8},
-    "27-tax-jurisdiction": {"grok": 0, "opus": 5},
+    "02-multi-region-sweep": {"grok": 6, "opus": 8},
+    "03-iam-role-validation": {"grok": 3, "opus": 8},
+    "04-tax-jurisdiction": {"grok": 0, "opus": 5},
 }
 
 
@@ -158,7 +158,7 @@ def main() -> None:
 
     payload = {
         "schema_version": 1,
-        "scope": "Tasks 7, 14, and 27 publication-normalized review bundles",
+        "scope": "Tasks 2, 3, and 4 publication-normalized review bundles",
         "bundles": bundles,
     }
     DESTINATION.parent.mkdir(parents=True, exist_ok=True)

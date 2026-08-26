@@ -9,9 +9,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 BUNDLES = (
-    ROOT / "sample-run" / "review-bundle" / "07-multi-region-sweep",
-    ROOT / "sample-run" / "review-bundle" / "14-iam-role-validation",
-    ROOT / "sample-run" / "review-bundle" / "27-tax-jurisdiction",
+    ROOT / "sample-run" / "review-bundle" / "02-multi-region-sweep",
+    ROOT / "sample-run" / "review-bundle" / "03-iam-role-validation",
+    ROOT / "sample-run" / "review-bundle" / "04-tax-jurisdiction",
 )
 INFRA_KEYS = (
     "DAYTONA_ORGANIZATION_ID",

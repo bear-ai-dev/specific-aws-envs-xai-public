@@ -9,6 +9,7 @@ import subprocess
 from pathlib import Path
 
 from cohort_provenance import RECORDED_RUNTIME_STRATA
+from task_catalog import RECORDED_TASK_BY_PUBLIC
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -44,24 +45,26 @@ def main() -> None:
         "cohort": CONFIG["job_name"],
         "evidence_roots": [
             "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
-            "sample-run/review-bundle/07-multi-region-sweep",
-            "sample-run/review-bundle/14-iam-role-validation",
-            "sample-run/review-bundle/27-tax-jurisdiction",
+            "sample-run/review-bundle/01-entitlement-overage-lines",
+            "sample-run/review-bundle/02-multi-region-sweep",
+            "sample-run/review-bundle/03-iam-role-validation",
+            "sample-run/review-bundle/04-tax-jurisdiction",
         ],
         "evidence_controls": {
-            "02-entitlement-overage-lines": (
+            "01-entitlement-overage-lines": (
                 "sample-run/raw/xai-public-controls-20260819"
             ),
-            "07-multi-region-sweep": (
-                "sample-run/review-bundle/07-multi-region-sweep/controls"
+            "02-multi-region-sweep": (
+                "sample-run/review-bundle/02-multi-region-sweep/controls"
             ),
-            "14-iam-role-validation": (
-                "sample-run/review-bundle/14-iam-role-validation/controls"
+            "03-iam-role-validation": (
+                "sample-run/review-bundle/03-iam-role-validation/controls"
             ),
-            "27-tax-jurisdiction": (
-                "sample-run/review-bundle/27-tax-jurisdiction/controls"
+            "04-tax-jurisdiction": (
+                "sample-run/review-bundle/04-tax-jurisdiction/controls"
             ),
         },
+        "recorded_task_ids": RECORDED_TASK_BY_PUBLIC,
         "publication_normalization": (
             "sample-run/manifests/public-transformation.json"
         ),
@@ -96,7 +99,7 @@ def main() -> None:
         "reasoning_effort": "high",
         "environments": ["daytona", "aws-fargate"],
         "pooled_result_boundary": (
-            "Task 27 reports pooled descriptive eight-attempt counts across a "
+            "Task 4 reports pooled descriptive eight-attempt counts across a "
             "four-attempt Daytona stratum and a four-attempt AWS Fargate "
             "stratum. It is not represented as one frozen runtime "
             "configuration."

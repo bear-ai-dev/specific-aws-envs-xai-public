@@ -16,20 +16,26 @@
     "verifier outputs and rewards",
     "recorded trial identifiers and chronological ordering"
   ],
-  "public_controls_reproduction_job": "xai-public-controls-pr2-qc-20260821",
+  "public_controls_reproduction_job": "xai-task-renumber-controls-20260825",
   "public_evidence_layout": {
-    "02-entitlement-overage-lines": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
-    "07-multi-region-sweep": "sample-run/review-bundle/07-multi-region-sweep",
-    "14-iam-role-validation": "sample-run/review-bundle/14-iam-role-validation",
-    "27-tax-jurisdiction": "sample-run/review-bundle/27-tax-jurisdiction",
+    "01-entitlement-overage-lines": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
+    "02-multi-region-sweep": "sample-run/review-bundle/02-multi-region-sweep",
+    "03-iam-role-validation": "sample-run/review-bundle/03-iam-role-validation",
+    "04-tax-jurisdiction": "sample-run/review-bundle/04-tax-jurisdiction",
     "directory_label_policy": "task number, model name, and chronological trial number",
     "recorded_trial_identifiers": "preserved in compact Harbor results and sample-run/indexes/trials.json"
   },
+  "recorded_task_ids": {
+    "01-entitlement-overage-lines": "02-entitlement-overage-lines",
+    "02-multi-region-sweep": "07-multi-region-sweep",
+    "03-iam-role-validation": "14-iam-role-validation",
+    "04-tax-jurisdiction": "27-tax-jurisdiction"
+  },
   "public_task_sha256": {
-    "02-entitlement-overage-lines": "200c5466dc556b329ac92ce4c521a032858245aded1673eb9b88115ccbd2ff01",
-    "07-multi-region-sweep": "ac07cba5cbef3b999d548bdf443fe54b679f26e439e4aac3a6cb5a2df85a1d46",
-    "14-iam-role-validation": "317335499a5fdede5a18946c6a4939073abf6a9f5d396a5f6a3ce83cf3c81b38",
-    "27-tax-jurisdiction": "f370acd4150972aeab6a3e0b540078d3b3a598b6da748817438817888a73e135"
+    "01-entitlement-overage-lines": "9a2cb9b18c32f44eeae716b21538a3d143be13fec1989c0f912c15a04e3b484a",
+    "02-multi-region-sweep": "24677e8a3ca232fd1e7af74156a8ce186075209e7e9cbc5539e6498720da0c37",
+    "03-iam-role-validation": "db8e647845c4b2ebb2e84558dcc8f1851267f060f93fb8125aeeebb51baff872",
+    "04-tax-jurisdiction": "14bed3b6424a462c369ed2d831e469ea7817bf9195418a40ac483034ef43097e"
   },
   "recorded_runtime_controls": {
     "nop_required": 0.0,

@@ -1,11 +1,11 @@
 {
   "schema_version": 2,
-  "run_date": "2026-08-21",
+  "run_date": "2026-08-26",
   "purpose": "post-normalization oracle and no-op validation of all runnable public tasks",
   "harbor_version": "0.18.0",
   "environment": "docker",
   "config": "harness/controls.json",
-  "job_name": "xai-public-controls-pr2-qc-20260821",
+  "job_name": "xai-task-renumber-controls-20260825",
   "summary": {
     "trials": 8,
     "exceptions": 0,
@@ -13,58 +13,58 @@
     "nop_all_reward_zero": true
   },
   "tasks": {
-    "02-entitlement-overage-lines": {
-      "public_task_sha256": "200c5466dc556b329ac92ce4c521a032858245aded1673eb9b88115ccbd2ff01",
-      "harbor_task_digest": "sha256:5c4fcc5ea190fa3f9f52895eed509b8342346070545a7a158c09633a16692081",
+    "01-entitlement-overage-lines": {
+      "public_task_sha256": "9a2cb9b18c32f44eeae716b21538a3d143be13fec1989c0f912c15a04e3b484a",
+      "harbor_task_digest": "sha256:b067141021b1f6c1330f9644e8ff9c21cde053139f6d28f5f58e850c5f2143c5",
       "oracle": {
-        "trial_id": "QKe2hFA",
+        "trial_id": "72x42XG",
         "reward": 1.0,
         "exception": null
       },
       "nop": {
-        "trial_id": "gf9JCo5",
+        "trial_id": "Myqhqvy",
         "reward": 0.0,
         "exception": null
       }
     },
-    "07-multi-region-sweep": {
-      "public_task_sha256": "ac07cba5cbef3b999d548bdf443fe54b679f26e439e4aac3a6cb5a2df85a1d46",
-      "harbor_task_digest": "sha256:695a84cd45a70a7e8e2ac76e2ba4d19b6d49c657de30ad1a5ea6a91c14806c8a",
-      "oracle": {
-        "trial_id": "QC4obAK",
-        "reward": 1.0,
+    "02-multi-region-sweep": {
+      "public_task_sha256": "24677e8a3ca232fd1e7af74156a8ce186075209e7e9cbc5539e6498720da0c37",
+      "harbor_task_digest": "sha256:752bf68c7a5e331c1120ccaa768e0dbe6d4d3595eba5493643ba6f6c6c4d4cd1",
+      "nop": {
+        "trial_id": "B9DJoXJ",
+        "reward": 0.0,
         "exception": null
       },
-      "nop": {
-        "trial_id": "jTnLr7q",
-        "reward": 0.0,
+      "oracle": {
+        "trial_id": "zBzwzxX",
+        "reward": 1.0,
         "exception": null
       }
     },
-    "14-iam-role-validation": {
-      "public_task_sha256": "317335499a5fdede5a18946c6a4939073abf6a9f5d396a5f6a3ce83cf3c81b38",
-      "harbor_task_digest": "sha256:385e0d01b7c11bc17d3d5aac49a7f5f1ac853ce7bf01f4496c382cecae89132f",
-      "oracle": {
-        "trial_id": "Jx6JXd5",
-        "reward": 1.0,
+    "03-iam-role-validation": {
+      "public_task_sha256": "db8e647845c4b2ebb2e84558dcc8f1851267f060f93fb8125aeeebb51baff872",
+      "harbor_task_digest": "sha256:50c4bb75afa39b5842ec0464b43391133e81c998bd7866fe1909eb513b40ee7a",
+      "nop": {
+        "trial_id": "7Qb9JFz",
+        "reward": 0.0,
         "exception": null
       },
-      "nop": {
-        "trial_id": "X8iXBSf",
-        "reward": 0.0,
+      "oracle": {
+        "trial_id": "xdRXrg6",
+        "reward": 1.0,
         "exception": null
       }
     },
-    "27-tax-jurisdiction": {
-      "public_task_sha256": "f370acd4150972aeab6a3e0b540078d3b3a598b6da748817438817888a73e135",
-      "harbor_task_digest": "sha256:8bb6382a47f54c66b143575264c6f03a8be10cb3080d1c05078e59c8d5cf4092",
+    "04-tax-jurisdiction": {
+      "public_task_sha256": "14bed3b6424a462c369ed2d831e469ea7817bf9195418a40ac483034ef43097e",
+      "harbor_task_digest": "sha256:cff122e3adb8b2ca197cc43e7d6517eb128ff5d9e3ee547ffc4892623fd751fd",
       "oracle": {
-        "trial_id": "SJ4CLRz",
+        "trial_id": "aTZ8wD4",
         "reward": 1.0,
         "exception": null
       },
       "nop": {
-        "trial_id": "n7hsAUf",
+        "trial_id": "ccTjACw",
         "reward": 0.0,
         "exception": null
       }

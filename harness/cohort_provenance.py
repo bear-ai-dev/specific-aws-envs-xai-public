@@ -1,6 +1,6 @@
 """Recorded runtime strata for the packaged model evidence.
 
-The first three tasks use one Daytona checksum stratum. Task 27 was completed
+The first three tasks use one Daytona checksum stratum. Task 4 was completed
 in two separately frozen four-attempt strata, one on Daytona and one on AWS
 Fargate. Models are comparable within each stratum; its eight-attempt totals
 are pooled descriptive counts across the strata.
@@ -10,7 +10,7 @@ from __future__ import annotations
 
 
 RECORDED_RUNTIME_STRATA = {
-    "02-entitlement-overage-lines": (
+    "01-entitlement-overage-lines": (
         {
             "name": "daytona-01-08",
             "environment": "daytona",
@@ -18,7 +18,7 @@ RECORDED_RUNTIME_STRATA = {
             "task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
         },
     ),
-    "07-multi-region-sweep": (
+    "02-multi-region-sweep": (
         {
             "name": "daytona-01-08",
             "environment": "daytona",
@@ -26,7 +26,7 @@ RECORDED_RUNTIME_STRATA = {
             "task_checksum": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
         },
     ),
-    "14-iam-role-validation": (
+    "03-iam-role-validation": (
         {
             "name": "daytona-01-08",
             "environment": "daytona",
@@ -34,7 +34,7 @@ RECORDED_RUNTIME_STRATA = {
             "task_checksum": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2",
         },
     ),
-    "27-tax-jurisdiction": (
+    "04-tax-jurisdiction": (
         {
             "name": "daytona-01-04",
             "environment": "daytona",

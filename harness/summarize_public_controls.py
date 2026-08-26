@@ -8,14 +8,11 @@ import hashlib
 import json
 from pathlib import Path
 
+from task_catalog import PUBLIC_TASKS
+
 
 ROOT = Path(__file__).resolve().parent.parent
-TASKS = (
-    "02-entitlement-overage-lines",
-    "07-multi-region-sweep",
-    "14-iam-role-validation",
-    "27-tax-jurisdiction",
-)
+TASKS = PUBLIC_TASKS
 
 
 def directory_sha256(path: Path) -> str:

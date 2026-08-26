@@ -4,23 +4,24 @@
   "attempts_per_task_model": 8,
   "bedrock_config_sha256": "a8ebaf00aa24ccd8d8f0dcb074cc11b9349dcc163c6a2a67783402ab74b5c19c",
   "cohort": "xai-selected-eight-rollout-reproduction",
-  "cohort_config_sha256": "5395da8b8ac940d9b9fc7a398995d34d1f37fb8b4d8bf871cb1525b1db0615df",
-  "controls_config_sha256": "a9ee0b8ab691165a0c9fb67a9a3ef1927bf78290bb5dfcf7972f616eff7c8d59",
+  "cohort_config_sha256": "9ffb61f50d4b54689cb65f334d8d915003eddde27e7b1013d30d22ceccb18820",
+  "controls_config_sha256": "899c74ec02d5308f33b9a828a00040d06cbbd4faa753fcb559749359e17af3df",
   "environments": [
     "daytona",
     "aws-fargate"
   ],
   "evidence_controls": {
-    "02-entitlement-overage-lines": "sample-run/raw/xai-public-controls-20260819",
-    "07-multi-region-sweep": "sample-run/review-bundle/07-multi-region-sweep/controls",
-    "14-iam-role-validation": "sample-run/review-bundle/14-iam-role-validation/controls",
-    "27-tax-jurisdiction": "sample-run/review-bundle/27-tax-jurisdiction/controls"
+    "01-entitlement-overage-lines": "sample-run/raw/xai-public-controls-20260819",
+    "02-multi-region-sweep": "sample-run/review-bundle/02-multi-region-sweep/controls",
+    "03-iam-role-validation": "sample-run/review-bundle/03-iam-role-validation/controls",
+    "04-tax-jurisdiction": "sample-run/review-bundle/04-tax-jurisdiction/controls"
   },
   "evidence_roots": [
     "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
-    "sample-run/review-bundle/07-multi-region-sweep",
-    "sample-run/review-bundle/14-iam-role-validation",
-    "sample-run/review-bundle/27-tax-jurisdiction"
+    "sample-run/review-bundle/01-entitlement-overage-lines",
+    "sample-run/review-bundle/02-multi-region-sweep",
+    "sample-run/review-bundle/03-iam-role-validation",
+    "sample-run/review-bundle/04-tax-jurisdiction"
   ],
   "grok_bedrock_config_sha256": "c8c6d27b01da51699b578101552bb5d43bb9b8e072bac7e4ff275cc5550ef0f8",
   "grok_model_registry_sha256": "310dfa12cff09204d73ec8384b55397543f3f18974f422c158f688ae7bb2ecc5",
@@ -30,19 +31,19 @@
     "grok-4.6": "bedrock/converse/us.xai.grok-4.6",
     "opus-5": "bedrock/us.anthropic.claude-opus-5"
   },
-  "pooled_result_boundary": "Task 27 reports pooled descriptive eight-attempt counts across a four-attempt Daytona stratum and a four-attempt AWS Fargate stratum. It is not represented as one frozen runtime configuration.",
+  "pooled_result_boundary": "Task 4 reports pooled descriptive eight-attempt counts across a four-attempt Daytona stratum and a four-attempt AWS Fargate stratum. It is not represented as one frozen runtime configuration.",
   "public_task_sha256": {
-    "02-entitlement-overage-lines": "200c5466dc556b329ac92ce4c521a032858245aded1673eb9b88115ccbd2ff01",
-    "07-multi-region-sweep": "ac07cba5cbef3b999d548bdf443fe54b679f26e439e4aac3a6cb5a2df85a1d46",
-    "14-iam-role-validation": "317335499a5fdede5a18946c6a4939073abf6a9f5d396a5f6a3ce83cf3c81b38",
-    "27-tax-jurisdiction": "f370acd4150972aeab6a3e0b540078d3b3a598b6da748817438817888a73e135"
+    "01-entitlement-overage-lines": "9a2cb9b18c32f44eeae716b21538a3d143be13fec1989c0f912c15a04e3b484a",
+    "02-multi-region-sweep": "24677e8a3ca232fd1e7af74156a8ce186075209e7e9cbc5539e6498720da0c37",
+    "03-iam-role-validation": "db8e647845c4b2ebb2e84558dcc8f1851267f060f93fb8125aeeebb51baff872",
+    "04-tax-jurisdiction": "14bed3b6424a462c369ed2d831e469ea7817bf9195418a40ac483034ef43097e"
   },
   "publication_controls_validation": "sample-run/manifests/public-controls-validation.json",
-  "publication_controls_validation_sha256": "5936e177dfbe31b6f0d20cd314eda5eb5cff50e4249db89798c61413b5ca7da2",
+  "publication_controls_validation_sha256": "96a73a8a3775da2853e1276bc1106a9095e3d6e163963d1f1a6c1d2e933934f2",
   "publication_normalization": "sample-run/manifests/public-transformation.json",
   "reasoning_effort": "high",
   "recorded_runtime_strata": {
-    "02-entitlement-overage-lines": [
+    "01-entitlement-overage-lines": [
       {
         "environment": "daytona",
         "name": "daytona-01-08",
@@ -59,7 +60,7 @@
         ]
       }
     ],
-    "07-multi-region-sweep": [
+    "02-multi-region-sweep": [
       {
         "environment": "daytona",
         "name": "daytona-01-08",
@@ -76,7 +77,7 @@
         ]
       }
     ],
-    "14-iam-role-validation": [
+    "03-iam-role-validation": [
       {
         "environment": "daytona",
         "name": "daytona-01-08",
@@ -93,7 +94,7 @@
         ]
       }
     ],
-    "27-tax-jurisdiction": [
+    "04-tax-jurisdiction": [
       {
         "environment": "daytona",
         "name": "daytona-01-04",
@@ -118,11 +119,17 @@
       }
     ]
   },
+  "recorded_task_ids": {
+    "01-entitlement-overage-lines": "02-entitlement-overage-lines",
+    "02-multi-region-sweep": "07-multi-region-sweep",
+    "03-iam-role-validation": "14-iam-role-validation",
+    "04-tax-jurisdiction": "27-tax-jurisdiction"
+  },
   "task_labels": {
-    "02-entitlement-overage-lines": "Task 2",
-    "07-multi-region-sweep": "Task 7",
-    "14-iam-role-validation": "Task 14",
-    "27-tax-jurisdiction": "Task 27"
+    "01-entitlement-overage-lines": "Task 1",
+    "02-multi-region-sweep": "Task 2",
+    "03-iam-role-validation": "Task 3",
+    "04-tax-jurisdiction": "Task 4"
   },
   "validity_rule": "numeric verifier reward, complete trajectory, complete verifier artifact, no Harbor exception, and model matching within each recorded runtime-checksum stratum"
 }

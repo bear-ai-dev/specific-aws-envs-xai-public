@@ -1,4 +1,4 @@
-# Task 27 — tax jurisdiction review bundle
+# Task 4 — tax jurisdiction review bundle
 
 The packaged evidence contains eight Grok 4.6 trials and eight Opus 5 trials.
 Trials 01–04 form one matched Daytona stratum; trials 05–08 form a separately
@@ -82,7 +82,7 @@ the trajectory rather than reconstructed.
 The driver asks the submitted service to exercise the held-out cases. The
 independent scorer assigns only `0.0` or `1.0` from captured behavior. These
 are exact task-file copies arranged by role; the unchanged runnable Harbor
-layout is the [`27-tax-jurisdiction` task](../../../tasks/27-tax-jurisdiction/).
+layout is the [`04-tax-jurisdiction` task](../../../tasks/04-tax-jurisdiction/).
 
 ## Verification result
 

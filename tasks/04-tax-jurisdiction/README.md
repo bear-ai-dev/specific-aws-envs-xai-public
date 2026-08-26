@@ -1,4 +1,4 @@
-# Task 27 — tax jurisdiction
+# Task 4 — tax jurisdiction
 
 ## Headline result
 
@@ -9,7 +9,7 @@
 
 These are pooled descriptive totals across a matched four-run Daytona stratum
 and a separately matched four-run AWS Fargate stratum; see the
-[review bundle](../../sample-run/review-bundle/27-tax-jurisdiction/) for the
+[review bundle](../../sample-run/review-bundle/04-tax-jurisdiction/) for the
 stratified 0/4 versus 4/4 and 0/4 versus 1/4 results.
 
 ## The capability, in one sentence
