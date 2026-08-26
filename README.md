@@ -42,16 +42,6 @@ backend strata below, not results from one frozen runtime configuration.
 |  | [Task 4](tasks/04-tax-jurisdiction/instruction.md) | 5/8 | 0.6250 | 0.9821 | 1.0000 |
 <!-- MINI_SWE_MATRIX_END -->
 
-### Runtime-stratified results for Task 4
-
-Each model saw the same recorded task checksum within each four-run stratum.
-The model comparison is therefore matched within the rows below.
-
-| Task | Runtime stratum | Grok 4.6 | Opus 5 |
-| --- | --- | ---: | ---: |
-| Task 4 | Daytona, trials 01–04 | 0/4 | 4/4 |
-| Task 4 | AWS Fargate, trials 05–08 | 0/4 | 1/4 |
-
 ## Task inventory
 
 | Task | What was asked |
