@@ -1,135 +1,275 @@
 {
-  "adapter_sha256": "72d5bbd3df1add9001476d67e58031bba192b73dfebd15a7f7dc28ca2c1a053c",
-  "agent": "mini-swe-agent",
-  "attempts_per_task_model": 8,
-  "bedrock_config_sha256": "a8ebaf00aa24ccd8d8f0dcb074cc11b9349dcc163c6a2a67783402ab74b5c19c",
-  "cohort": "xai-selected-eight-rollout-reproduction",
-  "cohort_config_sha256": "9ffb61f50d4b54689cb65f334d8d915003eddde27e7b1013d30d22ceccb18820",
-  "controls_config_sha256": "899c74ec02d5308f33b9a828a00040d06cbbd4faa753fcb559749359e17af3df",
-  "environments": [
-    "daytona",
-    "aws-fargate"
+ "adapter_sha256": "72d5bbd3df1add9001476d67e58031bba192b73dfebd15a7f7dc28ca2c1a053c",
+ "agent": "mini-swe-agent",
+ "attempts_per_task_model": 8,
+ "bedrock_config_sha256": "a8ebaf00aa24ccd8d8f0dcb074cc11b9349dcc163c6a2a67783402ab74b5c19c",
+ "cohort": "xai-selected-eight-rollout-reproduction",
+ "cohort_config_sha256": "9ffb61f50d4b54689cb65f334d8d915003eddde27e7b1013d30d22ceccb18820",
+ "controls_config_sha256": "899c74ec02d5308f33b9a828a00040d06cbbd4faa753fcb559749359e17af3df",
+ "environments": [
+  "daytona",
+  "aws-fargate"
+ ],
+ "evidence_controls": {
+  "01-entitlement-overage-lines": "sample-run/raw/xai-public-controls-20260819",
+  "02-multi-region-sweep": "sample-run/review-bundle/02-multi-region-sweep/controls",
+  "03-iam-role-validation": "sample-run/review-bundle/03-iam-role-validation/controls",
+  "04-tax-jurisdiction": "sample-run/review-bundle/04-tax-jurisdiction/controls",
+  "05-network-egress-metering": "sample-run/review-bundle/05-network-egress-metering/controls",
+  "06-api-token-metering": "sample-run/review-bundle/06-api-token-metering/controls",
+  "07-api-keys-and-environments": "sample-run/review-bundle/07-api-keys-and-environments/controls"
+ },
+ "evidence_roots": [
+  "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
+  "sample-run/review-bundle/01-entitlement-overage-lines",
+  "sample-run/review-bundle/02-multi-region-sweep",
+  "sample-run/review-bundle/03-iam-role-validation",
+  "sample-run/review-bundle/04-tax-jurisdiction",
+  "sample-run/review-bundle/05-network-egress-metering",
+  "sample-run/review-bundle/06-api-token-metering",
+  "sample-run/review-bundle/07-api-keys-and-environments"
+ ],
+ "grok_bedrock_config_sha256": "c8c6d27b01da51699b578101552bb5d43bb9b8e072bac7e4ff275cc5550ef0f8",
+ "grok_model_registry_sha256": "310dfa12cff09204d73ec8384b55397543f3f18974f422c158f688ae7bb2ecc5",
+ "harbor_version": "0.18.0",
+ "mini_swe_agent_version": "2.4.5",
+ "models": {
+  "grok-4.6": "bedrock/converse/us.xai.grok-4.6",
+  "opus-5": "bedrock/us.anthropic.claude-opus-5"
+ },
+ "pooled_result_boundary": "Task 4 reports pooled descriptive eight-attempt counts across a four-attempt Daytona stratum and a four-attempt AWS Fargate stratum. It is not represented as one frozen runtime configuration.",
+ "public_task_sha256": {
+  "01-entitlement-overage-lines": "9a2cb9b18c32f44eeae716b21538a3d143be13fec1989c0f912c15a04e3b484a",
+  "02-multi-region-sweep": "24677e8a3ca232fd1e7af74156a8ce186075209e7e9cbc5539e6498720da0c37",
+  "03-iam-role-validation": "db8e647845c4b2ebb2e84558dcc8f1851267f060f93fb8125aeeebb51baff872",
+  "04-tax-jurisdiction": "14bed3b6424a462c369ed2d831e469ea7817bf9195418a40ac483034ef43097e",
+  "05-network-egress-metering": "cc084261e1c314c0d3b967d8017e8abff574ef5ea104085529bfa7e45e4b0c27",
+  "06-api-token-metering": "d9c9f4db0c30985d80d209a10ca998ed4e7e8555d9bf61c8158e1d286b176907",
+  "07-api-keys-and-environments": "f9484c3e65ee01066372b10140d7faa03bfed24c1ddc29b19acdf07f1c8a34e7"
+ },
+ "publication_controls_validation": "sample-run/manifests/public-controls-validation.json",
+ "publication_controls_validation_sha256": "96a73a8a3775da2853e1276bc1106a9095e3d6e163963d1f1a6c1d2e933934f2",
+ "publication_normalization": "sample-run/manifests/public-transformation.json",
+ "reasoning_effort": "high",
+ "recorded_runtime_strata": {
+  "01-entitlement-overage-lines": [
+   {
+    "name": "daytona-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629"
+   }
   ],
-  "evidence_controls": {
-    "01-entitlement-overage-lines": "sample-run/raw/xai-public-controls-20260819",
-    "02-multi-region-sweep": "sample-run/review-bundle/02-multi-region-sweep/controls",
-    "03-iam-role-validation": "sample-run/review-bundle/03-iam-role-validation/controls",
-    "04-tax-jurisdiction": "sample-run/review-bundle/04-tax-jurisdiction/controls"
-  },
-  "evidence_roots": [
-    "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
-    "sample-run/review-bundle/01-entitlement-overage-lines",
-    "sample-run/review-bundle/02-multi-region-sweep",
-    "sample-run/review-bundle/03-iam-role-validation",
-    "sample-run/review-bundle/04-tax-jurisdiction"
+  "02-multi-region-sweep": [
+   {
+    "name": "daytona-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a"
+   }
   ],
-  "grok_bedrock_config_sha256": "c8c6d27b01da51699b578101552bb5d43bb9b8e072bac7e4ff275cc5550ef0f8",
-  "grok_model_registry_sha256": "310dfa12cff09204d73ec8384b55397543f3f18974f422c158f688ae7bb2ecc5",
-  "harbor_version": "0.18.0",
-  "mini_swe_agent_version": "2.4.5",
-  "models": {
-    "grok-4.6": "bedrock/converse/us.xai.grok-4.6",
-    "opus-5": "bedrock/us.anthropic.claude-opus-5"
-  },
-  "pooled_result_boundary": "Task 4 reports pooled descriptive eight-attempt counts across a four-attempt Daytona stratum and a four-attempt AWS Fargate stratum. It is not represented as one frozen runtime configuration.",
+  "03-iam-role-validation": [
+   {
+    "name": "daytona-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2"
+   }
+  ],
+  "04-tax-jurisdiction": [
+   {
+    "name": "daytona-01-04",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "task_checksum": "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98"
+   },
+   {
+    "name": "fargate-05-08",
+    "environment": "aws-fargate",
+    "trial_numbers": [
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "bea753509f8689709ac2827ebc01c71b0cad2119ac99d51a87661c180ace6785"
+   }
+  ],
+  "05-network-egress-metering": [
+   {
+    "name": "daytona-grok-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "edbaa55fe7240b126b3b47a1e33b25df9475e97f89031972eeedb2076bf7f498",
+    "model_label": "Grok 4.6"
+   },
+   {
+    "name": "daytona-opus-01-07",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "task_checksum": "6427d0d789ad611f6ebe201045f26ed7c62da6e71722d8792558a0fdf37c2b56",
+    "model_label": "Opus 5"
+   },
+   {
+    "name": "daytona-opus-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     8
+    ],
+    "task_checksum": "3f7e8cc2f7d5910314cab6ee5598e5333a6599880f896994887590c69373231a",
+    "model_label": "Opus 5"
+   }
+  ],
+  "06-api-token-metering": [
+   {
+    "name": "daytona-grok-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "4752c91a46310743198600c4182aafad05b54023c6cfec7c75e6497e1f62c96e",
+    "model_label": "Grok 4.6"
+   },
+   {
+    "name": "daytona-opus-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "28a06245e0c745b4801d176437331dafcfbe631d51473b67d1050e58b355d134",
+    "model_label": "Opus 5"
+   }
+  ],
+  "07-api-keys-and-environments": [
+   {
+    "name": "daytona-grok-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "3f6269b97803f429411916a6f0dc1325aecfd69f3a1e995fbd20d5c7bbb17d16",
+    "model_label": "Grok 4.6"
+   },
+   {
+    "name": "daytona-opus-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "3f38fb2bc343a749016fa1425494c139f4baa0c44e84bb84c618d32ec94bb78e",
+    "model_label": "Opus 5"
+   }
+  ]
+ },
+ "recorded_task_ids": {
+  "01-entitlement-overage-lines": "02-entitlement-overage-lines",
+  "02-multi-region-sweep": "07-multi-region-sweep",
+  "03-iam-role-validation": "14-iam-role-validation",
+  "04-tax-jurisdiction": "27-tax-jurisdiction",
+  "05-network-egress-metering": "05-network-egress-metering",
+  "06-api-token-metering": "06-api-token-metering",
+  "07-api-keys-and-environments": "07-api-keys-and-environments"
+ },
+ "task_labels": {
+  "01-entitlement-overage-lines": "Task 1",
+  "02-multi-region-sweep": "Task 2",
+  "03-iam-role-validation": "Task 3",
+  "04-tax-jurisdiction": "Task 4",
+  "05-network-egress-metering": "Task 5",
+  "06-api-token-metering": "Task 6",
+  "07-api-keys-and-environments": "Task 7"
+ },
+ "validity_rule": "numeric verifier reward, complete trajectory, complete verifier artifact, no Harbor exception, and model matching within each recorded runtime-checksum stratum",
+ "build_equivalence": {
+  "scope": [
+   "05-network-egress-metering",
+   "06-api-token-metering",
+   "07-api-keys-and-environments"
+  ],
+  "claim": "Each of these tasks was built as two separate Harbor jobs, one per model arm, so the recorded task checksums differ between arms. The task package published in this repo is byte-identical to the package the Opus arm ran against in bear-ai-dev/specific-aws-envs-meta-public at commit d29ba9f, so the arms are comparable.",
+  "method": "directory_sha256 over the published tasks/<task> tree, excluding __pycache__ and .DS_Store",
   "public_task_sha256": {
-    "01-entitlement-overage-lines": "9a2cb9b18c32f44eeae716b21538a3d143be13fec1989c0f912c15a04e3b484a",
-    "02-multi-region-sweep": "24677e8a3ca232fd1e7af74156a8ce186075209e7e9cbc5539e6498720da0c37",
-    "03-iam-role-validation": "db8e647845c4b2ebb2e84558dcc8f1851267f060f93fb8125aeeebb51baff872",
-    "04-tax-jurisdiction": "14bed3b6424a462c369ed2d831e469ea7817bf9195418a40ac483034ef43097e"
+   "05-network-egress-metering": "cc084261e1c314c0d3b967d8017e8abff574ef5ea104085529bfa7e45e4b0c27",
+   "06-api-token-metering": "d9c9f4db0c30985d80d209a10ca998ed4e7e8555d9bf61c8158e1d286b176907",
+   "07-api-keys-and-environments": "f9484c3e65ee01066372b10140d7faa03bfed24c1ddc29b19acdf07f1c8a34e7"
   },
-  "publication_controls_validation": "sample-run/manifests/public-controls-validation.json",
-  "publication_controls_validation_sha256": "96a73a8a3775da2853e1276bc1106a9095e3d6e163963d1f1a6c1d2e933934f2",
-  "publication_normalization": "sample-run/manifests/public-transformation.json",
-  "reasoning_effort": "high",
-  "recorded_runtime_strata": {
-    "01-entitlement-overage-lines": [
-      {
-        "environment": "daytona",
-        "name": "daytona-01-08",
-        "task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629",
-        "trial_numbers": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ]
-      }
-    ],
-    "02-multi-region-sweep": [
-      {
-        "environment": "daytona",
-        "name": "daytona-01-08",
-        "task_checksum": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a",
-        "trial_numbers": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ]
-      }
-    ],
-    "03-iam-role-validation": [
-      {
-        "environment": "daytona",
-        "name": "daytona-01-08",
-        "task_checksum": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2",
-        "trial_numbers": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ]
-      }
-    ],
-    "04-tax-jurisdiction": [
-      {
-        "environment": "daytona",
-        "name": "daytona-01-04",
-        "task_checksum": "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98",
-        "trial_numbers": [
-          1,
-          2,
-          3,
-          4
-        ]
-      },
-      {
-        "environment": "aws-fargate",
-        "name": "fargate-05-08",
-        "task_checksum": "bea753509f8689709ac2827ebc01c71b0cad2119ac99d51a87661c180ace6785",
-        "trial_numbers": [
-          5,
-          6,
-          7,
-          8
-        ]
-      }
-    ]
-  },
-  "recorded_task_ids": {
-    "01-entitlement-overage-lines": "02-entitlement-overage-lines",
-    "02-multi-region-sweep": "07-multi-region-sweep",
-    "03-iam-role-validation": "14-iam-role-validation",
-    "04-tax-jurisdiction": "27-tax-jurisdiction"
-  },
-  "task_labels": {
-    "01-entitlement-overage-lines": "Task 1",
-    "02-multi-region-sweep": "Task 2",
-    "03-iam-role-validation": "Task 3",
-    "04-tax-jurisdiction": "Task 4"
-  },
-  "validity_rule": "numeric verifier reward, complete trajectory, complete verifier artifact, no Harbor exception, and model matching within each recorded runtime-checksum stratum"
+  "verified_against": "https://github.com/bear-ai-dev/specific-aws-envs-meta-public/tree/d29ba9f"
+ }
 }

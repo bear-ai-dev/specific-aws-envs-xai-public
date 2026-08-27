@@ -1,0 +1,193 @@
+{
+  "runs": {
+    "transfer": {
+      "ok": true,
+      "rows": [
+        {
+          "timestamp": "2026-08-27T04:20:04.267Z",
+          "dimensionId": "dim_hld_transfer",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_ravelin",
+          "recordValue": 0,
+          "metadata": {},
+          "_measurement": "usageMeasurement"
+        },
+        {
+          "timestamp": "2026-08-27T04:20:04.267Z",
+          "dimensionId": "dim_hld_transfer",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_bastion",
+          "recordValue": 0,
+          "metadata": {},
+          "_measurement": "usageMeasurement"
+        },
+        {
+          "timestamp": "2026-08-27T04:20:04.267Z",
+          "dimensionId": "dim_hld_transfer",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_kestrelmoor",
+          "recordValue": 0,
+          "metadata": {},
+          "_measurement": "usageMeasurement"
+        },
+        {
+          "timestamp": "2026-08-27T04:20:04.267Z",
+          "dimensionId": "dim_hld_transfer",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_solenoid",
+          "recordValue": 0,
+          "metadata": {},
+          "_measurement": "usageMeasurement"
+        },
+        {
+          "timestamp": "2026-08-27T04:20:04.267Z",
+          "dimensionId": "dim_hld_transfer",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_tallow",
+          "recordValue": 0,
+          "metadata": {},
+          "_measurement": "usageMeasurement"
+        },
+        {
+          "timestamp": "2026-08-27T04:20:04.267Z",
+          "dimensionId": "dim_hld_transfer",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_wharfage",
+          "recordValue": 0,
+          "metadata": {},
+          "_measurement": "usageMeasurement"
+        },
+        {
+          "timestamp": "2026-08-27T04:20:04.267Z",
+          "dimensionId": "dim_hld_transfer",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_calliper",
+          "recordValue": 0,
+          "metadata": {},
+          "_measurement": "usageMeasurement"
+        }
+      ],
+      "error": null
+    },
+    "replica": {
+      "ok": true,
+      "rows": [
+        {
+          "timestamp": "2026-08-27T04:20:04.315Z",
+          "dimensionId": "dim_hld_replica",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_ferrule",
+          "recordValue": 0,
+          "metadata": {},
+          "_measurement": "usageMeasurement"
+        },
+        {
+          "timestamp": "2026-08-27T04:20:04.315Z",
+          "dimensionId": "dim_hld_replica",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_tallow",
+          "recordValue": 0,
+          "metadata": {},
+          "_measurement": "usageMeasurement"
+        }
+      ],
+      "error": null
+    }
+  },
+  "discovery": {
+    "authored": [
+      "src/app.module.ts",
+      "src/dimensions/dimensions.service.ts",
+      "src/dimensions/dto/create-dimension.dto.ts",
+      "src/measurement-config/entities/measurement-config.entity.ts",
+      "src/microservices/ec2NetworkOutDataGatherer/dto/ec2NetworkOutDataGatherer.dto.ts",
+      "src/microservices/ec2NetworkOutDataGatherer/ec2NetworkOutDataGatherer.module.ts",
+      "src/microservices/ec2NetworkOutDataGatherer/ec2NetworkOutDataGatherer.service.spec.ts",
+      "src/microservices/ec2NetworkOutDataGatherer/ec2NetworkOutDataGatherer.service.ts",
+      "src/scheduler/dto/scheduler.dto.ts",
+      "src/scheduler/entities/scheduler.entity.ts",
+      "src/utils/aws/awsCloudwatch.spec.ts",
+      "src/utils/aws/awsCloudwatch.ts"
+    ],
+    "candidates": [
+      {
+        "file": "src/microservices/ec2NetworkOutDataGatherer/ec2NetworkOutDataGatherer.service.ts",
+        "className": "Ec2NetworkOutDataGathererService",
+        "method": "readOperationJob",
+        "jobKind": "instanceNetworkOut",
+        "rank": 4
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "create",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "createKeyForManagedInfraDimensionSchedule",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "findAll",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "findByMeasurementId",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "findOne",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "remove",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "removeAll",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "ressourceTypeToDimensionType",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "transformDtoToEntityInput",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "update",
+        "jobKind": null,
+        "rank": 1
+      }
+    ],
+    "chosen": "Ec2NetworkOutDataGathererService.readOperationJob"
+  }
+}

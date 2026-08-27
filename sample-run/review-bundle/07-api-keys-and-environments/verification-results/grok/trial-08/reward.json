@@ -1,0 +1,7 @@
+{
+  "harness_failure": true,
+  "note": "harness: the driver did not complete (exit 1); see driver.log",
+  "reward": 0.0,
+  "rules": [],
+  "score": 0.0
+}

@@ -1,0 +1,18 @@
+patching file docs/open-api-private-spec.json
+patching file docs/open-api-public-spec.json
+patching file docs/private_api.html
+patching file docs/public_api.html
+patching file integration/client/publicClient/measurement.ts
+patching file integration/measurement/ec2EgressMeasurement.integration.spec.ts
+patching file integration/utils/cloudwatch.ts
+patching file src/app.module.ts
+patching file src/dimensions/dimensions.service.ts
+patching file src/dimensions/dto/create-dimension.dto.ts
+patching file src/measurement-config/entities/measurement-config.entity.ts
+patching file src/measurement-config/measurement-config.service.ts
+patching file src/microservices/ec2EgressDataGatherer/Dto/ec2EgressDataGatherer.dto.ts
+patching file src/microservices/ec2EgressDataGatherer/ec2EgressDataGatherer.module.ts
+patching file src/microservices/ec2EgressDataGatherer/ec2EgressDataGatherer.service.ts
+patching file src/scheduler/entities/scheduler.entity.ts
+patching file src/utils/aws/cloudwatch.ts
+reference solution applied to /app

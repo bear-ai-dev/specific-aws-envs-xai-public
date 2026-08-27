@@ -1,0 +1,7 @@
+patching file src/interceptors/tokenRegisterInterceptor.ts
+patching file src/token-consumer/entities/token-consumer.entity.ts
+patching file src/token-consumer/token-consumer-async-processor.ts
+patching file src/token-consumer/token-consumer.controller.ts
+patching file src/token-consumer/token-consumer.service.ts
+patching file src/usage/usage.service.ts
+oracle applied

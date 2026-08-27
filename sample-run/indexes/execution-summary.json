@@ -1,101 +1,135 @@
 {
-  "cohort_directory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
-  "scored_valid_trials": 64,
-  "completed_trials_excluded_from_denominator": 0,
-  "controls": {
-    "oracle": {
-      "count": 4,
-      "all_reward_one": true
-    },
-    "nop": {
-      "count": 4,
-      "all_reward_zero": true
-    }
+ "cohort_directory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
+ "scored_valid_trials": 112,
+ "completed_trials_excluded_from_denominator": 0,
+ "controls": {
+  "oracle": {
+   "count": 7,
+   "all_reward_one": true
   },
-  "denominator_policy": "numeric verifier reward, complete trajectory, complete verifier artifact, no Harbor exception, and matching model attempts within each recorded runtime-checksum stratum",
-  "evidence_roots": [
-    "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
-    "sample-run/review-bundle/01-entitlement-overage-lines",
-    "sample-run/review-bundle/02-multi-region-sweep",
-    "sample-run/review-bundle/03-iam-role-validation",
-    "sample-run/review-bundle/04-tax-jurisdiction"
+  "nop": {
+   "count": 7,
+   "all_reward_zero": true
+  }
+ },
+ "denominator_policy": "numeric verifier reward, complete trajectory, complete verifier artifact, no Harbor exception, and matching model attempts within each recorded runtime-checksum stratum",
+ "evidence_roots": [
+  "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
+  "sample-run/review-bundle/01-entitlement-overage-lines",
+  "sample-run/review-bundle/02-multi-region-sweep",
+  "sample-run/review-bundle/03-iam-role-validation",
+  "sample-run/review-bundle/04-tax-jurisdiction",
+  "sample-run/review-bundle/05-network-egress-metering",
+  "sample-run/review-bundle/06-api-token-metering",
+  "sample-run/review-bundle/07-api-keys-and-environments"
+ ],
+ "runtime_strata": {
+  "01-entitlement-overage-lines": [
+   {
+    "name": "daytona-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629"
+   }
   ],
-  "runtime_strata": {
-    "01-entitlement-overage-lines": [
-      {
-        "name": "daytona-01-08",
-        "environment": "daytona",
-        "trial_numbers": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ],
-        "task_checksum": "04e4ebcca22fe9b0c68986d4cd84317da27cd43e78a2e3c22b7cc405209c7629"
-      }
+  "02-multi-region-sweep": [
+   {
+    "name": "daytona-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
     ],
-    "02-multi-region-sweep": [
-      {
-        "name": "daytona-01-08",
-        "environment": "daytona",
-        "trial_numbers": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ],
-        "task_checksum": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a"
-      }
+    "task_checksum": "adf7570d43b056146eb1fd14c17c145ceaa7f09864842ed3782daf563407040a"
+   }
+  ],
+  "03-iam-role-validation": [
+   {
+    "name": "daytona-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
     ],
-    "03-iam-role-validation": [
-      {
-        "name": "daytona-01-08",
-        "environment": "daytona",
-        "trial_numbers": [
-          1,
-          2,
-          3,
-          4,
-          5,
-          6,
-          7,
-          8
-        ],
-        "task_checksum": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2"
-      }
+    "task_checksum": "a0ce8d2b0f7ee76b6777add8da5e172683815037735668e761c00e8ee9da8ab2"
+   }
+  ],
+  "04-tax-jurisdiction": [
+   {
+    "name": "daytona-01-04",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4
     ],
-    "04-tax-jurisdiction": [
-      {
-        "name": "daytona-01-04",
-        "environment": "daytona",
-        "trial_numbers": [
-          1,
-          2,
-          3,
-          4
-        ],
-        "task_checksum": "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98"
-      },
-      {
-        "name": "fargate-05-08",
-        "environment": "aws-fargate",
-        "trial_numbers": [
-          5,
-          6,
-          7,
-          8
-        ],
-        "task_checksum": "bea753509f8689709ac2827ebc01c71b0cad2119ac99d51a87661c180ace6785"
-      }
-    ]
-  },
-  "pooled_result_boundary": "Task 4 pools descriptive eight-attempt counts across one Daytona stratum and one AWS Fargate stratum. Model comparisons remain matched within each four-attempt stratum."
+    "task_checksum": "b7b4aae506e7aafc2399ba423e4b25887cb5a8c6e7f726185f72560247200a98"
+   },
+   {
+    "name": "fargate-05-08",
+    "environment": "aws-fargate",
+    "trial_numbers": [
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "bea753509f8689709ac2827ebc01c71b0cad2119ac99d51a87661c180ace6785"
+   }
+  ]
+ },
+ "pooled_result_boundary": "Task 4 pools descriptive eight-attempt counts across one Daytona stratum and one AWS Fargate stratum. Model comparisons remain matched within each four-attempt stratum.",
+ "model_arms": {
+  "01-entitlement-overage-lines": [
+   "Grok 4.6",
+   "Opus 5"
+  ],
+  "02-multi-region-sweep": [
+   "Grok 4.6",
+   "Opus 5"
+  ],
+  "03-iam-role-validation": [
+   "Grok 4.6",
+   "Opus 5"
+  ],
+  "04-tax-jurisdiction": [
+   "Grok 4.6",
+   "Opus 5"
+  ],
+  "05-network-egress-metering": [
+   "Grok 4.6",
+   "Opus 5"
+  ],
+  "06-api-token-metering": [
+   "Grok 4.6",
+   "Opus 5"
+  ],
+  "07-api-keys-and-environments": [
+   "Grok 4.6",
+   "Opus 5"
+  ]
+ },
+ "build_provenance_note": "Tasks 5 to 7 were built once per model arm, so each arm carries its own recorded Harbor task checksum and its own stratum. The published task packages are byte-identical to the packages the Opus arm ran against; see build_equivalence in sample-run/manifests/frozen-cohort.json."
 }

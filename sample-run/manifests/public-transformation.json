@@ -1,53 +1,62 @@
 {
-  "normalized_identifier_classes": [
-    "organization names and code symbols",
-    "organization domains and repository references",
-    "organization email addresses and author names",
-    "source ticket references",
-    "example cloud account and endpoint identifiers",
-    "source package scope and dependency metadata",
-    "task-local emulator credentials",
-    "execution organization, sandbox, and snapshot identifiers"
-  ],
-  "preserved": [
-    "task requirements",
-    "non-identifier numeric fixtures and held-out case structure",
-    "model-generated control flow",
-    "verifier outputs and rewards",
-    "recorded trial identifiers and chronological ordering"
-  ],
-  "public_controls_reproduction_job": "xai-task-renumber-controls-20260825",
-  "public_evidence_layout": {
-    "01-entitlement-overage-lines": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
-    "02-multi-region-sweep": "sample-run/review-bundle/02-multi-region-sweep",
-    "03-iam-role-validation": "sample-run/review-bundle/03-iam-role-validation",
-    "04-tax-jurisdiction": "sample-run/review-bundle/04-tax-jurisdiction",
-    "directory_label_policy": "task number, model name, and chronological trial number",
-    "recorded_trial_identifiers": "preserved in compact Harbor results and sample-run/indexes/trials.json"
-  },
-  "recorded_task_ids": {
-    "01-entitlement-overage-lines": "02-entitlement-overage-lines",
-    "02-multi-region-sweep": "07-multi-region-sweep",
-    "03-iam-role-validation": "14-iam-role-validation",
-    "04-tax-jurisdiction": "27-tax-jurisdiction"
-  },
-  "public_task_sha256": {
-    "01-entitlement-overage-lines": "9a2cb9b18c32f44eeae716b21538a3d143be13fec1989c0f912c15a04e3b484a",
-    "02-multi-region-sweep": "24677e8a3ca232fd1e7af74156a8ce186075209e7e9cbc5539e6498720da0c37",
-    "03-iam-role-validation": "db8e647845c4b2ebb2e84558dcc8f1851267f060f93fb8125aeeebb51baff872",
-    "04-tax-jurisdiction": "14bed3b6424a462c369ed2d831e469ea7817bf9195418a40ac483034ef43097e"
-  },
-  "recorded_runtime_controls": {
-    "nop_required": 0.0,
-    "oracle_required": 1.0,
-    "tasks_passing": 4
-  },
-  "recorded_runtime_provenance": "sample-run/manifests/frozen-cohort.json",
-  "schema_version": 2,
-  "scope": [
-    "four task definitions and workspaces",
-    "captured trajectories and verifier artifacts",
-    "manifests, indexes, and documentation"
-  ],
-  "transformation": "deterministic_identifier_normalization_and_dependency_vendoring"
+ "normalized_identifier_classes": [
+  "organization names and code symbols",
+  "organization domains and repository references",
+  "organization email addresses and author names",
+  "source ticket references",
+  "example cloud account and endpoint identifiers",
+  "source package scope and dependency metadata",
+  "task-local emulator credentials",
+  "execution organization, sandbox, and snapshot identifiers"
+ ],
+ "preserved": [
+  "task requirements",
+  "non-identifier numeric fixtures and held-out case structure",
+  "model-generated control flow",
+  "verifier outputs and rewards",
+  "recorded trial identifiers and chronological ordering"
+ ],
+ "public_controls_reproduction_job": "xai-task-renumber-controls-20260825",
+ "public_evidence_layout": {
+  "01-entitlement-overage-lines": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
+  "02-multi-region-sweep": "sample-run/review-bundle/02-multi-region-sweep",
+  "03-iam-role-validation": "sample-run/review-bundle/03-iam-role-validation",
+  "04-tax-jurisdiction": "sample-run/review-bundle/04-tax-jurisdiction",
+  "directory_label_policy": "task number, model name, and chronological trial number",
+  "recorded_trial_identifiers": "preserved in compact Harbor results and sample-run/indexes/trials.json",
+  "05-network-egress-metering": "sample-run/review-bundle/05-network-egress-metering",
+  "06-api-token-metering": "sample-run/review-bundle/06-api-token-metering",
+  "07-api-keys-and-environments": "sample-run/review-bundle/07-api-keys-and-environments"
+ },
+ "recorded_task_ids": {
+  "01-entitlement-overage-lines": "02-entitlement-overage-lines",
+  "02-multi-region-sweep": "07-multi-region-sweep",
+  "03-iam-role-validation": "14-iam-role-validation",
+  "04-tax-jurisdiction": "27-tax-jurisdiction",
+  "05-network-egress-metering": "05-network-egress-metering",
+  "06-api-token-metering": "06-api-token-metering",
+  "07-api-keys-and-environments": "07-api-keys-and-environments"
+ },
+ "public_task_sha256": {
+  "01-entitlement-overage-lines": "9a2cb9b18c32f44eeae716b21538a3d143be13fec1989c0f912c15a04e3b484a",
+  "02-multi-region-sweep": "24677e8a3ca232fd1e7af74156a8ce186075209e7e9cbc5539e6498720da0c37",
+  "03-iam-role-validation": "db8e647845c4b2ebb2e84558dcc8f1851267f060f93fb8125aeeebb51baff872",
+  "04-tax-jurisdiction": "14bed3b6424a462c369ed2d831e469ea7817bf9195418a40ac483034ef43097e",
+  "05-network-egress-metering": "cc084261e1c314c0d3b967d8017e8abff574ef5ea104085529bfa7e45e4b0c27",
+  "06-api-token-metering": "d9c9f4db0c30985d80d209a10ca998ed4e7e8555d9bf61c8158e1d286b176907",
+  "07-api-keys-and-environments": "f9484c3e65ee01066372b10140d7faa03bfed24c1ddc29b19acdf07f1c8a34e7"
+ },
+ "recorded_runtime_controls": {
+  "nop_required": 0.0,
+  "oracle_required": 1.0,
+  "tasks_passing": 4
+ },
+ "recorded_runtime_provenance": "sample-run/manifests/frozen-cohort.json",
+ "schema_version": 2,
+ "scope": [
+  "four task definitions and workspaces",
+  "captured trajectories and verifier artifacts",
+  "manifests, indexes, and documentation"
+ ],
+ "transformation": "deterministic_identifier_normalization_and_dependency_vendoring"
 }

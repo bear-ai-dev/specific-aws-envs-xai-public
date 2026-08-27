@@ -1,0 +1,35 @@
+reward 0.0
+failed: registration_shape, platform_account
+
+[FAIL] registration_shape
+        each API call becomes one registration in the aggregate bucket
+        - A: dimension None is not the one for 'meteringco-production'
+        - A: recorded None, not 0.001
+        - B: dimension None is not the one for 'meteringco-production'
+        - B: recorded None, not 0.001
+        - D: dimension None is not the one for 'meteringco-production'
+        - D: recorded None, not 0.001
+        - R1: dimension None is not the one for 'meteringco-production'
+        - R1: recorded None, not 0.001
+        - R2: dimension None is not the one for 'meteringco-production'
+        - R2: recorded None, not 0.001
+        - R3: dimension None is not the one for 'meteringco-production'
+        - R3: recorded None, not 0.001
+[pass] identity_in_series_key
+        calls sharing an instant stay apart by identity
+[pass] call_time_placement
+        a registration sits at the time of the call, not the time it was recorded
+[pass] redelivery_idempotent
+        a redelivered call leaves one registration, whichever batch it arrives in
+[pass] windowed_rollup
+        each window produces one billable roll-up worth the window's traffic
+[FAIL] platform_account
+        the roll-up is billed to the platform's own account for that customer
+        - cus-2d83-harborline-prod: roll-up dimension 'meteringco-production-api-call' is not meteringco-production's
+        - cus-2d83-harborline-prod: roll-up dimension 'meteringco-production-api-call' is not meteringco-production's
+        - cus-6a17-harborline-alt: roll-up dimension 'meteringco-sandbox-api-call' is not meteringco-sandbox's
+[pass] request_path_meters
+        serving a measurement meters the call that asked for it
+
+registrations written: True
+billable roll-up produced: True

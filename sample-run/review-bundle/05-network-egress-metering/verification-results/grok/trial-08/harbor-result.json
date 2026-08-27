@@ -1,0 +1,30 @@
+{
+  "id": "6ef0ccdd-1eff-42bb-89ae-68f63902741b",
+  "taskName": "meteringco/network-egress-metering",
+  "trialName": "05-network-egress-metering__HJWqTve",
+  "taskChecksum": "edbaa55fe7240b126b3b47a1e33b25df9475e97f89031972eeedb2076bf7f498",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "converse/us.xai.grok-4.6",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0,
+      "score": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-27T05:20:57.287Z",
+  "finishedAt": "2026-08-27T16:43:59.422645Z",
+  "environmentSetup": null,
+  "agentSetup": null,
+  "agentExecution": null,
+  "verifier": {
+    "started_at": "2026-08-27T16:43:54.477871Z",
+    "finished_at": "2026-08-27T16:43:59.422645Z"
+  }
+}

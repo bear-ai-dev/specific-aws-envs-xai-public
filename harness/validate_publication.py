@@ -18,6 +18,9 @@ TASKS = PUBLIC_TASKS
 BUNDLE_TASKS = (
     "02-multi-region-sweep",
     "03-iam-role-validation",
+    "05-network-egress-metering",
+    "06-api-token-metering",
+    "07-api-keys-and-environments",
     "04-tax-jurisdiction",
 )
 EXPECTED_HEADINGS = {
@@ -25,6 +28,9 @@ EXPECTED_HEADINGS = {
     "02-multi-region-sweep": "# Task 2 — multi-region sweep",
     "03-iam-role-validation": "# Task 3 — IAM role validation",
     "04-tax-jurisdiction": "# Task 4 — tax jurisdiction",
+    "05-network-egress-metering": "# Task 5 — network egress metering",
+    "06-api-token-metering": "# Task 6 — API token metering",
+    "07-api-keys-and-environments": "# Task 7 — API keys and environments",
 }
 EXPECTED_SOLVES = {
     ("01-entitlement-overage-lines", "Grok 4.6"): 0,
@@ -35,6 +41,12 @@ EXPECTED_SOLVES = {
     ("03-iam-role-validation", "Opus 5"): 8,
     ("04-tax-jurisdiction", "Grok 4.6"): 0,
     ("04-tax-jurisdiction", "Opus 5"): 5,
+    ("05-network-egress-metering", "Grok 4.6"): 3,
+    ("05-network-egress-metering", "Opus 5"): 8,
+    ("06-api-token-metering", "Grok 4.6"): 0,
+    ("06-api-token-metering", "Opus 5"): 7,
+    ("07-api-keys-and-environments", "Grok 4.6"): 5,
+    ("07-api-keys-and-environments", "Opus 5"): 8,
 }
 LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 REAL_AWS_KEY = re.compile(r"\b(?:AKIA|ASIA)[0-9A-Z]{16}\b")
@@ -55,6 +67,7 @@ NON_EXAMPLE_AUTH0 = re.compile(
     r"[a-z0-9-]+\.(?:us\.)?auth0\.com"
 )
 HARBOR_DIGEST = re.compile(r"^sha256:[0-9a-f]{64}$")
+HARBOR_TASK_CHECKSUM = re.compile(r"^[0-9a-f]{64}$")
 
 
 def sha256(path: Path) -> str:
@@ -96,8 +109,8 @@ def validate_links() -> int:
 
 def validate_trials() -> None:
     trials = json.loads((ROOT / "sample-run" / "indexes" / "trials.json").read_text())
-    if len(trials) != 64 or not all(trial["valid"] for trial in trials):
-        raise SystemExit("expected exactly 64 valid trials")
+    if len(trials) != 112 or not all(trial["valid"] for trial in trials):
+        raise SystemExit("expected exactly 112 valid trials")
     for key, expected in EXPECTED_SOLVES.items():
         task, model = key
         cell = [
@@ -111,7 +124,7 @@ def validate_trials() -> None:
             for field in ("trajectory", "verifier"):
                 if not (ROOT / trial[field]).is_file():
                     raise SystemExit(f"missing {field}: {trial[field]}")
-            stratum = stratum_for(task, trial["trial_number"])
+            stratum = stratum_for(task, trial["trial_number"], model)
             if trial.get("recorded_runtime_task_checksum") != stratum["task_checksum"]:
                 raise SystemExit(
                     f"runtime checksum mismatch: {task}/{trial['trial_label']}"
@@ -128,16 +141,19 @@ def validate_trials() -> None:
     frozen = json.loads(
         (ROOT / "sample-run" / "manifests" / "frozen-cohort.json").read_text()
     )
+    def serialize(stratum: dict) -> dict:
+        record = {
+            "name": stratum["name"],
+            "environment": stratum["environment"],
+            "trial_numbers": list(stratum["trial_numbers"]),
+            "task_checksum": stratum["task_checksum"],
+        }
+        if "model_label" in stratum:
+            record["model_label"] = stratum["model_label"]
+        return record
+
     expected_strata = {
-        task: [
-            {
-                "name": stratum["name"],
-                "environment": stratum["environment"],
-                "trial_numbers": list(stratum["trial_numbers"]),
-                "task_checksum": stratum["task_checksum"],
-            }
-            for stratum in strata
-        ]
+        task: [serialize(stratum) for stratum in strata]
         for task, strata in RECORDED_RUNTIME_STRATA.items()
     }
     if frozen.get("recorded_runtime_strata") != expected_strata:
@@ -223,17 +239,18 @@ def validate_public_controls() -> None:
             / "public-controls-validation.json"
         ).read_text()
     )
-    if manifest["summary"] != {
-        "trials": 8,
-        "exceptions": 0,
-        "oracle_all_reward_one": True,
-        "nop_all_reward_zero": True,
-    }:
-        raise SystemExit("unexpected post-normalization control summary")
-    if manifest.get("environment") != "docker":
-        raise SystemExit("post-normalization controls must run in Docker")
-    if manifest.get("config") != "harness/controls.json":
-        raise SystemExit("unexpected post-normalization control config")
+    for job_name, job in manifest["jobs"].items():
+        if job["summary"]["exceptions"] != 0:
+            raise SystemExit(f"control job {job_name} recorded an exception")
+        if not job["summary"]["oracle_all_reward_one"]:
+            raise SystemExit(f"control job {job_name} has a failing oracle")
+        if not job["summary"]["nop_all_reward_zero"]:
+            raise SystemExit(f"control job {job_name} has a passing no-op")
+        if job.get("config") != "harness/controls.json":
+            raise SystemExit(f"unexpected control config for {job_name}")
+    for task, record in manifest["tasks"].items():
+        if record["oracle"]["reward"] != 1.0 or record["nop"]["reward"] != 0.0:
+            raise SystemExit(f"control rewards not 1.0/0.0 for {task}")
     if set(manifest["tasks"]) != set(TASKS):
         raise SystemExit("post-normalization controls must cover every task")
     for task in TASKS:
@@ -244,8 +261,13 @@ def validate_public_controls() -> None:
             ROOT / "tasks" / task
         ):
             raise SystemExit(f"post-normalization control task hash mismatch: {task}")
-        if not HARBOR_DIGEST.fullmatch(record.get("harbor_task_digest", "")):
-            raise SystemExit(f"invalid Harbor task digest: {task}")
+        digest = record.get("harbor_task_digest", "")
+        checksum = record.get("harbor_task_checksum", "")
+        if not (
+            HARBOR_DIGEST.fullmatch(digest)
+            or HARBOR_TASK_CHECKSUM.fullmatch(checksum)
+        ):
+            raise SystemExit(f"invalid Harbor task identifier: {task}")
         if record["oracle"] != {
             "trial_id": record["oracle"]["trial_id"],
             "reward": 1.0,
@@ -282,16 +304,20 @@ def main() -> None:
     summary = json.loads(
         (ROOT / "sample-run" / "indexes" / "execution-summary.json").read_text()
     )
-    if summary["scored_valid_trials"] != 64:
+    trials_total = sum(
+        1 for _ in json.loads((ROOT / "sample-run" / "indexes" / "trials.json").read_text())
+    )
+    if summary["scored_valid_trials"] != trials_total:
         raise SystemExit("execution summary trial count mismatch")
+    controls = len(TASKS)
     if summary["controls"] != {
-        "oracle": {"count": 4, "all_reward_one": True},
-        "nop": {"count": 4, "all_reward_zero": True},
+        "oracle": {"count": controls, "all_reward_one": True},
+        "nop": {"count": controls, "all_reward_zero": True},
     }:
         raise SystemExit("execution summary control mismatch")
     print(
-        f"publication validation passed: tasks=4 trials=64 controls=8 "
-        f"links={links} text_files={text_files}"
+        f"publication validation passed: tasks={len(TASKS)} trials={trials_total} "
+        f"controls={controls * 2} links={links} text_files={text_files}"
     )
 
 

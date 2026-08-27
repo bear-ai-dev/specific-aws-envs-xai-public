@@ -1,0 +1,39 @@
+{
+  "id": "42254326-1545-4cbb-8bfa-2d4056617dbc",
+  "taskName": "meteringco/api-keys-and-environments",
+  "trialName": "07-api-keys-and-environments__FFY37gS",
+  "taskChecksum": "3f6269b97803f429411916a6f0dc1325aecfd69f3a1e995fbd20d5c7bbb17d16",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "converse/us.xai.grok-4.6",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0,
+      "score": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-27T04:19:59.352115Z",
+  "finishedAt": "2026-08-27T06:17:26.696860Z",
+  "environmentSetup": {
+    "started_at": "2026-08-27T04:19:59.398472Z",
+    "finished_at": "2026-08-27T04:23:08.526114Z"
+  },
+  "agentSetup": {
+    "started_at": "2026-08-27T04:23:09.046911Z",
+    "finished_at": "2026-08-27T04:23:20.262017Z"
+  },
+  "agentExecution": {
+    "started_at": "2026-08-27T04:23:20.262327Z",
+    "finished_at": "2026-08-27T06:16:56.228469Z"
+  },
+  "verifier": {
+    "started_at": "2026-08-27T06:16:59.754397Z",
+    "finished_at": "2026-08-27T06:17:26.465763Z"
+  }
+}

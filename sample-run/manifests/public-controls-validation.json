@@ -1,73 +1,157 @@
 {
-  "schema_version": 2,
-  "run_date": "2026-08-26",
-  "purpose": "post-normalization oracle and no-op validation of all runnable public tasks",
-  "harbor_version": "0.18.0",
-  "environment": "docker",
-  "config": "harness/controls.json",
-  "job_name": "xai-task-renumber-controls-20260825",
-  "summary": {
+ "schema_version": 3,
+ "run_date": "2026-08-26",
+ "purpose": "post-normalization oracle and no-op validation of Tasks 1 to 4, plus the recorded-build oracle and no-op runs for Tasks 5 to 7",
+ "harbor_version": "0.18.0",
+ "environment": "docker",
+ "config": "harness/controls.json",
+ "job_name": "xai-task-renumber-controls-20260825",
+ "summary": {
+  "trials": 8,
+  "exceptions": 0,
+  "oracle_all_reward_one": true,
+  "nop_all_reward_zero": true
+ },
+ "tasks": {
+  "01-entitlement-overage-lines": {
+   "public_task_sha256": "9a2cb9b18c32f44eeae716b21538a3d143be13fec1989c0f912c15a04e3b484a",
+   "harbor_task_digest": "sha256:b067141021b1f6c1330f9644e8ff9c21cde053139f6d28f5f58e850c5f2143c5",
+   "oracle": {
+    "trial_id": "72x42XG",
+    "reward": 1.0,
+    "exception": null
+   },
+   "nop": {
+    "trial_id": "Myqhqvy",
+    "reward": 0.0,
+    "exception": null
+   }
+  },
+  "02-multi-region-sweep": {
+   "public_task_sha256": "24677e8a3ca232fd1e7af74156a8ce186075209e7e9cbc5539e6498720da0c37",
+   "harbor_task_digest": "sha256:752bf68c7a5e331c1120ccaa768e0dbe6d4d3595eba5493643ba6f6c6c4d4cd1",
+   "nop": {
+    "trial_id": "B9DJoXJ",
+    "reward": 0.0,
+    "exception": null
+   },
+   "oracle": {
+    "trial_id": "zBzwzxX",
+    "reward": 1.0,
+    "exception": null
+   }
+  },
+  "03-iam-role-validation": {
+   "public_task_sha256": "db8e647845c4b2ebb2e84558dcc8f1851267f060f93fb8125aeeebb51baff872",
+   "harbor_task_digest": "sha256:50c4bb75afa39b5842ec0464b43391133e81c998bd7866fe1909eb513b40ee7a",
+   "nop": {
+    "trial_id": "7Qb9JFz",
+    "reward": 0.0,
+    "exception": null
+   },
+   "oracle": {
+    "trial_id": "xdRXrg6",
+    "reward": 1.0,
+    "exception": null
+   }
+  },
+  "04-tax-jurisdiction": {
+   "public_task_sha256": "14bed3b6424a462c369ed2d831e469ea7817bf9195418a40ac483034ef43097e",
+   "harbor_task_digest": "sha256:cff122e3adb8b2ca197cc43e7d6517eb128ff5d9e3ee547ffc4892623fd751fd",
+   "oracle": {
+    "trial_id": "aTZ8wD4",
+    "reward": 1.0,
+    "exception": null
+   },
+   "nop": {
+    "trial_id": "ccTjACw",
+    "reward": 0.0,
+    "exception": null
+   }
+  },
+  "05-network-egress-metering": {
+   "public_task_sha256": "cc084261e1c314c0d3b967d8017e8abff574ef5ea104085529bfa7e45e4b0c27",
+   "control_job": "grok46-missing-meta-amazon-controls-20260826",
+   "oracle": {
+    "trial_id": "CqQA72N",
+    "reward": 1.0,
+    "exception": null
+   },
+   "nop": {
+    "trial_id": "MNAamnb",
+    "reward": 0.0,
+    "exception": null
+   },
+   "harbor_task_checksum": "edbaa55fe7240b126b3b47a1e33b25df9475e97f89031972eeedb2076bf7f498"
+  },
+  "06-api-token-metering": {
+   "public_task_sha256": "d9c9f4db0c30985d80d209a10ca998ed4e7e8555d9bf61c8158e1d286b176907",
+   "control_job": "grok46-missing-meta-amazon-controls-20260826",
+   "oracle": {
+    "trial_id": "VaS2g52",
+    "reward": 1.0,
+    "exception": null
+   },
+   "nop": {
+    "trial_id": "UEsy9Lq",
+    "reward": 0.0,
+    "exception": null
+   },
+   "harbor_task_checksum": "4752c91a46310743198600c4182aafad05b54023c6cfec7c75e6497e1f62c96e"
+  },
+  "07-api-keys-and-environments": {
+   "public_task_sha256": "f9484c3e65ee01066372b10140d7faa03bfed24c1ddc29b19acdf07f1c8a34e7",
+   "control_job": "grok46-missing-meta-amazon-controls-20260826",
+   "oracle": {
+    "trial_id": "6ui85ok",
+    "reward": 1.0,
+    "exception": null
+   },
+   "nop": {
+    "trial_id": "9fRfSDW",
+    "reward": 0.0,
+    "exception": null
+   },
+   "harbor_task_checksum": "3f6269b97803f429411916a6f0dc1325aecfd69f3a1e995fbd20d5c7bbb17d16"
+  }
+ },
+ "jobs": {
+  "xai-task-renumber-controls-20260825": {
+   "environment": "docker",
+   "config": "harness/controls.json",
+   "run_date": "2026-08-26",
+   "stage": "post-normalization",
+   "tasks": [
+    "01-entitlement-overage-lines",
+    "02-multi-region-sweep",
+    "03-iam-role-validation",
+    "04-tax-jurisdiction"
+   ],
+   "summary": {
     "trials": 8,
     "exceptions": 0,
     "oracle_all_reward_one": true,
     "nop_all_reward_zero": true
+   }
   },
-  "tasks": {
-    "01-entitlement-overage-lines": {
-      "public_task_sha256": "9a2cb9b18c32f44eeae716b21538a3d143be13fec1989c0f912c15a04e3b484a",
-      "harbor_task_digest": "sha256:b067141021b1f6c1330f9644e8ff9c21cde053139f6d28f5f58e850c5f2143c5",
-      "oracle": {
-        "trial_id": "72x42XG",
-        "reward": 1.0,
-        "exception": null
-      },
-      "nop": {
-        "trial_id": "Myqhqvy",
-        "reward": 0.0,
-        "exception": null
-      }
-    },
-    "02-multi-region-sweep": {
-      "public_task_sha256": "24677e8a3ca232fd1e7af74156a8ce186075209e7e9cbc5539e6498720da0c37",
-      "harbor_task_digest": "sha256:752bf68c7a5e331c1120ccaa768e0dbe6d4d3595eba5493643ba6f6c6c4d4cd1",
-      "nop": {
-        "trial_id": "B9DJoXJ",
-        "reward": 0.0,
-        "exception": null
-      },
-      "oracle": {
-        "trial_id": "zBzwzxX",
-        "reward": 1.0,
-        "exception": null
-      }
-    },
-    "03-iam-role-validation": {
-      "public_task_sha256": "db8e647845c4b2ebb2e84558dcc8f1851267f060f93fb8125aeeebb51baff872",
-      "harbor_task_digest": "sha256:50c4bb75afa39b5842ec0464b43391133e81c998bd7866fe1909eb513b40ee7a",
-      "nop": {
-        "trial_id": "7Qb9JFz",
-        "reward": 0.0,
-        "exception": null
-      },
-      "oracle": {
-        "trial_id": "xdRXrg6",
-        "reward": 1.0,
-        "exception": null
-      }
-    },
-    "04-tax-jurisdiction": {
-      "public_task_sha256": "14bed3b6424a462c369ed2d831e469ea7817bf9195418a40ac483034ef43097e",
-      "harbor_task_digest": "sha256:cff122e3adb8b2ca197cc43e7d6517eb128ff5d9e3ee547ffc4892623fd751fd",
-      "oracle": {
-        "trial_id": "aTZ8wD4",
-        "reward": 1.0,
-        "exception": null
-      },
-      "nop": {
-        "trial_id": "ccTjACw",
-        "reward": 0.0,
-        "exception": null
-      }
-    }
+  "grok46-missing-meta-amazon-controls-20260826": {
+   "environment": "daytona",
+   "config": "harness/controls.json",
+   "run_date": "2026-08-26",
+   "stage": "recorded build",
+   "note": "These ran against the same Harbor task checksum as the scored Task 5 to 7 trials, which is the build published here verbatim, but before the publication pass rather than after it.",
+   "tasks": [
+    "05-network-egress-metering",
+    "06-api-token-metering",
+    "07-api-keys-and-environments"
+   ],
+   "summary": {
+    "trials": 6,
+    "exceptions": 0,
+    "oracle_all_reward_one": true,
+    "nop_all_reward_zero": true
+   },
+   "digest_note": "This job recorded Harbor task checksums rather than image digests, so Tasks 5 to 7 carry harbor_task_checksum in place of harbor_task_digest."
   }
+ }
 }

@@ -1,11 +1,19 @@
 # Sample RL Tasks for AWS - xAI
 
-This sample contains the four tasks analyzed in the accompanying report. Tasks
-1, 2, and 3 use one matched eight-run Daytona cohort. Task 4
-uses two matched four-run strata, one on Daytona and one on AWS Fargate, with a
-pooled descriptive total of eight attempts per model. Grok 4.6 solved 0/8, 6/8,
-3/8, and 0/8 attempts; Claude Opus 5 solved 8/8, 8/8, 8/8, and 5/8 on the
-corresponding tasks.
+This sample contains seven tasks, all run on Daytona. Tasks 1, 2 and 3 each use
+one eight-run cohort whose checksum both models share. Task 4 uses two matched
+four-run strata, one on Daytona and one on AWS Fargate, with a pooled
+descriptive total of eight attempts per model. Tasks 5 to 7 use one eight-run
+cohort per model arm.
+
+Every task carries both model arms. Grok 4.6 solved 0/8, 6/8, 3/8, 0/8, 3/8,
+0/8 and 5/8; Claude Opus 5 solved 8/8, 8/8, 8/8, 5/8, 8/8, 7/8 and 8/8.
+
+Tasks 5 to 7 were built once per model arm, so each arm carries its own recorded
+Harbor task checksum and its own stratum. The task packages published here are
+byte-identical to the packages the Opus arm ran against, recorded as
+`build_equivalence` in
+[`frozen-cohort.json`](sample-run/manifests/frozen-cohort.json).
 
 ## Contents
 
@@ -25,9 +33,12 @@ Each row contains eight valid trials. `c/n` is the observed solve count. The
 table uses `pass@k = 1 - C(n-c, k) / C(n, k)`, the estimated chance that at
 least one of `k` sampled attempts succeeds.
 Rows are grouped by model; a blank model cell continues the model named above.
-Tasks 1, 2, and 3 are single matched Daytona cohorts. For Task 4, the
-eight-attempt rows are pooled descriptive estimates across the two equal
-backend strata below, not results from one frozen runtime configuration.
+Tasks 1, 2 and 3 are single Daytona cohorts whose checksum both models share.
+For Task 4, the eight-attempt rows are pooled descriptive estimates across the
+two equal backend strata below, not results from one frozen runtime
+configuration. For Tasks 5 to 7 each arm was built separately, so the two rows
+of a task come from different recorded checksums over a byte-identical task
+package.
 
 <!-- MINI_SWE_MATRIX_START -->
 | Model | Task | Solves `c/n` | pass@1 | pass@3 | pass@8 |
@@ -36,10 +47,16 @@ backend strata below, not results from one frozen runtime configuration.
 |  | [Task 2](tasks/02-multi-region-sweep/instruction.md) | 6/8 | 0.7500 | 1.0000 | 1.0000 |
 |  | [Task 3](tasks/03-iam-role-validation/instruction.md) | 3/8 | 0.3750 | 0.8214 | 1.0000 |
 |  | [Task 4](tasks/04-tax-jurisdiction/instruction.md) | 0/8 | 0.0000 | 0.0000 | 0.0000 |
+|  | [Task 5](tasks/05-network-egress-metering/instruction.md) | 3/8 | 0.3750 | 0.8214 | 1.0000 |
+|  | [Task 6](tasks/06-api-token-metering/instruction.md) | 0/8 | 0.0000 | 0.0000 | 0.0000 |
+|  | [Task 7](tasks/07-api-keys-and-environments/instruction.md) | 5/8 | 0.6250 | 0.9821 | 1.0000 |
 | Opus 5 | [Task 1](tasks/01-entitlement-overage-lines/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 2](tasks/02-multi-region-sweep/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 3](tasks/03-iam-role-validation/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 4](tasks/04-tax-jurisdiction/instruction.md) | 5/8 | 0.6250 | 0.9821 | 1.0000 |
+|  | [Task 5](tasks/05-network-egress-metering/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
+|  | [Task 6](tasks/06-api-token-metering/instruction.md) | 7/8 | 0.8750 | 1.0000 | 1.0000 |
+|  | [Task 7](tasks/07-api-keys-and-environments/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 <!-- MINI_SWE_MATRIX_END -->
 
 ### Runtime-stratified results for Task 4
@@ -60,6 +77,9 @@ The model comparison is therefore matched within the rows below.
 | [Task&nbsp;2](tasks/02-multi-region-sweep/instruction.md) | Update block-storage collection to check every enabled AWS region, retry rate limits, keep readable regions even when they are empty, and skip permanently unreadable regions without stopping the whole sweep. |
 | [Task&nbsp;3](tasks/03-iam-role-validation/instruction.md) | Validate a customer's IAM role before saving it: assume the role with its external ID, confirm it can read instance inventory, reject the whole update if either check fails, and handle disconnects correctly. |
 | [Task&nbsp;4](tasks/04-tax-jurisdiction/instruction.md) | Restore tax determination on issued invoices: choose among destination-priced, manual, and no-tax regimes, let a held exemption override the regime, quote the authority for the buyer's destination on the right account, print VAT identities for European parties, report a refused address without blocking the invoice, and file eligible settled sales. |
+| [Task&nbsp;5](tasks/05-network-egress-metering/instruction.md) | Meter outbound network traffic per customer on a five-minute schedule: pick up only the machines tagged for the dimension being billed, total the bytes each one sent out over the interval, add those together per customer, and keep charging for machines that have since stopped. |
+| [Task&nbsp;6](tasks/06-api-token-metering/instruction.md) | Meter the platform's own API traffic: record each call against the platform's customer for that tenant at the time of the call, keep calls apart by identity, count a redelivered call once, and roll each window up into one billable figure against the right account and dimension. |
+| [Task&nbsp;7](tasks/07-api-keys-and-environments/instruction.md) | Build the console's API key screen across sandbox and production: list the credentials the current account holds in the current environment, rotate one secret without touching the others, retire one so it stops authenticating on the very next request, and refuse any credential the current account does not hold. |
 
 Task paths, headings, and review bundles use the same Task 1–4 numbering as the
 report. Immutable Harbor trial names and recorded runtime checksums remain in
@@ -299,22 +319,30 @@ and
 ## Evidence and controls
 
 - **Harness:** Harbor 0.18.0 with mini-SWE-agent 2.4.5 at high reasoning
-  effort. Tasks 1, 2, and 3 ran in isolated Daytona sandboxes. Task 4 uses
-  separately matched four-run Daytona and AWS Fargate strata.
+  effort. Tasks 1, 2, 3 and 5 to 7 ran in isolated Daytona sandboxes. Task 4
+  uses separately matched four-run Daytona and AWS Fargate strata. Tasks 5 to 7
+  carry one stratum per model arm.
 - **Routes:** Grok 4.6 and Claude Opus 5 through Amazon Bedrock.
-- **Denominator:** All 64 packaged model trials have a numeric reward, complete
-  native trajectory, complete verifier evidence, and no Harbor exception.
+- **Denominator:** All 112 packaged model trials have a numeric reward, complete
+  native trajectory and complete verifier evidence. One of them, Task 7 Grok
+  trial 8, passed all eight graded rules and was then scored `0.0` because the
+  verifier driver lost its connection to the emulator after grading; it is kept
+  at its recorded reward rather than dropped.
 - **Controls:** The normalized public version of every task has an oracle
   reward of `1.0` and a no-op reward of `0.0`; the
   [post-normalization control manifest](sample-run/manifests/public-controls-validation.json)
-  records the clean eight-trial Docker rerun. Recorded-build coverage is
-  narrower, as Appendix A of the report states: Task 1's stored control
-  predates its scored build, Task 4 has a control for its Daytona stratum only,
-  and Tasks 2 and 3 are fully covered.
+  records both control jobs: the clean eight-trial Docker rerun for Tasks 1 to
+  4, and the six-trial recorded-build job for Tasks 5 to 7. The latter ran in
+  Daytona before the publication pass rather than after it, against the same
+  Harbor task checksum as those tasks' scored Grok trials, which is the build
+  published here.
+  Recorded-build coverage is otherwise narrower, as Appendix A of the report
+  states: Task 1's stored control predates its scored build, Task 4 has a
+  control for its Daytona stratum only, and Tasks 2 and 3 are fully covered.
 - **Task 1 raw evidence:**
   [`sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/`](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/)
   contains all 16 full Harbor attempts.
-- **Tasks 2, 3, and 4 evidence:** their complete trajectories, final Grok
+- **Tasks 2 to 7 evidence:** their complete trajectories, final Grok
   changes, touched files, raw verifier observations, rewards, stdout, held-out
   scoring assets, and controls are in the
   [`review bundle`](sample-run/review-bundle/).

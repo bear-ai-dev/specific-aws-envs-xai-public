@@ -1,0 +1,12 @@
+{
+  "id": "b7514efe-cf96-4811-938c-704b695d2c66",
+  "taskName": "meteringco/network-egress-metering",
+  "trialName": "05-network-egress-metering__CqQA72N",
+  "taskChecksum": "edbaa55fe7240b126b3b47a1e33b25df9475e97f89031972eeedb2076bf7f498",
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0,
+      "score": 1.0
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "e0536c49-99b1-442d-9d9e-4717f926de69",
+  "taskName": "meteringco/api-token-metering",
+  "trialName": "meteringco-api-token-metering__xKCVDGW",
+  "taskChecksum": "28a06245e0c745b4801d176437331dafcfbe631d51473b67d1050e58b355d134",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "us.anthropic.claude-opus-5",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0,
+      "score": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-26T03:11:55.276174Z",
+  "finishedAt": "2026-08-26T03:42:28.286777Z",
+  "environmentSetup": {
+    "started_at": "2026-08-26T03:11:55.397023Z",
+    "finished_at": "2026-08-26T03:13:27.311095Z"
+  },
+  "agentSetup": {
+    "started_at": "2026-08-26T03:13:27.311120Z",
+    "finished_at": "2026-08-26T03:13:36.902154Z"
+  },
+  "agentExecution": {
+    "started_at": "2026-08-26T03:13:36.902318Z",
+    "finished_at": "2026-08-26T03:42:14.791300Z"
+  },
+  "verifier": {
+    "started_at": "2026-08-26T03:42:21.664303Z",
+    "finished_at": "2026-08-26T03:42:28.219763Z"
+  }
+}

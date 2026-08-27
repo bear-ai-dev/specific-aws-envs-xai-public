@@ -1,0 +1,39 @@
+{
+  "id": "cdae57ad-4ebf-4f92-b2ad-1022df2e3756",
+  "taskName": "meteringco/api-keys-and-environments",
+  "trialName": "meteringco-api-keys-and-environments__QYCehfc",
+  "taskChecksum": "3f38fb2bc343a749016fa1425494c139f4baa0c44e84bb84c618d32ec94bb78e",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "us.anthropic.claude-opus-5",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0,
+      "score": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-25T22:45:19.595354Z",
+  "finishedAt": "2026-08-25T23:12:22.162862Z",
+  "environmentSetup": {
+    "started_at": "2026-08-25T22:45:21.572595Z",
+    "finished_at": "2026-08-25T22:46:37.157722Z"
+  },
+  "agentSetup": {
+    "started_at": "2026-08-25T22:46:37.173011Z",
+    "finished_at": "2026-08-25T22:46:45.761926Z"
+  },
+  "agentExecution": {
+    "started_at": "2026-08-25T22:46:45.762115Z",
+    "finished_at": "2026-08-25T23:11:47.190677Z"
+  },
+  "verifier": {
+    "started_at": "2026-08-25T23:11:52.683552Z",
+    "finished_at": "2026-08-25T23:12:21.963836Z"
+  }
+}

@@ -16,6 +16,9 @@ TASKS = {
     "02-multi-region-sweep": {"grok": 6, "opus": 8},
     "03-iam-role-validation": {"grok": 3, "opus": 8},
     "04-tax-jurisdiction": {"grok": 0, "opus": 5},
+    "05-network-egress-metering": {"grok": 3, "opus": 8},
+    "06-api-token-metering": {"grok": 0, "opus": 7},
+    "07-api-keys-and-environments": {"grok": 5, "opus": 8},
 }
 
 
@@ -47,16 +50,16 @@ def main() -> None:
         recorded_checksums = set()
         solves = {}
         stratum_solves = {
-            stratum["name"]: {"grok": 0, "opus": 0}
+            stratum["name"]: {model: 0 for model in expected}
             for stratum in RECORDED_RUNTIME_STRATA[task]
         }
-        for model in ("grok", "opus"):
+        for model in expected:
             rewards = []
             for number in range(1, 9):
                 trial = bundle / "verification-results" / model / f"trial-{number:02d}"
                 result = json.loads((trial / "harbor-result.json").read_text())
                 checksum = result["taskChecksum"]
-                stratum = stratum_for(task, number)
+                stratum = stratum_for(task, number, "Grok 4.6" if model == "grok" else "Opus 5")
                 if checksum != stratum["task_checksum"]:
                     raise SystemExit(
                         f"unexpected checksum for {task}/{model}/trial-{number:02d}: "

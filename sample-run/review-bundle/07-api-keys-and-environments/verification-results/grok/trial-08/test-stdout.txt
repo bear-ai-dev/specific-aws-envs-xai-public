@@ -1,0 +1,6 @@
+=== Snapshot the deliverable for audit ===
+=== Stop the agent-facing endpoint ===
+=== Compile the deliverable ===
+build diagnostic exit: 0
+driver diagnostic exit: 1
+HARNESS FAILURE: the driver did not complete (exit 1); see driver.log

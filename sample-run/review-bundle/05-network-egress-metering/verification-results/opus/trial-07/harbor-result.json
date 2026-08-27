@@ -1,0 +1,39 @@
+{
+  "id": "4f6d6a01-76ba-4a70-9b77-916c865e2e1a",
+  "taskName": "meteringco/network-egress-metering",
+  "trialName": "meteringco-network-egress-metering__3woPgF4",
+  "taskChecksum": "6427d0d789ad611f6ebe201045f26ed7c62da6e71722d8792558a0fdf37c2b56",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "us.anthropic.claude-opus-5",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0,
+      "score": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-25T22:45:07.234446Z",
+  "finishedAt": "2026-08-25T23:06:15.188400Z",
+  "environmentSetup": {
+    "started_at": "2026-08-25T22:45:07.727191Z",
+    "finished_at": "2026-08-25T22:46:25.718104Z"
+  },
+  "agentSetup": {
+    "started_at": "2026-08-25T22:46:25.731128Z",
+    "finished_at": "2026-08-25T22:46:34.763971Z"
+  },
+  "agentExecution": {
+    "started_at": "2026-08-25T22:46:34.764146Z",
+    "finished_at": "2026-08-25T23:05:57.422118Z"
+  },
+  "verifier": {
+    "started_at": "2026-08-25T23:06:06.933412Z",
+    "finished_at": "2026-08-25T23:06:15.083215Z"
+  }
+}
