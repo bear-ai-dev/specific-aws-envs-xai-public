@@ -1,9 +1,9 @@
 """Recorded runtime strata for the packaged model evidence.
 
-The first three tasks use one Daytona checksum stratum. Task 4 was completed
-in two separately frozen four-attempt strata, one on Daytona and one on AWS
-Fargate. Models are comparable within each stratum; its eight-attempt totals
-are pooled descriptive counts across the strata.
+Tasks 1, 2, 3 and 5 to 7 each use one Daytona checksum stratum. Task 4 was
+completed in two separately frozen four-attempt strata, one on Daytona and one
+on AWS Fargate. Models are comparable within each stratum; its eight-attempt
+totals are pooled descriptive counts across the strata.
 """
 
 from __future__ import annotations
@@ -46,6 +46,30 @@ RECORDED_RUNTIME_STRATA = {
             "environment": "aws-fargate",
             "trial_numbers": tuple(range(5, 9)),
             "task_checksum": "bea753509f8689709ac2827ebc01c71b0cad2119ac99d51a87661c180ace6785",
+        },
+    ),
+    "05-network-egress-metering": (
+        {
+            "name": "daytona-01-08",
+            "environment": "daytona",
+            "trial_numbers": tuple(range(1, 9)),
+            "task_checksum": "edbaa55fe7240b126b3b47a1e33b25df9475e97f89031972eeedb2076bf7f498",
+        },
+    ),
+    "06-api-token-metering": (
+        {
+            "name": "daytona-01-08",
+            "environment": "daytona",
+            "trial_numbers": tuple(range(1, 9)),
+            "task_checksum": "4752c91a46310743198600c4182aafad05b54023c6cfec7c75e6497e1f62c96e",
+        },
+    ),
+    "07-api-keys-and-environments": (
+        {
+            "name": "daytona-01-08",
+            "environment": "daytona",
+            "trial_numbers": tuple(range(1, 9)),
+            "task_checksum": "3f6269b97803f429411916a6f0dc1325aecfd69f3a1e995fbd20d5c7bbb17d16",
         },
     ),
 }

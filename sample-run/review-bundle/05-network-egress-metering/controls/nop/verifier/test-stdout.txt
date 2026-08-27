@@ -1,0 +1,12 @@
+=== Snapshot the deliverable for audit ===
+=== Stop the agent-facing endpoint (port 4566) ===
+baseline manifest: 455 source files
+endpoint on port 4566 confirmed ours (pid 307, estate role meteringco-transfer-reader)
+driver diagnostic exit: 0
+endpoint still confirmed ours after the run
+=== Compute reward (root, no submitted code loaded) ===
+[transfer] FAILED
+    the run produced nothing: no collector was found in the submission
+[replica] FAILED
+    the run produced nothing: no collector was found in the submission
+reward 0.0

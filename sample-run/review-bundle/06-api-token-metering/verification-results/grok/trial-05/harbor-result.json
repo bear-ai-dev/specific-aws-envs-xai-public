@@ -1,0 +1,39 @@
+{
+  "id": "87f71652-111b-4f84-b176-d37f036bc3ae",
+  "taskName": "meteringco/api-token-metering",
+  "trialName": "06-api-token-metering__EpCWPD3",
+  "taskChecksum": "4752c91a46310743198600c4182aafad05b54023c6cfec7c75e6497e1f62c96e",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "converse/us.xai.grok-4.6",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 0.0,
+      "score": 0.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-27T04:05:01.126243Z",
+  "finishedAt": "2026-08-27T06:44:57.067648Z",
+  "environmentSetup": {
+    "started_at": "2026-08-27T04:05:01.172493Z",
+    "finished_at": "2026-08-27T04:05:05.021591Z"
+  },
+  "agentSetup": {
+    "started_at": "2026-08-27T04:05:05.021687Z",
+    "finished_at": "2026-08-27T04:05:15.668410Z"
+  },
+  "agentExecution": {
+    "started_at": "2026-08-27T04:05:15.668755Z",
+    "finished_at": "2026-08-27T06:44:43.354574Z"
+  },
+  "verifier": {
+    "started_at": "2026-08-27T06:44:47.400024Z",
+    "finished_at": "2026-08-27T06:44:56.807402Z"
+  }
+}

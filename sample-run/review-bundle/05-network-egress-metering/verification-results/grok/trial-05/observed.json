@@ -1,0 +1,294 @@
+{
+  "runs": {
+    "transfer": {
+      "ok": true,
+      "rows": [
+        {
+          "timestamp": "2026-08-27T04:39:34.056Z",
+          "dimensionId": "dim_hld_transfer",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_ravelin",
+          "recordValue": 0.16666666,
+          "metadata": {
+            "InstanceId": "i-0hld000000000101",
+            "InstanceType": "m6i.2xlarge",
+            "LaunchTime": "\"2026-07-14T09:12:00.000Z\"",
+            "Placement": "{\"AvailabilityZone\":\"us-east-1a\"}",
+            "PrivateIpAddress": "10.0.0.10",
+            "State": "{\"Name\":\"running\"}",
+            "Tags": "[{\"Key\":\"Name\",\"Value\":\"gateway-a\"},{\"Key\":\"meteringcoCustomerId\",\"Value\":\"cus_ravelin\"},{\"Key\":\"meteringcoDimensionId\",\"Value\":\"dim_hld_transfer\"}]",
+            "Name": "gateway-a",
+            "meteringcoCustomerId": "cus_ravelin",
+            "meteringcoDimensionId": "dim_hld_transfer"
+          },
+          "_measurement": "usageMeasurement"
+        },
+        {
+          "timestamp": "2026-08-27T04:39:34.057Z",
+          "dimensionId": "dim_hld_transfer",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_kestrelmoor",
+          "recordValue": 0.16666666,
+          "metadata": {
+            "InstanceId": "i-0hld000000000104",
+            "InstanceType": "t3.small",
+            "LaunchTime": "\"2026-07-14T09:12:00.000Z\"",
+            "Placement": "{\"AvailabilityZone\":\"us-east-1a\"}",
+            "PrivateIpAddress": "10.0.0.10",
+            "State": "{\"Name\":\"running\"}",
+            "Tags": "[{\"Key\":\"Name\",\"Value\":\"probe-a\"},{\"Key\":\"meteringcoCustomerId\",\"Value\":\"cus_kestrelmoor\"},{\"Key\":\"meteringcoDimensionId\",\"Value\":\"dim_hld_transfer\"}]",
+            "Name": "probe-a",
+            "meteringcoCustomerId": "cus_kestrelmoor",
+            "meteringcoDimensionId": "dim_hld_transfer"
+          },
+          "_measurement": "usageMeasurement"
+        },
+        {
+          "timestamp": "2026-08-27T04:39:34.057Z",
+          "dimensionId": "dim_hld_transfer",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_solenoid",
+          "recordValue": 0.08333333,
+          "metadata": {
+            "InstanceId": "i-0hld000000000105",
+            "InstanceType": "t3.small",
+            "LaunchTime": "\"2026-07-14T09:12:00.000Z\"",
+            "Placement": "{\"AvailabilityZone\":\"us-east-1a\"}",
+            "PrivateIpAddress": "10.0.0.10",
+            "State": "{\"Name\":\"running\"}",
+            "Tags": "[{\"Key\":\"Name\",\"Value\":\"parked-a\"},{\"Key\":\"meteringcoCustomerId\",\"Value\":\"cus_solenoid\"},{\"Key\":\"meteringcoDimensionId\",\"Value\":\"dim_hld_transfer\"}]",
+            "Name": "parked-a",
+            "meteringcoCustomerId": "cus_solenoid",
+            "meteringcoDimensionId": "dim_hld_transfer"
+          },
+          "_measurement": "usageMeasurement"
+        },
+        {
+          "timestamp": "2026-08-27T04:39:34.057Z",
+          "dimensionId": "dim_hld_transfer",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_tallow",
+          "recordValue": 0.08333333,
+          "metadata": {
+            "InstanceId": "i-0hld000000000106",
+            "InstanceType": "c6i.2xlarge",
+            "LaunchTime": "\"2026-07-14T09:12:00.000Z\"",
+            "Placement": "{\"AvailabilityZone\":\"us-east-1a\"}",
+            "PrivateIpAddress": "10.0.0.10",
+            "State": "{\"Name\":\"running\"}",
+            "Tags": "[{\"Key\":\"Name\",\"Value\":\"shared-a\"},{\"Key\":\"meteringcoCustomerId\",\"Value\":\"cus_tallow\"},{\"Key\":\"meteringcoDimensionId\",\"Value\":\"dim_hld_replica,dim_hld_transfer\"}]",
+            "Name": "shared-a",
+            "meteringcoCustomerId": "cus_tallow",
+            "meteringcoDimensionId": "dim_hld_replica,dim_hld_transfer"
+          },
+          "_measurement": "usageMeasurement"
+        },
+        {
+          "timestamp": "2026-08-27T04:39:34.057Z",
+          "dimensionId": "dim_hld_transfer",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_wharfage",
+          "recordValue": 0.08333333,
+          "metadata": {
+            "InstanceId": "i-0hld000000000112",
+            "InstanceType": "m5.large",
+            "LaunchTime": "\"2026-07-14T09:12:00.000Z\"",
+            "Placement": "{\"AvailabilityZone\":\"us-east-1a\"}",
+            "PrivateIpAddress": "10.0.0.10",
+            "State": "{\"Name\":\"running\"}",
+            "Tags": "[{\"Key\":\"Name\",\"Value\":\"seasonal-b\"},{\"Key\":\"meteringcoCustomerId\",\"Value\":\"cus_wharfage\"},{\"Key\":\"meteringcoDimensionId\",\"Value\":\"dim_hld_transfer\"}]",
+            "Name": "seasonal-b",
+            "meteringcoCustomerId": "cus_wharfage",
+            "meteringcoDimensionId": "dim_hld_transfer"
+          },
+          "_measurement": "usageMeasurement"
+        }
+      ],
+      "error": null
+    },
+    "replica": {
+      "ok": true,
+      "rows": [
+        {
+          "timestamp": "2026-08-27T04:39:34.064Z",
+          "dimensionId": "dim_hld_replica",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_tallow",
+          "recordValue": 0.08333333,
+          "metadata": {
+            "InstanceId": "i-0hld000000000106",
+            "InstanceType": "c6i.2xlarge",
+            "LaunchTime": "\"2026-07-14T09:12:00.000Z\"",
+            "Placement": "{\"AvailabilityZone\":\"us-east-1a\"}",
+            "PrivateIpAddress": "10.0.0.10",
+            "State": "{\"Name\":\"running\"}",
+            "Tags": "[{\"Key\":\"Name\",\"Value\":\"shared-a\"},{\"Key\":\"meteringcoCustomerId\",\"Value\":\"cus_tallow\"},{\"Key\":\"meteringcoDimensionId\",\"Value\":\"dim_hld_replica,dim_hld_transfer\"}]",
+            "Name": "shared-a",
+            "meteringcoCustomerId": "cus_tallow",
+            "meteringcoDimensionId": "dim_hld_replica,dim_hld_transfer"
+          },
+          "_measurement": "usageMeasurement"
+        },
+        {
+          "timestamp": "2026-08-27T04:39:34.064Z",
+          "dimensionId": "dim_hld_replica",
+          "businessID": "biz-tessellate",
+          "customerId": "cus_ferrule",
+          "recordValue": 0.08333333,
+          "metadata": {
+            "InstanceId": "i-0hld000000000107",
+            "InstanceType": "c6i.large",
+            "LaunchTime": "\"2026-07-14T09:12:00.000Z\"",
+            "Placement": "{\"AvailabilityZone\":\"us-east-1a\"}",
+            "PrivateIpAddress": "10.0.0.10",
+            "State": "{\"Name\":\"running\"}",
+            "Tags": "[{\"Key\":\"Name\",\"Value\":\"mirror-a\"},{\"Key\":\"meteringcoCustomerId\",\"Value\":\"cus_ferrule\"},{\"Key\":\"meteringcoDimensionId\",\"Value\":\"dim_hld_replica\"}]",
+            "Name": "mirror-a",
+            "meteringcoCustomerId": "cus_ferrule",
+            "meteringcoDimensionId": "dim_hld_replica"
+          },
+          "_measurement": "usageMeasurement"
+        }
+      ],
+      "error": null
+    }
+  },
+  "discovery": {
+    "authored": [
+      "src/app.module.ts",
+      "src/dimensions/dimensions.service.ts",
+      "src/dimensions/dto/create-dimension.dto.ts",
+      "src/measurement-config/entities/measurement-config.entity.ts",
+      "src/microservices/ebsSnapshotDataGatherer/ebsSnapshotDataGatherer.service.ts",
+      "src/microservices/ebsVolumeDataGatherer/ebsvolumeDataGatherer.service.ts",
+      "src/microservices/ec2InstanceDataGatherer/ec2InstanceDataGatherer.service.ts",
+      "src/microservices/ec2NetworkOutDataGatherer/dto/ec2NetworkOutDataGatherer.dto.ts",
+      "src/microservices/ec2NetworkOutDataGatherer/ec2NetworkOutDataGatherer.module.ts",
+      "src/microservices/ec2NetworkOutDataGatherer/ec2NetworkOutDataGatherer.service.spec.ts",
+      "src/microservices/ec2NetworkOutDataGatherer/ec2NetworkOutDataGatherer.service.ts",
+      "src/microservices/instanceUpTime/instanceUptime.service.ts",
+      "src/microservices/reservedInstanceHistory/reservedInstance.service.ts",
+      "src/scheduler/dto/scheduler.dto.ts",
+      "src/scheduler/entities/scheduler.entity.ts",
+      "src/setting/dto/customIAMAuthorizer.ts",
+      "src/utils/aws/awsClient.ts",
+      "src/utils/aws/awsCloudWatch.ts",
+      "src/utils/aws/awsEc2.ts"
+    ],
+    "candidates": [
+      {
+        "file": "src/microservices/ebsSnapshotDataGatherer/ebsSnapshotDataGatherer.service.ts",
+        "className": "EbsSnapshotDataGathererService",
+        "method": "readOperationJob",
+        "jobKind": "ebsSnapshot",
+        "rank": 4
+      },
+      {
+        "file": "src/microservices/ebsVolumeDataGatherer/ebsvolumeDataGatherer.service.ts",
+        "className": "EbsVolumeDataGathererService",
+        "method": "readOperationJob",
+        "jobKind": "ebsVolumeProvisionedCapacity",
+        "rank": 4
+      },
+      {
+        "file": "src/microservices/ec2InstanceDataGatherer/ec2InstanceDataGatherer.service.ts",
+        "className": "Ec2InstanceDataGathererService",
+        "method": "readOperationJob",
+        "jobKind": "instanceRunningTime",
+        "rank": 4
+      },
+      {
+        "file": "src/microservices/ec2NetworkOutDataGatherer/ec2NetworkOutDataGatherer.service.ts",
+        "className": "Ec2NetworkOutDataGathererService",
+        "method": "readOperationJob",
+        "jobKind": "instanceNetworkOut",
+        "rank": 4
+      },
+      {
+        "file": "src/microservices/instanceUpTime/instanceUptime.service.ts",
+        "className": "InstanceUptimeService",
+        "method": "getInstanceUptime",
+        "jobKind": "podCPUHours",
+        "rank": 4
+      },
+      {
+        "file": "src/microservices/reservedInstanceHistory/reservedInstance.service.ts",
+        "className": "ReservedInstanceService",
+        "method": "getInstanceUptime",
+        "jobKind": "reservedInstanceHours",
+        "rank": 4
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "create",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "createKeyForManagedInfraDimensionSchedule",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "findAll",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "findByMeasurementId",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "findOne",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "remove",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "removeAll",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "ressourceTypeToDimensionType",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "transformDtoToEntityInput",
+        "jobKind": null,
+        "rank": 1
+      },
+      {
+        "file": "src/dimensions/dimensions.service.ts",
+        "className": "DimensionsService",
+        "method": "update",
+        "jobKind": null,
+        "rank": 1
+      }
+    ],
+    "chosen": "Ec2InstanceDataGathererService.readOperationJob"
+  }
+}

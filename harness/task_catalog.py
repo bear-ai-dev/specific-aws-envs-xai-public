@@ -8,6 +8,9 @@ PUBLIC_TASKS = (
     "02-multi-region-sweep",
     "03-iam-role-validation",
     "04-tax-jurisdiction",
+    "05-network-egress-metering",
+    "06-api-token-metering",
+    "07-api-keys-and-environments",
 )
 
 RECORDED_TASK_BY_PUBLIC = {
@@ -15,6 +18,9 @@ RECORDED_TASK_BY_PUBLIC = {
     "02-multi-region-sweep": "07-multi-region-sweep",
     "03-iam-role-validation": "14-iam-role-validation",
     "04-tax-jurisdiction": "27-tax-jurisdiction",
+    "05-network-egress-metering": "05-network-egress-metering",
+    "06-api-token-metering": "06-api-token-metering",
+    "07-api-keys-and-environments": "07-api-keys-and-environments",
 }
 
 PUBLIC_TASK_BY_RECORDED = {
