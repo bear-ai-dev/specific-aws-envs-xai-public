@@ -1,0 +1,80 @@
+{
+ "job_name": "xai-tasks-08-11-global-opus-reproduction",
+ "jobs_dir": "sample-run/raw",
+ "n_attempts": 4,
+ "n_concurrent_trials": 32,
+ "quiet": false,
+ "retry": {
+  "max_retries": 2,
+  "exclude_exceptions": [
+   "AgentTimeoutError",
+   "VerifierTimeoutError",
+   "RewardFileNotFoundError",
+   "RewardFileEmptyError",
+   "VerifierOutputParseError",
+   "ApiUsageLimitError"
+  ],
+  "wait_multiplier": 1.0,
+  "min_wait_sec": 2.0,
+  "max_wait_sec": 60.0
+ },
+ "environment": {
+  "type": "daytona",
+  "override_storage_mb": 10240,
+  "kwargs": {
+   "connection_pool_maxsize": 64,
+   "labels": {
+    "cohort": "xai-tasks-08-11-global-opus-reproduction"
+   }
+  }
+ },
+ "agents": [
+  {
+   "import_path": "harness.harbor_agents:BedrockMiniSweAgent",
+   "model_name": "bedrock/converse/us.xai.grok-4.6",
+   "n_concurrent": 4,
+   "kwargs": {
+    "version": "2.4.5",
+    "cost_limit": "0",
+    "config_file": "harness/mini-swe-bedrock-grok.yaml",
+    "model_registry_file": "harness/litellm-bedrock-grok-4.6.json"
+   },
+   "env": {
+    "BEDROCK_PROVIDER_AWS_ACCESS_KEY_ID": "${AWS_ACCESS_KEY_ID}",
+    "BEDROCK_PROVIDER_AWS_SECRET_ACCESS_KEY": "${AWS_SECRET_ACCESS_KEY}",
+    "BEDROCK_PROVIDER_AWS_SESSION_TOKEN": "${AWS_SESSION_TOKEN:-}",
+    "BEDROCK_PROVIDER_AWS_REGION": "${AWS_REGION:-us-east-1}"
+   }
+  },
+  {
+   "import_path": "harness.harbor_agents:BedrockMiniSweAgent",
+   "model_name": "bedrock/global.anthropic.claude-opus-5",
+   "n_concurrent": 4,
+   "kwargs": {
+    "version": "2.4.5",
+    "cost_limit": "0",
+    "config_file": "harness/mini-swe-bedrock.yaml"
+   },
+   "env": {
+    "BEDROCK_PROVIDER_AWS_ACCESS_KEY_ID": "${AWS_ACCESS_KEY_ID}",
+    "BEDROCK_PROVIDER_AWS_SECRET_ACCESS_KEY": "${AWS_SECRET_ACCESS_KEY}",
+    "BEDROCK_PROVIDER_AWS_SESSION_TOKEN": "${AWS_SESSION_TOKEN:-}",
+    "BEDROCK_PROVIDER_AWS_REGION": "${AWS_REGION:-us-east-1}"
+   }
+  }
+ ],
+ "tasks": [
+  {
+   "path": "tasks/08-dimension-pricing-tiers"
+  },
+  {
+   "path": "tasks/09-s3-datastore-measurement"
+  },
+  {
+   "path": "tasks/10-customer-identity-migration"
+  },
+  {
+   "path": "tasks/11-customer-billing-schedule-migration"
+  }
+ ]
+}

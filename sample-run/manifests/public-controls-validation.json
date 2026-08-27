@@ -1,7 +1,8 @@
 {
  "schema_version": 3,
  "run_date": "2026-08-26",
- "purpose": "post-normalization oracle and no-op validation of Tasks 1 to 4, plus the recorded-build oracle and no-op runs for Tasks 5 to 7",
+ "purpose": "post-normalization oracle and no-op validation of Tasks 1 to 4, plus recorded-build oracle and no-op evidence for Tasks 5 to 11",
+ "public_task_sha256_scope": "Current public-tree integrity inventory. It proves the executed tree only for jobs whose stage is post-normalization.",
  "harbor_version": "0.18.0",
  "environment": "docker",
  "config": "harness/controls.json",

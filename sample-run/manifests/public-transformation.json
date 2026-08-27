@@ -14,9 +14,15 @@
   "non-identifier numeric fixtures and held-out case structure",
   "model-generated control flow",
   "verifier outputs and rewards",
-  "recorded trial identifiers and chronological ordering"
+  "recorded trial identifiers and chronological ordering",
+  "already-public upstream author attribution in Tasks 8 to 11"
  ],
  "public_controls_reproduction_job": "xai-task-renumber-controls-20260825",
+ "public_control_jobs": {
+  "xai-task-renumber-controls-20260825": "post-normalization Tasks 1 to 4",
+  "grok46-missing-meta-amazon-controls-20260826": "recorded build Tasks 5 to 7",
+  "grok46-missing-nvidia-controls-20260826": "recorded build Tasks 8 to 11"
+ },
  "public_evidence_layout": {
   "01-entitlement-overage-lines": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
   "02-multi-region-sweep": "sample-run/review-bundle/02-multi-region-sweep",
@@ -61,12 +67,12 @@
  "recorded_runtime_controls": {
   "nop_required": 0.0,
   "oracle_required": 1.0,
-  "tasks_passing": 4
+  "tasks_passing": 11
  },
  "recorded_runtime_provenance": "sample-run/manifests/frozen-cohort.json",
  "schema_version": 2,
  "scope": [
-  "four task definitions and workspaces",
+  "eleven task definitions and workspaces",
   "captured trajectories and verifier artifacts",
   "manifests, indexes, and documentation"
  ],

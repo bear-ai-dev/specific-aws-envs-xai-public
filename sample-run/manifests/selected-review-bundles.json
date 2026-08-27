@@ -2,7 +2,7 @@
   "bundles": {
     "02-multi-region-sweep": {
       "bundle_sha256": "81ed3729882b5268cb3a431477b08e0c4932379263cbcf881d70c09d15589d21",
-      "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
+      "control_scope": "The oracle/no-op result applies to the recorded Harbor checksum it names. public-controls-validation.json records the current publication tree hash for comparison; unless a job is marked post-normalization, that hash is not evidence of a rerun on the current tree.",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -1114,7 +1114,7 @@
     },
     "03-iam-role-validation": {
       "bundle_sha256": "277049a0758ef1ca0d631f197d94a30dd13c1a043f7219f10b2ed978d6d2dbe0",
-      "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
+      "control_scope": "The oracle/no-op result applies to the recorded Harbor checksum it names. public-controls-validation.json records the current publication tree hash for comparison; unless a job is marked post-normalization, that hash is not evidence of a rerun on the current tree.",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -2306,7 +2306,7 @@
     },
     "04-tax-jurisdiction": {
       "bundle_sha256": "d57f8836d1a321314361f0540bce1bf714ed64b90f062a32b30e0aeae2eab7f8",
-      "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
+      "control_scope": "The oracle/no-op result applies to the recorded Harbor checksum it names. public-controls-validation.json records the current publication tree hash for comparison; unless a job is marked post-normalization, that hash is not evidence of a rerun on the current tree.",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -3710,7 +3710,7 @@
     },
     "05-network-egress-metering": {
       "bundle_sha256": "15250b59ac7e5c4f500912cf41747ef139aac1d3eea307b814839636d22cbc6f",
-      "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
+      "control_scope": "The oracle/no-op result applies to the recorded Harbor checksum it names. public-controls-validation.json records the current publication tree hash for comparison; unless a job is marked post-normalization, that hash is not evidence of a rerun on the current tree.",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -5293,6 +5293,7 @@
       "runtime_strata": [
         {
           "environment": "daytona",
+          "model_label": "Grok 4.6",
           "name": "daytona-grok-01-08",
           "solves": {
             "grok": 3,
@@ -5312,6 +5313,7 @@
         },
         {
           "environment": "daytona",
+          "model_label": "Opus 5",
           "name": "daytona-opus-01-07",
           "solves": {
             "grok": 0,
@@ -5330,6 +5332,7 @@
         },
         {
           "environment": "daytona",
+          "model_label": "Opus 5",
           "name": "daytona-opus-08",
           "solves": {
             "grok": 0,
@@ -5349,7 +5352,7 @@
     },
     "06-api-token-metering": {
       "bundle_sha256": "45b51e9ba22e2cb7936e52a0c43db765c7932657b4eb9de1cc7f7c45087c61c4",
-      "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
+      "control_scope": "The oracle/no-op result applies to the recorded Harbor checksum it names. public-controls-validation.json records the current publication tree hash for comparison; unless a job is marked post-normalization, that hash is not evidence of a rerun on the current tree.",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -6881,6 +6884,7 @@
       "runtime_strata": [
         {
           "environment": "daytona",
+          "model_label": "Grok 4.6",
           "name": "daytona-grok-01-08",
           "solves": {
             "grok": 0,
@@ -6900,6 +6904,7 @@
         },
         {
           "environment": "daytona",
+          "model_label": "Opus 5",
           "name": "daytona-opus-01-08",
           "solves": {
             "grok": 0,
@@ -6926,7 +6931,7 @@
     },
     "07-api-keys-and-environments": {
       "bundle_sha256": "a7878734440e173de4c95fe141f4a96fe3e72493d63f93ebcb09346a69adede9",
-      "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
+      "control_scope": "The oracle/no-op result applies to the recorded Harbor checksum it names. public-controls-validation.json records the current publication tree hash for comparison; unless a job is marked post-normalization, that hash is not evidence of a rerun on the current tree.",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -8643,6 +8648,7 @@
       "runtime_strata": [
         {
           "environment": "daytona",
+          "model_label": "Grok 4.6",
           "name": "daytona-grok-01-08",
           "solves": {
             "grok": 5,
@@ -8662,6 +8668,7 @@
         },
         {
           "environment": "daytona",
+          "model_label": "Opus 5",
           "name": "daytona-opus-01-08",
           "solves": {
             "grok": 0,
@@ -8687,8 +8694,8 @@
       "task_label": "Task 7"
     },
     "08-dimension-pricing-tiers": {
-      "bundle_sha256": "a2c8f56f4add8890d045ab228bafaca21424ca5d05085e6c15b5ce55eadacfd2",
-      "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
+      "bundle_sha256": "85e75d82cf00e8e5f1c93b319227d2619b04a64729f825a2d0d6def24612f482",
+      "control_scope": "The oracle/no-op result applies to the recorded Harbor checksum it names. public-controls-validation.json records the current publication tree hash for comparison; unless a job is marked post-normalization, that hash is not evidence of a rerun on the current tree.",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -8698,7 +8705,7 @@
         "grok_verification_results": 8,
         "opus_trajectories": 8,
         "opus_verification_results": 8,
-        "published_files": 143,
+        "published_files": 151,
         "touched_file_snapshots": 7
       },
       "files": [
@@ -9318,6 +9325,11 @@
           "size_bytes": 590
         },
         {
+          "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-05/output.json",
+          "sha256": "8d2a4b662ea1916e9267af93a47d684637774818b095366cb8f86dac27ef6310",
+          "size_bytes": 11904
+        },
+        {
           "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-05/reward.json",
           "sha256": "c43ffdfbbeda7bcd7295ac616e632dcb074d85a4114801e03374cc27974966c7",
           "size_bytes": 18
@@ -9326,6 +9338,11 @@
           "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-05/reward.txt",
           "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-05/stdout.txt",
+          "sha256": "046a613702022c538af8c3848f98a5f6ec1b58b4aee775866cea790bbdc071e8",
+          "size_bytes": 46018
         },
         {
           "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-05/test-stdout.txt",
@@ -9338,6 +9355,11 @@
           "size_bytes": 590
         },
         {
+          "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-06/output.json",
+          "sha256": "f96bcd7904e3d34c893a00aa71e24293056139cb89fac248c7a2a6e7637fddd9",
+          "size_bytes": 11904
+        },
+        {
           "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-06/reward.json",
           "sha256": "c667003694062e1d9851b50a4599a8ca690246a9a9d6f3d326ad9dcea767500f",
           "size_bytes": 18
@@ -9346,6 +9368,11 @@
           "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-06/reward.txt",
           "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-06/stdout.txt",
+          "sha256": "0030bfe2d560d09fa01c603f22e8f30ee1852858169deb26bcebc0ee5837eead",
+          "size_bytes": 42343
         },
         {
           "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-06/test-stdout.txt",
@@ -9358,6 +9385,11 @@
           "size_bytes": 590
         },
         {
+          "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-07/output.json",
+          "sha256": "f96bcd7904e3d34c893a00aa71e24293056139cb89fac248c7a2a6e7637fddd9",
+          "size_bytes": 11904
+        },
+        {
           "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-07/reward.json",
           "sha256": "c667003694062e1d9851b50a4599a8ca690246a9a9d6f3d326ad9dcea767500f",
           "size_bytes": 18
@@ -9366,6 +9398,11 @@
           "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-07/reward.txt",
           "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-07/stdout.txt",
+          "sha256": "ca46c3090b6220a68d5501ddc3836267799029743d662ca7c9c3dfe55a6adccd",
+          "size_bytes": 42343
         },
         {
           "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-07/test-stdout.txt",
@@ -9378,6 +9415,11 @@
           "size_bytes": 590
         },
         {
+          "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-08/output.json",
+          "sha256": "f96bcd7904e3d34c893a00aa71e24293056139cb89fac248c7a2a6e7637fddd9",
+          "size_bytes": 11904
+        },
+        {
           "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-08/reward.json",
           "sha256": "c667003694062e1d9851b50a4599a8ca690246a9a9d6f3d326ad9dcea767500f",
           "size_bytes": 18
@@ -9386,6 +9428,11 @@
           "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-08/reward.txt",
           "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-08/stdout.txt",
+          "sha256": "acddc31740913064749f6a5f52d48e5fdcd282b3e150bb08079a99a9795e6ceb",
+          "size_bytes": 42343
         },
         {
           "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-08/test-stdout.txt",
@@ -9428,11 +9475,13 @@
       ],
       "runtime_strata": [
         {
+          "agent_scaffold": "mini-swe-agent/2.4.5",
           "environment": "daytona",
-          "name": "daytona-01-08",
+          "model_label": "Grok 4.6",
+          "name": "daytona-grok-mini-swe-01-08",
           "solves": {
             "grok": 2,
-            "opus": 7
+            "opus": 0
           },
           "task_checksum": "32397db1d2039a92abc0594de74fb5fef6a325b383208aa7f9a8327ad3dac307",
           "trial_numbers": [
@@ -9440,6 +9489,40 @@
             2,
             3,
             4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "agent_scaffold": "opencode/1.18.13",
+          "environment": "daytona",
+          "model_label": "Opus 5",
+          "name": "daytona-opus-opencode-01-04",
+          "solves": {
+            "grok": 0,
+            "opus": 4
+          },
+          "task_checksum": "32397db1d2039a92abc0594de74fb5fef6a325b383208aa7f9a8327ad3dac307",
+          "trial_numbers": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "agent_scaffold": "mini-swe-agent/2.4.5",
+          "environment": "daytona",
+          "model_label": "Opus 5",
+          "name": "daytona-opus-mini-swe-05-08",
+          "solves": {
+            "grok": 0,
+            "opus": 3
+          },
+          "task_checksum": "32397db1d2039a92abc0594de74fb5fef6a325b383208aa7f9a8327ad3dac307",
+          "trial_numbers": [
             5,
             6,
             7,
@@ -9454,8 +9537,8 @@
       "task_label": "Task 8"
     },
     "09-s3-datastore-measurement": {
-      "bundle_sha256": "b46e448656f6842703803c72d2bb5b1b9c844a17ef3df6afe8bf28973e33b787",
-      "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
+      "bundle_sha256": "1e0cf41dd39f17e17a8bf85ab22f6de17e9bc968a0d91d0f9674fb6cdb135950",
+      "control_scope": "The oracle/no-op result applies to the recorded Harbor checksum it names. public-controls-validation.json records the current publication tree hash for comparison; unless a job is marked post-normalization, that hash is not evidence of a rerun on the current tree.",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -9465,7 +9548,7 @@
         "grok_verification_results": 8,
         "opus_trajectories": 8,
         "opus_verification_results": 8,
-        "published_files": 146,
+        "published_files": 154,
         "touched_file_snapshots": 8
       },
       "files": [
@@ -10100,6 +10183,11 @@
           "size_bytes": 592
         },
         {
+          "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-05/output.json",
+          "sha256": "72b271632bfc274d7f1bb2cfef66f4406f558df31a02b0dc0f85a73450a770bf",
+          "size_bytes": 1545
+        },
+        {
           "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-05/reward.json",
           "sha256": "c667003694062e1d9851b50a4599a8ca690246a9a9d6f3d326ad9dcea767500f",
           "size_bytes": 18
@@ -10108,6 +10196,11 @@
           "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-05/reward.txt",
           "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-05/stdout.txt",
+          "sha256": "28c1ee9fb70600435da0662b92499ba89c781cf9088629f5f89e9de6e7a13d05",
+          "size_bytes": 1803
         },
         {
           "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-05/test-stdout.txt",
@@ -10120,6 +10213,11 @@
           "size_bytes": 592
         },
         {
+          "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-06/output.json",
+          "sha256": "cb462920f356bc87eb5b15914e199770c5edb401ff26e5d38dbe955e4023cdbd",
+          "size_bytes": 1545
+        },
+        {
           "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-06/reward.json",
           "sha256": "c43ffdfbbeda7bcd7295ac616e632dcb074d85a4114801e03374cc27974966c7",
           "size_bytes": 18
@@ -10128,6 +10226,11 @@
           "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-06/reward.txt",
           "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-06/stdout.txt",
+          "sha256": "7b8aca92dcd664d6d94328a2a96820254233a8a4c6bd53e8c3252d6665f26df7",
+          "size_bytes": 5054
         },
         {
           "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-06/test-stdout.txt",
@@ -10140,6 +10243,11 @@
           "size_bytes": 592
         },
         {
+          "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-07/output.json",
+          "sha256": "72b271632bfc274d7f1bb2cfef66f4406f558df31a02b0dc0f85a73450a770bf",
+          "size_bytes": 1545
+        },
+        {
           "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-07/reward.json",
           "sha256": "c667003694062e1d9851b50a4599a8ca690246a9a9d6f3d326ad9dcea767500f",
           "size_bytes": 18
@@ -10148,6 +10256,11 @@
           "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-07/reward.txt",
           "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-07/stdout.txt",
+          "sha256": "a59b8ac65ddbf0f2963318ec95dcb30b8adb5f3fa219e1b665cadbd5e50aff3d",
+          "size_bytes": 1720
         },
         {
           "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-07/test-stdout.txt",
@@ -10160,6 +10273,11 @@
           "size_bytes": 592
         },
         {
+          "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-08/output.json",
+          "sha256": "72b271632bfc274d7f1bb2cfef66f4406f558df31a02b0dc0f85a73450a770bf",
+          "size_bytes": 1545
+        },
+        {
           "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-08/reward.json",
           "sha256": "c667003694062e1d9851b50a4599a8ca690246a9a9d6f3d326ad9dcea767500f",
           "size_bytes": 18
@@ -10168,6 +10286,11 @@
           "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-08/reward.txt",
           "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-08/stdout.txt",
+          "sha256": "98f8c6ac7578e21f9aa35f5f4951eee61556ac632e4ab8248cd97d01732a7665",
+          "size_bytes": 1402
         },
         {
           "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-08/test-stdout.txt",
@@ -10210,11 +10333,13 @@
       ],
       "runtime_strata": [
         {
+          "agent_scaffold": "mini-swe-agent/2.4.5",
           "environment": "daytona",
-          "name": "daytona-01-08",
+          "model_label": "Grok 4.6",
+          "name": "daytona-grok-mini-swe-01-08",
           "solves": {
             "grok": 0,
-            "opus": 6
+            "opus": 0
           },
           "task_checksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621",
           "trial_numbers": [
@@ -10222,6 +10347,40 @@
             2,
             3,
             4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "agent_scaffold": "opencode/1.18.13",
+          "environment": "daytona",
+          "model_label": "Opus 5",
+          "name": "daytona-opus-opencode-01-04",
+          "solves": {
+            "grok": 0,
+            "opus": 3
+          },
+          "task_checksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621",
+          "trial_numbers": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "agent_scaffold": "mini-swe-agent/2.4.5",
+          "environment": "daytona",
+          "model_label": "Opus 5",
+          "name": "daytona-opus-mini-swe-05-08",
+          "solves": {
+            "grok": 0,
+            "opus": 3
+          },
+          "task_checksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621",
+          "trial_numbers": [
             5,
             6,
             7,
@@ -10236,8 +10395,8 @@
       "task_label": "Task 9"
     },
     "10-customer-identity-migration": {
-      "bundle_sha256": "7ef248b1b209dbdfa3ffa8a8092ce570885d883251f8e6ad9c8ff77ff89702a1",
-      "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
+      "bundle_sha256": "bad681ac23e92e0d0447af026f22c9591925c7a0262544551cbd00bc7a63baf7",
+      "control_scope": "The oracle/no-op result applies to the recorded Harbor checksum it names. public-controls-validation.json records the current publication tree hash for comparison; unless a job is marked post-normalization, that hash is not evidence of a rerun on the current tree.",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -10247,7 +10406,7 @@
         "grok_verification_results": 8,
         "opus_trajectories": 8,
         "opus_verification_results": 8,
-        "published_files": 143,
+        "published_files": 151,
         "touched_file_snapshots": 7
       },
       "files": [
@@ -10867,6 +11026,11 @@
           "size_bytes": 598
         },
         {
+          "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-05/output.json",
+          "sha256": "ee22a6ce6e0cb237f46f96f5077055ae6f7b475ae8d05acaf610b3b3df08cf63",
+          "size_bytes": 1328
+        },
+        {
           "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-05/reward.json",
           "sha256": "c667003694062e1d9851b50a4599a8ca690246a9a9d6f3d326ad9dcea767500f",
           "size_bytes": 18
@@ -10875,6 +11039,11 @@
           "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-05/reward.txt",
           "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-05/stdout.txt",
+          "sha256": "e1fed796e8f054993bda34be0bc0ac557b9daf93bba72612f5d1d8599cff9dee",
+          "size_bytes": 1954
         },
         {
           "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-05/test-stdout.txt",
@@ -10887,6 +11056,11 @@
           "size_bytes": 598
         },
         {
+          "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-06/output.json",
+          "sha256": "ee22a6ce6e0cb237f46f96f5077055ae6f7b475ae8d05acaf610b3b3df08cf63",
+          "size_bytes": 1328
+        },
+        {
           "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-06/reward.json",
           "sha256": "c667003694062e1d9851b50a4599a8ca690246a9a9d6f3d326ad9dcea767500f",
           "size_bytes": 18
@@ -10895,6 +11069,11 @@
           "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-06/reward.txt",
           "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-06/stdout.txt",
+          "sha256": "557e026c5e745b264addeb1fe6a7b6be69a43fdec9d1cee55594a60d4c5ef253",
+          "size_bytes": 1794
         },
         {
           "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-06/test-stdout.txt",
@@ -10907,6 +11086,11 @@
           "size_bytes": 598
         },
         {
+          "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-07/output.json",
+          "sha256": "ee22a6ce6e0cb237f46f96f5077055ae6f7b475ae8d05acaf610b3b3df08cf63",
+          "size_bytes": 1328
+        },
+        {
           "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-07/reward.json",
           "sha256": "c667003694062e1d9851b50a4599a8ca690246a9a9d6f3d326ad9dcea767500f",
           "size_bytes": 18
@@ -10915,6 +11099,11 @@
           "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-07/reward.txt",
           "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-07/stdout.txt",
+          "sha256": "c88516a54a94fdfed725e9d49ffcce87ff196429218fec57566a8e5ceeaa492d",
+          "size_bytes": 1794
         },
         {
           "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-07/test-stdout.txt",
@@ -10927,6 +11116,11 @@
           "size_bytes": 598
         },
         {
+          "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-08/output.json",
+          "sha256": "ee22a6ce6e0cb237f46f96f5077055ae6f7b475ae8d05acaf610b3b3df08cf63",
+          "size_bytes": 1328
+        },
+        {
           "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-08/reward.json",
           "sha256": "c667003694062e1d9851b50a4599a8ca690246a9a9d6f3d326ad9dcea767500f",
           "size_bytes": 18
@@ -10935,6 +11129,11 @@
           "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-08/reward.txt",
           "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-08/stdout.txt",
+          "sha256": "ada40203ef912dcfda992544d030c227b9789f75b7399ec5fd39b47d89c7a605",
+          "size_bytes": 1794
         },
         {
           "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-08/test-stdout.txt",
@@ -10977,11 +11176,13 @@
       ],
       "runtime_strata": [
         {
+          "agent_scaffold": "mini-swe-agent/2.4.5",
           "environment": "daytona",
-          "name": "daytona-01-08",
+          "model_label": "Grok 4.6",
+          "name": "daytona-grok-mini-swe-01-08",
           "solves": {
             "grok": 6,
-            "opus": 8
+            "opus": 0
           },
           "task_checksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae",
           "trial_numbers": [
@@ -10989,6 +11190,40 @@
             2,
             3,
             4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "agent_scaffold": "opencode/1.18.13",
+          "environment": "daytona",
+          "model_label": "Opus 5",
+          "name": "daytona-opus-opencode-01-04",
+          "solves": {
+            "grok": 0,
+            "opus": 4
+          },
+          "task_checksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae",
+          "trial_numbers": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "agent_scaffold": "mini-swe-agent/2.4.5",
+          "environment": "daytona",
+          "model_label": "Opus 5",
+          "name": "daytona-opus-mini-swe-05-08",
+          "solves": {
+            "grok": 0,
+            "opus": 4
+          },
+          "task_checksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae",
+          "trial_numbers": [
             5,
             6,
             7,
@@ -11003,8 +11238,8 @@
       "task_label": "Task 10"
     },
     "11-customer-billing-schedule-migration": {
-      "bundle_sha256": "0be5b893b84bea86e6ce34321b52f6cc50fa8317892b0a80864752e39ba3fb6e",
-      "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
+      "bundle_sha256": "ecc36f1f888435dffcf454914ffe132fddcbe7d8fd32cfbd30856cd023f9e931",
+      "control_scope": "The oracle/no-op result applies to the recorded Harbor checksum it names. public-controls-validation.json records the current publication tree hash for comparison; unless a job is marked post-normalization, that hash is not evidence of a rerun on the current tree.",
       "controls": {
         "nop": 0.0,
         "oracle": 1.0
@@ -11014,7 +11249,7 @@
         "grok_verification_results": 8,
         "opus_trajectories": 8,
         "opus_verification_results": 8,
-        "published_files": 140,
+        "published_files": 148,
         "touched_file_snapshots": 6
       },
       "files": [
@@ -11619,6 +11854,11 @@
           "size_bytes": 611
         },
         {
+          "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-05/output.json",
+          "sha256": "2c0ad0aad755380fd233fc972616aeb7149ea0dffd98fa747a98b41279ef26a8",
+          "size_bytes": 1311
+        },
+        {
           "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-05/reward.json",
           "sha256": "c43ffdfbbeda7bcd7295ac616e632dcb074d85a4114801e03374cc27974966c7",
           "size_bytes": 18
@@ -11627,6 +11867,11 @@
           "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-05/reward.txt",
           "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-05/stdout.txt",
+          "sha256": "dea26de5d1cef533fbf87076c756b1b6c63ccc4a846a071f7a69f7f7f5c68fdf",
+          "size_bytes": 5549
         },
         {
           "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-05/test-stdout.txt",
@@ -11639,6 +11884,11 @@
           "size_bytes": 611
         },
         {
+          "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-06/output.json",
+          "sha256": "28ee4184104fcdbe96e75150f94ad45d2386f6803a9bd66a460cfc686c3f7d0a",
+          "size_bytes": 1311
+        },
+        {
           "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-06/reward.json",
           "sha256": "c667003694062e1d9851b50a4599a8ca690246a9a9d6f3d326ad9dcea767500f",
           "size_bytes": 18
@@ -11647,6 +11897,11 @@
           "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-06/reward.txt",
           "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-06/stdout.txt",
+          "sha256": "535c502059b1ecf1eab21bb2e0cf989d4b61a3c5242b09de6b8d9167c7182ac1",
+          "size_bytes": 4121
         },
         {
           "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-06/test-stdout.txt",
@@ -11659,6 +11914,11 @@
           "size_bytes": 611
         },
         {
+          "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-07/output.json",
+          "sha256": "28ee4184104fcdbe96e75150f94ad45d2386f6803a9bd66a460cfc686c3f7d0a",
+          "size_bytes": 1311
+        },
+        {
           "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-07/reward.json",
           "sha256": "c667003694062e1d9851b50a4599a8ca690246a9a9d6f3d326ad9dcea767500f",
           "size_bytes": 18
@@ -11667,6 +11927,11 @@
           "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-07/reward.txt",
           "sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-07/stdout.txt",
+          "sha256": "4ea6f42bfd599f1a4b69cf31d580df7e3cce0ef8c190e591967bf65d48535b4d",
+          "size_bytes": 4102
         },
         {
           "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-07/test-stdout.txt",
@@ -11679,6 +11944,11 @@
           "size_bytes": 611
         },
         {
+          "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-08/output.json",
+          "sha256": "2c0ad0aad755380fd233fc972616aeb7149ea0dffd98fa747a98b41279ef26a8",
+          "size_bytes": 1311
+        },
+        {
           "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-08/reward.json",
           "sha256": "c43ffdfbbeda7bcd7295ac616e632dcb074d85a4114801e03374cc27974966c7",
           "size_bytes": 18
@@ -11687,6 +11957,11 @@
           "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-08/reward.txt",
           "sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
           "size_bytes": 2
+        },
+        {
+          "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-08/stdout.txt",
+          "sha256": "a365a1afb251fa542089ebbfbd702b54061ce75035d3e5fca027cdcfe6efb4a0",
+          "size_bytes": 5009
         },
         {
           "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-08/test-stdout.txt",
@@ -11729,11 +12004,13 @@
       ],
       "runtime_strata": [
         {
+          "agent_scaffold": "mini-swe-agent/2.4.5",
           "environment": "daytona",
-          "name": "daytona-01-08",
+          "model_label": "Grok 4.6",
+          "name": "daytona-grok-mini-swe-01-08",
           "solves": {
             "grok": 0,
-            "opus": 5
+            "opus": 0
           },
           "task_checksum": "2ab40b84938458d3826bee37968342210ef9129a14378ce2a05eae17cdf2312a",
           "trial_numbers": [
@@ -11741,6 +12018,40 @@
             2,
             3,
             4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "agent_scaffold": "opencode/1.18.13",
+          "environment": "daytona",
+          "model_label": "Opus 5",
+          "name": "daytona-opus-opencode-01-04",
+          "solves": {
+            "grok": 0,
+            "opus": 3
+          },
+          "task_checksum": "2ab40b84938458d3826bee37968342210ef9129a14378ce2a05eae17cdf2312a",
+          "trial_numbers": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "agent_scaffold": "mini-swe-agent/2.4.5",
+          "environment": "daytona",
+          "model_label": "Opus 5",
+          "name": "daytona-opus-mini-swe-05-08",
+          "solves": {
+            "grok": 0,
+            "opus": 2
+          },
+          "task_checksum": "2ab40b84938458d3826bee37968342210ef9129a14378ce2a05eae17cdf2312a",
+          "trial_numbers": [
             5,
             6,
             7,
@@ -11756,5 +12067,5 @@
     }
   },
   "schema_version": 1,
-  "scope": "Tasks 2, 3, and 4 publication-normalized review bundles"
+  "scope": "Tasks 2 through 11 publication review bundles"
 }

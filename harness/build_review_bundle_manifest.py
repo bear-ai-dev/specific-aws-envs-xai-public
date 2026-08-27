@@ -124,6 +124,16 @@ def main() -> None:
                     "environment": stratum["environment"],
                     "trial_numbers": list(stratum["trial_numbers"]),
                     "task_checksum": stratum["task_checksum"],
+                    **(
+                        {"model_label": stratum["model_label"]}
+                        if "model_label" in stratum
+                        else {}
+                    ),
+                    **(
+                        {"agent_scaffold": stratum["agent_scaffold"]}
+                        if "agent_scaffold" in stratum
+                        else {}
+                    ),
                     "solves": stratum_solves[stratum["name"]],
                 }
                 for stratum in RECORDED_RUNTIME_STRATA[task]
@@ -133,9 +143,11 @@ def main() -> None:
             "controls": controls,
             "recorded_control_task_checksums": control_checksums,
             "control_scope": (
-                "recorded control applies to the checksum it names; the current "
-                "publication-normalized task is covered separately by "
-                "public-controls-validation.json"
+                "The oracle/no-op result applies to the recorded Harbor checksum "
+                "it names. public-controls-validation.json records the current "
+                "publication tree hash for comparison; unless a job is marked "
+                "post-normalization, that hash is not evidence of a rerun on the "
+                "current tree."
             ),
             "counts": {
                 "grok_trajectories": len(
@@ -165,7 +177,7 @@ def main() -> None:
 
     payload = {
         "schema_version": 1,
-        "scope": "Tasks 2, 3, and 4 publication-normalized review bundles",
+        "scope": "Tasks 2 through 11 publication review bundles",
         "bundles": bundles,
     }
     DESTINATION.parent.mkdir(parents=True, exist_ok=True)

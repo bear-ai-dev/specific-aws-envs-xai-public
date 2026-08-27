@@ -5,9 +5,10 @@ tasks in the sample. Each task has eight Grok 4.6 trajectories and eight paired
 Opus 5 trajectories.
 
 Tasks 1 to 4 and 8 to 11 come from cohorts in which both arms share a task
-checksum. Tasks 5 to 7 were built once per model arm, so each arm carries its
-own recorded checksum and its own stratum; the published task package is
-byte-identical to the package the Opus arm ran against, recorded as
+checksum. Tasks 8 to 11 nevertheless keep the two Opus agent scaffolds in
+separate four-run strata. Tasks 5 to 7 were built once per model arm, so each
+arm carries its own recorded checksum and its own stratum; the published task
+package is byte-identical to the package the Opus arm ran against, recorded as
 `build_equivalence` in
 [`frozen-cohort.json`](../manifests/frozen-cohort.json).
 
@@ -34,11 +35,11 @@ All bundles use task-numbered subdirectories matching the report.
 | `touched-files/` | Every recoverable file Grok directly wrote, copied, reformatted, or deleted, separated by trial and original `/app` or `/tmp` path |
 | `grok-solution/` | Each Grok trial's exact final changed files |
 | `trajectories/grok/` | Eight native mini-SWE-agent Grok JSON trajectories |
-| `trajectories/opus/` | Eight paired native mini-SWE-agent Opus JSON trajectories |
+| `trajectories/opus/` | Eight paired native Opus JSON trajectories; Tasks 8 to 11 contain four opencode and four mini-SWE-agent schemas |
 | `verifier/execution/` | The Harbor verifier entry point and execution driver |
 | `verifier/scoring/` | Held-out data, run specification, and independent binary scorer |
 | `verification-results/` | Per-trial report, observation, reward, verifier stdout, and compact Harbor result |
-| `controls/` | Recorded-runtime oracle and no-op evidence for Tasks 2 to 7; Task 1 controls remain in `sample-run/raw/xai-public-controls-20260819/` |
+| `controls/` | Recorded-runtime oracle and no-op evidence for Tasks 2 to 11; Task 1 controls remain in `sample-run/raw/xai-public-controls-20260819/` |
 
 ## Agent scaffold on Tasks 8 to 11
 
@@ -46,6 +47,8 @@ On those four tasks the Opus 5 arm ran attempts 01 to 04 under opencode 1.18.13
 and attempts 05 to 08 under mini-SWE-agent 2.4.5, so its trajectories carry the
 schema each scaffold emits. The Grok 4.6 arm is mini-SWE-agent throughout, and
 that task family records each submission as a patch rather than a file snapshot.
+The table's Opus totals are a descriptive inventory only; pass@k is calculated
+separately for the two four-run strata.
 
 ## Redacted credentials in Task 5
 
@@ -76,7 +79,13 @@ The runnable task directories are the source of truth for execution. Review
 files are arranged by role for inspection. The
 [`selected review-bundle manifest`](../manifests/selected-review-bundles.json)
 records the published file hashes, trial counts, and control outcomes for Tasks
-2, 3, and 4.
+2 through 11.
 The separate
 [`public control manifest`](../manifests/public-controls-validation.json)
-records the post-normalization oracle/no-op rerun for Tasks 1, 2, 3, and 4.
+records the oracle/no-op evidence, job stage, and publication task hashes for
+all eleven tasks. Recorded-build controls are not represented as
+post-normalization reruns.
+
+The [Tasks 7–11 contract audit](tasks-07-11-contract-audit.md) maps the frozen
+asks to the verifier and identifies ungraded behaviors that must not be used as
+scored capability claims.

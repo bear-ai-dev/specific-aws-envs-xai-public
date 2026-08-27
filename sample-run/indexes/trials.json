@@ -2820,10 +2820,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 1,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 1",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -2846,10 +2846,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 2,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 2",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -2872,10 +2872,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 3,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 3",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -2898,10 +2898,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 4,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 4",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -2924,10 +2924,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 5,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 5",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -2950,10 +2950,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 6,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 6",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -2976,10 +2976,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 7,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 7",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -3002,10 +3002,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 8,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 8",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -3028,10 +3028,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 1,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 1",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -3054,10 +3054,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 2,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 2",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -3080,10 +3080,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 3,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 3",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -3106,10 +3106,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 4,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 4",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -3132,10 +3132,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 5,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 5",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -3158,10 +3158,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 6,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 6",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -3184,10 +3184,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 7,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 7",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "08-dimension-pricing-tiers",
@@ -3210,10 +3210,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 8,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 8",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3236,10 +3236,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 1,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 1",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3262,10 +3262,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 2,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 2",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3288,10 +3288,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 3,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 3",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3314,10 +3314,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 4,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 4",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3340,10 +3340,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 5,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 5",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3366,10 +3366,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 6,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 6",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3392,10 +3392,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 7,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 7",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3418,10 +3418,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 8,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 8",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3444,10 +3444,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 1,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 1",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3470,10 +3470,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 2,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 2",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3496,10 +3496,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 3,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 3",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3522,10 +3522,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 4,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 4",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3548,10 +3548,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 5,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 5",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3574,10 +3574,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 6,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 6",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3600,10 +3600,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 7,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 7",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "09-s3-datastore-measurement",
@@ -3626,10 +3626,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 8,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 8",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "10-customer-identity-migration",
@@ -3652,10 +3652,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 1,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 1",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "10-customer-identity-migration",
@@ -3678,10 +3678,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 2,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 2",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "10-customer-identity-migration",
@@ -3704,10 +3704,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 3,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 3",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "10-customer-identity-migration",
@@ -3730,10 +3730,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 4,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 4",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "10-customer-identity-migration",
@@ -3756,10 +3756,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 5,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 5",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "10-customer-identity-migration",
@@ -3782,10 +3782,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 6,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 6",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "10-customer-identity-migration",
@@ -3808,10 +3808,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 7,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 7",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "10-customer-identity-migration",
@@ -3834,10 +3834,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 8,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 8",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "10-customer-identity-migration",
@@ -3860,10 +3860,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 1,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 1",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "10-customer-identity-migration",
@@ -3886,10 +3886,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 2,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 2",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "10-customer-identity-migration",
@@ -3912,10 +3912,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 3,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 3",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "10-customer-identity-migration",
@@ -3938,10 +3938,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 4,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 4",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "10-customer-identity-migration",
@@ -3964,10 +3964,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 5,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 5",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "10-customer-identity-migration",
@@ -3990,10 +3990,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 6,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 6",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "10-customer-identity-migration",
@@ -4016,10 +4016,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 7,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 7",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "10-customer-identity-migration",
@@ -4042,10 +4042,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 8,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 8",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4068,10 +4068,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 1,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 1",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4094,10 +4094,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 2,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 2",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4120,10 +4120,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 3,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 3",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4146,10 +4146,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 4,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 4",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4172,10 +4172,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 5,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 5",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4198,10 +4198,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 6,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 6",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4224,10 +4224,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 7,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 7",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4250,10 +4250,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 8,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Grok 4.6 Trial 8",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-grok-mini-swe-01-08"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4276,10 +4276,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 1,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 1",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4302,10 +4302,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 2,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 2",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4328,10 +4328,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 3,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 3",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4354,10 +4354,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 4,
+  "agent_scaffold": "opencode/1.18.13",
   "trial_label": "Opus 5 Trial 4",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "opencode/1.18.13"
+  "runtime_stratum": "daytona-opus-opencode-01-04"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4380,10 +4380,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 5,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 5",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4406,10 +4406,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 6,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 6",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4432,10 +4432,10 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 7,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 7",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  },
  {
   "task": "11-customer-billing-schedule-migration",
@@ -4458,9 +4458,9 @@
   "output_tokens": null,
   "reported_cost_usd": null,
   "trial_number": 8,
+  "agent_scaffold": "mini-swe-agent/2.4.5",
   "trial_label": "Opus 5 Trial 8",
   "environment": "daytona",
-  "runtime_stratum": "daytona-01-08",
-  "agent_scaffold": "mini-swe-agent/2.4.5"
+  "runtime_stratum": "daytona-opus-mini-swe-05-08"
  }
 ]

@@ -1,14 +1,16 @@
 # Sample RL Tasks for AWS - xAI
 
-This sample contains the eleven tasks analyzed in the accompanying report, all
-run on Daytona. Tasks 1, 2, 3 and 8 to 11 each use one eight-run cohort whose
-checksum both models share. Task 4 uses two matched four-run strata, one on
-Daytona and one on AWS Fargate, with a pooled descriptive total of eight
-attempts per model. Tasks 5 to 7 use one eight-run cohort per model arm.
+This sample contains the eleven tasks analyzed in the accompanying report.
+Tasks 1, 2 and 3 use one eight-run Daytona cohort whose checksum both models
+share. Task 4 uses two matched four-run backend strata. Tasks 5 to 7 use one
+eight-run cohort per model arm. On Tasks 8 to 11, Grok has one eight-run
+mini-SWE-agent stratum while Opus has separate four-run opencode and
+mini-SWE-agent strata against the same task checksum.
 
 Every task carries both model arms. Grok 4.6 solved 0/8, 6/8, 3/8, 0/8, 3/8,
-0/8, 5/8, 2/8, 0/8, 6/8 and 0/8; Claude Opus 5 solved 8/8, 8/8, 8/8, 5/8, 8/8,
-7/8, 8/8, 7/8, 6/8, 8/8 and 5/8.
+0/8, 5/8, 2/8, 0/8, 6/8 and 0/8. Claude Opus 5's descriptive totals are 8/8,
+8/8, 8/8, 5/8, 8/8, 7/8, 8/8, 7/8, 6/8, 8/8 and 5/8; the last four totals
+pool scaffolds only for solve-count inventory, not for pass@k estimation.
 
 Tasks 5 to 7 were built once per model arm, so each arm carries its own recorded
 Harbor task checksum and its own stratum. The task packages published here are
@@ -30,18 +32,20 @@ byte-identical to the packages the Opus arm ran against, recorded as
 
 ## Pass@k matrix
 
-Each row contains eight valid trials. `c/n` is the observed solve count. The
-table uses `pass@k = 1 - C(n-c, k) / C(n, k)`, the estimated chance that at
-least one of `k` sampled attempts succeeds.
+`c/n` is the observed solve count within the named runtime/scaffold stratum.
+The table uses `pass@k = 1 - C(n-c, k) / C(n, k)`, the estimated chance that at
+least one of `k` sampled attempts succeeds. `pass@8` is not reported for a
+four-run stratum.
 Rows are grouped by model; a blank model cell continues the model named above.
-Tasks 1, 2, 3 and 8 to 11 are single Daytona cohorts whose checksum both models
-share.
+Tasks 1, 2 and 3 are single Daytona cohorts whose checksum both models share.
 For Task 4, the eight-attempt rows are pooled descriptive estimates across its
 two equal backend strata, not results from one frozen runtime configuration;
 the strata themselves are recorded in
 [`frozen-cohort.json`](sample-run/manifests/frozen-cohort.json). For Tasks 5 to
 7 each arm was built separately, so the two rows of a task come from different
-recorded checksums over a byte-identical task package.
+recorded checksums over a byte-identical task package. For Tasks 8 to 11, Opus
+attempts 01–04 and 05–08 are shown as separate four-run scaffold strata; their
+pooled solve counts above are descriptive only.
 
 <!-- MINI_SWE_MATRIX_START -->
 | Model | Task | Solves `c/n` | pass@1 | pass@3 | pass@8 |
@@ -64,10 +68,14 @@ recorded checksums over a byte-identical task package.
 |  | [Task 5](tasks/05-network-egress-metering/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 6](tasks/06-api-token-metering/instruction.md) | 7/8 | 0.8750 | 1.0000 | 1.0000 |
 |  | [Task 7](tasks/07-api-keys-and-environments/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
-|  | [Task 8](tasks/08-dimension-pricing-tiers/instruction.md) | 7/8 | 0.8750 | 1.0000 | 1.0000 |
-|  | [Task 9](tasks/09-s3-datastore-measurement/instruction.md) | 6/8 | 0.7500 | 1.0000 | 1.0000 |
-|  | [Task 10](tasks/10-customer-identity-migration/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
-|  | [Task 11](tasks/11-customer-billing-schedule-migration/instruction.md) | 5/8 | 0.6250 | 0.9821 | 1.0000 |
+| Opus 5 (opencode/1.18.13) | [Task 8](tasks/08-dimension-pricing-tiers/instruction.md) | 4/4 | 1.0000 | 1.0000 | n/a |
+|  | [Task 9](tasks/09-s3-datastore-measurement/instruction.md) | 3/4 | 0.7500 | 1.0000 | n/a |
+|  | [Task 10](tasks/10-customer-identity-migration/instruction.md) | 4/4 | 1.0000 | 1.0000 | n/a |
+|  | [Task 11](tasks/11-customer-billing-schedule-migration/instruction.md) | 3/4 | 0.7500 | 1.0000 | n/a |
+| Opus 5 (mini-swe-agent/2.4.5) | [Task 8](tasks/08-dimension-pricing-tiers/instruction.md) | 3/4 | 0.7500 | 1.0000 | n/a |
+|  | [Task 9](tasks/09-s3-datastore-measurement/instruction.md) | 3/4 | 0.7500 | 1.0000 | n/a |
+|  | [Task 10](tasks/10-customer-identity-migration/instruction.md) | 4/4 | 1.0000 | 1.0000 | n/a |
+|  | [Task 11](tasks/11-customer-billing-schedule-migration/instruction.md) | 2/4 | 0.5000 | 1.0000 | n/a |
 <!-- MINI_SWE_MATRIX_END -->
 
 ## Task inventory
@@ -329,20 +337,20 @@ and
   one stratum per model arm. On Tasks 8 to 11 the Opus 5 arm ran attempts 01 to
   04 under opencode 1.18.13 and attempts 05 to 08 under mini-SWE-agent 2.4.5;
   the Grok 4.6 arm is mini-SWE-agent throughout.
-- **Routes:** Grok 4.6 and Claude Opus 5 through Amazon Bedrock.
+- **Routes:** Grok 4.6 used the Bedrock US inference profile. Opus 5 used the
+  Bedrock US profile on Tasks 1 to 7 and the global profile on Tasks 8 to 11.
 - **Denominator:** All 176 packaged model trials have a numeric reward, complete
   native trajectory and complete verifier evidence. One of them, Task 7 Grok
   trial 8, passed all eight graded rules and was then scored `0.0` because the
   verifier driver lost its connection to the emulator after grading; it is kept
   at its recorded reward rather than dropped.
-- **Controls:** The normalized public version of every task has an oracle
-  reward of `1.0` and a no-op reward of `0.0`; the
-  [post-normalization control manifest](sample-run/manifests/public-controls-validation.json)
-  records both control jobs: the clean eight-trial Docker rerun for Tasks 1 to
-  4, and the six-trial recorded-build job for Tasks 5 to 7. The latter ran in
-  Daytona before the publication pass rather than after it, against the same
-  Harbor task checksum as those tasks' scored Grok trials, which is the build
-  published here.
+- **Controls:** Every task has a recorded oracle reward of `1.0` and no-op
+  reward of `0.0`. The
+  [control inventory](sample-run/manifests/public-controls-validation.json)
+  distinguishes the post-normalization Docker rerun for Tasks 1 to 4 from the
+  recorded-build Daytona controls for Tasks 5 to 11. The public-tree hashes are
+  recorded for comparison; for Tasks 8 to 11 they do not prove that the
+  controls were rerun after the public packaging transformation.
   Recorded-build coverage is otherwise narrower, as Appendix A of the report
   states: Task 1's stored control predates its scored build, Task 4 has a
   control for its Daytona stratum only, and Tasks 2 and 3 are fully covered.
@@ -363,6 +371,10 @@ and
   [`sample-run/manifests/public-transformation.json`](sample-run/manifests/public-transformation.json)
   records the identifier-only transformation applied consistently to the tasks
   and captured evidence.
+- **Contract audit:**
+  [`tasks-07-11-contract-audit.md`](sample-run/review-bundle/tasks-07-11-contract-audit.md)
+  maps the requested behavior to verifier coverage and records the ask-only
+  gaps that must not be used as scored capability claims.
 
 ## Reproduction
 
