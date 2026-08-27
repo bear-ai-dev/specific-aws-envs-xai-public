@@ -1,0 +1,11 @@
+{
+  "id": "30b9943d-19c8-4829-8709-5200c1ae4905",
+  "taskName": "s3-datastore-measurement",
+  "trialName": "s3-datastore-measurement__qxksquc",
+  "taskChecksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621",
+  "verifierResult": {
+    "rewards": {
+      "reward": 0.0
+    }
+  }
+}

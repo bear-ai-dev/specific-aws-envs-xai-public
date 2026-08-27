@@ -36,6 +36,18 @@
   },
   {
    "path": "tasks/07-api-keys-and-environments"
+  },
+  {
+   "path": "tasks/08-dimension-pricing-tiers"
+  },
+  {
+   "path": "tasks/09-s3-datastore-measurement"
+  },
+  {
+   "path": "tasks/10-customer-identity-migration"
+  },
+  {
+   "path": "tasks/11-customer-billing-schedule-migration"
   }
  ]
 }

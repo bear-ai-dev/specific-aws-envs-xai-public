@@ -8,6 +8,10 @@
 |  | [Task 5](../../tasks/05-network-egress-metering/instruction.md) | 3/8 | 0.3750 | 0.8214 | 1.0000 |
 |  | [Task 6](../../tasks/06-api-token-metering/instruction.md) | 0/8 | 0.0000 | 0.0000 | 0.0000 |
 |  | [Task 7](../../tasks/07-api-keys-and-environments/instruction.md) | 5/8 | 0.6250 | 0.9821 | 1.0000 |
+|  | [Task 8](../../tasks/08-dimension-pricing-tiers/instruction.md) | 2/8 | 0.2500 | 0.6429 | 1.0000 |
+|  | [Task 9](../../tasks/09-s3-datastore-measurement/instruction.md) | 0/8 | 0.0000 | 0.0000 | 0.0000 |
+|  | [Task 10](../../tasks/10-customer-identity-migration/instruction.md) | 6/8 | 0.7500 | 1.0000 | 1.0000 |
+|  | [Task 11](../../tasks/11-customer-billing-schedule-migration/instruction.md) | 0/8 | 0.0000 | 0.0000 | 0.0000 |
 | Opus 5 | [Task 1](../../tasks/01-entitlement-overage-lines/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 2](../../tasks/02-multi-region-sweep/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 3](../../tasks/03-iam-role-validation/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
@@ -15,4 +19,8 @@
 |  | [Task 5](../../tasks/05-network-egress-metering/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 6](../../tasks/06-api-token-metering/instruction.md) | 7/8 | 0.8750 | 1.0000 | 1.0000 |
 |  | [Task 7](../../tasks/07-api-keys-and-environments/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
+|  | [Task 8](../../tasks/08-dimension-pricing-tiers/instruction.md) | 7/8 | 0.8750 | 1.0000 | 1.0000 |
+|  | [Task 9](../../tasks/09-s3-datastore-measurement/instruction.md) | 6/8 | 0.7500 | 1.0000 | 1.0000 |
+|  | [Task 10](../../tasks/10-customer-identity-migration/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
+|  | [Task 11](../../tasks/11-customer-billing-schedule-migration/instruction.md) | 5/8 | 0.6250 | 0.9821 | 1.0000 |
 <!-- MINI_SWE_MATRIX_END -->

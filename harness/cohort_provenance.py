@@ -108,6 +108,38 @@ RECORDED_RUNTIME_STRATA = {
             "task_checksum": "3f38fb2bc343a749016fa1425494c139f4baa0c44e84bb84c618d32ec94bb78e",
         },
     ),
+    "08-dimension-pricing-tiers": (
+        {
+            "name": "daytona-01-08",
+            "environment": "daytona",
+            "trial_numbers": tuple(range(1, 9)),
+            "task_checksum": "32397db1d2039a92abc0594de74fb5fef6a325b383208aa7f9a8327ad3dac307",
+        },
+    ),
+    "09-s3-datastore-measurement": (
+        {
+            "name": "daytona-01-08",
+            "environment": "daytona",
+            "trial_numbers": tuple(range(1, 9)),
+            "task_checksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621",
+        },
+    ),
+    "10-customer-identity-migration": (
+        {
+            "name": "daytona-01-08",
+            "environment": "daytona",
+            "trial_numbers": tuple(range(1, 9)),
+            "task_checksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae",
+        },
+    ),
+    "11-customer-billing-schedule-migration": (
+        {
+            "name": "daytona-01-08",
+            "environment": "daytona",
+            "trial_numbers": tuple(range(1, 9)),
+            "task_checksum": "2ab40b84938458d3826bee37968342210ef9129a14378ce2a05eae17cdf2312a",
+        },
+    ),
 }
 
 

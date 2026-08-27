@@ -1,0 +1,22 @@
+{
+  "id": "7ba2a0fe-bd1e-4385-9d73-28f02c262d51",
+  "taskName": "meteringco-customer-billing-schedule-migration",
+  "trialName": "meteringco-customer-billing-schedule__i73dJa2",
+  "taskChecksum": "2ab40b84938458d3826bee37968342210ef9129a14378ce2a05eae17cdf2312a",
+  "agent": {
+    "name": "opencode",
+    "version": "1.18.13",
+    "model_info": {
+      "name": "global.anthropic.claude-opus-5",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-10T17:57:06.333522Z",
+  "finishedAt": "2026-08-10T18:17:25.904718Z"
+}

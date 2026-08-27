@@ -1,0 +1,22 @@
+{
+  "id": "a0cf84a6-dc59-4651-ac12-ee982346aa2d",
+  "taskName": "meteringco-dimension-pricing-tiers",
+  "trialName": "meteringco-dimension-pricing-tiers__9eBPSsB",
+  "taskChecksum": "32397db1d2039a92abc0594de74fb5fef6a325b383208aa7f9a8327ad3dac307",
+  "agent": {
+    "name": "opencode",
+    "version": "1.18.13",
+    "model_info": {
+      "name": "global.anthropic.claude-opus-5",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-08T23:21:39.321014Z",
+  "finishedAt": "2026-08-09T03:17:43.427501Z"
+}

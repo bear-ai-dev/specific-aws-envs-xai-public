@@ -1,14 +1,14 @@
 {
  "cohort_directory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
- "scored_valid_trials": 112,
+ "scored_valid_trials": 176,
  "completed_trials_excluded_from_denominator": 0,
  "controls": {
   "oracle": {
-   "count": 7,
+   "count": 11,
    "all_reward_one": true
   },
   "nop": {
-   "count": 7,
+   "count": 11,
    "all_reward_zero": true
   }
  },
@@ -21,7 +21,11 @@
   "sample-run/review-bundle/04-tax-jurisdiction",
   "sample-run/review-bundle/05-network-egress-metering",
   "sample-run/review-bundle/06-api-token-metering",
-  "sample-run/review-bundle/07-api-keys-and-environments"
+  "sample-run/review-bundle/07-api-keys-and-environments",
+  "sample-run/review-bundle/08-dimension-pricing-tiers",
+  "sample-run/review-bundle/09-s3-datastore-measurement",
+  "sample-run/review-bundle/10-customer-identity-migration",
+  "sample-run/review-bundle/11-customer-billing-schedule-migration"
  ],
  "runtime_strata": {
   "01-entitlement-overage-lines": [
@@ -129,7 +133,24 @@
   "07-api-keys-and-environments": [
    "Grok 4.6",
    "Opus 5"
+  ],
+  "08-dimension-pricing-tiers": [
+   "Grok 4.6",
+   "Opus 5"
+  ],
+  "09-s3-datastore-measurement": [
+   "Grok 4.6",
+   "Opus 5"
+  ],
+  "10-customer-identity-migration": [
+   "Grok 4.6",
+   "Opus 5"
+  ],
+  "11-customer-billing-schedule-migration": [
+   "Grok 4.6",
+   "Opus 5"
   ]
  },
- "build_provenance_note": "Tasks 5 to 7 were built once per model arm, so each arm carries its own recorded Harbor task checksum and its own stratum. The published task packages are byte-identical to the packages the Opus arm ran against; see build_equivalence in sample-run/manifests/frozen-cohort.json."
+ "build_provenance_note": "Tasks 5 to 7 were built once per model arm, so each arm carries its own recorded Harbor task checksum and its own stratum. The published task packages are byte-identical to the packages the Opus arm ran against; see build_equivalence in sample-run/manifests/frozen-cohort.json.",
+ "agent_scaffold_note": "Tasks 8 to 11 ran Opus 5 attempts 01 to 04 under opencode 1.18.13 and attempts 05 to 08 under mini-SWE-agent 2.4.5; their trajectories carry the schema each scaffold emits. The Grok 4.6 arm is mini-SWE-agent 2.4.5 throughout."
 }

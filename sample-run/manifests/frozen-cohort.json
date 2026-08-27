@@ -17,7 +17,11 @@
   "04-tax-jurisdiction": "sample-run/review-bundle/04-tax-jurisdiction/controls",
   "05-network-egress-metering": "sample-run/review-bundle/05-network-egress-metering/controls",
   "06-api-token-metering": "sample-run/review-bundle/06-api-token-metering/controls",
-  "07-api-keys-and-environments": "sample-run/review-bundle/07-api-keys-and-environments/controls"
+  "07-api-keys-and-environments": "sample-run/review-bundle/07-api-keys-and-environments/controls",
+  "08-dimension-pricing-tiers": "sample-run/review-bundle/08-dimension-pricing-tiers/controls",
+  "09-s3-datastore-measurement": "sample-run/review-bundle/09-s3-datastore-measurement/controls",
+  "10-customer-identity-migration": "sample-run/review-bundle/10-customer-identity-migration/controls",
+  "11-customer-billing-schedule-migration": "sample-run/review-bundle/11-customer-billing-schedule-migration/controls"
  },
  "evidence_roots": [
   "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
@@ -27,7 +31,11 @@
   "sample-run/review-bundle/04-tax-jurisdiction",
   "sample-run/review-bundle/05-network-egress-metering",
   "sample-run/review-bundle/06-api-token-metering",
-  "sample-run/review-bundle/07-api-keys-and-environments"
+  "sample-run/review-bundle/07-api-keys-and-environments",
+  "sample-run/review-bundle/08-dimension-pricing-tiers",
+  "sample-run/review-bundle/09-s3-datastore-measurement",
+  "sample-run/review-bundle/10-customer-identity-migration",
+  "sample-run/review-bundle/11-customer-billing-schedule-migration"
  ],
  "grok_bedrock_config_sha256": "c8c6d27b01da51699b578101552bb5d43bb9b8e072bac7e4ff275cc5550ef0f8",
  "grok_model_registry_sha256": "310dfa12cff09204d73ec8384b55397543f3f18974f422c158f688ae7bb2ecc5",
@@ -45,7 +53,11 @@
   "04-tax-jurisdiction": "14bed3b6424a462c369ed2d831e469ea7817bf9195418a40ac483034ef43097e",
   "05-network-egress-metering": "cc084261e1c314c0d3b967d8017e8abff574ef5ea104085529bfa7e45e4b0c27",
   "06-api-token-metering": "d9c9f4db0c30985d80d209a10ca998ed4e7e8555d9bf61c8158e1d286b176907",
-  "07-api-keys-and-environments": "f9484c3e65ee01066372b10140d7faa03bfed24c1ddc29b19acdf07f1c8a34e7"
+  "07-api-keys-and-environments": "f9484c3e65ee01066372b10140d7faa03bfed24c1ddc29b19acdf07f1c8a34e7",
+  "08-dimension-pricing-tiers": "c3e2c0983957c4fd3b1f1192f1f9d45ae64cdabd0201e09588a1f7267bec914a",
+  "09-s3-datastore-measurement": "6cc5da16edfad5649195992c02b34ec2ff4bc2b96e7b3acf67906586b3777718",
+  "10-customer-identity-migration": "1ebaf007ebd10a05e9c420d93f94aa91de34fe2de7a1201ba2d4ea86c99803d7",
+  "11-customer-billing-schedule-migration": "54e9776cbe7b5b90dd97ee70531a404cd4e7abaad19b0b15507754339e3e037a"
  },
  "publication_controls_validation": "sample-run/manifests/public-controls-validation.json",
  "publication_controls_validation_sha256": "96a73a8a3775da2853e1276bc1106a9095e3d6e163963d1f1a6c1d2e933934f2",
@@ -236,6 +248,74 @@
     "task_checksum": "3f38fb2bc343a749016fa1425494c139f4baa0c44e84bb84c618d32ec94bb78e",
     "model_label": "Opus 5"
    }
+  ],
+  "08-dimension-pricing-tiers": [
+   {
+    "name": "daytona-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "32397db1d2039a92abc0594de74fb5fef6a325b383208aa7f9a8327ad3dac307"
+   }
+  ],
+  "09-s3-datastore-measurement": [
+   {
+    "name": "daytona-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621"
+   }
+  ],
+  "10-customer-identity-migration": [
+   {
+    "name": "daytona-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae"
+   }
+  ],
+  "11-customer-billing-schedule-migration": [
+   {
+    "name": "daytona-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "2ab40b84938458d3826bee37968342210ef9129a14378ce2a05eae17cdf2312a"
+   }
   ]
  },
  "recorded_task_ids": {
@@ -245,7 +325,11 @@
   "04-tax-jurisdiction": "27-tax-jurisdiction",
   "05-network-egress-metering": "05-network-egress-metering",
   "06-api-token-metering": "06-api-token-metering",
-  "07-api-keys-and-environments": "07-api-keys-and-environments"
+  "07-api-keys-and-environments": "07-api-keys-and-environments",
+  "08-dimension-pricing-tiers": "08-dimension-pricing-tiers",
+  "09-s3-datastore-measurement": "09-s3-datastore-measurement",
+  "10-customer-identity-migration": "10-customer-identity-migration",
+  "11-customer-billing-schedule-migration": "11-customer-billing-schedule-migration"
  },
  "task_labels": {
   "01-entitlement-overage-lines": "Task 1",
@@ -254,7 +338,11 @@
   "04-tax-jurisdiction": "Task 4",
   "05-network-egress-metering": "Task 5",
   "06-api-token-metering": "Task 6",
-  "07-api-keys-and-environments": "Task 7"
+  "07-api-keys-and-environments": "Task 7",
+  "08-dimension-pricing-tiers": "Task 8",
+  "09-s3-datastore-measurement": "Task 9",
+  "10-customer-identity-migration": "Task 10",
+  "11-customer-billing-schedule-migration": "Task 11"
  },
  "validity_rule": "numeric verifier reward, complete trajectory, complete verifier artifact, no Harbor exception, and model matching within each recorded runtime-checksum stratum",
  "build_equivalence": {

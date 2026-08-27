@@ -1,0 +1,143 @@
+[31m[Nest] 2870  - [39m08/27/2026, 6:45:18 AM [31m  ERROR[39m [38;5;3m[PrivateAPIUsageController] [39m[31mFailed to process S3 usage record[39m
+[31m[Nest] 2870  - [39m08/27/2026, 6:45:18 AM [31m  ERROR[39m [38;5;3m[PrivateAPIUsageController] [39m[31mSyntaxError: Expected property name or '}' in JSON at position 1[39m
+FAIL src/measurement-config/datastoreMeasurement.gold.spec.ts
+  ● S3 datastore measurement configuration › provisions a scoped IAM role and returns ingestion and DLQ locations
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  3
+    + Received  + 22
+
+    - ObjectContaining {
+    -   "dlq": "s3://usage-dlq/business-1",
+    + MeasurementConfigEntity {
+    +   "accountId": "123456789012",
+    +   "businessID": "business-1",
+    +   "dlq": "s3://usage-dlq/business-1/",
+    +   "externalId": "2ebb2eff-4609-49be-9690-259de78143b8",
+        "iamRoleArn": "arn:aws:iam::meteringco:role/datastore",
+    -   "ingestion": "s3://usage-bucket/business-1",
+    +   "ingestion": "s3://usage-bucket/business-1/",
+    +   "measurementConfiguration": DatastoreAccessInformation {
+    +     "accountId": "123456789012",
+    +     "businessID": "business-1",
+    +     "dlq": undefined,
+    +     "externalId": undefined,
+    +     "iamRoleArn": undefined,
+    +     "ingestion": undefined,
+    +     "measurementId": "measurement-1",
+    +     "platform": "s3",
+    +     "region": "us-east-1",
+    +   },
+    +   "measurementId": "measurement-1",
+    +   "measurementMode": "datastoreBased",
+    +   "measurementName": "S3 usage",
+    +   "platform": "s3",
+        "region": "us-east-1",
+    +   "subject": "subject-1",
+      }
+
+      195 |     it('provisions a scoped IAM role and returns ingestion and DLQ locations', async () => {
+      196 |         const result = await DatastoreAccessInformation.setupAccess(accessEntity('123456789012'));
+    > 197 |         expect(result).toEqual(
+          |                        ^
+      198 |             expect.objectContaining({
+      199 |                 iamRoleArn: 'arn:aws:iam::meteringco:role/datastore',
+      200 |                 ingestion: 's3://usage-bucket/business-1',
+
+      at Object.<anonymous> (measurement-config/datastoreMeasurement.gold.spec.ts:197:24)
+
+  ● S3 datastore measurement configuration › creates, persists, and returns provisioned datastore configuration
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 3
+    + Received  + 9
+
+    - ObjectContaining {
+    -   "dlq": "s3://usage-dlq/business-1",
+    + DatastoreAccessInformation {
+    +   "accountId": "123456789012",
+    +   "businessID": "business-1",
+    +   "dlq": "s3://usage-dlq/business-1/",
+    +   "externalId": "3bd91da6-5c48-4221-be16-08644a1f2c50",
+        "iamRoleArn": "arn:aws:iam::meteringco:role/datastore",
+    -   "ingestion": "s3://usage-bucket/business-1",
+    +   "ingestion": "s3://usage-bucket/business-1/",
+    +   "measurementId": "1c8c20f2-5486-4bf0-8248-5948fbfe45ac",
+    +   "platform": "s3",
+    +   "region": "us-east-1",
+      }
+
+      253 |             }),
+      254 |         );
+    > 255 |         expect(returnedConfiguration).toEqual(
+          |                                       ^
+      256 |             expect.objectContaining({
+      257 |                 iamRoleArn: 'arn:aws:iam::meteringco:role/datastore',
+      258 |                 ingestion: 's3://usage-bucket/business-1',
+
+      at Object.<anonymous> (measurement-config/datastoreMeasurement.gold.spec.ts:255:39)
+
+[32m[Nest] 2870  - [39m08/27/2026, 6:45:18 AM [32m    LOG[39m [38;5;3m[MeasurementConfigService] [39m[32mCreating Measurement Config with the following inputs[39m
+[32m[Nest] 2870  - [39m08/27/2026, 6:45:18 AM [32m    LOG[39m [38;5;3m[MeasurementConfigService] [39m[32m[object Object][39m
+[32m[Nest] 2870  - [39m08/27/2026, 6:45:18 AM [32m    LOG[39m [38;5;3m[MeasurementConfigService] [39m[32mLoaded information into DB[39m
+[32m[Nest] 2870  - [39m08/27/2026, 6:45:18 AM [32m    LOG[39m [38;5;3m[PrivateAPIUsageController] [39m[32mStarting DB Usage Endpoint execution[39m
+[32m[Nest] 2870  - [39m08/27/2026, 6:45:18 AM [32m    LOG[39m [38;5;3m[PrivateAPIUsageController] [39m[32mStarting DB Usage Endpoint execution[39m
+PASS src/appControllerHistorical.gold.spec.ts
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       2 failed, 8 passed, 10 total
+Snapshots:   0 total
+Time:        1.429 s
+Test results written to: ../tmp/jest-unit.json
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?
+{
+  "tests": [
+    {
+      "name": "S3 datastore measurement configuration accepts datastoreBased S3 configuration and materializes nested validation",
+      "status": "passed"
+    },
+    {
+      "name": "S3 datastore measurement configuration defaults an omitted platform to S3 and region to us-east-1",
+      "status": "passed"
+    },
+    {
+      "name": "S3 datastore measurement configuration persists and restores every datastore access field",
+      "status": "passed"
+    },
+    {
+      "name": "S3 datastore measurement configuration provisions a scoped IAM role and returns ingestion and DLQ locations",
+      "status": "failed"
+    },
+    {
+      "name": "S3 datastore measurement configuration updates account trust while preserving the existing role and external ID",
+      "status": "passed"
+    },
+    {
+      "name": "S3 datastore measurement configuration creates, persists, and returns provisioned datastore configuration",
+      "status": "failed"
+    },
+    {
+      "name": "S3 connector usage delivery derives the business from the object key and ingests a valid record",
+      "status": "passed"
+    },
+    {
+      "name": "S3 connector usage delivery writes malformed connector records to the mirrored message key in the DLQ",
+      "status": "passed"
+    },
+    {
+      "name": "S3 connector usage delivery keeps the generic DLQ writer usable for an already-relative source key",
+      "status": "passed"
+    },
+    {
+      "name": "AppController root should return \"Hello World!\"",
+      "status": "passed"
+    }
+  ]
+}
+
+required passed: 8/10
+  NOT PASSED (failed): S3 datastore measurement configuration provisions a scoped IAM role and returns ingestion and DLQ locations
+  NOT PASSED (failed): S3 datastore measurement configuration creates, persists, and returns provisioned datastore configuration
+reward: 0

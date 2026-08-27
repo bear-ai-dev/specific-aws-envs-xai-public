@@ -1,0 +1,133 @@
+FAIL src/measurement-config/datastoreMeasurement.gold.spec.ts
+  ● S3 datastore measurement configuration › provisions a scoped IAM role and returns ingestion and DLQ locations
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  3
+    + Received  + 22
+
+    - ObjectContaining {
+    -   "dlq": "s3://usage-dlq/business-1",
+    + MeasurementConfigEntity {
+    +   "accountId": "123456789012",
+    +   "businessID": "business-1",
+    +   "dlq": "s3://usage-dlq/business-1/",
+    +   "externalId": "2f2d4ca7-538e-45ae-87a2-3a1089e63706",
+        "iamRoleArn": "arn:aws:iam::meteringco:role/datastore",
+    -   "ingestion": "s3://usage-bucket/business-1",
+    +   "ingestion": "s3://usage-bucket/business-1/",
+    +   "measurementConfiguration": DatastoreAccessInformation {
+    +     "accountId": "123456789012",
+    +     "businessID": "business-1",
+    +     "dlq": undefined,
+    +     "externalId": undefined,
+    +     "iamRoleArn": undefined,
+    +     "ingestion": undefined,
+    +     "measurementId": "measurement-1",
+    +     "platform": "s3",
+    +     "region": "us-east-1",
+    +   },
+    +   "measurementId": "measurement-1",
+    +   "measurementMode": "datastoreBased",
+    +   "measurementName": "S3 usage",
+    +   "platform": "s3",
+        "region": "us-east-1",
+    +   "subject": "subject-1",
+      }
+
+      195 |     it('provisions a scoped IAM role and returns ingestion and DLQ locations', async () => {
+      196 |         const result = await DatastoreAccessInformation.setupAccess(accessEntity('123456789012'));
+    > 197 |         expect(result).toEqual(
+          |                        ^
+      198 |             expect.objectContaining({
+      199 |                 iamRoleArn: 'arn:aws:iam::meteringco:role/datastore',
+      200 |                 ingestion: 's3://usage-bucket/business-1',
+
+      at Object.<anonymous> (measurement-config/datastoreMeasurement.gold.spec.ts:197:24)
+
+  ● S3 datastore measurement configuration › creates, persists, and returns provisioned datastore configuration
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 3
+    + Received  + 9
+
+    - ObjectContaining {
+    -   "dlq": "s3://usage-dlq/business-1",
+    + DatastoreAccessInformation {
+    +   "accountId": "123456789012",
+    +   "businessID": "business-1",
+    +   "dlq": "s3://usage-dlq/business-1/",
+    +   "externalId": "3b1a9927-6f1a-49ea-a0a5-b9423899cde2",
+        "iamRoleArn": "arn:aws:iam::meteringco:role/datastore",
+    -   "ingestion": "s3://usage-bucket/business-1",
+    +   "ingestion": "s3://usage-bucket/business-1/",
+    +   "measurementId": "8155db05-c24b-4680-8a8e-3224c1c68b73",
+    +   "platform": "s3",
+    +   "region": "us-east-1",
+      }
+
+      253 |             }),
+      254 |         );
+    > 255 |         expect(returnedConfiguration).toEqual(
+          |                                       ^
+      256 |             expect.objectContaining({
+      257 |                 iamRoleArn: 'arn:aws:iam::meteringco:role/datastore',
+      258 |                 ingestion: 's3://usage-bucket/business-1',
+
+      at Object.<anonymous> (measurement-config/datastoreMeasurement.gold.spec.ts:255:39)
+
+  ● S3 connector usage delivery › writes malformed connector records to the mirrored message key in the DLQ
+
+    TypeError: Cannot read properties of undefined (reading 'endpoint')
+
+      110 |             processingMetadata,
+      111 |         });
+    > 112 |         await putDocument(body, process.env.DB_MEASUREMENT_DLQ_BUCKET_NAME, destinationKey).done();
+          |         ^
+      113 |         return { destinationKey, processingMetadata };
+      114 |     }
+      115 | }
+
+      at Upload.__uploadUsingPut (../node_modules/@aws-sdk/lib-storage/dist-cjs/Upload.js:48:32)
+      at Upload.__doConcurrentUpload (../node_modules/@aws-sdk/lib-storage/dist-cjs/Upload.js:91:39)
+          at async Promise.all (index 0)
+      at Upload.__doMultipartUpload (../node_modules/@aws-sdk/lib-storage/dist-cjs/Upload.js:141:9)
+      at Upload.done (../node_modules/@aws-sdk/lib-storage/dist-cjs/Upload.js:37:16)
+      at Function.publishFailureToDLQ (measurement-config/entities/standardMeasurement.entity.ts:112:9)
+      at Function.processDbUsage (usage/usage.controller.ts:76:13)
+      at Object.<anonymous> (measurement-config/datastoreMeasurement.gold.spec.ts:289:9)
+
+  ● S3 connector usage delivery › keeps the generic DLQ writer usable for an already-relative source key
+
+    TypeError: Cannot read properties of undefined (reading 'endpoint')
+
+      110 |             processingMetadata,
+      111 |         });
+    > 112 |         await putDocument(body, process.env.DB_MEASUREMENT_DLQ_BUCKET_NAME, destinationKey).done();
+          |         ^
+      113 |         return { destinationKey, processingMetadata };
+      114 |     }
+      115 | }
+
+      at Upload.__uploadUsingPut (../node_modules/@aws-sdk/lib-storage/dist-cjs/Upload.js:48:32)
+      at Upload.__doConcurrentUpload (../node_modules/@aws-sdk/lib-storage/dist-cjs/Upload.js:91:39)
+          at async Promise.all (index 0)
+      at Upload.__doMultipartUpload (../node_modules/@aws-sdk/lib-storage/dist-cjs/Upload.js:141:9)
+      at Upload.done (../node_modules/@aws-sdk/lib-storage/dist-cjs/Upload.js:37:16)
+      at publishFailureToDLQ (measurement-config/entities/standardMeasurement.entity.ts:112:9)
+      at Object.<anonymous> (measurement-config/datastoreMeasurement.gold.spec.ts:317:13)
+
+[32m[Nest] 2587  - [39m08/27/2026, 5:21:28 AM [32m    LOG[39m [38;5;3m[MeasurementConfigService] [39m[32mCreating Measurement Config with the following inputs[39m
+[32m[Nest] 2587  - [39m08/27/2026, 5:21:28 AM [32m    LOG[39m [38;5;3m[MeasurementConfigService] [39m[32m[object Object][39m
+[32m[Nest] 2587  - [39m08/27/2026, 5:21:28 AM [32m    LOG[39m [38;5;3m[MeasurementConfigService] [39m[32mLoaded information into DB[39m
+[32m[Nest] 2587  - [39m08/27/2026, 5:21:28 AM [32m    LOG[39m [38;5;3m[UsageController] [39m[32mStarting DB Usage Endpoint execution[39m
+[32m[Nest] 2587  - [39m08/27/2026, 5:21:28 AM [32m    LOG[39m [38;5;3m[UsageController] [39m[32mStarting DB Usage Endpoint execution[39m
+PASS src/appControllerHistorical.gold.spec.ts
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       4 failed, 6 passed, 10 total
+Snapshots:   0 total
+Time:        1.53 s
+Test results written to: ../tmp/jest-unit.json
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?

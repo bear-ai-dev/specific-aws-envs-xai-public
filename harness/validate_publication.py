@@ -22,6 +22,10 @@ BUNDLE_TASKS = (
     "06-api-token-metering",
     "07-api-keys-and-environments",
     "04-tax-jurisdiction",
+    "08-dimension-pricing-tiers",
+    "09-s3-datastore-measurement",
+    "10-customer-identity-migration",
+    "11-customer-billing-schedule-migration",
 )
 EXPECTED_HEADINGS = {
     "01-entitlement-overage-lines": "# Task 1 — entitlement overage lines",
@@ -31,6 +35,10 @@ EXPECTED_HEADINGS = {
     "05-network-egress-metering": "# Task 5 — network egress metering",
     "06-api-token-metering": "# Task 6 — API token metering",
     "07-api-keys-and-environments": "# Task 7 — API keys and environments",
+    "08-dimension-pricing-tiers": "# Task 8 — dimension pricing tiers",
+    "09-s3-datastore-measurement": "# Task 9 — S3 datastore measurement",
+    "10-customer-identity-migration": "# Task 10 — customer identity migration",
+    "11-customer-billing-schedule-migration": "# Task 11 — customer billing-schedule migration",
 }
 EXPECTED_SOLVES = {
     ("01-entitlement-overage-lines", "Grok 4.6"): 0,
@@ -47,6 +55,14 @@ EXPECTED_SOLVES = {
     ("06-api-token-metering", "Opus 5"): 7,
     ("07-api-keys-and-environments", "Grok 4.6"): 5,
     ("07-api-keys-and-environments", "Opus 5"): 8,
+    ("08-dimension-pricing-tiers", "Grok 4.6"): 2,
+    ("08-dimension-pricing-tiers", "Opus 5"): 7,
+    ("09-s3-datastore-measurement", "Grok 4.6"): 0,
+    ("09-s3-datastore-measurement", "Opus 5"): 6,
+    ("10-customer-identity-migration", "Grok 4.6"): 6,
+    ("10-customer-identity-migration", "Opus 5"): 8,
+    ("11-customer-billing-schedule-migration", "Grok 4.6"): 0,
+    ("11-customer-billing-schedule-migration", "Opus 5"): 5,
 }
 LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 REAL_AWS_KEY = re.compile(r"\b(?:AKIA|ASIA)[0-9A-Z]{16}\b")
@@ -109,8 +125,8 @@ def validate_links() -> int:
 
 def validate_trials() -> None:
     trials = json.loads((ROOT / "sample-run" / "indexes" / "trials.json").read_text())
-    if len(trials) != 112 or not all(trial["valid"] for trial in trials):
-        raise SystemExit("expected exactly 112 valid trials")
+    if len(trials) != 176 or not all(trial["valid"] for trial in trials):
+        raise SystemExit("expected exactly 176 valid trials")
     for key, expected in EXPECTED_SOLVES.items():
         task, model = key
         cell = [

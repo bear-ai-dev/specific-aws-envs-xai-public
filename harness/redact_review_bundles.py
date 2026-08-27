@@ -15,6 +15,10 @@ BUNDLES = (
     ROOT / "sample-run" / "review-bundle" / "05-network-egress-metering",
     ROOT / "sample-run" / "review-bundle" / "06-api-token-metering",
     ROOT / "sample-run" / "review-bundle" / "07-api-keys-and-environments",
+    ROOT / "sample-run" / "review-bundle" / "08-dimension-pricing-tiers",
+    ROOT / "sample-run" / "review-bundle" / "09-s3-datastore-measurement",
+    ROOT / "sample-run" / "review-bundle" / "10-customer-identity-migration",
+    ROOT / "sample-run" / "review-bundle" / "11-customer-billing-schedule-migration",
 )
 INFRA_KEYS = (
     "DAYTONA_ORGANIZATION_ID",
@@ -30,6 +34,18 @@ ASSIGNMENT = re.compile(
 # are deliberately left in place: they are part of the published task.
 CREDENTIAL_MASK = (
     "<redacted-aws-credential: live at run time, masked for the public sample>"
+)
+# Tenant-identifying service endpoints are normalised to the example hosts the
+# rest of the sample already uses.
+ENDPOINTS = (
+    (
+        re.compile(r"https://(?!example1234\.execute-api\.)[a-z0-9-]+\.execute-api\.([a-z0-9-]+)\.amazonaws\.com"),
+        r"https://example1234.execute-api.\1.amazonaws.com",
+    ),
+    (
+        re.compile(r"https://(?!example-tenant\.)[a-z0-9-]+\.(us\.)?auth0\.com"),
+        r"https://example-tenant.\1auth0.com",
+    ),
 )
 CREDENTIALS = (
     re.compile(r"\b(?:AKIA|ASIA)[0-9A-Z]{16}\b"),
@@ -88,6 +104,9 @@ def main() -> None:
                 replacements += count
         for pattern in CREDENTIALS:
             updated, n = pattern.subn(CREDENTIAL_MASK, updated)
+            replacements += n
+        for pattern, replacement in ENDPOINTS:
+            updated, n = pattern.subn(replacement, updated)
             replacements += n
         if updated != text:
             path.write_text(updated)

@@ -11,6 +11,10 @@ PUBLIC_TASKS = (
     "05-network-egress-metering",
     "06-api-token-metering",
     "07-api-keys-and-environments",
+    "08-dimension-pricing-tiers",
+    "09-s3-datastore-measurement",
+    "10-customer-identity-migration",
+    "11-customer-billing-schedule-migration",
 )
 
 RECORDED_TASK_BY_PUBLIC = {
@@ -21,6 +25,10 @@ RECORDED_TASK_BY_PUBLIC = {
     "05-network-egress-metering": "05-network-egress-metering",
     "06-api-token-metering": "06-api-token-metering",
     "07-api-keys-and-environments": "07-api-keys-and-environments",
+    "08-dimension-pricing-tiers": "08-dimension-pricing-tiers",
+    "09-s3-datastore-measurement": "09-s3-datastore-measurement",
+    "10-customer-identity-migration": "10-customer-identity-migration",
+    "11-customer-billing-schedule-migration": "11-customer-billing-schedule-migration",
 }
 
 PUBLIC_TASK_BY_RECORDED = {

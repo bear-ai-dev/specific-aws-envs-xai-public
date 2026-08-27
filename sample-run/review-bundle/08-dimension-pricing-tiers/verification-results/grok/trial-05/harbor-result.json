@@ -1,0 +1,22 @@
+{
+  "id": "3978a076-5405-4a28-9c45-4d96e8103ae7",
+  "taskName": "dimension-pricing-tiers",
+  "trialName": "dimension-pricing-tiers__AguT9kM",
+  "taskChecksum": "32397db1d2039a92abc0594de74fb5fef6a325b383208aa7f9a8327ad3dac307",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "converse/us.xai.grok-4.6",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 0.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-27T02:16:28.387Z",
+  "finishedAt": "2026-08-27T06:03:44.151976Z"
+}

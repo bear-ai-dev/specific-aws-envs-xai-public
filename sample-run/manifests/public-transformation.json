@@ -26,7 +26,11 @@
   "recorded_trial_identifiers": "preserved in compact Harbor results and sample-run/indexes/trials.json",
   "05-network-egress-metering": "sample-run/review-bundle/05-network-egress-metering",
   "06-api-token-metering": "sample-run/review-bundle/06-api-token-metering",
-  "07-api-keys-and-environments": "sample-run/review-bundle/07-api-keys-and-environments"
+  "07-api-keys-and-environments": "sample-run/review-bundle/07-api-keys-and-environments",
+  "08-dimension-pricing-tiers": "sample-run/review-bundle/08-dimension-pricing-tiers",
+  "09-s3-datastore-measurement": "sample-run/review-bundle/09-s3-datastore-measurement",
+  "10-customer-identity-migration": "sample-run/review-bundle/10-customer-identity-migration",
+  "11-customer-billing-schedule-migration": "sample-run/review-bundle/11-customer-billing-schedule-migration"
  },
  "recorded_task_ids": {
   "01-entitlement-overage-lines": "02-entitlement-overage-lines",
@@ -35,7 +39,11 @@
   "04-tax-jurisdiction": "27-tax-jurisdiction",
   "05-network-egress-metering": "05-network-egress-metering",
   "06-api-token-metering": "06-api-token-metering",
-  "07-api-keys-and-environments": "07-api-keys-and-environments"
+  "07-api-keys-and-environments": "07-api-keys-and-environments",
+  "08-dimension-pricing-tiers": "08-dimension-pricing-tiers",
+  "09-s3-datastore-measurement": "09-s3-datastore-measurement",
+  "10-customer-identity-migration": "10-customer-identity-migration",
+  "11-customer-billing-schedule-migration": "11-customer-billing-schedule-migration"
  },
  "public_task_sha256": {
   "01-entitlement-overage-lines": "9a2cb9b18c32f44eeae716b21538a3d143be13fec1989c0f912c15a04e3b484a",
@@ -44,7 +52,11 @@
   "04-tax-jurisdiction": "14bed3b6424a462c369ed2d831e469ea7817bf9195418a40ac483034ef43097e",
   "05-network-egress-metering": "cc084261e1c314c0d3b967d8017e8abff574ef5ea104085529bfa7e45e4b0c27",
   "06-api-token-metering": "d9c9f4db0c30985d80d209a10ca998ed4e7e8555d9bf61c8158e1d286b176907",
-  "07-api-keys-and-environments": "f9484c3e65ee01066372b10140d7faa03bfed24c1ddc29b19acdf07f1c8a34e7"
+  "07-api-keys-and-environments": "f9484c3e65ee01066372b10140d7faa03bfed24c1ddc29b19acdf07f1c8a34e7",
+  "08-dimension-pricing-tiers": "c3e2c0983957c4fd3b1f1192f1f9d45ae64cdabd0201e09588a1f7267bec914a",
+  "09-s3-datastore-measurement": "6cc5da16edfad5649195992c02b34ec2ff4bc2b96e7b3acf67906586b3777718",
+  "10-customer-identity-migration": "1ebaf007ebd10a05e9c420d93f94aa91de34fe2de7a1201ba2d4ea86c99803d7",
+  "11-customer-billing-schedule-migration": "54e9776cbe7b5b90dd97ee70531a404cd4e7abaad19b0b15507754339e3e037a"
  },
  "recorded_runtime_controls": {
   "nop_required": 0.0,

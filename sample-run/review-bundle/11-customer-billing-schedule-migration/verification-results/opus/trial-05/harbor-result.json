@@ -1,0 +1,22 @@
+{
+  "id": "faa553d8-c90f-46cb-863e-a14cc19c2456",
+  "taskName": "customer-billing-schedule-migration",
+  "trialName": "customer-billing-schedule-migrat__qsSYhiW",
+  "taskChecksum": "2ab40b84938458d3826bee37968342210ef9129a14378ce2a05eae17cdf2312a",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "global.anthropic.claude-opus-5",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 0.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-27T17:39:10.643467Z",
+  "finishedAt": "2026-08-27T17:59:00.139326Z"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "da6ea18e-7d06-418e-9444-0fe77b26db65",
+  "taskName": "meteringco-s3-datastore-measurement",
+  "trialName": "meteringco-s3-datastore-measurement__qKUQ4qd",
+  "taskChecksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621",
+  "agent": {
+    "name": "opencode",
+    "version": "1.18.13",
+    "model_info": {
+      "name": "global.anthropic.claude-opus-5",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-10T00:41:47.879715Z",
+  "finishedAt": "2026-08-10T01:02:10.203213Z"
+}

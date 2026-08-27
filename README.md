@@ -1,13 +1,14 @@
 # Sample RL Tasks for AWS - xAI
 
-This sample contains seven tasks, all run on Daytona. Tasks 1, 2 and 3 each use
-one eight-run cohort whose checksum both models share. Task 4 uses two matched
-four-run strata, one on Daytona and one on AWS Fargate, with a pooled
-descriptive total of eight attempts per model. Tasks 5 to 7 use one eight-run
-cohort per model arm.
+This sample contains the eleven tasks analyzed in the accompanying report, all
+run on Daytona. Tasks 1, 2, 3 and 8 to 11 each use one eight-run cohort whose
+checksum both models share. Task 4 uses two matched four-run strata, one on
+Daytona and one on AWS Fargate, with a pooled descriptive total of eight
+attempts per model. Tasks 5 to 7 use one eight-run cohort per model arm.
 
 Every task carries both model arms. Grok 4.6 solved 0/8, 6/8, 3/8, 0/8, 3/8,
-0/8 and 5/8; Claude Opus 5 solved 8/8, 8/8, 8/8, 5/8, 8/8, 7/8 and 8/8.
+0/8, 5/8, 2/8, 0/8, 6/8 and 0/8; Claude Opus 5 solved 8/8, 8/8, 8/8, 5/8, 8/8,
+7/8, 8/8, 7/8, 6/8, 8/8 and 5/8.
 
 Tasks 5 to 7 were built once per model arm, so each arm carries its own recorded
 Harbor task checksum and its own stratum. The task packages published here are
@@ -33,7 +34,8 @@ Each row contains eight valid trials. `c/n` is the observed solve count. The
 table uses `pass@k = 1 - C(n-c, k) / C(n, k)`, the estimated chance that at
 least one of `k` sampled attempts succeeds.
 Rows are grouped by model; a blank model cell continues the model named above.
-Tasks 1, 2 and 3 are single Daytona cohorts whose checksum both models share.
+Tasks 1, 2, 3 and 8 to 11 are single Daytona cohorts whose checksum both models
+share.
 For Task 4, the eight-attempt rows are pooled descriptive estimates across its
 two equal backend strata, not results from one frozen runtime configuration;
 the strata themselves are recorded in
@@ -51,6 +53,10 @@ recorded checksums over a byte-identical task package.
 |  | [Task 5](tasks/05-network-egress-metering/instruction.md) | 3/8 | 0.3750 | 0.8214 | 1.0000 |
 |  | [Task 6](tasks/06-api-token-metering/instruction.md) | 0/8 | 0.0000 | 0.0000 | 0.0000 |
 |  | [Task 7](tasks/07-api-keys-and-environments/instruction.md) | 5/8 | 0.6250 | 0.9821 | 1.0000 |
+|  | [Task 8](tasks/08-dimension-pricing-tiers/instruction.md) | 2/8 | 0.2500 | 0.6429 | 1.0000 |
+|  | [Task 9](tasks/09-s3-datastore-measurement/instruction.md) | 0/8 | 0.0000 | 0.0000 | 0.0000 |
+|  | [Task 10](tasks/10-customer-identity-migration/instruction.md) | 6/8 | 0.7500 | 1.0000 | 1.0000 |
+|  | [Task 11](tasks/11-customer-billing-schedule-migration/instruction.md) | 0/8 | 0.0000 | 0.0000 | 0.0000 |
 | Opus 5 | [Task 1](tasks/01-entitlement-overage-lines/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 2](tasks/02-multi-region-sweep/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 3](tasks/03-iam-role-validation/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
@@ -58,6 +64,10 @@ recorded checksums over a byte-identical task package.
 |  | [Task 5](tasks/05-network-egress-metering/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 6](tasks/06-api-token-metering/instruction.md) | 7/8 | 0.8750 | 1.0000 | 1.0000 |
 |  | [Task 7](tasks/07-api-keys-and-environments/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
+|  | [Task 8](tasks/08-dimension-pricing-tiers/instruction.md) | 7/8 | 0.8750 | 1.0000 | 1.0000 |
+|  | [Task 9](tasks/09-s3-datastore-measurement/instruction.md) | 6/8 | 0.7500 | 1.0000 | 1.0000 |
+|  | [Task 10](tasks/10-customer-identity-migration/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
+|  | [Task 11](tasks/11-customer-billing-schedule-migration/instruction.md) | 5/8 | 0.6250 | 0.9821 | 1.0000 |
 <!-- MINI_SWE_MATRIX_END -->
 
 ## Task inventory
@@ -71,6 +81,10 @@ recorded checksums over a byte-identical task package.
 | [Task&nbsp;5](tasks/05-network-egress-metering/instruction.md) | Meter outbound network traffic per customer on a five-minute schedule: pick up only the machines tagged for the dimension being billed, total the bytes each one sent out over the interval, add those together per customer, and keep charging for machines that have since stopped. |
 | [Task&nbsp;6](tasks/06-api-token-metering/instruction.md) | Meter the platform's own API traffic: record each call against the platform's customer for that tenant at the time of the call, keep calls apart by identity, count a redelivered call once, and roll each window up into one billable figure against the right account and dimension. |
 | [Task&nbsp;7](tasks/07-api-keys-and-environments/instruction.md) | Build the console's API key screen across sandbox and production: list the credentials the current account holds in the current environment, rotate one secret without touching the others, retire one so it stops authenticating on the very next request, and refuse any credential the current account does not hold. |
+| [Task&nbsp;8](tasks/08-dimension-pricing-tiers/instruction.md) | Add optional volume pricing tiers to usage dimensions: validate and persist them, allocate usage across their bounds, divide quantities by the usage increment, and produce one invoice line per tier consumed. |
+| [Task&nbsp;9](tasks/09-s3-datastore-measurement/instruction.md) | Add a datastore-based measurement mode that reads usage from a customer's own S3 bucket: provision a scoped role trusting the customer account, return the ingestion and dead-letter locations, and route valid and malformed records to the right places. |
+| [Task&nbsp;10](tasks/10-customer-identity-migration/instruction.md) | Move customers onto a shared offering record: read usage through the customer's offering while honouring time and interval overrides, and refuse to delete an offering that customers still reference. |
+| [Task&nbsp;11](tasks/11-customer-billing-schedule-migration/instruction.md) | Finish the per-customer recurring billing migration: create and replace monthly billing schedules with the parameters the billing consumer reads, and drive the existing invoice path with the offering's billing-cycle window. |
 
 Task paths, headings, and review bundles use the same Task 1–4 numbering as the
 report. Immutable Harbor trial names and recorded runtime checksums remain in
@@ -310,11 +324,13 @@ and
 ## Evidence and controls
 
 - **Harness:** Harbor 0.18.0 with mini-SWE-agent 2.4.5 at high reasoning
-  effort. Tasks 1, 2, 3 and 5 to 7 ran in isolated Daytona sandboxes. Task 4
-  uses separately matched four-run Daytona and AWS Fargate strata. Tasks 5 to 7
-  carry one stratum per model arm.
+  effort. Every task ran in isolated Daytona sandboxes except Task 4, which uses
+  separately matched four-run Daytona and AWS Fargate strata. Tasks 5 to 7 carry
+  one stratum per model arm. On Tasks 8 to 11 the Opus 5 arm ran attempts 01 to
+  04 under opencode 1.18.13 and attempts 05 to 08 under mini-SWE-agent 2.4.5;
+  the Grok 4.6 arm is mini-SWE-agent throughout.
 - **Routes:** Grok 4.6 and Claude Opus 5 through Amazon Bedrock.
-- **Denominator:** All 112 packaged model trials have a numeric reward, complete
+- **Denominator:** All 176 packaged model trials have a numeric reward, complete
   native trajectory and complete verifier evidence. One of them, Task 7 Grok
   trial 8, passed all eight graded rules and was then scored `0.0` because the
   verifier driver lost its connection to the emulator after grading; it is kept
@@ -333,7 +349,7 @@ and
 - **Task 1 raw evidence:**
   [`sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/`](sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819/)
   contains all 16 full Harbor attempts.
-- **Tasks 2 to 7 evidence:** their complete trajectories, final Grok
+- **Tasks 2 to 11 evidence:** their complete trajectories, final Grok
   changes, touched files, raw verifier observations, rewards, stdout, held-out
   scoring assets, and controls are in the
   [`review bundle`](sample-run/review-bundle/).

@@ -1,0 +1,284 @@
+diff --git a/src/billing/billing.module.ts b/src/billing/billing.module.ts
+index 96a3eed..14c9eb6 100644
+--- a/src/billing/billing.module.ts
++++ b/src/billing/billing.module.ts
+@@ -4,6 +4,7 @@ import { PrivateAPIServicesModule } from '../services/services.module';
+ import { PrivateAPIInvoicesModule } from '../invoice/invoices.module';
+ import { InfluxModule } from '../influx/influx.module';
+ import { BullModule } from '@nestjs/bull';
++import { PrivateAPICustomerModule } from '../customer/customer.module';
+ 
+ @Module({
+     providers: [BillingService],
+@@ -11,6 +12,7 @@ import { BullModule } from '@nestjs/bull';
+         InfluxModule,
+         forwardRef(() => PrivateAPIServicesModule),
+         forwardRef(() => PrivateAPIInvoicesModule),
++        forwardRef(() => PrivateAPICustomerModule),
+         BullModule.registerQueue({
+             name: 'scheduler_billing_queue',
+         }),
+diff --git a/src/billing/billing.service.spec.ts b/src/billing/billing.service.spec.ts
+index 282a050..fd20c3e 100644
+--- a/src/billing/billing.service.spec.ts
++++ b/src/billing/billing.service.spec.ts
+@@ -4,6 +4,7 @@ import { PrivateAPIServicesModule } from '../services/services.module';
+ import { forwardRef } from '@nestjs/common';
+ import { PrivateAPIInvoicesModule } from '../invoice/invoices.module';
+ import { InfluxModule } from '../influx/influx.module';
++import { PrivateAPICustomerModule } from '../customer/customer.module';
+ 
+ describe('BillingService', () => {
+     let service: BillingService;
+@@ -15,6 +16,7 @@ describe('BillingService', () => {
+                 InfluxModule,
+                 forwardRef(() => PrivateAPIServicesModule),
+                 forwardRef(() => PrivateAPIInvoicesModule),
++                forwardRef(() => PrivateAPICustomerModule),
+             ],
+         }).compile();
+ 
+diff --git a/src/billing/billing.service.ts b/src/billing/billing.service.ts
+index 2dc36fc..2d42560 100644
+--- a/src/billing/billing.service.ts
++++ b/src/billing/billing.service.ts
+@@ -8,6 +8,9 @@ import { Process, Processor } from '@nestjs/bull';
+ import { CreateBillingReportDto } from './dto/createBillingReport.dto';
+ import { Job } from 'bull';
+ import { SchedulerEntity } from '../scheduler/entities/scheduler.entity';
++import { CustomerService } from '../customer/customer.service';
++import { AuditService } from '../audit/audit.service';
++import { AuditScope } from '../audit/entities/audit.interface';
+ 
+ @Processor('scheduler_billing_queue')
+ export class BillingService {
+@@ -15,25 +18,33 @@ export class BillingService {
+     constructor(
+         readonly InfluxService: InfluxService,
+         @Inject(forwardRef(() => ServicesService)) readonly servicesService: ServicesService,
+-        @Inject(forwardRef(() => InvoicesService)) readonly invoicesService: InvoicesService
++        @Inject(forwardRef(() => InvoicesService)) readonly invoicesService: InvoicesService,
++        @Inject(forwardRef(() => CustomerService)) readonly customerService: CustomerService
+     ) {}
+     @Process({ name: billingScheduleConsumers.billingReport })
+-    async create({ data: { scheduleParameters } }: Job<SchedulerEntity>) {
+-        const { customerId, businessID } = scheduleParameters as CreateBillingReportDto;
+-        // 1. Called via the scheduler contains a customerId, and BusinessID, gets set when a customer is created
+-        // 2, Get all services for the customer
+-        const { data } = await this.servicesService.findAllServicesWithCustomerId({ customerId, businessID });
+-        if (data.length) {
+-            const lineItems = await Billing.generateLineItemsFromServices({
+-                data,
+-                influxService: this.InfluxService,
++    async create({ data: { scheduleParameters, businessID } }: Job<SchedulerEntity>) {
++        const { customerId } = scheduleParameters as CreateBillingReportDto;
++        try {
++            // Resolve the customer and its offering
++            const {
++                data: [customer],
++            } = await this.customerService.findOne({ customerId, businessID });
++            const offering = customer?.offering;
++            if (!offering) {
++                BillingService.logger.log(
++                    `No offering found for customer:${customerId} in business: ${businessID}`
++                );
++                return;
++            }
++            // Derive the offering billing-cycle time range
++            const { startTime, endTime } = Billing.billingCycleToTimeRange(offering.billingCycle);
++            // Call the existing usage-total invoice path with that exact customer and range
++            const { invoiceId } = await this.invoicesService.generateInvoiceForUsageTotal({
+                 businessID,
++                customerId,
++                start: startTime,
++                end: endTime,
+             });
+-            BillingService.logger.log(`Line Items for billing: ${JSON.stringify(lineItems)}`);
+-            // 5. Create the Invoice by calling the invoice module and passing the line items (Might need to manually call the email in the invioceModule look into this )
+-            const { invoiceId } = await this.invoicesService.create({ businessID, customerId, items: lineItems });
+-            // Should set Invoice to Draft status, actual payment will be handled by the payment module and is done when there is a state change with the invoice status.
+-            const { startTime, endTime } = Billing.billingCycleToTimeRange(data[0]?.offering.billingCycle);
+             const entity = new Billing({
+                 invoiceId,
+                 businessID,
+@@ -42,11 +53,17 @@ export class BillingService {
+                 endTime,
+                 billingId: randomUUID(),
+             });
+-            // 6. Save Billing information to the Ledger
++            // Persist a billing record containing the returned invoice ID
+             const point = Billing.transformer(entity, this.InfluxService);
+             await this.InfluxService.loadPoints(`${process.env.STAGE}-aggregate-usage`, 'meteringco', [point]);
+-        } else {
+-            BillingService.logger.log(`No Billing Data found for customer:${customerId} in business: ${businessID}`);
++        } catch (e) {
++            // Report processing failures through the existing audit channel
++            // instead of leaving the queue job with a partially stored billing record
++            AuditService.publishEvent({
++                message: `Error processing billing for customer: ${customerId}`,
++                data: [{ error: e, customerId, businessID }],
++                topic: AuditScope.ERROR,
++            });
+         }
+     }
+ }
+diff --git a/src/billing/dto/createBillingReport.dto.ts b/src/billing/dto/createBillingReport.dto.ts
+index 06da985..952159e 100644
+--- a/src/billing/dto/createBillingReport.dto.ts
++++ b/src/billing/dto/createBillingReport.dto.ts
+@@ -1,4 +1,4 @@
+ export class CreateBillingReportDto {
+     customerId: string;
+-    businessID: string;
++    businessID?: string;
+ }
+diff --git a/src/customer/customer.controller.ts b/src/customer/customer.controller.ts
+index 000c4a6..c09d7c8 100644
+--- a/src/customer/customer.controller.ts
++++ b/src/customer/customer.controller.ts
+@@ -142,8 +142,8 @@ export class PublicAPICustomerController {
+     update(@Body() updateCustomerDto: UpdateCustomerDto, @Req() request: Request, @Param('customerId') customerId) {
+         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+         //@ts-ignore
+-        const { businessID } = request.user;
+-        return this.customerService.update({ ...updateCustomerDto, businessID, customerId });
++        const { businessID, sub } = request.user;
++        return this.customerService.update({ ...updateCustomerDto, businessID, customerId, subject: sub });
+     }
+ 
+     /**
+diff --git a/src/customer/customer.service.ts b/src/customer/customer.service.ts
+index b172128..c477e6d 100644
+--- a/src/customer/customer.service.ts
++++ b/src/customer/customer.service.ts
+@@ -1,4 +1,4 @@
+-import { Inject, Injectable, Logger, NotFoundException, forwardRef, ConflictException } from '@nestjs/common';
++import { Inject, Injectable, Logger, NotFoundException, forwardRef } from '@nestjs/common';
+ import { CreateCustomerDto, CreateCustomerResponseDto } from './dto/create-customer.dto';
+ import { InfluxService } from '../influx/influx.service';
+ import { CustomerEntity, CustomerInvoiceMetadata, ReadCustomerResponseData } from './entities/customer.entity';
+@@ -34,16 +34,56 @@ export class CustomerService {
+         const points = CustomerEntity.transformer(customerEntity, this.InfluxService);
+         CustomerService.logger.log('Points', points);
+         await loadPoints(`${process.env.STAGE}-config`, `meteringco`, points);
++        // Only create a monthly billing schedule when the customer has an offering
++        if (createCustomerDto.offeringId) {
++            await this.createCustomerBillingSchedule({
++                customerId,
++                businessID: createCustomerDto.businessID,
++                subject,
++            });
++        }
++        return { message: 'New customer added', customerId: customerEntity.customerId };
++    }
++
++    private async createCustomerBillingSchedule({
++        customerId,
++        businessID,
++        subject,
++    }: {
++        customerId: string;
++        businessID: string;
++        subject: string;
++    }) {
+         await this.schedulerService.create({
+             schedulerID: customerId,
+             schedulerType: schedulerType.billing,
+             schedulerStatus: SchedulerStatus.live,
+-            scheduleParameters: { customerId, businessID: createCustomerDto.businessID },
++            scheduleParameters: { customerId },
+             rate: SupportedMeasurementFrequencies.monthly,
+             subject,
+-            businessID: createCustomerDto.businessID,
++            businessID,
+         });
+-        return { message: 'New customer added', customerId: customerEntity.customerId };
++    }
++
++    private async replaceCustomerBillingSchedule({
++        customerId,
++        businessID,
++        subject,
++    }: {
++        customerId: string;
++        businessID: string;
++        subject: string;
++    }) {
++        try {
++            await this.schedulerService.remove({ schedulerID: customerId, businessID, isBillingQueue: true });
++        } catch (e) {
++            if (e instanceof NotFoundException) {
++                CustomerService.logger.log(`Scheduler for customer ${customerId} not found`);
++            } else {
++                throw e;
++            }
++        }
++        await this.createCustomerBillingSchedule({ customerId, businessID, subject });
+     }
+ 
+     private async findInvoicesByCustomer({ businessID, customerId }) {
+@@ -179,7 +219,9 @@ export class CustomerService {
+         return { message: 'Deleted Customer', customerId };
+     }
+ 
+-    async update({ customerId, businessID, ...updatedFields }: UpdateCustomerDto): Promise<CreateCustomerResponseDto> {
++    async update(
++        { customerId, businessID, subject, ...updatedFields }: UpdateCustomerDto & { subject?: string }
++    ): Promise<CreateCustomerResponseDto> {
+         CustomerService.logger.log(`Attempting to update saasClientID: ${customerId} for ${businessID}`);
+         const {
+             data: [{ ...rest }],
+@@ -189,6 +231,10 @@ export class CustomerService {
+         const points = CustomerEntity.transformer(customerEntity, this.InfluxService);
+         CustomerService.logger.log('Points', points);
+         await loadPoints(`${process.env.STAGE}-config`, `meteringco`, points);
++        // When an existing customer gains or changes an offeringId, replace any previous billing schedule
++        if (updatedFields.offeringId && updatedFields.offeringId !== rest.offeringId) {
++            await this.replaceCustomerBillingSchedule({ customerId, businessID, subject });
++        }
+         return { message: 'Customer updated added', customerId: customerId };
+     }
+ 
+diff --git a/src/scheduler/scheduler.service.ts b/src/scheduler/scheduler.service.ts
+index 12c91dc..29f318c 100644
+--- a/src/scheduler/scheduler.service.ts
++++ b/src/scheduler/scheduler.service.ts
+@@ -227,7 +227,17 @@ export class SchedulerService {
+     async emitOne({ schedulerId, payload }) {
+         const { dimensionType, ...rest } = payload;
+         const schedulerEntity = new SchedulerEntity({ schedulerID: schedulerId, ...rest });
+-        await this.queue.add(dimensionType, schedulerEntity);
++        // Route billing scheduler emissions to scheduler_billing_queue with the billingReport consumer
++        if (
++            rest?.schedulerType === schedulerType.billing ||
++            dimensionType === billingScheduleConsumers.billingReport ||
++            dimensionType === schedulerType.billing
++        ) {
++            await this.billingQueue.add(billingScheduleConsumers.billingReport, schedulerEntity);
++        } else {
++            // All non-billing measurements continue to use the normal scheduler queue and their dimension consumer
++            await this.queue.add(dimensionType, schedulerEntity);
++        }
+         return { message: 'completed' };
+     }
+ }
+diff --git a/src/usage/usage.service.ts b/src/usage/usage.service.ts
+index e0b12b4..e123d8b 100644
+--- a/src/usage/usage.service.ts
++++ b/src/usage/usage.service.ts
+@@ -1,4 +1,4 @@
+-import { ConflictException, forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
++import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
+ import { BasicResponseDTO } from '../basicResponseDTO';
+ import { CustomerService } from '../customer/customer.service';
+ import { QueryParamUsageDto } from '../customer/dto/read-customer.dto';
+@@ -56,7 +56,8 @@ export class UsageService {
+             });
+             return aggregateData;
+         } else {
+-            throw new ConflictException('No offering found for customer cannot get usage');
++            // A usage read for a customer without an offering should return an empty result rather than fail
++            return [];
+         }
+     }
+ 

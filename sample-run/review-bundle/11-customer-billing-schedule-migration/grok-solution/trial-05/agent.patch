@@ -1,0 +1,297 @@
+diff --git a/src/billing/billing.module.ts b/src/billing/billing.module.ts
+index 96a3eed..51362e8 100644
+--- a/src/billing/billing.module.ts
++++ b/src/billing/billing.module.ts
+@@ -1,15 +1,15 @@
+ import { Module, forwardRef } from '@nestjs/common';
+ import { BillingService } from './billing.service';
+-import { PrivateAPIServicesModule } from '../services/services.module';
+ import { PrivateAPIInvoicesModule } from '../invoice/invoices.module';
+ import { InfluxModule } from '../influx/influx.module';
+ import { BullModule } from '@nestjs/bull';
++import { PublicAPICustomerModule } from '../customer/customer.module';
+ 
+ @Module({
+     providers: [BillingService],
+     imports: [
+         InfluxModule,
+-        forwardRef(() => PrivateAPIServicesModule),
++        forwardRef(() => PublicAPICustomerModule),
+         forwardRef(() => PrivateAPIInvoicesModule),
+         BullModule.registerQueue({
+             name: 'scheduler_billing_queue',
+diff --git a/src/billing/billing.service.spec.ts b/src/billing/billing.service.spec.ts
+index 282a050..ccb1266 100644
+--- a/src/billing/billing.service.spec.ts
++++ b/src/billing/billing.service.spec.ts
+@@ -1,9 +1,9 @@
+ import { Test, TestingModule } from '@nestjs/testing';
+ import { BillingService } from './billing.service';
+-import { PrivateAPIServicesModule } from '../services/services.module';
+ import { forwardRef } from '@nestjs/common';
+ import { PrivateAPIInvoicesModule } from '../invoice/invoices.module';
+ import { InfluxModule } from '../influx/influx.module';
++import { PublicAPICustomerModule } from '../customer/customer.module';
+ 
+ describe('BillingService', () => {
+     let service: BillingService;
+@@ -13,7 +13,7 @@ describe('BillingService', () => {
+             providers: [BillingService],
+             imports: [
+                 InfluxModule,
+-                forwardRef(() => PrivateAPIServicesModule),
++                forwardRef(() => PublicAPICustomerModule),
+                 forwardRef(() => PrivateAPIInvoicesModule),
+             ],
+         }).compile();
+diff --git a/src/billing/billing.service.ts b/src/billing/billing.service.ts
+index 2dc36fc..91abd67 100644
+--- a/src/billing/billing.service.ts
++++ b/src/billing/billing.service.ts
+@@ -1,5 +1,4 @@
+ import { Inject, Injectable, Logger, forwardRef } from '@nestjs/common';
+-import { ServicesService } from '../services/services.service';
+ import { InfluxService } from '../influx/influx.service';
+ import { InvoicesService } from '../invoice/invoices.service';
+ import { Billing, billingScheduleConsumers } from './entities/billing.entity';
+@@ -8,32 +7,44 @@ import { Process, Processor } from '@nestjs/bull';
+ import { CreateBillingReportDto } from './dto/createBillingReport.dto';
+ import { Job } from 'bull';
+ import { SchedulerEntity } from '../scheduler/entities/scheduler.entity';
++import { CustomerService } from '../customer/customer.service';
++import { AuditService } from '../audit/audit.service';
++import { AuditScope } from '../audit/entities/audit.interface';
++import { validBillingCycles } from '../offering/dto/createOffering.dto';
+ 
+ @Processor('scheduler_billing_queue')
+ export class BillingService {
+     private static readonly logger = new Logger(BillingService.name);
+     constructor(
+         readonly InfluxService: InfluxService,
+-        @Inject(forwardRef(() => ServicesService)) readonly servicesService: ServicesService,
+-        @Inject(forwardRef(() => InvoicesService)) readonly invoicesService: InvoicesService
++        @Inject(forwardRef(() => InvoicesService)) readonly invoicesService: InvoicesService,
++        @Inject(forwardRef(() => CustomerService)) readonly customerService: CustomerService
+     ) {}
+     @Process({ name: billingScheduleConsumers.billingReport })
+-    async create({ data: { scheduleParameters } }: Job<SchedulerEntity>) {
+-        const { customerId, businessID } = scheduleParameters as CreateBillingReportDto;
+-        // 1. Called via the scheduler contains a customerId, and BusinessID, gets set when a customer is created
+-        // 2, Get all services for the customer
+-        const { data } = await this.servicesService.findAllServicesWithCustomerId({ customerId, businessID });
+-        if (data.length) {
+-            const lineItems = await Billing.generateLineItemsFromServices({
+-                data,
+-                influxService: this.InfluxService,
++    async create({ data }: Job<SchedulerEntity>) {
++        const { businessID: schedulerBusinessID, scheduleParameters } = data || ({} as SchedulerEntity);
++        const { customerId, businessID: parameterBusinessID } = (scheduleParameters || {}) as CreateBillingReportDto & {
++            businessID?: string;
++        };
++        const businessID = schedulerBusinessID || parameterBusinessID;
++        try {
++            const {
++                data: [customer],
++            } = await this.customerService.findOne({ customerId, businessID });
++            const offering = customer?.offering;
++            if (!offering) {
++                BillingService.logger.log(`No offering found for customer:${customerId} in business: ${businessID}`);
++                return;
++            }
++            const { startTime, endTime } = Billing.billingCycleToTimeRange(
++                offering.billingCycle || validBillingCycles.monthly
++            );
++            const { invoiceId } = await this.invoicesService.generateInvoiceForUsageTotal({
+                 businessID,
++                customerId,
++                start: startTime,
++                end: endTime,
+             });
+-            BillingService.logger.log(`Line Items for billing: ${JSON.stringify(lineItems)}`);
+-            // 5. Create the Invoice by calling the invoice module and passing the line items (Might need to manually call the email in the invioceModule look into this )
+-            const { invoiceId } = await this.invoicesService.create({ businessID, customerId, items: lineItems });
+-            // Should set Invoice to Draft status, actual payment will be handled by the payment module and is done when there is a state change with the invoice status.
+-            const { startTime, endTime } = Billing.billingCycleToTimeRange(data[0]?.offering.billingCycle);
+             const entity = new Billing({
+                 invoiceId,
+                 businessID,
+@@ -42,11 +53,14 @@ export class BillingService {
+                 endTime,
+                 billingId: randomUUID(),
+             });
+-            // 6. Save Billing information to the Ledger
+             const point = Billing.transformer(entity, this.InfluxService);
+             await this.InfluxService.loadPoints(`${process.env.STAGE}-aggregate-usage`, 'meteringco', [point]);
+-        } else {
+-            BillingService.logger.log(`No Billing Data found for customer:${customerId} in business: ${businessID}`);
++        } catch (e) {
++            AuditService.publishEvent({
++                topic: AuditScope.ERROR,
++                message: `Error processing billing for customer: ${customerId}`,
++                data: [e],
++            });
+         }
+     }
+ }
+diff --git a/src/billing/dto/createBillingReport.dto.ts b/src/billing/dto/createBillingReport.dto.ts
+index 06da985..53caa63 100644
+--- a/src/billing/dto/createBillingReport.dto.ts
++++ b/src/billing/dto/createBillingReport.dto.ts
+@@ -1,4 +1,3 @@
+ export class CreateBillingReportDto {
+     customerId: string;
+-    businessID: string;
+ }
+diff --git a/src/customer/customer.controller.ts b/src/customer/customer.controller.ts
+index 000c4a6..4d3a303 100644
+--- a/src/customer/customer.controller.ts
++++ b/src/customer/customer.controller.ts
+@@ -142,8 +142,8 @@ export class PublicAPICustomerController {
+     update(@Body() updateCustomerDto: UpdateCustomerDto, @Req() request: Request, @Param('customerId') customerId) {
+         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+         //@ts-ignore
+-        const { businessID } = request.user;
+-        return this.customerService.update({ ...updateCustomerDto, businessID, customerId });
++        const { businessID, sub } = request.user;
++        return this.customerService.update({ ...updateCustomerDto, businessID, customerId }, sub);
+     }
+ 
+     /**
+diff --git a/src/customer/customer.service.ts b/src/customer/customer.service.ts
+index b172128..32d21f0 100644
+--- a/src/customer/customer.service.ts
++++ b/src/customer/customer.service.ts
+@@ -1,4 +1,4 @@
+-import { Inject, Injectable, Logger, NotFoundException, forwardRef, ConflictException } from '@nestjs/common';
++import { Inject, Injectable, Logger, NotFoundException, forwardRef } from '@nestjs/common';
+ import { CreateCustomerDto, CreateCustomerResponseDto } from './dto/create-customer.dto';
+ import { InfluxService } from '../influx/influx.service';
+ import { CustomerEntity, CustomerInvoiceMetadata, ReadCustomerResponseData } from './entities/customer.entity';
+@@ -34,16 +34,55 @@ export class CustomerService {
+         const points = CustomerEntity.transformer(customerEntity, this.InfluxService);
+         CustomerService.logger.log('Points', points);
+         await loadPoints(`${process.env.STAGE}-config`, `meteringco`, points);
++        if (createCustomerDto.offeringId) {
++            await this.createCustomerBillingSchedule({
++                customerId,
++                businessID: createCustomerDto.businessID,
++                subject,
++            });
++        }
++        return { message: 'New customer added', customerId: customerEntity.customerId };
++    }
++
++    private async createCustomerBillingSchedule({
++        customerId,
++        businessID,
++        subject,
++    }: {
++        customerId: string;
++        businessID: string;
++        subject: string;
++    }) {
+         await this.schedulerService.create({
+             schedulerID: customerId,
+             schedulerType: schedulerType.billing,
+             schedulerStatus: SchedulerStatus.live,
+-            scheduleParameters: { customerId, businessID: createCustomerDto.businessID },
++            scheduleParameters: { customerId },
+             rate: SupportedMeasurementFrequencies.monthly,
+             subject,
+-            businessID: createCustomerDto.businessID,
++            businessID,
+         });
+-        return { message: 'New customer added', customerId: customerEntity.customerId };
++    }
++
++    private async replaceCustomerBillingSchedule({
++        customerId,
++        businessID,
++        subject,
++    }: {
++        customerId: string;
++        businessID: string;
++        subject: string;
++    }) {
++        try {
++            await this.schedulerService.remove({ schedulerID: customerId, businessID, isBillingQueue: true });
++        } catch (e) {
++            if (e instanceof NotFoundException) {
++                CustomerService.logger.log(`Scheduler for customer ${customerId} not found`);
++            } else {
++                throw e;
++            }
++        }
++        await this.createCustomerBillingSchedule({ customerId, businessID, subject });
+     }
+ 
+     private async findInvoicesByCustomer({ businessID, customerId }) {
+@@ -179,16 +218,23 @@ export class CustomerService {
+         return { message: 'Deleted Customer', customerId };
+     }
+ 
+-    async update({ customerId, businessID, ...updatedFields }: UpdateCustomerDto): Promise<CreateCustomerResponseDto> {
++    async update(
++        { customerId, businessID, ...updatedFields }: UpdateCustomerDto,
++        subject?: string
++    ): Promise<CreateCustomerResponseDto> {
+         CustomerService.logger.log(`Attempting to update saasClientID: ${customerId} for ${businessID}`);
+         const {
+             data: [{ ...rest }],
+         } = await this.findOne({ customerId, businessID });
+         const { loadPoints } = this.InfluxService;
++        const previousOfferingId = rest.offeringId;
+         const customerEntity = new CustomerEntity({ ...rest, ...updatedFields, customerId, businessID });
+         const points = CustomerEntity.transformer(customerEntity, this.InfluxService);
+         CustomerService.logger.log('Points', points);
+         await loadPoints(`${process.env.STAGE}-config`, `meteringco`, points);
++        if (updatedFields.offeringId && updatedFields.offeringId !== previousOfferingId) {
++            await this.replaceCustomerBillingSchedule({ customerId, businessID, subject });
++        }
+         return { message: 'Customer updated added', customerId: customerId };
+     }
+ 
+diff --git a/src/scheduler/scheduler.service.ts b/src/scheduler/scheduler.service.ts
+index 12c91dc..525ab2d 100644
+--- a/src/scheduler/scheduler.service.ts
++++ b/src/scheduler/scheduler.service.ts
+@@ -225,9 +225,17 @@ export class SchedulerService {
+         }
+     }
+     async emitOne({ schedulerId, payload }) {
+-        const { dimensionType, ...rest } = payload;
+-        const schedulerEntity = new SchedulerEntity({ schedulerID: schedulerId, ...rest });
+-        await this.queue.add(dimensionType, schedulerEntity);
++        const { dimensionType, schedulerType: passedInScheduleType, ...rest } = payload;
++        const schedulerEntity = new SchedulerEntity({
++            schedulerID: schedulerId,
++            schedulerType: passedInScheduleType,
++            ...rest,
++        });
++        if (passedInScheduleType === schedulerType.billing) {
++            await this.billingQueue.add(billingScheduleConsumers.billingReport, schedulerEntity);
++        } else {
++            await this.queue.add(dimensionType, schedulerEntity);
++        }
+         return { message: 'completed' };
+     }
+ }
+diff --git a/src/usage/usage.service.ts b/src/usage/usage.service.ts
+index e0b12b4..c885126 100644
+--- a/src/usage/usage.service.ts
++++ b/src/usage/usage.service.ts
+@@ -1,4 +1,4 @@
+-import { ConflictException, forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
++import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
+ import { BasicResponseDTO } from '../basicResponseDTO';
+ import { CustomerService } from '../customer/customer.service';
+ import { QueryParamUsageDto } from '../customer/dto/read-customer.dto';
+@@ -56,7 +56,7 @@ export class UsageService {
+             });
+             return aggregateData;
+         } else {
+-            throw new ConflictException('No offering found for customer cannot get usage');
++            return [];
+         }
+     }
+ 

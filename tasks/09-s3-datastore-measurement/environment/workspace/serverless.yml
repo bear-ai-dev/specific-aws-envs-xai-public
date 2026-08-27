@@ -1,0 +1,75 @@
+service: meteringco-private-api
+
+plugins:
+    - serverless-offline
+
+custom:
+    bucket: meteringco-${opt:stage}-invoice-bucket
+
+params:
+    dev:
+        INFLUX_URL: http://localhost:8086
+        INFLUX_TOKEN: 'foobar'
+        INFLUX_ORG: meteringco
+        STRIPE_TOKEN: 'foobar'
+
+package:
+    exclude:
+        - node_modules/aws-sdk/**
+        - node_modules/typescript/**
+        - docs/**
+        - test/**
+        - integration/**
+        - package-lock.json
+        - src/**
+
+provider:
+    name: aws
+    runtime: nodejs14.x
+    timeout: 28
+    stage: ${opt:stage, 'dev'}
+    iam:
+        role:
+            statements:
+                - Effect: Allow
+                  Action:
+                      - s3:*
+                  Resource: 'arn:aws:s3:::${self:custom.bucket}/*'
+                - Effect: Allow
+                  Action:
+                      - ssm:GetParameter
+                  Resource: 'arn:aws:ssm:*'
+                - Effect: 'Allow'
+                  Action:
+                      - 'sts:AssumeRole'
+                  Resource: '*'
+
+functions:
+    main:
+        handler: dist/lambda.handler
+        environment:
+            INFLUX_URL: ${param:INFLUX_URL}
+            INFLUX_TOKEN: ${param:INFLUX_TOKEN}
+            INFLUX_ORG: ${param:INFLUX_ORG}
+            AUTH0_ISSUER_URL: ${param:AUTH0_ISSUER_URL}
+            AUTH0_AUDIENCE: ${param:AUTH0_AUDIENCE}
+            STRIPE_TOKEN: ${param:STRIPE_TOKEN}
+            STAGE: ${opt:stage}
+        events:
+            - http:
+                  method: ANY
+                  path: /
+            - http:
+                  method: ANY
+                  path: '{proxy+}'
+resources:
+    Resources:
+        invoiceBucket:
+            Type: AWS::S3::Bucket
+            Properties:
+                BucketName: ${self:custom.bucket}
+                LifecycleConfiguration:
+                    Rules:
+                        - ExpirationInDays: 14
+                          Prefix: '/'
+                          Status: Enabled

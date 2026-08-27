@@ -1,0 +1,22 @@
+{
+  "id": "10ee49e1-d4a3-4ed7-a301-bb9581a8383e",
+  "taskName": "meteringco-customer-identity-migration",
+  "trialName": "meteringco-customer-identity-migratio__NDHbkzy",
+  "taskChecksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae",
+  "agent": {
+    "name": "opencode",
+    "version": "1.18.13",
+    "model_info": {
+      "name": "global.anthropic.claude-opus-5",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-09T22:16:22.504211Z",
+  "finishedAt": "2026-08-09T22:38:55.210040Z"
+}

@@ -19,6 +19,10 @@ TASKS = {
     "05-network-egress-metering": {"grok": 3, "opus": 8},
     "06-api-token-metering": {"grok": 0, "opus": 7},
     "07-api-keys-and-environments": {"grok": 5, "opus": 8},
+    "08-dimension-pricing-tiers": {"grok": 2, "opus": 7},
+    "09-s3-datastore-measurement": {"grok": 0, "opus": 6},
+    "10-customer-identity-migration": {"grok": 6, "opus": 8},
+    "11-customer-billing-schedule-migration": {"grok": 0, "opus": 5},
 }
 
 
