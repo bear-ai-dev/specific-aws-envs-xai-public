@@ -8687,7 +8687,7 @@
       "task_label": "Task 7"
     },
     "08-dimension-pricing-tiers": {
-      "bundle_sha256": "f3053f4993fba5796a98f9ce08fac160b645c5be3021a1b879fa02197b9b5d99",
+      "bundle_sha256": "a2c8f56f4add8890d045ab228bafaca21424ca5d05085e6c15b5ce55eadacfd2",
       "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
       "controls": {
         "nop": 0.0,
@@ -8698,7 +8698,7 @@
         "grok_verification_results": 8,
         "opus_trajectories": 8,
         "opus_verification_results": 8,
-        "published_files": 138,
+        "published_files": 143,
         "touched_file_snapshots": 7
       },
       "files": [
@@ -9391,6 +9391,31 @@
           "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verification-results/opus/trial-08/test-stdout.txt",
           "sha256": "c2074d8a670e6b220ebfda00cd3aa2b8015cab65bef2bf8f1753bd8ac3b4e5bb",
           "size_bytes": 54281
+        },
+        {
+          "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verifier/execution/run_script.sh",
+          "sha256": "8ed80fdf4d153492437b5d9345cf82dda32c0dd27efdba18d3dc4bc25ab3064a",
+          "size_bytes": 546
+        },
+        {
+          "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verifier/execution/test.sh",
+          "sha256": "10181b9cd7c2055e602371c2317204ba659d45990427736c0fa2fc16b26b8c03",
+          "size_bytes": 1744
+        },
+        {
+          "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verifier/scoring/config.json",
+          "sha256": "13ac6041d336c59ae0cc3a5b5099cab7acb257464f6d129164c6d598d0d71467",
+          "size_bytes": 206901
+        },
+        {
+          "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verifier/scoring/config.template.json",
+          "sha256": "a5f4d2f6ce7958aadc41c97e11c4c0538be39ed97b6da532d2b4e3c99237de8b",
+          "size_bytes": 2544
+        },
+        {
+          "path": "sample-run/review-bundle/08-dimension-pricing-tiers/verifier/scoring/parser.py",
+          "sha256": "e05a3fdb0d3f0b94e5999c694274b51aa27abd457b96052a277a9bf8cef12dbc",
+          "size_bytes": 1083
         }
       ],
       "public_task_sha256": "c3e2c0983957c4fd3b1f1192f1f9d45ae64cdabd0201e09588a1f7267bec914a",
@@ -9429,7 +9454,7 @@
       "task_label": "Task 8"
     },
     "09-s3-datastore-measurement": {
-      "bundle_sha256": "42f9d76ec71bd94831b92fdc4b275b6e484693b75a5161514cad67349f40a4cf",
+      "bundle_sha256": "b46e448656f6842703803c72d2bb5b1b9c844a17ef3df6afe8bf28973e33b787",
       "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
       "controls": {
         "nop": 0.0,
@@ -9440,7 +9465,7 @@
         "grok_verification_results": 8,
         "opus_trajectories": 8,
         "opus_verification_results": 8,
-        "published_files": 141,
+        "published_files": 146,
         "touched_file_snapshots": 8
       },
       "files": [
@@ -10148,6 +10173,31 @@
           "path": "sample-run/review-bundle/09-s3-datastore-measurement/verification-results/opus/trial-08/test-stdout.txt",
           "sha256": "8e1e7a3bacb248cbc8e2d3902800326ff20c0edc69bd2cd1a9cfa5940557aabf",
           "size_bytes": 2981
+        },
+        {
+          "path": "sample-run/review-bundle/09-s3-datastore-measurement/verifier/execution/run_script.sh",
+          "sha256": "be20c4c81114feb5041c80d37c67da2b774869b1d1ab06700ac808cc4ccc2254",
+          "size_bytes": 548
+        },
+        {
+          "path": "sample-run/review-bundle/09-s3-datastore-measurement/verifier/execution/test.sh",
+          "sha256": "dfaf9687270a5318393fb882677cefde2d8c9a35dd465be47b80ae24b9c41098",
+          "size_bytes": 1713
+        },
+        {
+          "path": "sample-run/review-bundle/09-s3-datastore-measurement/verifier/scoring/config.json",
+          "sha256": "e791656de85810c32d6b8161655771556d54f87c882a0a6bf53f4d681a480edb",
+          "size_bytes": 146183
+        },
+        {
+          "path": "sample-run/review-bundle/09-s3-datastore-measurement/verifier/scoring/config.template.json",
+          "sha256": "1bdf267cffd59ac2cc644ab40c138651695c70166b844e6931d13e677c501a82",
+          "size_bytes": 1448
+        },
+        {
+          "path": "sample-run/review-bundle/09-s3-datastore-measurement/verifier/scoring/parser.py",
+          "sha256": "e05a3fdb0d3f0b94e5999c694274b51aa27abd457b96052a277a9bf8cef12dbc",
+          "size_bytes": 1083
         }
       ],
       "public_task_sha256": "6cc5da16edfad5649195992c02b34ec2ff4bc2b96e7b3acf67906586b3777718",
@@ -10186,7 +10236,7 @@
       "task_label": "Task 9"
     },
     "10-customer-identity-migration": {
-      "bundle_sha256": "035850d47933858d6c7be794849e94dc9735429f0595c54fea23b2bb954da650",
+      "bundle_sha256": "7ef248b1b209dbdfa3ffa8a8092ce570885d883251f8e6ad9c8ff77ff89702a1",
       "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
       "controls": {
         "nop": 0.0,
@@ -10197,7 +10247,7 @@
         "grok_verification_results": 8,
         "opus_trajectories": 8,
         "opus_verification_results": 8,
-        "published_files": 138,
+        "published_files": 143,
         "touched_file_snapshots": 7
       },
       "files": [
@@ -10890,6 +10940,31 @@
           "path": "sample-run/review-bundle/10-customer-identity-migration/verification-results/opus/trial-08/test-stdout.txt",
           "sha256": "423c1f7168f8affbe72b92ee9c03f372b3aebc8846f86a6376be5913c34adf25",
           "size_bytes": 3154
+        },
+        {
+          "path": "sample-run/review-bundle/10-customer-identity-migration/verifier/execution/run_script.sh",
+          "sha256": "e2021f6e241d64a5815035b91353966b561199f304f6b2ffe9a89e32a0f7e2c9",
+          "size_bytes": 576
+        },
+        {
+          "path": "sample-run/review-bundle/10-customer-identity-migration/verifier/execution/test.sh",
+          "sha256": "10181b9cd7c2055e602371c2317204ba659d45990427736c0fa2fc16b26b8c03",
+          "size_bytes": 1744
+        },
+        {
+          "path": "sample-run/review-bundle/10-customer-identity-migration/verifier/scoring/config.json",
+          "sha256": "0b85dbdb083db3e14ca928d6bd564f85e40ea3320039a675aadfb9eda1e221fb",
+          "size_bytes": 158208
+        },
+        {
+          "path": "sample-run/review-bundle/10-customer-identity-migration/verifier/scoring/config.template.json",
+          "sha256": "0b8fc2fa278126204d6e4f9110d6698b229a5ed51a644cc8991420af28d2a890",
+          "size_bytes": 1310
+        },
+        {
+          "path": "sample-run/review-bundle/10-customer-identity-migration/verifier/scoring/parser.py",
+          "sha256": "e05a3fdb0d3f0b94e5999c694274b51aa27abd457b96052a277a9bf8cef12dbc",
+          "size_bytes": 1083
         }
       ],
       "public_task_sha256": "1ebaf007ebd10a05e9c420d93f94aa91de34fe2de7a1201ba2d4ea86c99803d7",
@@ -10928,7 +11003,7 @@
       "task_label": "Task 10"
     },
     "11-customer-billing-schedule-migration": {
-      "bundle_sha256": "493a3ce3caed607a3b812893068c8a0404b48ac3a8f41363bb37f1aca90cddd5",
+      "bundle_sha256": "0be5b893b84bea86e6ce34321b52f6cc50fa8317892b0a80864752e39ba3fb6e",
       "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
       "controls": {
         "nop": 0.0,
@@ -10939,7 +11014,7 @@
         "grok_verification_results": 8,
         "opus_trajectories": 8,
         "opus_verification_results": 8,
-        "published_files": 135,
+        "published_files": 140,
         "touched_file_snapshots": 6
       },
       "files": [
@@ -11617,6 +11692,31 @@
           "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verification-results/opus/trial-08/test-stdout.txt",
           "sha256": "a4c736fe0d3201c7507f13313e7f4fc8154bd11bc4ab8ca379e72db0d8911a25",
           "size_bytes": 6483
+        },
+        {
+          "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verifier/execution/run_script.sh",
+          "sha256": "3717440b19bb9ad4e393ea9ad7054e51a92d63801918300756c5d28e7544e04a",
+          "size_bytes": 502
+        },
+        {
+          "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verifier/execution/test.sh",
+          "sha256": "10181b9cd7c2055e602371c2317204ba659d45990427736c0fa2fc16b26b8c03",
+          "size_bytes": 1744
+        },
+        {
+          "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verifier/scoring/config.json",
+          "sha256": "ed3988299437d0833e896351172c275f0a6317d502706c0c96afa823470fbb63",
+          "size_bytes": 56411
+        },
+        {
+          "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verifier/scoring/config.template.json",
+          "sha256": "07b031cdcdd4bc08f6c081a869f8a9cc955a148047370b014697649ebdc99eb7",
+          "size_bytes": 1274
+        },
+        {
+          "path": "sample-run/review-bundle/11-customer-billing-schedule-migration/verifier/scoring/parser.py",
+          "sha256": "e05a3fdb0d3f0b94e5999c694274b51aa27abd457b96052a277a9bf8cef12dbc",
+          "size_bytes": 1083
         }
       ],
       "public_task_sha256": "54e9776cbe7b5b90dd97ee70531a404cd4e7abaad19b0b15507754339e3e037a",
