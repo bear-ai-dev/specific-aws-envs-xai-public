@@ -1,32 +1,41 @@
 {
-  "job_name": "xai-public-controls-pr2-qc-20260821",
-  "jobs_dir": "sample-run/raw",
-  "n_attempts": 1,
-  "n_concurrent_trials": 2,
-  "quiet": false,
-  "environment": {
-    "type": "docker"
+ "job_name": "xai-public-controls-pr2-qc-20260821",
+ "jobs_dir": "sample-run/raw",
+ "n_attempts": 1,
+ "n_concurrent_trials": 2,
+ "quiet": false,
+ "environment": {
+  "type": "docker"
+ },
+ "agents": [
+  {
+   "name": "oracle"
   },
-  "agents": [
-    {
-      "name": "oracle"
-    },
-    {
-      "name": "nop"
-    }
-  ],
-  "tasks": [
-    {
-      "path": "tasks/01-entitlement-overage-lines"
-    },
-    {
-      "path": "tasks/02-multi-region-sweep"
-    },
-    {
-      "path": "tasks/03-iam-role-validation"
-    },
-    {
-      "path": "tasks/04-tax-jurisdiction"
-    }
-  ]
+  {
+   "name": "nop"
+  }
+ ],
+ "tasks": [
+  {
+   "path": "tasks/01-entitlement-overage-lines"
+  },
+  {
+   "path": "tasks/02-multi-region-sweep"
+  },
+  {
+   "path": "tasks/03-iam-role-validation"
+  },
+  {
+   "path": "tasks/04-tax-jurisdiction"
+  },
+  {
+   "path": "tasks/05-network-egress-metering"
+  },
+  {
+   "path": "tasks/06-api-token-metering"
+  },
+  {
+   "path": "tasks/07-api-keys-and-environments"
+  }
+ ]
 }
