@@ -34,11 +34,12 @@ table uses `pass@k = 1 - C(n-c, k) / C(n, k)`, the estimated chance that at
 least one of `k` sampled attempts succeeds.
 Rows are grouped by model; a blank model cell continues the model named above.
 Tasks 1, 2 and 3 are single Daytona cohorts whose checksum both models share.
-For Task 4, the eight-attempt rows are pooled descriptive estimates across the
-two equal backend strata below, not results from one frozen runtime
-configuration. For Tasks 5 to 7 each arm was built separately, so the two rows
-of a task come from different recorded checksums over a byte-identical task
-package.
+For Task 4, the eight-attempt rows are pooled descriptive estimates across its
+two equal backend strata, not results from one frozen runtime configuration;
+the strata themselves are recorded in
+[`frozen-cohort.json`](sample-run/manifests/frozen-cohort.json). For Tasks 5 to
+7 each arm was built separately, so the two rows of a task come from different
+recorded checksums over a byte-identical task package.
 
 <!-- MINI_SWE_MATRIX_START -->
 | Model | Task | Solves `c/n` | pass@1 | pass@3 | pass@8 |
@@ -58,16 +59,6 @@ package.
 |  | [Task 6](tasks/06-api-token-metering/instruction.md) | 7/8 | 0.8750 | 1.0000 | 1.0000 |
 |  | [Task 7](tasks/07-api-keys-and-environments/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 <!-- MINI_SWE_MATRIX_END -->
-
-### Runtime-stratified results for Task 4
-
-Each model saw the same recorded task checksum within each four-run stratum.
-The model comparison is therefore matched within the rows below.
-
-| Task | Runtime stratum | Grok 4.6 | Opus 5 |
-| --- | --- | ---: | ---: |
-| Task 4 | Daytona, trials 01–04 | 0/4 | 4/4 |
-| Task 4 | AWS Fargate, trials 05–08 | 0/4 | 1/4 |
 
 ## Task inventory
 
