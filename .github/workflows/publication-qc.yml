@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the requested revision
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Validate generated artifacts and publication boundaries
         run: |
@@ -28,7 +28,7 @@ jobs:
     timeout-minutes: 120
     steps:
       - name: Check out the requested revision
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install Harbor
         uses: astral-sh/setup-uv@v6
