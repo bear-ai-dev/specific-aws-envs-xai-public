@@ -1,6 +1,6 @@
 {
  "cohort_directory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
- "scored_valid_trials": 88,
+ "scored_valid_trials": 112,
  "completed_trials_excluded_from_denominator": 0,
  "controls": {
   "oracle": {
@@ -119,14 +119,17 @@
    "Opus 5"
   ],
   "05-network-egress-metering": [
-   "Grok 4.6"
+   "Grok 4.6",
+   "Opus 5"
   ],
   "06-api-token-metering": [
-   "Grok 4.6"
+   "Grok 4.6",
+   "Opus 5"
   ],
   "07-api-keys-and-environments": [
-   "Grok 4.6"
+   "Grok 4.6",
+   "Opus 5"
   ]
  },
- "model_arms_note": "Tasks 5 to 7 publish the Grok 4.6 arm only. Their paired Opus 5 rollouts were run and scored but their trajectories are not in this tree yet."
+ "build_provenance_note": "Tasks 5 to 7 were built once per model arm, so each arm carries its own recorded Harbor task checksum and its own stratum. The published task packages are byte-identical to the packages the Opus arm ran against; see build_equivalence in sample-run/manifests/frozen-cohort.json."
 }

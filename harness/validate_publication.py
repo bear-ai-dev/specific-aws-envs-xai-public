@@ -41,12 +41,12 @@ EXPECTED_SOLVES = {
     ("03-iam-role-validation", "Opus 5"): 8,
     ("04-tax-jurisdiction", "Grok 4.6"): 0,
     ("04-tax-jurisdiction", "Opus 5"): 5,
-    # Tasks 5 to 7 publish the Grok 4.6 arm only. The paired Opus 5 rollouts
-    # exist and are reported in the analysis, but their trajectories are not in
-    # this tree yet, so no Opus cell is asserted for them here.
     ("05-network-egress-metering", "Grok 4.6"): 3,
+    ("05-network-egress-metering", "Opus 5"): 8,
     ("06-api-token-metering", "Grok 4.6"): 0,
+    ("06-api-token-metering", "Opus 5"): 7,
     ("07-api-keys-and-environments", "Grok 4.6"): 5,
+    ("07-api-keys-and-environments", "Opus 5"): 8,
 }
 LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 REAL_AWS_KEY = re.compile(r"\b(?:AKIA|ASIA)[0-9A-Z]{16}\b")
@@ -109,8 +109,8 @@ def validate_links() -> int:
 
 def validate_trials() -> None:
     trials = json.loads((ROOT / "sample-run" / "indexes" / "trials.json").read_text())
-    if len(trials) != 88 or not all(trial["valid"] for trial in trials):
-        raise SystemExit("expected exactly 88 valid trials")
+    if len(trials) != 112 or not all(trial["valid"] for trial in trials):
+        raise SystemExit("expected exactly 112 valid trials")
     for key, expected in EXPECTED_SOLVES.items():
         task, model = key
         cell = [
@@ -124,7 +124,7 @@ def validate_trials() -> None:
             for field in ("trajectory", "verifier"):
                 if not (ROOT / trial[field]).is_file():
                     raise SystemExit(f"missing {field}: {trial[field]}")
-            stratum = stratum_for(task, trial["trial_number"])
+            stratum = stratum_for(task, trial["trial_number"], model)
             if trial.get("recorded_runtime_task_checksum") != stratum["task_checksum"]:
                 raise SystemExit(
                     f"runtime checksum mismatch: {task}/{trial['trial_label']}"
@@ -141,16 +141,19 @@ def validate_trials() -> None:
     frozen = json.loads(
         (ROOT / "sample-run" / "manifests" / "frozen-cohort.json").read_text()
     )
+    def serialize(stratum: dict) -> dict:
+        record = {
+            "name": stratum["name"],
+            "environment": stratum["environment"],
+            "trial_numbers": list(stratum["trial_numbers"]),
+            "task_checksum": stratum["task_checksum"],
+        }
+        if "model_label" in stratum:
+            record["model_label"] = stratum["model_label"]
+        return record
+
     expected_strata = {
-        task: [
-            {
-                "name": stratum["name"],
-                "environment": stratum["environment"],
-                "trial_numbers": list(stratum["trial_numbers"]),
-                "task_checksum": stratum["task_checksum"],
-            }
-            for stratum in strata
-        ]
+        task: [serialize(stratum) for stratum in strata]
         for task, strata in RECORDED_RUNTIME_STRATA.items()
     }
     if frozen.get("recorded_runtime_strata") != expected_strata:

@@ -1,11 +1,15 @@
 # Model trajectory review bundles
 
-This directory contains the reviewer-facing code and evidence for the tasks in
-the sample. Tasks 1 to 4 each have eight Grok 4.6 trajectories and eight paired
-Opus 5 trajectories from a matched frozen cohort. Tasks 5 to 7 carry the Grok
-4.6 arm only: their paired Opus 5 rollouts were run and scored, but those
-trajectories are not in this tree yet, so those bundles have no
-`trajectories/opus/` or `verification-results/opus/`.
+This directory contains the reviewer-facing code and evidence for all seven
+tasks in the sample. Each task has eight Grok 4.6 trajectories and eight paired
+Opus 5 trajectories.
+
+Tasks 1 to 4 come from one frozen cohort in which both arms share a task
+checksum. Tasks 5 to 7 were built once per model arm, so each arm carries its
+own recorded checksum and its own stratum; the published task package is
+byte-identical to the package the Opus arm ran against, recorded as
+`build_equivalence` in
+[`frozen-cohort.json`](../manifests/frozen-cohort.json).
 
 | Task | Grok | Opus | Review files |
 | --- | ---: | ---: | --- |
@@ -13,9 +17,9 @@ trajectories are not in this tree yet, so those bundles have no
 | [Task 2: multi-region sweep](../../tasks/02-multi-region-sweep/instruction.md) | 6/8 | 8/8 | [`02-multi-region-sweep/`](02-multi-region-sweep/) |
 | [Task 3: IAM role validation](../../tasks/03-iam-role-validation/instruction.md) | 3/8 | 8/8 | [`03-iam-role-validation/`](03-iam-role-validation/) |
 | [Task 4: tax jurisdiction](../../tasks/04-tax-jurisdiction/instruction.md) | 0/8 | 5/8 | [`04-tax-jurisdiction/`](04-tax-jurisdiction/) |
-| [Task 5: network egress metering](../../tasks/05-network-egress-metering/instruction.md) | 3/8 | not published | [`05-network-egress-metering/`](05-network-egress-metering/) |
-| [Task 6: API token metering](../../tasks/06-api-token-metering/instruction.md) | 0/8 | not published | [`06-api-token-metering/`](06-api-token-metering/) |
-| [Task 7: API keys and environments](../../tasks/07-api-keys-and-environments/instruction.md) | 5/8 | not published | [`07-api-keys-and-environments/`](07-api-keys-and-environments/) |
+| [Task 5: network egress metering](../../tasks/05-network-egress-metering/instruction.md) | 3/8 | 8/8 | [`05-network-egress-metering/`](05-network-egress-metering/) |
+| [Task 6: API token metering](../../tasks/06-api-token-metering/instruction.md) | 0/8 | 7/8 | [`06-api-token-metering/`](06-api-token-metering/) |
+| [Task 7: API keys and environments](../../tasks/07-api-keys-and-environments/instruction.md) | 5/8 | 8/8 | [`07-api-keys-and-environments/`](07-api-keys-and-environments/) |
 
 All bundles use task-numbered subdirectories matching the report.
 
@@ -26,7 +30,7 @@ All bundles use task-numbered subdirectories matching the report.
 | `touched-files/` | Every recoverable file Grok directly wrote, copied, reformatted, or deleted, separated by trial and original `/app` or `/tmp` path |
 | `grok-solution/` | Each Grok trial's exact final changed files |
 | `trajectories/grok/` | Eight native mini-SWE-agent Grok JSON trajectories |
-| `trajectories/opus/` | Eight paired native mini-SWE-agent Opus JSON trajectories (Tasks 1 to 4 only) |
+| `trajectories/opus/` | Eight paired native mini-SWE-agent Opus JSON trajectories |
 | `verifier/execution/` | The Harbor verifier entry point and execution driver |
 | `verifier/scoring/` | Held-out data, run specification, and independent binary scorer |
 | `verification-results/` | Per-trial report, observation, reward, verifier stdout, and compact Harbor result |

@@ -129,7 +129,7 @@
   ],
   "05-network-egress-metering": [
    {
-    "name": "daytona-01-08",
+    "name": "daytona-grok-01-08",
     "environment": "daytona",
     "trial_numbers": [
      1,
@@ -141,12 +141,37 @@
      7,
      8
     ],
-    "task_checksum": "edbaa55fe7240b126b3b47a1e33b25df9475e97f89031972eeedb2076bf7f498"
+    "task_checksum": "edbaa55fe7240b126b3b47a1e33b25df9475e97f89031972eeedb2076bf7f498",
+    "model_label": "Grok 4.6"
+   },
+   {
+    "name": "daytona-opus-01-07",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "task_checksum": "6427d0d789ad611f6ebe201045f26ed7c62da6e71722d8792558a0fdf37c2b56",
+    "model_label": "Opus 5"
+   },
+   {
+    "name": "daytona-opus-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     8
+    ],
+    "task_checksum": "3f7e8cc2f7d5910314cab6ee5598e5333a6599880f896994887590c69373231a",
+    "model_label": "Opus 5"
    }
   ],
   "06-api-token-metering": [
    {
-    "name": "daytona-01-08",
+    "name": "daytona-grok-01-08",
     "environment": "daytona",
     "trial_numbers": [
      1,
@@ -158,12 +183,29 @@
      7,
      8
     ],
-    "task_checksum": "4752c91a46310743198600c4182aafad05b54023c6cfec7c75e6497e1f62c96e"
+    "task_checksum": "4752c91a46310743198600c4182aafad05b54023c6cfec7c75e6497e1f62c96e",
+    "model_label": "Grok 4.6"
+   },
+   {
+    "name": "daytona-opus-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "28a06245e0c745b4801d176437331dafcfbe631d51473b67d1050e58b355d134",
+    "model_label": "Opus 5"
    }
   ],
   "07-api-keys-and-environments": [
    {
-    "name": "daytona-01-08",
+    "name": "daytona-grok-01-08",
     "environment": "daytona",
     "trial_numbers": [
      1,
@@ -175,7 +217,24 @@
      7,
      8
     ],
-    "task_checksum": "3f6269b97803f429411916a6f0dc1325aecfd69f3a1e995fbd20d5c7bbb17d16"
+    "task_checksum": "3f6269b97803f429411916a6f0dc1325aecfd69f3a1e995fbd20d5c7bbb17d16",
+    "model_label": "Grok 4.6"
+   },
+   {
+    "name": "daytona-opus-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "3f38fb2bc343a749016fa1425494c139f4baa0c44e84bb84c618d32ec94bb78e",
+    "model_label": "Opus 5"
    }
   ]
  },
@@ -197,5 +256,20 @@
   "06-api-token-metering": "Task 6",
   "07-api-keys-and-environments": "Task 7"
  },
- "validity_rule": "numeric verifier reward, complete trajectory, complete verifier artifact, no Harbor exception, and model matching within each recorded runtime-checksum stratum"
+ "validity_rule": "numeric verifier reward, complete trajectory, complete verifier artifact, no Harbor exception, and model matching within each recorded runtime-checksum stratum",
+ "build_equivalence": {
+  "scope": [
+   "05-network-egress-metering",
+   "06-api-token-metering",
+   "07-api-keys-and-environments"
+  ],
+  "claim": "Each of these tasks was built as two separate Harbor jobs, one per model arm, so the recorded task checksums differ between arms. The task package published in this repo is byte-identical to the package the Opus arm ran against in bear-ai-dev/specific-aws-envs-meta-public at commit d29ba9f, so the arms are comparable.",
+  "method": "directory_sha256 over the published tasks/<task> tree, excluding __pycache__ and .DS_Store",
+  "public_task_sha256": {
+   "05-network-egress-metering": "cc084261e1c314c0d3b967d8017e8abff574ef5ea104085529bfa7e45e4b0c27",
+   "06-api-token-metering": "d9c9f4db0c30985d80d209a10ca998ed4e7e8555d9bf61c8158e1d286b176907",
+   "07-api-keys-and-environments": "f9484c3e65ee01066372b10140d7faa03bfed24c1ddc29b19acdf07f1c8a34e7"
+  },
+  "verified_against": "https://github.com/bear-ai-dev/specific-aws-envs-meta-public/tree/d29ba9f"
+ }
 }

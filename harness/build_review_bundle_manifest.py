@@ -12,15 +12,13 @@ from cohort_provenance import RECORDED_RUNTIME_STRATA, stratum_for
 
 ROOT = Path(__file__).resolve().parent.parent
 DESTINATION = ROOT / "sample-run" / "manifests" / "selected-review-bundles.json"
-# Tasks 5 to 7 carry the Grok 4.6 arm only; their paired Opus 5 trajectories are
-# not in this tree yet, so those bundles declare a single model arm.
 TASKS = {
     "02-multi-region-sweep": {"grok": 6, "opus": 8},
     "03-iam-role-validation": {"grok": 3, "opus": 8},
     "04-tax-jurisdiction": {"grok": 0, "opus": 5},
-    "05-network-egress-metering": {"grok": 3},
-    "06-api-token-metering": {"grok": 0},
-    "07-api-keys-and-environments": {"grok": 5},
+    "05-network-egress-metering": {"grok": 3, "opus": 8},
+    "06-api-token-metering": {"grok": 0, "opus": 7},
+    "07-api-keys-and-environments": {"grok": 5, "opus": 8},
 }
 
 
@@ -61,7 +59,7 @@ def main() -> None:
                 trial = bundle / "verification-results" / model / f"trial-{number:02d}"
                 result = json.loads((trial / "harbor-result.json").read_text())
                 checksum = result["taskChecksum"]
-                stratum = stratum_for(task, number)
+                stratum = stratum_for(task, number, "Grok 4.6" if model == "grok" else "Opus 5")
                 if checksum != stratum["task_checksum"]:
                     raise SystemExit(
                         f"unexpected checksum for {task}/{model}/trial-{number:02d}: "

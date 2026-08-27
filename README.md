@@ -5,11 +5,14 @@ eight-run Daytona cohort. Task 4 uses two matched four-run strata, one on
 Daytona and one on AWS Fargate, with a pooled descriptive total of eight
 attempts per model.
 
-Tasks 1 to 4 carry both model arms: Grok 4.6 solved 0/8, 6/8, 3/8 and 0/8;
-Claude Opus 5 solved 8/8, 8/8, 8/8 and 5/8. Tasks 5 to 7 publish the Grok 4.6
-arm only, at 3/8, 0/8 and 5/8. Their paired Opus 5 rollouts were run and scored
-but their trajectories are not in this tree yet, so no Opus row is claimed for
-them.
+Every task carries both model arms. Grok 4.6 solved 0/8, 6/8, 3/8, 0/8, 3/8,
+0/8 and 5/8; Claude Opus 5 solved 8/8, 8/8, 8/8, 5/8, 8/8, 7/8 and 8/8.
+
+Tasks 5 to 7 were built once per model arm, so each arm carries its own recorded
+Harbor task checksum and its own stratum. The task packages published here are
+byte-identical to the packages the Opus arm ran against, recorded as
+`build_equivalence` in
+[`frozen-cohort.json`](sample-run/manifests/frozen-cohort.json).
 
 ## Contents
 
@@ -47,6 +50,9 @@ backend strata below, not results from one frozen runtime configuration.
 |  | [Task 2](tasks/02-multi-region-sweep/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 3](tasks/03-iam-role-validation/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 4](tasks/04-tax-jurisdiction/instruction.md) | 5/8 | 0.6250 | 0.9821 | 1.0000 |
+|  | [Task 5](tasks/05-network-egress-metering/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
+|  | [Task 6](tasks/06-api-token-metering/instruction.md) | 7/8 | 0.8750 | 1.0000 | 1.0000 |
+|  | [Task 7](tasks/07-api-keys-and-environments/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 <!-- MINI_SWE_MATRIX_END -->
 
 ### Runtime-stratified results for Task 4
@@ -312,7 +318,7 @@ and
   effort. Tasks 1, 2, 3 and 5 to 7 ran in isolated Daytona sandboxes. Task 4
   uses separately matched four-run Daytona and AWS Fargate strata.
 - **Routes:** Grok 4.6 and Claude Opus 5 through Amazon Bedrock.
-- **Denominator:** All 88 packaged model trials have a numeric reward, complete
+- **Denominator:** All 112 packaged model trials have a numeric reward, complete
   native trajectory and complete verifier evidence. One of them, Task 7 Grok
   trial 8, passed all eight graded rules and was then scored `0.0` because the
   verifier driver lost its connection to the emulator after grading; it is kept

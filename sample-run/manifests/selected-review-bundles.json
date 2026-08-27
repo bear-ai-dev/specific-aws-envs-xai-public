@@ -3709,7 +3709,7 @@
       "task_label": "Task 4"
     },
     "05-network-egress-metering": {
-      "bundle_sha256": "5fdc230efe467f075510e9396d897763cd9a683eb12581d2f4b7bb00595254b3",
+      "bundle_sha256": "15250b59ac7e5c4f500912cf41747ef139aac1d3eea307b814839636d22cbc6f",
       "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
       "controls": {
         "nop": 0.0,
@@ -3718,12 +3718,17 @@
       "counts": {
         "grok_trajectories": 8,
         "grok_verification_results": 8,
-        "opus_trajectories": 0,
-        "opus_verification_results": 0,
-        "published_files": 262,
+        "opus_trajectories": 8,
+        "opus_verification_results": 8,
+        "published_files": 311,
         "touched_file_snapshots": 100
       },
       "files": [
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/README.md",
+          "sha256": "2e56dceaaab39ec456eb24203e68ec6caa616cf293e2d5c3d08adee4d5aa5a4b",
+          "size_bytes": 7205
+        },
         {
           "path": "sample-run/review-bundle/05-network-egress-metering/controls/nop/harbor-result.json",
           "sha256": "2bdfd86a7953b16b389b890556283a12a980487d39c1a19891cda824f38fdbc8",
@@ -4810,6 +4815,46 @@
           "size_bytes": 3745144
         },
         {
+          "path": "sample-run/review-bundle/05-network-egress-metering/trajectories/opus/trial-01.json",
+          "sha256": "23cfa4ec10ebbecf7d8e566a083d21e4044f1e9baad9d0f42db774518114f6fb",
+          "size_bytes": 1114858
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/trajectories/opus/trial-02.json",
+          "sha256": "db92c5ae210966f86948c633173e703353187cab34294999f626abda2b933769",
+          "size_bytes": 1014012
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/trajectories/opus/trial-03.json",
+          "sha256": "d2c9cc099755ac7e1416db68b644cf5932821cbdc523cbf616a003bef2acc1d7",
+          "size_bytes": 1219274
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/trajectories/opus/trial-04.json",
+          "sha256": "d265421186c025273aed29ef0284e5a077bf28da62b4bb52f971fc6328eac100",
+          "size_bytes": 1122857
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/trajectories/opus/trial-05.json",
+          "sha256": "177e79394d7cf98488705b3fbb48a2cda991ad104368e95038e3ce270f500e33",
+          "size_bytes": 1163130
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/trajectories/opus/trial-06.json",
+          "sha256": "07d7015368a64cb1447eb77cb157033cb679fbe56a16dbd68245787d757d70b8",
+          "size_bytes": 1079542
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/trajectories/opus/trial-07.json",
+          "sha256": "d8a831ea087768b7a98378f57a7733c0f084891c5a70e6c0da8b302e17fbc212",
+          "size_bytes": 1063135
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/trajectories/opus/trial-08.json",
+          "sha256": "5f88a5e8f6878f946ce7a164a0f627c9c62aed2b6fca54a2bc96651e72261d2b",
+          "size_bytes": 850832
+        },
+        {
           "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/grok/trial-01/harbor-result.json",
           "sha256": "9b0f60ebcd70e87d4cc192139ed8f1827ed7449a99a4895d1e119f75b0f8cd70",
           "size_bytes": 810
@@ -5010,6 +5055,206 @@
           "size_bytes": 382
         },
         {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-01/harbor-result.json",
+          "sha256": "ad6081a6ff1614865642ed198d84c8394345dd5e1a3d69ca2d9ced8c17722e1a",
+          "size_bytes": 1120
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-01/observed.json",
+          "sha256": "9c896eabf8d30702e5a7a3561f4196f8253a6bdca3072e8790263df32431abea",
+          "size_bytes": 7606
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-01/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-01/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-01/test-stdout.txt",
+          "sha256": "0bc24d44b4df287573e292badfdcffd463bdc7c41225db60c1b95f33dfa246db",
+          "size_bytes": 382
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-02/harbor-result.json",
+          "sha256": "964460d09a560ac8bf9f3ea74e893d7c6c7e81cc4cb7004bf206fa991ff0da5d",
+          "size_bytes": 1120
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-02/observed.json",
+          "sha256": "1ce91c63b4bc30766cd2a99099d7f828fa519603edbe51d1020ef0fabf6c6c27",
+          "size_bytes": 6599
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-02/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-02/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-02/test-stdout.txt",
+          "sha256": "2e6cd85e2e506b046aefd2d18165b57b85f5d855e85d8c9bdeda1df0fe926ccb",
+          "size_bytes": 382
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-03/harbor-result.json",
+          "sha256": "faf71ae8dcbda2b10a35c50f9ef6970c5bff8e2f95c1c88bffc128a04f8520b8",
+          "size_bytes": 1120
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-03/observed.json",
+          "sha256": "4281b5228976ea5a1035c2d5ef1a54a361c08e5a890bce2ac3566a853994e10d",
+          "size_bytes": 6667
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-03/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-03/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-03/test-stdout.txt",
+          "sha256": "19a123509219e7337488e96af6a953d7773e5b57c9f0865f8d52d8cce63b70ae",
+          "size_bytes": 382
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-04/harbor-result.json",
+          "sha256": "99e6ade38c182057252aadbb26535de118d71f1816a1e88632bed9f5b9f0b6f6",
+          "size_bytes": 1120
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-04/observed.json",
+          "sha256": "5f878ee941b7eced18800b1d10ddfc7892328f58d29f3aac8512ae1e120017de",
+          "size_bytes": 8687
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-04/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-04/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-04/test-stdout.txt",
+          "sha256": "b9b69145ee4c366021255b936a65bbc20384a6ca4223d6d9cc9b1f00c02341e9",
+          "size_bytes": 382
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-05/harbor-result.json",
+          "sha256": "6f7e467051aedad3a880dc6ca1455ca1773c385abd047ca58c2d631906c3795a",
+          "size_bytes": 1120
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-05/observed.json",
+          "sha256": "079dc8bb610a9ce0f9015e40671a710fe910b6c766cfd6b6ff6ca4c8f0f46f19",
+          "size_bytes": 8181
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-05/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-05/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-05/test-stdout.txt",
+          "sha256": "3de30dd55f1458edaf02540adab4e423098b84c294eb84d45a2dfed93575fb45",
+          "size_bytes": 382
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-06/harbor-result.json",
+          "sha256": "619a9fd9ad330205210975941974887c7b2fe7851f38146eab07563912b8c5cf",
+          "size_bytes": 1120
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-06/observed.json",
+          "sha256": "cea32c382124e418fc65144aad81aaf8667d2e28e67c4b8542f4ba1c93fb9c59",
+          "size_bytes": 8719
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-06/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-06/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-06/test-stdout.txt",
+          "sha256": "a7d989f18dbd7234bad09cdb52cbc8b7f934537aebb5031b6372a26ecd45a5b2",
+          "size_bytes": 382
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-07/harbor-result.json",
+          "sha256": "58654df200f67894eb503ed1b7960803fa9c7fb15fd02e6721da10b008e188b9",
+          "size_bytes": 1120
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-07/observed.json",
+          "sha256": "a86633d179c9bb637794c70607a1732042e4bc5dc9cee7004d34b051363c610b",
+          "size_bytes": 6338
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-07/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-07/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-07/test-stdout.txt",
+          "sha256": "83d2e0f46a19bc4d1afd85a0ff4b7e41395190f90cacd13ac9a5acacf861816b",
+          "size_bytes": 382
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-08/harbor-result.json",
+          "sha256": "ecb07028482a754138c555486163c3e79f24e54bd8acf9aeecea50469002b7e7",
+          "size_bytes": 1120
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-08/observed.json",
+          "sha256": "adf2c2dda67878b28535260461e1d5466e2d8d1569e5721aaf7df1d6ff5f4176",
+          "size_bytes": 5984
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-08/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-08/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/05-network-egress-metering/verification-results/opus/trial-08/test-stdout.txt",
+          "sha256": "3973f35554b6a62b24d0bad25b16cafb0c4129f8ec3d6fcb315e6ac2f54bd5d2",
+          "size_bytes": 382
+        },
+        {
           "path": "sample-run/review-bundle/05-network-egress-metering/verifier/execution/drive.ts",
           "sha256": "fd23c7ce7155e4de1b37ef84242ce8559581ccfdfa5935c44cdf49acb83bf572",
           "size_bytes": 12619
@@ -5041,14 +5286,17 @@
         "oracle": "edbaa55fe7240b126b3b47a1e33b25df9475e97f89031972eeedb2076bf7f498"
       },
       "recorded_runtime_task_checksums": [
+        "3f7e8cc2f7d5910314cab6ee5598e5333a6599880f896994887590c69373231a",
+        "6427d0d789ad611f6ebe201045f26ed7c62da6e71722d8792558a0fdf37c2b56",
         "edbaa55fe7240b126b3b47a1e33b25df9475e97f89031972eeedb2076bf7f498"
       ],
       "runtime_strata": [
         {
           "environment": "daytona",
-          "name": "daytona-01-08",
+          "name": "daytona-grok-01-08",
           "solves": {
-            "grok": 3
+            "grok": 3,
+            "opus": 0
           },
           "task_checksum": "edbaa55fe7240b126b3b47a1e33b25df9475e97f89031972eeedb2076bf7f498",
           "trial_numbers": [
@@ -5061,15 +5309,46 @@
             7,
             8
           ]
+        },
+        {
+          "environment": "daytona",
+          "name": "daytona-opus-01-07",
+          "solves": {
+            "grok": 0,
+            "opus": 7
+          },
+          "task_checksum": "6427d0d789ad611f6ebe201045f26ed7c62da6e71722d8792558a0fdf37c2b56",
+          "trial_numbers": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        {
+          "environment": "daytona",
+          "name": "daytona-opus-08",
+          "solves": {
+            "grok": 0,
+            "opus": 1
+          },
+          "task_checksum": "3f7e8cc2f7d5910314cab6ee5598e5333a6599880f896994887590c69373231a",
+          "trial_numbers": [
+            8
+          ]
         }
       ],
       "solves": {
-        "grok": 3
+        "grok": 3,
+        "opus": 8
       },
       "task_label": "Task 5"
     },
     "06-api-token-metering": {
-      "bundle_sha256": "9d9210d9d29fa10925ee24b21905449ade9041c959d1c8ac8b1da053d02c3513",
+      "bundle_sha256": "45b51e9ba22e2cb7936e52a0c43db765c7932657b4eb9de1cc7f7c45087c61c4",
       "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
       "controls": {
         "nop": 0.0,
@@ -5078,12 +5357,17 @@
       "counts": {
         "grok_trajectories": 8,
         "grok_verification_results": 8,
-        "opus_trajectories": 0,
-        "opus_verification_results": 0,
-        "published_files": 244,
+        "opus_trajectories": 8,
+        "opus_verification_results": 8,
+        "published_files": 301,
         "touched_file_snapshots": 86
       },
       "files": [
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/README.md",
+          "sha256": "7d9dd9ca869f1bf40c4e8a42ee0d7b286325f994ac0aa9f4cafe048c7eb4191a",
+          "size_bytes": 6846
+        },
         {
           "path": "sample-run/review-bundle/06-api-token-metering/controls/nop/harbor-result.json",
           "sha256": "ac9ae48799bf46e1e7105055d494b2eb5091bfb82e5ad573a859c3a2df523786",
@@ -6040,6 +6324,46 @@
           "size_bytes": 4189902
         },
         {
+          "path": "sample-run/review-bundle/06-api-token-metering/trajectories/opus/trial-01.json",
+          "sha256": "fa21adb500a441bba300a2913c01279239851466890c08b8347c99dddbad44cf",
+          "size_bytes": 1258065
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/trajectories/opus/trial-02.json",
+          "sha256": "2deccbf24fdcc239df943e7dc98a2a6ce7b656d4ed2a72d1b40274a55c0f285b",
+          "size_bytes": 1120966
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/trajectories/opus/trial-03.json",
+          "sha256": "e7ef729969e322be7f0021dc24ae2ab9312d6ceab64567abda179339d5196a60",
+          "size_bytes": 1184744
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/trajectories/opus/trial-04.json",
+          "sha256": "16c21c33f5610cf036901a319034106e228b63e53c931c0137af911cfa23b0f0",
+          "size_bytes": 1106398
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/trajectories/opus/trial-05.json",
+          "sha256": "93731c4e5c446495123f5e923e0dabdd855bf5223b3f1bb53ee51e62021bcc55",
+          "size_bytes": 1331900
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/trajectories/opus/trial-06.json",
+          "sha256": "d12db993227b23ec5e0b18f924e7d49db2bc6dda636eda479a21577a6940b975",
+          "size_bytes": 1320407
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/trajectories/opus/trial-07.json",
+          "sha256": "bb51c19977ae34e8eb449017cecdab71747b2fba4c1189422ef02210dd2c9e18",
+          "size_bytes": 1255460
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/trajectories/opus/trial-08.json",
+          "sha256": "bee63f7bd6c5e1561b2240aa2401f4a4e47c73e8b6a94169fdc64ce61068b488",
+          "size_bytes": 1122000
+        },
+        {
           "path": "sample-run/review-bundle/06-api-token-metering/verification-results/grok/trial-01/harbor-result.json",
           "sha256": "f5fbdf9807c7a94f4ae88ce262728f9fd58ba9086e1007ffd42c570fce3f88c1",
           "size_bytes": 800
@@ -6280,6 +6604,246 @@
           "size_bytes": 1450
         },
         {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-01/harbor-result.json",
+          "sha256": "1b91b5b2ddf6754fb4a707a056e294facf211b14232bddef9635266c133f4da4",
+          "size_bytes": 1110
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-01/observed.json",
+          "sha256": "7531c52586c5db263689034902835b47214c9a622eedcab3792d9d60109fec9d",
+          "size_bytes": 1148
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-01/report.txt",
+          "sha256": "97333097a369e2fe33ae3875addf1ae8925e3634376f86840eac5a945572aa2f",
+          "size_bytes": 787
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-01/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-01/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-01/test-stdout.txt",
+          "sha256": "e2fc5528895cd472e9692566f9da766697c4a15adc1ffaa209b698822ae46fd0",
+          "size_bytes": 885
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-02/harbor-result.json",
+          "sha256": "f26527ca4f9436004bcd560add335d69fa0cc40cc99dc108d55c4ba5264c4ce7",
+          "size_bytes": 1110
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-02/observed.json",
+          "sha256": "7531c52586c5db263689034902835b47214c9a622eedcab3792d9d60109fec9d",
+          "size_bytes": 1148
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-02/report.txt",
+          "sha256": "45ff45112142c5890f7251719343fb448637a0806d71371b4d9d3ea2794d8d3c",
+          "size_bytes": 863
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-02/reward.json",
+          "sha256": "e873b6cc9498493217ccdfb515b5e2bdd5c3c2a293e6da8d3601fa55798ab2c4",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-02/reward.txt",
+          "sha256": "51ff0d2f0d3a5d61edec31785532ea0d570f8c348d58b15b94ff9c2ca6e926a4",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-02/test-stdout.txt",
+          "sha256": "818e8111fea394447f88d88e0bb4c9fbf4041ccd70de2bfacff2562129bf8e92",
+          "size_bytes": 951
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-03/harbor-result.json",
+          "sha256": "862cbdcc7dff2e3566e4055b733e4c0e798e29483fd18c35829517b3cc3de727",
+          "size_bytes": 1110
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-03/observed.json",
+          "sha256": "1f73dd7b3aeff59185fd7f4609337c4babc95ec75274cd5cff12652d3a3bba5b",
+          "size_bytes": 1143
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-03/report.txt",
+          "sha256": "97333097a369e2fe33ae3875addf1ae8925e3634376f86840eac5a945572aa2f",
+          "size_bytes": 787
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-03/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-03/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-03/test-stdout.txt",
+          "sha256": "8b9692fd5f085297cda446b03e0f52d28d3f5b4651a8d58e61f0925afa1c5741",
+          "size_bytes": 885
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-04/harbor-result.json",
+          "sha256": "42b79880b87236bfd4514b5bc2cd9874a7251c4b3a55e946a68ecb2a8872c05c",
+          "size_bytes": 1110
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-04/observed.json",
+          "sha256": "7531c52586c5db263689034902835b47214c9a622eedcab3792d9d60109fec9d",
+          "size_bytes": 1148
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-04/report.txt",
+          "sha256": "97333097a369e2fe33ae3875addf1ae8925e3634376f86840eac5a945572aa2f",
+          "size_bytes": 787
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-04/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-04/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-04/test-stdout.txt",
+          "sha256": "f911d46598118f42a96d7f2240e277e569b7ed1b0ff53d75d59ae260ba2b15fb",
+          "size_bytes": 885
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-05/harbor-result.json",
+          "sha256": "dd380b40b224523cca8ad33671606055d1997834c0505bc4bb51961b8a1a72ef",
+          "size_bytes": 1110
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-05/observed.json",
+          "sha256": "7531c52586c5db263689034902835b47214c9a622eedcab3792d9d60109fec9d",
+          "size_bytes": 1148
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-05/report.txt",
+          "sha256": "97333097a369e2fe33ae3875addf1ae8925e3634376f86840eac5a945572aa2f",
+          "size_bytes": 787
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-05/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-05/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-05/test-stdout.txt",
+          "sha256": "e3af56357d979738cd0c5857814728dcf8bdcc212be88ef17eaf0ffdff031109",
+          "size_bytes": 885
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-06/harbor-result.json",
+          "sha256": "7fb2146611c8e8dc513e3a41c0f0596165491dedc76fd5d2e141529092093e71",
+          "size_bytes": 1110
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-06/observed.json",
+          "sha256": "1f73dd7b3aeff59185fd7f4609337c4babc95ec75274cd5cff12652d3a3bba5b",
+          "size_bytes": 1143
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-06/report.txt",
+          "sha256": "97333097a369e2fe33ae3875addf1ae8925e3634376f86840eac5a945572aa2f",
+          "size_bytes": 787
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-06/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-06/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-06/test-stdout.txt",
+          "sha256": "b262cbb812cc4af83ff363caf5c13af7133b1d2c04a71696345cb0b817754d3e",
+          "size_bytes": 885
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-07/harbor-result.json",
+          "sha256": "7b8712a6cc3af46c1658faf674eb8ecfec4ef7d065169e458b55ec30f4985df5",
+          "size_bytes": 1110
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-07/observed.json",
+          "sha256": "7531c52586c5db263689034902835b47214c9a622eedcab3792d9d60109fec9d",
+          "size_bytes": 1148
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-07/report.txt",
+          "sha256": "97333097a369e2fe33ae3875addf1ae8925e3634376f86840eac5a945572aa2f",
+          "size_bytes": 787
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-07/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-07/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-07/test-stdout.txt",
+          "sha256": "612a458dac1bfe5e34613e7bfebe31c5811e2bbb5c20f9ffdd06b55e2c3dde5a",
+          "size_bytes": 885
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-08/harbor-result.json",
+          "sha256": "54bb52c9571dca8e92dac25c9ce8baf03bb268a2f4c38cc289aa676ecda20bcf",
+          "size_bytes": 1110
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-08/observed.json",
+          "sha256": "7531c52586c5db263689034902835b47214c9a622eedcab3792d9d60109fec9d",
+          "size_bytes": 1148
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-08/report.txt",
+          "sha256": "97333097a369e2fe33ae3875addf1ae8925e3634376f86840eac5a945572aa2f",
+          "size_bytes": 787
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-08/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-08/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/06-api-token-metering/verification-results/opus/trial-08/test-stdout.txt",
+          "sha256": "92f0b79100d3274c0b6b22a7464122e81957da26604c530453a0ac151444035e",
+          "size_bytes": 885
+        },
+        {
           "path": "sample-run/review-bundle/06-api-token-metering/verifier/execution/drive.ts",
           "sha256": "4f3d243c40aa061fda0fa1d6b83d2ab130e2c90d1258388acfb0ea91f4112a2f",
           "size_bytes": 14907
@@ -6311,16 +6875,37 @@
         "oracle": "4752c91a46310743198600c4182aafad05b54023c6cfec7c75e6497e1f62c96e"
       },
       "recorded_runtime_task_checksums": [
+        "28a06245e0c745b4801d176437331dafcfbe631d51473b67d1050e58b355d134",
         "4752c91a46310743198600c4182aafad05b54023c6cfec7c75e6497e1f62c96e"
       ],
       "runtime_strata": [
         {
           "environment": "daytona",
-          "name": "daytona-01-08",
+          "name": "daytona-grok-01-08",
           "solves": {
-            "grok": 0
+            "grok": 0,
+            "opus": 0
           },
           "task_checksum": "4752c91a46310743198600c4182aafad05b54023c6cfec7c75e6497e1f62c96e",
+          "trial_numbers": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "environment": "daytona",
+          "name": "daytona-opus-01-08",
+          "solves": {
+            "grok": 0,
+            "opus": 7
+          },
+          "task_checksum": "28a06245e0c745b4801d176437331dafcfbe631d51473b67d1050e58b355d134",
           "trial_numbers": [
             1,
             2,
@@ -6334,12 +6919,13 @@
         }
       ],
       "solves": {
-        "grok": 0
+        "grok": 0,
+        "opus": 7
       },
       "task_label": "Task 6"
     },
     "07-api-keys-and-environments": {
-      "bundle_sha256": "2709bde8ee13963ae2ff4d2098da1f79c38d45ebc1b6def4d865d45d61639a46",
+      "bundle_sha256": "a7878734440e173de4c95fe141f4a96fe3e72493d63f93ebcb09346a69adede9",
       "control_scope": "recorded control applies to the checksum it names; the current publication-normalized task is covered separately by public-controls-validation.json",
       "controls": {
         "nop": 0.0,
@@ -6348,12 +6934,17 @@
       "counts": {
         "grok_trajectories": 8,
         "grok_verification_results": 8,
-        "opus_trajectories": 0,
-        "opus_verification_results": 0,
-        "published_files": 289,
+        "opus_trajectories": 8,
+        "opus_verification_results": 8,
+        "published_files": 338,
         "touched_file_snapshots": 114
       },
       "files": [
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/README.md",
+          "sha256": "7a47961cc96b1fcb3cda5d6bee5e44f876f36891a706082faaff61f61895c87b",
+          "size_bytes": 6881
+        },
         {
           "path": "sample-run/review-bundle/07-api-keys-and-environments/controls/nop/harbor-result.json",
           "sha256": "8ba50bd734e379dab7e2b12739ab5b99a355d3677c113594e6b0b546f948aefa",
@@ -7580,6 +8171,46 @@
           "size_bytes": 4256513
         },
         {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/trajectories/opus/trial-01.json",
+          "sha256": "843ed22a9fbae5aea35f749b1dd45096ecc1768b8118ea5d9b18d6b02066bd02",
+          "size_bytes": 1192218
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/trajectories/opus/trial-02.json",
+          "sha256": "53e63479f08f2bb99917242cc2aaacac31a9b5608ab2ff748726df9ecfed8d79",
+          "size_bytes": 1044617
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/trajectories/opus/trial-03.json",
+          "sha256": "f561ae854b439429d7086169eff2cdea51da44039b885760b435e9e05f9e823b",
+          "size_bytes": 1107590
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/trajectories/opus/trial-04.json",
+          "sha256": "4ab576223386a86b708563bc18ec63851a72474851af9a2503dc6cc686923872",
+          "size_bytes": 1303211
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/trajectories/opus/trial-05.json",
+          "sha256": "8a17b522bcd72c8401737833a70b2ebaae80455d2fbf9a22f4d2df666fd7a8c2",
+          "size_bytes": 1256520
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/trajectories/opus/trial-06.json",
+          "sha256": "061562fd135eb2e031e8f284c59914b3e014f749bd4c91a62cc73f9c5624ad6b",
+          "size_bytes": 1147740
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/trajectories/opus/trial-07.json",
+          "sha256": "2dccdce0e05da4a4599de0a0192014f3376b8a7d3365aa3b85565907edb2b529",
+          "size_bytes": 1214813
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/trajectories/opus/trial-08.json",
+          "sha256": "3a9c7bbda89aea4b4da1ca49ec9dcd2aa5fbd74c438c7e3d0bff1f5a36ae23e1",
+          "size_bytes": 2120051
+        },
+        {
           "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/grok/trial-01/harbor-result.json",
           "sha256": "bc458dbfdbcdbccbc42615710f96f6b5a4801f0df4b0f51a16dc888ca9f11e79",
           "size_bytes": 814
@@ -7780,6 +8411,206 @@
           "size_bytes": 235
         },
         {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-01/harbor-result.json",
+          "sha256": "9dbfe13c4fe5d839fc13d7f9fe946b2b5ab3484fbdecec4bba7f44193e01c5f3",
+          "size_bytes": 1124
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-01/observed.json",
+          "sha256": "aa780e03fdcdbc6617bb78fe0b236cfa45b0908ab51e992e3979d8ca0c75c02f",
+          "size_bytes": 23204
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-01/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-01/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-01/test-stdout.txt",
+          "sha256": "09d42876c65cb926f32db71f68e32de1ce5c5c7dbc7a2418fc5ab04fc2db3ec0",
+          "size_bytes": 875
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-02/harbor-result.json",
+          "sha256": "a6b740fa80582c25df5e65d4847fc15df97a99ddb0cd0ecad08378ed2abfc7de",
+          "size_bytes": 1124
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-02/observed.json",
+          "sha256": "7fbcc64cd9e7bf54dfd23b1c6c5c7d667cb9f1aa2347f80277a5beea22ec9771",
+          "size_bytes": 27167
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-02/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-02/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-02/test-stdout.txt",
+          "sha256": "09d42876c65cb926f32db71f68e32de1ce5c5c7dbc7a2418fc5ab04fc2db3ec0",
+          "size_bytes": 875
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-03/harbor-result.json",
+          "sha256": "63df140c1a2afa1571848f5051ff799bfb55eea50bdc0a01f64fcc5a5221509f",
+          "size_bytes": 1124
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-03/observed.json",
+          "sha256": "a36e9d2118fe6bd39e542a30cad9886b876f927ce6f16e3c3359e7034eeb1e1a",
+          "size_bytes": 19317
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-03/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-03/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-03/test-stdout.txt",
+          "sha256": "09d42876c65cb926f32db71f68e32de1ce5c5c7dbc7a2418fc5ab04fc2db3ec0",
+          "size_bytes": 875
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-04/harbor-result.json",
+          "sha256": "588ac16ebc89a135a423be81d312152f1f4c3776fe017561012739e629a55df6",
+          "size_bytes": 1124
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-04/observed.json",
+          "sha256": "ad36b657c7ff3fb27d5f11fd2cc45d59b0892b0a41b4d75e23393a4cbe8b841c",
+          "size_bytes": 15485
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-04/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-04/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-04/test-stdout.txt",
+          "sha256": "09d42876c65cb926f32db71f68e32de1ce5c5c7dbc7a2418fc5ab04fc2db3ec0",
+          "size_bytes": 875
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-05/harbor-result.json",
+          "sha256": "d305908537e878c02983bd59878f5df958d865cde52ba2a2f0e207976cf8bc46",
+          "size_bytes": 1124
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-05/observed.json",
+          "sha256": "a7c6b635d679bcaf4df5a59e722b38703e6b9853b4718f3b94b18648869eb05b",
+          "size_bytes": 16838
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-05/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-05/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-05/test-stdout.txt",
+          "sha256": "09d42876c65cb926f32db71f68e32de1ce5c5c7dbc7a2418fc5ab04fc2db3ec0",
+          "size_bytes": 875
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-06/harbor-result.json",
+          "sha256": "03006200846f0297e7e50cad9029547978052b04f3d8edb918a375827b47afaf",
+          "size_bytes": 1124
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-06/observed.json",
+          "sha256": "f9be8a4a141149b83e033f13e0a99e57a7b0e43820c906fea9af60accab74dc8",
+          "size_bytes": 22865
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-06/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-06/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-06/test-stdout.txt",
+          "sha256": "09d42876c65cb926f32db71f68e32de1ce5c5c7dbc7a2418fc5ab04fc2db3ec0",
+          "size_bytes": 875
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-07/harbor-result.json",
+          "sha256": "5edf8252d06e9b6b0e4cb8643107a675866652dea58a90fe4e682e2eb7b8ce86",
+          "size_bytes": 1124
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-07/observed.json",
+          "sha256": "ac2c2b90e84b8cf0188abfed0e1847ff72332a7bcee789233f71a19e1cd095cd",
+          "size_bytes": 16404
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-07/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-07/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-07/test-stdout.txt",
+          "sha256": "09d42876c65cb926f32db71f68e32de1ce5c5c7dbc7a2418fc5ab04fc2db3ec0",
+          "size_bytes": 875
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-08/harbor-result.json",
+          "sha256": "6937c013099a8fb1b146b21fd5c687debdefa2d9c346aef381fe60d89b2de68c",
+          "size_bytes": 1124
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-08/observed.json",
+          "sha256": "b7a505fcc951e3fd0aa6f4239460d096fc8c438191d99d52defbf57b4b27d174",
+          "size_bytes": 15362
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-08/reward.json",
+          "sha256": "f45c38fef533eb2668b1e595d8fc871c0bb9944dacf489a945a37cac2b71b23d",
+          "size_bytes": 29
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-08/reward.txt",
+          "sha256": "5717e7c840171019a4eeab5b79a7f894a4986eaff93d04ec5b12c9a189f594bf",
+          "size_bytes": 4
+        },
+        {
+          "path": "sample-run/review-bundle/07-api-keys-and-environments/verification-results/opus/trial-08/test-stdout.txt",
+          "sha256": "09d42876c65cb926f32db71f68e32de1ce5c5c7dbc7a2418fc5ab04fc2db3ec0",
+          "size_bytes": 875
+        },
+        {
           "path": "sample-run/review-bundle/07-api-keys-and-environments/verifier/execution/test.sh",
           "sha256": "a5fecbedc962b4dbbcf239a1c8680a3253b2d17b820b8deb9d0458250c92ec2c",
           "size_bytes": 13497
@@ -7806,16 +8637,37 @@
         "oracle": "3f6269b97803f429411916a6f0dc1325aecfd69f3a1e995fbd20d5c7bbb17d16"
       },
       "recorded_runtime_task_checksums": [
+        "3f38fb2bc343a749016fa1425494c139f4baa0c44e84bb84c618d32ec94bb78e",
         "3f6269b97803f429411916a6f0dc1325aecfd69f3a1e995fbd20d5c7bbb17d16"
       ],
       "runtime_strata": [
         {
           "environment": "daytona",
-          "name": "daytona-01-08",
+          "name": "daytona-grok-01-08",
           "solves": {
-            "grok": 5
+            "grok": 5,
+            "opus": 0
           },
           "task_checksum": "3f6269b97803f429411916a6f0dc1325aecfd69f3a1e995fbd20d5c7bbb17d16",
+          "trial_numbers": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ]
+        },
+        {
+          "environment": "daytona",
+          "name": "daytona-opus-01-08",
+          "solves": {
+            "grok": 0,
+            "opus": 8
+          },
+          "task_checksum": "3f38fb2bc343a749016fa1425494c139f4baa0c44e84bb84c618d32ec94bb78e",
           "trial_numbers": [
             1,
             2,
@@ -7829,7 +8681,8 @@
         }
       ],
       "solves": {
-        "grok": 5
+        "grok": 5,
+        "opus": 8
       },
       "task_label": "Task 7"
     }

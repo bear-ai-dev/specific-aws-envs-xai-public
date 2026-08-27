@@ -12,4 +12,7 @@
 |  | [Task 2](../../tasks/02-multi-region-sweep/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 3](../../tasks/03-iam-role-validation/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 |  | [Task 4](../../tasks/04-tax-jurisdiction/instruction.md) | 5/8 | 0.6250 | 0.9821 | 1.0000 |
+|  | [Task 5](../../tasks/05-network-egress-metering/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
+|  | [Task 6](../../tasks/06-api-token-metering/instruction.md) | 7/8 | 0.8750 | 1.0000 | 1.0000 |
+|  | [Task 7](../../tasks/07-api-keys-and-environments/instruction.md) | 8/8 | 1.0000 | 1.0000 | 1.0000 |
 <!-- MINI_SWE_MATRIX_END -->
