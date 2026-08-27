@@ -1,9 +1,10 @@
 # Sample RL Tasks for AWS - xAI
 
-This sample contains seven tasks. Tasks 1, 2, 3 and 5 to 7 each use one matched
-eight-run Daytona cohort. Task 4 uses two matched four-run strata, one on
-Daytona and one on AWS Fargate, with a pooled descriptive total of eight
-attempts per model.
+This sample contains seven tasks, all run on Daytona. Tasks 1, 2 and 3 each use
+one eight-run cohort whose checksum both models share. Task 4 uses two matched
+four-run strata, one on Daytona and one on AWS Fargate, with a pooled
+descriptive total of eight attempts per model. Tasks 5 to 7 use one eight-run
+cohort per model arm.
 
 Every task carries both model arms. Grok 4.6 solved 0/8, 6/8, 3/8, 0/8, 3/8,
 0/8 and 5/8; Claude Opus 5 solved 8/8, 8/8, 8/8, 5/8, 8/8, 7/8 and 8/8.
@@ -32,9 +33,12 @@ Each row contains eight valid trials. `c/n` is the observed solve count. The
 table uses `pass@k = 1 - C(n-c, k) / C(n, k)`, the estimated chance that at
 least one of `k` sampled attempts succeeds.
 Rows are grouped by model; a blank model cell continues the model named above.
-Tasks 1, 2, 3 and 5 to 7 are single matched Daytona cohorts. For Task 4, the
-eight-attempt rows are pooled descriptive estimates across the two equal
-backend strata below, not results from one frozen runtime configuration.
+Tasks 1, 2 and 3 are single Daytona cohorts whose checksum both models share.
+For Task 4, the eight-attempt rows are pooled descriptive estimates across the
+two equal backend strata below, not results from one frozen runtime
+configuration. For Tasks 5 to 7 each arm was built separately, so the two rows
+of a task come from different recorded checksums over a byte-identical task
+package.
 
 <!-- MINI_SWE_MATRIX_START -->
 | Model | Task | Solves `c/n` | pass@1 | pass@3 | pass@8 |
@@ -316,7 +320,8 @@ and
 
 - **Harness:** Harbor 0.18.0 with mini-SWE-agent 2.4.5 at high reasoning
   effort. Tasks 1, 2, 3 and 5 to 7 ran in isolated Daytona sandboxes. Task 4
-  uses separately matched four-run Daytona and AWS Fargate strata.
+  uses separately matched four-run Daytona and AWS Fargate strata. Tasks 5 to 7
+  carry one stratum per model arm.
 - **Routes:** Grok 4.6 and Claude Opus 5 through Amazon Bedrock.
 - **Denominator:** All 112 packaged model trials have a numeric reward, complete
   native trajectory and complete verifier evidence. One of them, Task 7 Grok
@@ -329,7 +334,8 @@ and
   records both control jobs: the clean eight-trial Docker rerun for Tasks 1 to
   4, and the six-trial recorded-build job for Tasks 5 to 7. The latter ran in
   Daytona before the publication pass rather than after it, against the same
-  Harbor task checksum as the scored trials, which is the build published here.
+  Harbor task checksum as those tasks' scored Grok trials, which is the build
+  published here.
   Recorded-build coverage is otherwise narrower, as Appendix A of the report
   states: Task 1's stored control predates its scored build, Task 4 has a
   control for its Daytona stratum only, and Tasks 2 and 3 are fully covered.
