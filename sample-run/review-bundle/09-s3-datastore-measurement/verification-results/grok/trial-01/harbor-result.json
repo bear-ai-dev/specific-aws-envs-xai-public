@@ -1,0 +1,22 @@
+{
+  "id": "f7d63f5a-1078-4e4f-93f1-bb4ce2ad8e6e",
+  "taskName": "s3-datastore-measurement",
+  "trialName": "s3-datastore-measurement__MMpBfEq",
+  "taskChecksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "converse/us.xai.grok-4.6",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 0.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-27T02:16:27.708Z",
+  "finishedAt": "2026-08-27T06:03:39.686212Z"
+}

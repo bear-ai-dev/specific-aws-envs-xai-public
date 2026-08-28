@@ -22,6 +22,10 @@ BUNDLE_TASKS = (
     "06-api-token-metering",
     "07-api-keys-and-environments",
     "04-tax-jurisdiction",
+    "08-dimension-pricing-tiers",
+    "09-s3-datastore-measurement",
+    "10-customer-identity-migration",
+    "11-customer-billing-schedule-migration",
 )
 EXPECTED_HEADINGS = {
     "01-entitlement-overage-lines": "# Task 1 — entitlement overage lines",
@@ -31,6 +35,10 @@ EXPECTED_HEADINGS = {
     "05-network-egress-metering": "# Task 5 — network egress metering",
     "06-api-token-metering": "# Task 6 — API token metering",
     "07-api-keys-and-environments": "# Task 7 — API keys and environments",
+    "08-dimension-pricing-tiers": "# Task 8 — dimension pricing tiers",
+    "09-s3-datastore-measurement": "# Task 9 — S3 datastore measurement",
+    "10-customer-identity-migration": "# Task 10 — customer identity migration",
+    "11-customer-billing-schedule-migration": "# Task 11 — customer billing-schedule migration",
 }
 EXPECTED_SOLVES = {
     ("01-entitlement-overage-lines", "Grok 4.6"): 0,
@@ -47,6 +55,38 @@ EXPECTED_SOLVES = {
     ("06-api-token-metering", "Opus 5"): 7,
     ("07-api-keys-and-environments", "Grok 4.6"): 5,
     ("07-api-keys-and-environments", "Opus 5"): 8,
+    ("08-dimension-pricing-tiers", "Grok 4.6"): 2,
+    ("08-dimension-pricing-tiers", "Opus 5"): 7,
+    ("09-s3-datastore-measurement", "Grok 4.6"): 0,
+    ("09-s3-datastore-measurement", "Opus 5"): 6,
+    ("10-customer-identity-migration", "Grok 4.6"): 6,
+    ("10-customer-identity-migration", "Opus 5"): 8,
+    ("11-customer-billing-schedule-migration", "Grok 4.6"): 0,
+    ("11-customer-billing-schedule-migration", "Opus 5"): 5,
+}
+MIXED_SCAFFOLD_TASKS = {
+    "08-dimension-pricing-tiers",
+    "09-s3-datastore-measurement",
+    "10-customer-identity-migration",
+    "11-customer-billing-schedule-migration",
+}
+EXPECTED_OPUS_SCAFFOLD_SOLVES = {
+    "08-dimension-pricing-tiers": {
+        "opencode/1.18.13": 4,
+        "mini-swe-agent/2.4.5": 3,
+    },
+    "09-s3-datastore-measurement": {
+        "opencode/1.18.13": 3,
+        "mini-swe-agent/2.4.5": 3,
+    },
+    "10-customer-identity-migration": {
+        "opencode/1.18.13": 4,
+        "mini-swe-agent/2.4.5": 4,
+    },
+    "11-customer-billing-schedule-migration": {
+        "opencode/1.18.13": 3,
+        "mini-swe-agent/2.4.5": 2,
+    },
 }
 LINK = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
 REAL_AWS_KEY = re.compile(r"\b(?:AKIA|ASIA)[0-9A-Z]{16}\b")
@@ -109,8 +149,8 @@ def validate_links() -> int:
 
 def validate_trials() -> None:
     trials = json.loads((ROOT / "sample-run" / "indexes" / "trials.json").read_text())
-    if len(trials) != 112 or not all(trial["valid"] for trial in trials):
-        raise SystemExit("expected exactly 112 valid trials")
+    if len(trials) != 176 or not all(trial["valid"] for trial in trials):
+        raise SystemExit("expected exactly 176 valid trials")
     for key, expected in EXPECTED_SOLVES.items():
         task, model = key
         cell = [
@@ -137,6 +177,37 @@ def validate_trials() -> None:
                 raise SystemExit(
                     f"runtime stratum mismatch: {task}/{trial['trial_label']}"
                 )
+            if trial.get("agent_scaffold") != stratum.get("agent_scaffold"):
+                if "agent_scaffold" in stratum:
+                    raise SystemExit(
+                        f"agent scaffold mismatch: {task}/{trial['trial_label']}"
+                    )
+            if task in MIXED_SCAFFOLD_TASKS:
+                verifier_dir = (ROOT / trial["verifier"]).parent
+                for required in ("output.json", "stdout.txt"):
+                    if not (verifier_dir / required).is_file():
+                        raise SystemExit(
+                            f"missing {required}: {task}/{trial['trial_label']}"
+                        )
+                if (
+                    model == "Opus 5"
+                    and trial["model"]
+                    != "bedrock/global.anthropic.claude-opus-5"
+                ):
+                    raise SystemExit(
+                        f"incorrect Opus route: {task}/{trial['trial_label']}"
+                    )
+
+    for task, expected in EXPECTED_OPUS_SCAFFOLD_SOLVES.items():
+        opus = [
+            trial
+            for trial in trials
+            if trial["task"] == task and trial["model_label"] == "Opus 5"
+        ]
+        for scaffold, expected_solves in expected.items():
+            cell = [trial for trial in opus if trial["agent_scaffold"] == scaffold]
+            if len(cell) != 4 or sum(trial["passed"] for trial in cell) != expected_solves:
+                raise SystemExit(f"unexpected Opus scaffold stratum: {task}/{scaffold}")
 
     frozen = json.loads(
         (ROOT / "sample-run" / "manifests" / "frozen-cohort.json").read_text()
@@ -150,6 +221,8 @@ def validate_trials() -> None:
         }
         if "model_label" in stratum:
             record["model_label"] = stratum["model_label"]
+        if "agent_scaffold" in stratum:
+            record["agent_scaffold"] = stratum["agent_scaffold"]
         return record
 
     expected_strata = {
@@ -160,10 +233,26 @@ def validate_trials() -> None:
         raise SystemExit("frozen cohort runtime strata mismatch")
     if frozen.get("environments") != ["daytona", "aws-fargate"]:
         raise SystemExit("frozen cohort environment declaration mismatch")
-    if "not represented as one frozen runtime configuration" not in frozen.get(
-        "pooled_result_boundary", ""
-    ):
+    boundary = frozen.get("pooled_result_boundary", "")
+    if "not represented as one frozen runtime configuration" not in boundary:
         raise SystemExit("missing pooled-result validity boundary")
+    if "pass@k estimates remain separated by scaffold" not in boundary:
+        raise SystemExit("missing mixed-scaffold pass@k boundary")
+    reproduction = json.loads(
+        (ROOT / "harness" / "cohort-tasks-08-11-global-opus.json").read_text()
+    )
+    if {entry["path"] for entry in reproduction["tasks"]} != {
+        f"tasks/{task}" for task in MIXED_SCAFFOLD_TASKS
+    }:
+        raise SystemExit("Task 8-11 reproduction task set mismatch")
+    routes = {agent["model_name"] for agent in reproduction["agents"]}
+    if routes != {
+        "bedrock/converse/us.xai.grok-4.6",
+        "bedrock/global.anthropic.claude-opus-5",
+    }:
+        raise SystemExit("Task 8-11 reproduction route mismatch")
+    if reproduction.get("n_attempts") != 4:
+        raise SystemExit("Task 8-11 reproduction must remain a four-run stratum")
 
 
 def validate_bundle_manifest() -> None:
@@ -239,6 +328,11 @@ def validate_public_controls() -> None:
             / "public-controls-validation.json"
         ).read_text()
     )
+    if manifest.get("public_task_sha256_scope") != (
+        "Current public-tree integrity inventory. It proves the executed tree "
+        "only for jobs whose stage is post-normalization."
+    ):
+        raise SystemExit("public control hash scope is missing or overstated")
     for job_name, job in manifest["jobs"].items():
         if job["summary"]["exceptions"] != 0:
             raise SystemExit(f"control job {job_name} recorded an exception")
@@ -252,15 +346,15 @@ def validate_public_controls() -> None:
         if record["oracle"]["reward"] != 1.0 or record["nop"]["reward"] != 0.0:
             raise SystemExit(f"control rewards not 1.0/0.0 for {task}")
     if set(manifest["tasks"]) != set(TASKS):
-        raise SystemExit("post-normalization controls must cover every task")
+        raise SystemExit("control inventory must cover every task")
     for task in TASKS:
         record = manifest["tasks"].get(task)
         if record is None:
-            raise SystemExit(f"missing post-normalization controls: {task}")
+            raise SystemExit(f"missing control inventory: {task}")
         if record["public_task_sha256"] != directory_sha256(
             ROOT / "tasks" / task
         ):
-            raise SystemExit(f"post-normalization control task hash mismatch: {task}")
+            raise SystemExit(f"public task inventory hash mismatch: {task}")
         digest = record.get("harbor_task_digest", "")
         checksum = record.get("harbor_task_checksum", "")
         if not (
@@ -280,6 +374,20 @@ def validate_public_controls() -> None:
             "exception": None,
         }:
             raise SystemExit(f"invalid public no-op control: {task}")
+
+    stages = {name: job["stage"] for name, job in manifest["jobs"].items()}
+    recorded_build_inventory = {
+        "xai-task-renumber-controls-20260825": "post-normalization",
+        "grok46-missing-meta-amazon-controls-20260826": "recorded build",
+        "grok46-missing-nvidia-controls-20260826": "recorded build",
+    }
+    exact_public_rerun = {manifest["job_name"]: "post-normalization"}
+    if stages not in (recorded_build_inventory, exact_public_rerun):
+        raise SystemExit("control stage declarations are incomplete or inaccurate")
+    if stages == exact_public_rerun:
+        only_job = manifest["jobs"][manifest["job_name"]]
+        if set(only_job["tasks"]) != set(TASKS):
+            raise SystemExit("post-normalization control rerun is not all-task")
 
     transformation = json.loads(
         (ROOT / "sample-run" / "manifests" / "public-transformation.json").read_text()

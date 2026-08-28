@@ -1,7 +1,8 @@
 {
  "schema_version": 3,
  "run_date": "2026-08-26",
- "purpose": "post-normalization oracle and no-op validation of Tasks 1 to 4, plus the recorded-build oracle and no-op runs for Tasks 5 to 7",
+ "purpose": "post-normalization oracle and no-op validation of Tasks 1 to 4, plus recorded-build oracle and no-op evidence for Tasks 5 to 11",
+ "public_task_sha256_scope": "Current public-tree integrity inventory. It proves the executed tree only for jobs whose stage is post-normalization.",
  "harbor_version": "0.18.0",
  "environment": "docker",
  "config": "harness/controls.json",
@@ -113,6 +114,66 @@
     "exception": null
    },
    "harbor_task_checksum": "3f6269b97803f429411916a6f0dc1325aecfd69f3a1e995fbd20d5c7bbb17d16"
+  },
+  "08-dimension-pricing-tiers": {
+   "public_task_sha256": "c3e2c0983957c4fd3b1f1192f1f9d45ae64cdabd0201e09588a1f7267bec914a",
+   "control_job": "grok46-missing-nvidia-controls-20260826",
+   "oracle": {
+    "trial_id": "3pEqdzs",
+    "reward": 1.0,
+    "exception": null
+   },
+   "harbor_task_checksum": "32397db1d2039a92abc0594de74fb5fef6a325b383208aa7f9a8327ad3dac307",
+   "nop": {
+    "trial_id": "qE3MZAE",
+    "reward": 0.0,
+    "exception": null
+   }
+  },
+  "09-s3-datastore-measurement": {
+   "public_task_sha256": "6cc5da16edfad5649195992c02b34ec2ff4bc2b96e7b3acf67906586b3777718",
+   "control_job": "grok46-missing-nvidia-controls-20260826",
+   "oracle": {
+    "trial_id": "tnmVDNH",
+    "reward": 1.0,
+    "exception": null
+   },
+   "harbor_task_checksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621",
+   "nop": {
+    "trial_id": "qxksquc",
+    "reward": 0.0,
+    "exception": null
+   }
+  },
+  "10-customer-identity-migration": {
+   "public_task_sha256": "1ebaf007ebd10a05e9c420d93f94aa91de34fe2de7a1201ba2d4ea86c99803d7",
+   "control_job": "grok46-missing-nvidia-controls-20260826",
+   "oracle": {
+    "trial_id": "5xFt6CM",
+    "reward": 1.0,
+    "exception": null
+   },
+   "harbor_task_checksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae",
+   "nop": {
+    "trial_id": "xDfTzmK",
+    "reward": 0.0,
+    "exception": null
+   }
+  },
+  "11-customer-billing-schedule-migration": {
+   "public_task_sha256": "54e9776cbe7b5b90dd97ee70531a404cd4e7abaad19b0b15507754339e3e037a",
+   "control_job": "grok46-missing-nvidia-controls-20260826",
+   "oracle": {
+    "trial_id": "zR6sTwR",
+    "reward": 1.0,
+    "exception": null
+   },
+   "harbor_task_checksum": "2ab40b84938458d3826bee37968342210ef9129a14378ce2a05eae17cdf2312a",
+   "nop": {
+    "trial_id": "czX5PHQ",
+    "reward": 0.0,
+    "exception": null
+   }
   }
  },
  "jobs": {
@@ -152,6 +213,25 @@
     "nop_all_reward_zero": true
    },
    "digest_note": "This job recorded Harbor task checksums rather than image digests, so Tasks 5 to 7 carry harbor_task_checksum in place of harbor_task_digest."
+  },
+  "grok46-missing-nvidia-controls-20260826": {
+   "environment": "daytona",
+   "config": "harness/controls.json",
+   "run_date": "2026-08-26",
+   "stage": "recorded build",
+   "tasks": [
+    "08-dimension-pricing-tiers",
+    "09-s3-datastore-measurement",
+    "10-customer-identity-migration",
+    "11-customer-billing-schedule-migration"
+   ],
+   "note": "These ran against the same Harbor task checksum as the scored Task 8 to 11 trials. The task packages published here wrap that build with a self-contained Dockerfile and the workspace it was built from, so the graded source is the same.",
+   "summary": {
+    "trials": 8,
+    "exceptions": 0,
+    "oracle_all_reward_one": true,
+    "nop_all_reward_zero": true
+   }
   }
  }
 }

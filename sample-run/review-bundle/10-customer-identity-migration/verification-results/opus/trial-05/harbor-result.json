@@ -1,0 +1,22 @@
+{
+  "id": "7123d5a1-9f8c-4d22-b399-8ecee374d800",
+  "taskName": "customer-identity-migration",
+  "trialName": "customer-identity-migration__vWeHECu",
+  "taskChecksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "global.anthropic.claude-opus-5",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-27T17:39:10.281858Z",
+  "finishedAt": "2026-08-27T18:01:59.768301Z"
+}

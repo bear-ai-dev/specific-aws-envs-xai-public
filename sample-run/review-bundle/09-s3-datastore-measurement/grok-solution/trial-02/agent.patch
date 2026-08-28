@@ -1,0 +1,881 @@
+diff --git a/package.json b/package.json
+index 3697fe1..f69b268 100644
+--- a/package.json
++++ b/package.json
+@@ -50,6 +50,7 @@
+         "@aws-sdk/client-cloudwatch": "^3.112.0",
+         "@aws-sdk/client-cost-explorer": "^3.112.0",
+         "@aws-sdk/client-ec2": "^3.112.0",
++        "@aws-sdk/client-iam": "^3.112.0",
+         "@aws-sdk/client-pricing": "^3.112.0",
+         "@aws-sdk/client-s3": "^3.87.0",
+         "@aws-sdk/client-ses": "^3.112.0",
+diff --git a/src/measurement-config/dto/create-measurement-config.dto.ts b/src/measurement-config/dto/create-measurement-config.dto.ts
+index 2d22c69..85d8be6 100644
+--- a/src/measurement-config/dto/create-measurement-config.dto.ts
++++ b/src/measurement-config/dto/create-measurement-config.dto.ts
+@@ -109,4 +109,12 @@ export class CreateMeasurementConfigurationResponse extends BasicResponseDTO {
+      * Unique identifier assigned by MeteringCo
+      */
+     public measurementId: MeasurementConfigEntity['measurementId'];
++
++    /**
++     * The persisted measurement configuration, including generated datastore fields.
++     */
++    public measurementConfiguration?:
++        | InfrastructureAccessInformation
++        | AgentAccessInformation
++        | DatastoreAccessInformation;
+ }
+diff --git a/src/measurement-config/dto/update-measurement-config.dto.ts b/src/measurement-config/dto/update-measurement-config.dto.ts
+index 7c2b945..196127a 100644
+--- a/src/measurement-config/dto/update-measurement-config.dto.ts
++++ b/src/measurement-config/dto/update-measurement-config.dto.ts
+@@ -6,6 +6,7 @@ import { IsNotEmpty, IsOptional, IsString, Matches, ValidateNested } from 'class
+ 
+ import {
+     AgentAccessInformation,
++    DatastoreAccessInformation,
+     InfrastructureAccessInformation,
+     MeasurementConfigEntity,
+ } from '../entities/measurement-config.entity';
+@@ -62,6 +63,7 @@ export class UpdateMeasurementConfigDto {
+         oneOf: [
+             { $ref: getSchemaPath('UpdateInfrastructureAccessInformation') },
+             { $ref: getSchemaPath('UpdateAgentAccessInformation') },
++            { $ref: getSchemaPath('UpdateDatastoreAccessInformation') },
+         ],
+     })
+     @IsOptional()
+@@ -76,11 +78,18 @@ export class UpdateMeasurementConfigDto {
+             return UpdateInfrastructureAccessInformation;
+         else if (object.measurementMode.toLowerCase() === measurementMode.agentBased.toLowerCase())
+             return UpdateAgentAccessInformation;
++        else if (object.measurementMode.toLowerCase() === measurementMode.datastoreBased.toLowerCase())
++            return UpdateDatastoreAccessInformation;
+         // Handle edge case where the previous ifs are not fullfiled
+     })
+-    public measurementConfiguration?: UpdateInfrastructureAccessInformation | UpdateAgentAccessInformation;
++    public measurementConfiguration?:
++        | UpdateInfrastructureAccessInformation
++        | UpdateAgentAccessInformation
++        | UpdateDatastoreAccessInformation;
+ }
+ 
+ export class UpdateInfrastructureAccessInformation extends PartialType(InfrastructureAccessInformation) {}
+ 
+ export class UpdateAgentAccessInformation extends PartialType(AgentAccessInformation) {}
++
++export class UpdateDatastoreAccessInformation extends PartialType(DatastoreAccessInformation) {}
+diff --git a/src/measurement-config/entities/measurement-config.entity.ts b/src/measurement-config/entities/measurement-config.entity.ts
+index fe6f469..a97f4e0 100644
+--- a/src/measurement-config/entities/measurement-config.entity.ts
++++ b/src/measurement-config/entities/measurement-config.entity.ts
+@@ -1,7 +1,8 @@
+ import { Point } from '@influxdata/influxdb-client';
+ import { BadRequestException, InternalServerErrorException } from '@nestjs/common';
+ import { ApiHideProperty, ApiProperty } from '@nestjs/swagger';
+-import { IsArray, IsEnum, IsNotEmpty, IsOptional, IsString, Matches, Validate } from 'class-validator';
++import { Transform } from 'class-transformer';
++import { IsArray, IsNotEmpty, IsOptional, IsString, Matches } from 'class-validator';
+ import { aggregationType } from '../../dimensions/entities/dimensions.entity';
+ 
+ import { InfluxService } from '../../influx/influx.service';
+@@ -9,7 +10,14 @@ import { CreateUserDto } from '../../users/dto/create-user.dto';
+ import { measurementMode } from '../dto/create-measurement-config.dto';
+ import { ReadMeasurementResponseData } from '../dto/read-measurement-config.dto';
+ import { ValidIAMRole } from '../../setting/dto/customIAMAuthorizer';
+-import { S3 } from '@aws-sdk/client-s3';
++import {
++    IAM,
++    IAMClient,
++    CreateRoleCommand,
++    PutRolePolicyCommand,
++    UpdateAssumeRolePolicyCommand,
++} from '@aws-sdk/client-iam';
++import { randomUUID } from 'crypto';
+ 
+ /**
+  * @author Daniel Wasserlauf <daniel.wasserlauf@meteringco.tech>
+@@ -150,6 +158,7 @@ export class MeasurementConfigEntity {
+             this.measurementConfiguration = new DatastoreAccessInformation({
+                 ...measurementConfiguration,
+                 businessID,
++                measurementId,
+             } as DatastoreAccessInformation);
+         }
+         this.measurementId = measurementId;
+@@ -194,7 +203,6 @@ export class MeasurementConfigEntity {
+ 
+             return [completedPoint];
+         } else if (argumentMeasurementMode.toLowerCase() === measurementMode.datastoreBased.toLowerCase()) {
+-            console.log('DB  transformer', measurementConfiguration);
+             const completedPoint = DatastoreAccessInformation.transformer(
+                 measurementConfiguration as DatastoreAccessInformation,
+                 measurementConfigEntityPoint
+@@ -241,6 +249,8 @@ export class MeasurementConfigEntity {
+         } else if (_value && _value.toLowerCase() === measurementMode.datastoreBased.toLowerCase()) {
+             const dbAccessInformation = DatastoreAccessInformation.dbModelToEntity({
+                 ...rest,
++                businessID,
++                measurementId,
+             });
+             return new MeasurementConfigEntity({
+                 measurementId,
+@@ -260,16 +270,35 @@ export class MeasurementConfigEntity {
+             return supportedResourceHostingPlatformAggregationTypeMap[measurementConfig.resourceType];
+         } else if (measurementConfig instanceof AgentAccessInformation) {
+             return supportedResourceHostingPlatformAggregationTypeMap[measurementConfig.hostingPlatform];
++        } else if (measurementConfig instanceof DatastoreAccessInformation) {
++            return aggregationType.standard;
+         } else {
+             throw new InternalServerErrorException('Couldnt create Aggregation Schedule for Dimension');
+         }
+     }
+     static async setupAccessIfRequired(measurementConfig: MeasurementConfigEntity) {
+         if (measurementConfig.measurementMode.toLowerCase() === measurementMode.datastoreBased.toLowerCase()) {
+-            console.log('setting up access');
+-            return DatastoreAccessInformation.setupAccess(
++            const provisioned = await DatastoreAccessInformation.setupAccess(
++                measurementConfig.measurementConfiguration as DatastoreAccessInformation
++            );
++            if (provisioned) {
++                measurementConfig.measurementConfiguration = provisioned;
++            }
++            return provisioned;
++        } else {
++            return Promise.resolve();
++        }
++    }
++
++    static async updateAccessIfRequired(measurementConfig: MeasurementConfigEntity) {
++        if (measurementConfig.measurementMode.toLowerCase() === measurementMode.datastoreBased.toLowerCase()) {
++            const updated = await DatastoreAccessInformation.updateAccess(
+                 measurementConfig.measurementConfiguration as DatastoreAccessInformation
+             );
++            if (updated) {
++                measurementConfig.measurementConfiguration = updated;
++            }
++            return updated;
+         } else {
+             return Promise.resolve();
+         }
+@@ -397,7 +426,7 @@ export enum SupportedDatastores {
+  * */
+ export class DatastoreAccessInformation {
+     /**
+-     * Underlying resource type which meteringco connects to. Default is s3.
++     * Underlying datastore platform MeteringCo connects to. Default is s3.
+      *
+      */
+     @Matches(
+@@ -413,141 +442,294 @@ export class DatastoreAccessInformation {
+         required: false,
+         examples: ['s3'],
+     })
+-    public datastoreType?: SupportedDatastores;
++    @Transform(({ obj, value }) => value || obj?.datastoreType || SupportedDatastores.s3)
++    public platform?: SupportedDatastores | string = SupportedDatastores.s3;
+ 
+     /**
++     * The customer's cloud account identifier. Required.
++     * @example "623673123435"
++     */
++    @Transform(({ obj, value }) => value || obj?.cloudId)
++    @IsString()
++    @IsNotEmpty()
++    public accountId: string;
++
++    /**
++     * Supported region of the datastore. Optional, default is `us-east-1`.
+      *
+-     * Whether meteringco is hosting the ingestion endpoint, or it is hosted by the client. Optional, default is `true`.
+-     * @example 'true'
++     * Example `"us-east-1"`
+      */
+     @IsString()
+     @IsOptional()
+-    public meteringcoHosted?: 'true';
++    @ApiProperty()
++    public region?: string = 'us-east-1';
+ 
+     /**
+-     *
+-     * What is the cloud environment associated with the ingestion endpoint. Optional, default is `aws`.
+-     * @example "aws"
++     * The IAM role provisioned by MeteringCo for the customer account to assume when writing usage records.
+      */
+-    @IsEnum(supportedCloudPlatforms)
++    @IsString()
+     @IsOptional()
+-    public hostedCloud?: supportedCloudPlatforms;
++    @ApiProperty()
++    public iamRoleArn?: string;
+ 
+     /**
+-     * The Unqiue ID for the cloud env where the resource is hosted. Required.
+-     * @example "623673123435"
++     * The External ID associated with the provisioned IAM role.
+      */
+     @IsString()
+-    @IsNotEmpty()
+-    public cloudId: string;
++    @IsOptional()
++    @ApiProperty()
++    public externalId?: string;
++
++    /**
++     * S3 URI prefix the customer writes usage records to.
++     */
++    @IsString()
++    @IsOptional()
++    public ingestion?: string;
++
++    /**
++     * S3 URI prefix where malformed records are written.
++     */
++    @IsString()
++    @IsOptional()
++    public dlq?: string;
++
++    @ApiHideProperty()
++    @IsOptional()
++    public businessID?: string;
+ 
+     @ApiHideProperty()
+     @IsOptional()
+-    public businessID: string;
++    public measurementId?: string;
+ 
+     constructor(datastoreAccessInformation: DatastoreAccessInformation) {
+         if (datastoreAccessInformation) {
+-            const { cloudId, hostedCloud, meteringcoHosted, datastoreType, businessID } = datastoreAccessInformation;
+-            this.cloudId = cloudId;
+-            this.hostedCloud = hostedCloud ? hostedCloud : supportedCloudPlatforms.aws;
+-            this.meteringcoHosted = meteringcoHosted ? meteringcoHosted : 'true';
+-            this.datastoreType = datastoreType ? datastoreType : SupportedDatastores.s3;
++            const {
++                accountId,
++                platform,
++                region,
++                iamRoleArn,
++                externalId,
++                ingestion,
++                dlq,
++                businessID,
++                measurementId,
++            } = datastoreAccessInformation;
++            // Accept legacy field names (cloudId / datastoreType) if callers still send them.
++            const legacy = datastoreAccessInformation as DatastoreAccessInformation & {
++                cloudId?: string;
++                datastoreType?: string;
++            };
++            this.accountId = accountId || legacy.cloudId;
++            this.platform = (platform || legacy.datastoreType || SupportedDatastores.s3) as SupportedDatastores;
++            this.region = region || 'us-east-1';
++            this.iamRoleArn = iamRoleArn;
++            this.externalId = externalId;
++            this.ingestion = ingestion;
++            this.dlq = dlq;
+             this.businessID = businessID;
++            this.measurementId = measurementId;
+         }
+     }
+ 
+     public static transformer(datastoreAccessInformation: DatastoreAccessInformation, influxPoint: Point) {
+         if (datastoreAccessInformation) {
+-            const { datastoreType: supportedDbs, meteringcoHosted, hostedCloud, cloudId } = datastoreAccessInformation;
+-            if (supportedDbs) influxPoint.tag('supportedDbs', supportedDbs);
+-            if (meteringcoHosted) influxPoint.tag('meteringcoHosted', meteringcoHosted);
+-            if (hostedCloud) influxPoint.tag('hostedCloud', hostedCloud);
+-            if (cloudId) influxPoint.tag('cloudId', cloudId);
++            const { platform, accountId, region, iamRoleArn, externalId, ingestion, dlq } =
++                datastoreAccessInformation;
++            if (platform) influxPoint.tag('platform', platform);
++            if (accountId) influxPoint.tag('accountId', accountId);
++            if (region) influxPoint.tag('region', region);
++            if (iamRoleArn) influxPoint.tag('iamRoleArn', iamRoleArn);
++            if (externalId) influxPoint.tag('externalId', externalId);
++            if (ingestion) influxPoint.tag('ingestion', ingestion);
++            if (dlq) influxPoint.tag('dlq', dlq);
+         }
+         return influxPoint;
+     }
+ 
+     public static dbModelToEntity({
+-        datastoreType,
+-        meteringcoHosted,
+-        hostedCloud,
+-        cloudId,
++        platform,
++        accountId,
++        region,
++        iamRoleArn,
++        externalId,
++        ingestion,
++        dlq,
+         businessID,
++        measurementId,
++        cloudId,
++        datastoreType,
+     }: {
+         [x: string]: any;
+     }) {
+         return new DatastoreAccessInformation({
+-            datastoreType,
+-            meteringcoHosted,
+-            hostedCloud,
+-            cloudId,
++            platform: platform || datastoreType,
++            accountId: accountId || cloudId,
++            region,
++            iamRoleArn,
++            externalId,
++            ingestion,
++            dlq,
+             businessID,
++            measurementId,
+         });
+     }
+-    public static async setupAccess(dbAccessInformation: DatastoreAccessInformation) {
+-        const { meteringcoHosted, cloudId, datastoreType, businessID } = dbAccessInformation;
+ 
+-        if (meteringcoHosted && datastoreType === SupportedDatastores.s3) {
+-            try {
+-                // Add the cloudId as a root account on the policy of the S3 bucket, two hardcoded buckets for now: meteringco-usage-record-dlq-bucket and meteringco-usage-record-dump-bucket
+-
+-                // Get the current policy of the bucket
+-                const s3 = new S3({});
+-                const params = {
+-                    Bucket: `${process.env.DB_MEASUREMENT_BUCKET_NAME}`,
+-                };
+-                const policy = await s3.getBucketPolicy(params);
+-                const policyJson = JSON.parse(policy.Policy);
+-                const statement = policyJson.Statement;
+-                const rootAccount = {
+-                    Sid: `RootAccount-${businessID}`,
++    private static buildTrustPolicy(accountId: string, externalId: string) {
++        return {
++            Version: '2012-10-17',
++            Statement: [
++                {
+                     Effect: 'Allow',
+                     Principal: {
+-                        AWS: `arn:aws:iam::${cloudId}:root`,
++                        AWS: `arn:aws:iam::${accountId}:root`,
+                     },
+-                    Action: ['s3:GetObject', 's3:PutObject'],
+-                    Resource: [`arn:aws:s3:::${process.env.DB_MEASUREMENT_BUCKET_NAME}/${businessID}/*`],
+-                };
+-                statement.push(rootAccount);
+-                const newPolicy = { ...policyJson };
+-                newPolicy.Statement = statement;
+-                const newParams = {
+-                    Bucket: `${process.env.DB_MEASUREMENT_BUCKET_NAME}`,
+-                    Policy: JSON.stringify(newPolicy),
+-                };
+-                await s3.putBucketPolicy(newParams);
+-                // Same for DLQ
+-                const dlqParams = {
+-                    Bucket: `${process.env.DB_MEASUREMENT_DLQ_BUCKET_NAME}`,
+-                };
+-                const dlqPolicy = await s3.getBucketPolicy(dlqParams);
+-                const dlqPolicyJson = JSON.parse(dlqPolicy.Policy);
+-                const dlqStatement = dlqPolicyJson.Statement;
+-                const rootAccountForDLQ = {
+-                    Sid: `RootAccount-${businessID}`,
+-                    Effect: 'Allow',
+-                    Principal: {
+-                        AWS: `arn:aws:iam::${cloudId}:root`,
++                    Action: 'sts:AssumeRole',
++                    Condition: {
++                        StringEquals: {
++                            'sts:ExternalId': externalId,
++                        },
+                     },
+-                    Action: ['s3:GetObject'], // Only need read for DLQ
+-                    Resource: [`arn:aws:s3:::${process.env.DB_MEASUREMENT_DLQ_BUCKET_NAME}/${businessID}/*`],
+-                };
+-                dlqStatement.push(rootAccountForDLQ);
+-                const newDLQPolicy = { ...dlqPolicyJson };
+-                newDLQPolicy.Statement = dlqStatement;
+-                const newDLQParams = {
+-                    Bucket: `${process.env.DB_MEASUREMENT_DLQ_BUCKET_NAME}`,
+-                    Policy: JSON.stringify(newDLQPolicy),
+-                };
+-                await s3.putBucketPolicy(newDLQParams);
++                },
++            ],
++        };
++    }
++
++    private static buildAccessPolicy(businessID: string) {
++        const ingestionBucket = process.env.DB_MEASUREMENT_BUCKET_NAME;
++        const dlqBucket = process.env.DB_MEASUREMENT_DLQ_BUCKET_NAME;
++        return {
++            Version: '2012-10-17',
++            Statement: [
++                {
++                    Sid: 'IngestionPrefixAccess',
++                    Effect: 'Allow',
++                    Action: ['s3:GetObject', 's3:PutObject', 's3:AbortMultipartUpload', 's3:ListMultipartUploadParts'],
++                    Resource: [`arn:aws:s3:::${ingestionBucket}/${businessID}/*`],
++                },
++                {
++                    Sid: 'DlqPrefixAccess',
++                    Effect: 'Allow',
++                    Action: ['s3:GetObject'],
++                    Resource: [`arn:aws:s3:::${dlqBucket}/${businessID}/*`],
++                },
++            ],
++        };
++    }
++
++    private static roleName(businessID: string, measurementId: string) {
++        return `datastore-${businessID}-${measurementId}`;
++    }
++
++    public static iamClient(region?: string) {
++        const config = {
++            region: process.env.AWS_REGION || region || 'us-east-1',
++            // Avoid depending on smithy-client NoOpLogger (version skew in this repo).
++            logger: { debug() {}, info() {}, warn() {}, error() {} },
++        };
++        try {
++            return new IAM(config);
++        } catch (e) {
++            return new IAMClient(config);
++        }
++    }
++
++    private static async iamCall(iam: any, method: string, Command: any, input: any) {
++        if (iam && typeof iam[method] === 'function') {
++            return iam[method](input);
++        }
++        if (iam && typeof iam.send === 'function') {
++            return iam.send(new Command(input));
++        }
++        throw new Error(`IAM client does not support ${method}`);
++    }
++
++    public static async setupAccess(
++        dbAccessInformation: DatastoreAccessInformation,
++        maybeMeasurementId?: string
++    ) {
++        const platform = (
++            dbAccessInformation.platform ||
++            (dbAccessInformation as any).datastoreType ||
++            SupportedDatastores.s3
++        )
++            .toString()
++            .toLowerCase();
++        const region = dbAccessInformation.region || 'us-east-1';
++        const accountId = dbAccessInformation.accountId || (dbAccessInformation as any).cloudId;
++        const businessID = dbAccessInformation.businessID;
++        const measurementId =
++            maybeMeasurementId || dbAccessInformation.measurementId || (dbAccessInformation as any).measurementID;
++        dbAccessInformation.accountId = accountId;
++        dbAccessInformation.measurementId = measurementId;
++
++        dbAccessInformation.platform = platform;
++        dbAccessInformation.region = region;
++
++        if (platform === SupportedDatastores.s3) {
++            const externalId = dbAccessInformation.externalId || randomUUID();
++            const roleName = DatastoreAccessInformation.roleName(businessID, measurementId);
++            const ingestionBucket = process.env.DB_MEASUREMENT_BUCKET_NAME;
++            const dlqBucket = process.env.DB_MEASUREMENT_DLQ_BUCKET_NAME;
++            const ingestion = `s3://${ingestionBucket}/${businessID}/`;
++            const dlq = `s3://${dlqBucket}/${businessID}/`;
++
++            const iam = DatastoreAccessInformation.iamClient(region);
++            const trustPolicy = DatastoreAccessInformation.buildTrustPolicy(accountId, externalId);
++
++            try {
++                const createRoleResp = await DatastoreAccessInformation.iamCall(
++                    iam,
++                    'createRole',
++                    CreateRoleCommand,
++                    {
++                        RoleName: roleName,
++                        AssumeRolePolicyDocument: JSON.stringify(trustPolicy),
++                        Description: `MeteringCo S3 datastore ingestion role for business ${businessID}`,
++                    }
++                );
++
++                const iamRoleArn =
++                    createRoleResp?.Role?.Arn || `arn:aws:iam::${accountId}:role/${roleName}`;
++
++                await DatastoreAccessInformation.iamCall(iam, 'putRolePolicy', PutRolePolicyCommand, {
++                    RoleName: roleName,
++                    PolicyName: `${roleName}-policy`,
++                    PolicyDocument: JSON.stringify(DatastoreAccessInformation.buildAccessPolicy(businessID)),
++                });
++
++                dbAccessInformation.externalId = externalId;
++                dbAccessInformation.iamRoleArn = iamRoleArn;
++                dbAccessInformation.ingestion = ingestion;
++                dbAccessInformation.dlq = dlq;
+             } catch (e) {
+-                if (e?.Code === 'MalformedPolicy') {
+-                    throw new BadRequestException(`CloudId: ${cloudId} is invalid`);
+-                } else {
+-                    throw e;
++                if (e?.Code === 'MalformedPolicyDocument' || e?.name === 'MalformedPolicyDocument') {
++                    throw new BadRequestException(`accountId: ${accountId} is invalid`);
+                 }
++                throw e;
+             }
+         }
++
++        return dbAccessInformation;
++    }
++
++    public static async updateAccess(dbAccessInformation: DatastoreAccessInformation) {
++        const { accountId, externalId, iamRoleArn, businessID, measurementId, region } = dbAccessInformation;
++        if (!accountId || !externalId) {
++            return dbAccessInformation;
++        }
++
++        const roleName = iamRoleArn
++            ? iamRoleArn.substring(iamRoleArn.lastIndexOf('/') + 1)
++            : DatastoreAccessInformation.roleName(businessID, measurementId);
++
++        const iam = DatastoreAccessInformation.iamClient(region);
++        await DatastoreAccessInformation.iamCall(iam, 'updateAssumeRolePolicy', UpdateAssumeRolePolicyCommand, {
++            RoleName: roleName,
++            PolicyDocument: JSON.stringify(DatastoreAccessInformation.buildTrustPolicy(accountId, externalId)),
++        });
++
++        return dbAccessInformation;
+     }
+ }
+ 
+diff --git a/src/measurement-config/entities/standardMeasurement.entity.ts b/src/measurement-config/entities/standardMeasurement.entity.ts
+index b24007f..a23217a 100644
+--- a/src/measurement-config/entities/standardMeasurement.entity.ts
++++ b/src/measurement-config/entities/standardMeasurement.entity.ts
+@@ -1,4 +1,5 @@
+ import { Tag } from '@aws-sdk/client-ec2';
++import { S3, S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+ import { randomUUID } from 'crypto';
+ import EventEmitter from 'events';
+ import { AuditService } from '../../audit/audit.service';
+@@ -6,6 +7,34 @@ import { AuditScope } from '../../audit/entities/audit.interface';
+ import { InfluxService } from '../../influx/influx.service';
+ import { MeasurementFormat } from './measurement.interface';
+ 
++export const toRelativeS3Key = (s3Key: string = ''): string => {
++    if (!s3Key) {
++        return '';
++    }
++    let key = String(s3Key);
++    const s3Match = key.match(/^s3:\/\/[^/]+\/(.*)$/);
++    if (s3Match) {
++        key = s3Match[1];
++    }
++    if (key.startsWith('/')) {
++        key = key.slice(1);
++    }
++    return key;
++};
++
++export interface PublishFailureToDLQArgs {
++    sourceKey?: string;
++    s3Key?: string;
++    key?: string;
++    bucket?: string;
++    input?: any;
++    payload?: any;
++    body?: any;
++    message?: any;
++    metadata?: Record<string, any>;
++    error?: any;
++}
++
+ const eventEmitter = new EventEmitter();
+ export class StandardMeasurementEntity implements MeasurementFormat {
+     public timeStamp?: string;
+@@ -54,6 +83,83 @@ export class StandardMeasurementEntity implements MeasurementFormat {
+             }
+         });
+     }
++    /**
++     * Generic DLQ delivery for failed measurement processing.
++     * Writes the failed input and processing metadata to the configured DLQ bucket
++     * under the mirrored (already-relative) source key plus `.message.text`.
++     */
++    /**
++     * Generic DLQ delivery for failed measurement processing.
++     * Writes the failed input and processing metadata to the configured DLQ bucket
++     * under the mirrored (already-relative) source key plus `.message.text`.
++     */
++    /**
++     * Generic DLQ delivery for failed measurement processing.
++     * Writes the failed input and processing metadata to the configured DLQ bucket
++     * under the mirrored (already-relative) source key plus `.message.text`.
++     */
++    static async publishFailureToDLQ(
++        failure: PublishFailureToDLQArgs | string,
++        maybePayload?: any,
++        maybeMetadata?: Record<string, any>
++    ) {
++        let args: PublishFailureToDLQArgs;
++        if (typeof failure === 'string') {
++            args = { sourceKey: failure, input: maybePayload, metadata: maybeMetadata };
++        } else if (failure && typeof failure === 'object') {
++            args = failure;
++        } else {
++            args = { input: maybePayload, metadata: maybeMetadata };
++        }
++
++        const rawKey = args.sourceKey || args.s3Key || args.key || '';
++        const relativeKey = toRelativeS3Key(rawKey);
++        const dlqKey = relativeKey ? `${relativeKey}.message.text` : `unknown/${randomUUID()}.message.text`;
++        const bucket = args.bucket || process.env.DB_MEASUREMENT_DLQ_BUCKET_NAME;
++        const failedInput =
++            args.input !== undefined
++                ? args.input
++                : args.payload !== undefined
++                ? args.payload
++                : args.body !== undefined
++                ? args.body
++                : args.message !== undefined
++                ? args.message
++                : maybePayload;
++        const processingMetadata = {
++            sourceKey: rawKey,
++            relativeKey,
++            processedAt: new Date().toISOString(),
++            ...(args.error ? { error: args.error?.message || args.error, stack: args.error?.stack } : {}),
++            ...(args.metadata || {}),
++            ...(maybeMetadata || {}),
++        };
++        const body = JSON.stringify({
++            input: failedInput,
++            metadata: processingMetadata,
++        });
++
++        let s3: any;
++        try {
++            s3 = new S3({ region: process.env.AWS_REGION || 'us-east-1' });
++        } catch (e) {
++            s3 = new S3Client({ region: process.env.AWS_REGION || 'us-east-1' });
++        }
++        const putInput = {
++            Bucket: bucket,
++            Key: dlqKey,
++            Body: body,
++            ContentType: 'application/json',
++        };
++        if (typeof s3.putObject === 'function') {
++            await s3.putObject(putInput);
++        } else {
++            await s3.send(new PutObjectCommand(putInput));
++        }
++
++        return { bucket, key: dlqKey };
++    }
++
+     static awsTagKeyReducer(Tags: Tag[]) {
+         if (Tags) {
+             return Tags.reduce((acc, { Key, Value }): any => {
+diff --git a/src/measurement-config/measurement-config.controller.ts b/src/measurement-config/measurement-config.controller.ts
+index 9a9b5cd..1154bc0 100644
+--- a/src/measurement-config/measurement-config.controller.ts
++++ b/src/measurement-config/measurement-config.controller.ts
+@@ -18,6 +18,7 @@ import { Request } from 'express';
+ import { MeasurementResponseEntityEnricher, ReadMeasurementConfigResponse } from './dto/read-measurement-config.dto';
+ import {
+     UpdateAgentAccessInformation,
++    UpdateDatastoreAccessInformation,
+     UpdateInfrastructureAccessInformation,
+     UpdateMeasurementConfigDto,
+ } from './dto/update-measurement-config.dto';
+@@ -34,6 +35,7 @@ import {
+ @ApiExtraModels(MeasurementResponseEntityEnricher)
+ @ApiExtraModels(UpdateAgentAccessInformation)
+ @ApiExtraModels(UpdateInfrastructureAccessInformation)
++@ApiExtraModels(UpdateDatastoreAccessInformation)
+ @Controller('measurements')
+ @ApiTags('Measurements')
+ export class MeasurementConfigController {
+diff --git a/src/measurement-config/measurement-config.service.ts b/src/measurement-config/measurement-config.service.ts
+index 511932e..5277fd3 100644
+--- a/src/measurement-config/measurement-config.service.ts
++++ b/src/measurement-config/measurement-config.service.ts
+@@ -16,6 +16,7 @@ import { UpdateMeasurementConfigDto } from './dto/update-measurement-config.dto'
+ import { InfluxService } from '../influx/influx.service';
+ import {
+     AgentAccessInformation,
++    DatastoreAccessInformation,
+     InfrastructureAccessInformation,
+     MeasurementConfigEntity,
+     SupportedAgentHostingPlatforms,
+@@ -92,12 +93,19 @@ export class MeasurementConfigService {
+             subject,
+             measurementName,
+         });
+-        const dbModel = MeasurementConfigEntity.transformer(measurementConfigEntity, this.InfluxService);
++        // Provision datastore IAM (role + policy) before persisting so generated
++        // iamRoleArn / externalId / ingestion / dlq / region are stored.
++        // Orchestration: MeasurementConfigService.create -> setupAccessIfRequired -> DatastoreAccessInformation.setupAccess
+         await MeasurementConfigEntity.setupAccessIfRequired(measurementConfigEntity);
++        const dbModel = MeasurementConfigEntity.transformer(measurementConfigEntity, this.InfluxService);
+         await loadPoints(`${process.env.STAGE}-config`, 'meteringco', dbModel);
+         MeasurementConfigService.logger.log('Loaded information into DB');
+ 
+-        return { message: 'Created Measurement Configuration', measurementId };
++        return {
++            message: 'Created Measurement Configuration',
++            measurementId,
++            measurementConfiguration: measurementConfigEntity.measurementConfiguration,
++        };
+     }
+ 
+     async findAll({ businessID }: ReadAllMeasurementConfigs): Promise<ReadMeasurementConfigResponse> {
+@@ -170,9 +178,16 @@ export class MeasurementConfigService {
+             subject,
+             measurementName: updatedMeasurementName ? updatedMeasurementName : measurementName,
+         });
++        // Updating the customer account must refresh role trust while preserving
++        // the existing IAM role and external ID.
++        await MeasurementConfigEntity.updateAccessIfRequired(measurementConfigEntity);
+         const dbModel = MeasurementConfigEntity.transformer(measurementConfigEntity, this.InfluxService);
+         await loadPoints(`${process.env.STAGE}-config`, 'meteringco', dbModel);
+-        return { measurementId, message: 'Updated Measurement Configuration' };
++        return {
++            measurementId,
++            message: 'Updated Measurement Configuration',
++            measurementConfiguration: measurementConfigEntity.measurementConfiguration,
++        };
+     }
+ 
+     async remove({ measurementId, businessID }) {
+@@ -327,6 +342,11 @@ export class MeasurementConfigService {
+                     );
+                 }
+             }
++        } else if (
++            mode === measurementMode.datastoreBased &&
++            configuration instanceof DatastoreAccessInformation
++        ) {
++            return;
+         } else {
+             throw new BadRequestException(
+                 `Invalid Measurement Mode and Configurations combination. Mode: ${mode}, Configurations: ${configuration}`
+diff --git a/src/usage/usage.controller.ts b/src/usage/usage.controller.ts
+index 3031adb..5c88b2b 100644
+--- a/src/usage/usage.controller.ts
++++ b/src/usage/usage.controller.ts
+@@ -5,8 +5,49 @@ import { BasicResponseDTO } from '../basicResponseDTO';
+ import { CreateUsageDto } from './dto/create-usage.dto';
+ import { UsageService } from './usage.service';
+ import { Request } from 'express';
+-import { DbMeasuredusageDto } from './dto/dbmeasuredUsage.dto';
+ import { LogGaurd } from '../authz/logGaurd';
++import { StandardMeasurementEntity, toRelativeS3Key } from '../measurement-config/entities/standardMeasurement.entity';
++
++export const deriveBusinessIdFromS3Key = (s3Key: string): string => {
++    const relativeKey = toRelativeS3Key(s3Key);
++    const [businessID] = relativeKey.split('/');
++    return businessID;
++};
++
++const deliverS3UsageRecord = async (usageService: UsageService, createUsageDto, logger: Logger) => {
++    logger.log('Starting DB Usage Endpoint execution');
++    const { message, s3Key } = createUsageDto || {};
++    const relativeKey = toRelativeS3Key(s3Key);
++    const businessID = deriveBusinessIdFromS3Key(s3Key);
++
++    try {
++        if (!s3Key && message === undefined) {
++            throw new Error('s3Key is required');
++        }
++        const parsed = typeof message === 'string' ? JSON.parse(message) : message;
++        if (!parsed || typeof parsed !== 'object') {
++            throw new Error('message must be a standard usage JSON record');
++        }
++        // dbUsage passes the parsed record to UsageService.create with the business ID derived from s3Key.
++        const input = { ...parsed, businessID };
++        return await usageService.create(input);
++    } catch (err) {
++        logger.error('Failed to process S3 usage record', err);
++        await StandardMeasurementEntity.publishFailureToDLQ({
++            sourceKey: s3Key || relativeKey,
++            s3Key,
++            input: createUsageDto,
++            message,
++            metadata: {
++                businessID,
++                error: err?.message || String(err),
++                stack: err?.stack,
++            },
++            error: err,
++        });
++        return { message: 'Failed to process usage record, written to DLQ' };
++    }
++};
+ 
+ @ApiTags('Usage')
+ @Controller('usage')
+@@ -40,24 +81,22 @@ export class UsageController {
+         const { businessID } = request.user;
+         return this.usageService.create({ ...createUsageDto, businessID });
+     }
++}
++
++/**
++ * Internal S3 connector delivery endpoint.
++ * Posts `{ message, s3Key }` where `message` is one standard usage JSON record
++ * and the first `s3Key` segment is the business ID.
++ */
++@ApiTags('Usage')
++@Controller('usage')
++export class PrivateAPIUsageController {
++    private static readonly logger = new Logger(PrivateAPIUsageController.name);
++    constructor(private readonly usageService: UsageService) {}
+ 
+     @UseGuards(LogGaurd, AuthGuard('jwt'))
+     @Post('db')
+-    dbUsage(@Body() createUsageDto) {
+-        // Custom validator for DB usage, on failure push to DLQ for manual processing
+-
+-        UsageController.logger.log('Starting DB Usage Endpoint execution');
+-
+-        const { message, s3Key } = createUsageDto;
+-        // TODO: check if the passed in BusinessID is an authorized producer, if not throw message away
+-        if (s3Key) {
+-            const [businessID] = s3Key.split('/');
+-            const parsed = JSON.parse(message);
+-            const input = { ...parsed, businessID };
+-            return this.usageService.create(input);
+-        } else {
+-            // TODO push to DLQ
+-            return '';
+-        }
++    async dbUsage(@Body() createUsageDto) {
++        return deliverS3UsageRecord(this.usageService, createUsageDto, PrivateAPIUsageController.logger);
+     }
+ }
+diff --git a/src/usage/usage.module.ts b/src/usage/usage.module.ts
+index 92d656c..f2f55f3 100644
+--- a/src/usage/usage.module.ts
++++ b/src/usage/usage.module.ts
+@@ -1,6 +1,6 @@
+ import { Module, forwardRef } from '@nestjs/common';
+ import { UsageService } from './usage.service';
+-import { UsageController } from './usage.controller';
++import { PrivateAPIUsageController, UsageController } from './usage.controller';
+ import { InfluxModule } from '../influx/influx.module';
+ import { MeasurementConfigModule } from '../measurement-config/measurement-config.module';
+ import { PublicAPIDimensionsModule } from '../dimensions/dimensions.module';
+@@ -8,7 +8,7 @@ import { PublicAPIServicesModule } from '../services/services.module';
+ import { PublicAPIOfferingModule } from '../offering/offering.module';
+ 
+ @Module({
+-    controllers: [UsageController],
++    controllers: [UsageController, PrivateAPIUsageController],
+     providers: [UsageService],
+     exports: [UsageService],
+     imports: [

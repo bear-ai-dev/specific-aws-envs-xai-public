@@ -45,24 +45,20 @@ def main() -> None:
         "cohort": CONFIG["job_name"],
         "evidence_roots": [
             "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
-            "sample-run/review-bundle/01-entitlement-overage-lines",
-            "sample-run/review-bundle/02-multi-region-sweep",
-            "sample-run/review-bundle/03-iam-role-validation",
-            "sample-run/review-bundle/04-tax-jurisdiction",
+            *[
+                f"sample-run/review-bundle/{task}"
+                for task in RECORDED_TASK_BY_PUBLIC
+            ],
         ],
         "evidence_controls": {
             "01-entitlement-overage-lines": (
                 "sample-run/raw/xai-public-controls-20260819"
             ),
-            "02-multi-region-sweep": (
-                "sample-run/review-bundle/02-multi-region-sweep/controls"
-            ),
-            "03-iam-role-validation": (
-                "sample-run/review-bundle/03-iam-role-validation/controls"
-            ),
-            "04-tax-jurisdiction": (
-                "sample-run/review-bundle/04-tax-jurisdiction/controls"
-            ),
+            **{
+                task: f"sample-run/review-bundle/{task}/controls"
+                for task in RECORDED_TASK_BY_PUBLIC
+                if task != "01-entitlement-overage-lines"
+            },
         },
         "recorded_task_ids": RECORDED_TASK_BY_PUBLIC,
         "publication_normalization": (
@@ -78,6 +74,16 @@ def main() -> None:
                     "environment": stratum["environment"],
                     "trial_numbers": list(stratum["trial_numbers"]),
                     "task_checksum": stratum["task_checksum"],
+                    **(
+                        {"model_label": stratum["model_label"]}
+                        if "model_label" in stratum
+                        else {}
+                    ),
+                    **(
+                        {"agent_scaffold": stratum["agent_scaffold"]}
+                        if "agent_scaffold" in stratum
+                        else {}
+                    ),
                 }
                 for stratum in strata
             ]
@@ -93,21 +99,66 @@ def main() -> None:
         "mini_swe_agent_version": "2.4.5",
         "models": {
             "grok-4.6": "bedrock/converse/us.xai.grok-4.6",
-            "opus-5": "bedrock/us.anthropic.claude-opus-5",
+            "opus-5-tasks-01-07": "bedrock/us.anthropic.claude-opus-5",
+            "opus-5-tasks-08-11": "bedrock/global.anthropic.claude-opus-5",
         },
-        "agent": "mini-swe-agent",
+        "agent": "mixed; see recorded_runtime_strata",
+        "agent_scaffolds": ["mini-swe-agent/2.4.5", "opencode/1.18.13"],
         "reasoning_effort": "high",
         "environments": ["daytona", "aws-fargate"],
         "pooled_result_boundary": (
             "Task 4 reports pooled descriptive eight-attempt counts across a "
             "four-attempt Daytona stratum and a four-attempt AWS Fargate "
             "stratum. It is not represented as one frozen runtime "
-            "configuration."
+            "configuration. Tasks 8 to 11 report descriptive pooled Opus solve "
+            "counts across four opencode and four mini-SWE-agent attempts, but "
+            "their pass@k estimates remain separated by scaffold."
         ),
         "task_labels": task_labels,
         "public_task_sha256": tasks,
+        "build_equivalence": {
+            "scope": [
+                "05-network-egress-metering",
+                "06-api-token-metering",
+                "07-api-keys-and-environments",
+            ],
+            "claim": (
+                "Each of these tasks was built as two separate Harbor jobs, "
+                "one per model arm, so the recorded task checksums differ "
+                "between arms. The task package published in this repo is "
+                "byte-identical to the package the Opus arm ran against in "
+                "bear-ai-dev/specific-aws-envs-meta-public at commit d29ba9f, "
+                "so the arms are comparable."
+            ),
+            "method": (
+                "directory_sha256 over the published tasks/<task> tree, "
+                "excluding __pycache__ and .DS_Store"
+            ),
+            "public_task_sha256": {
+                task: tasks[task]
+                for task in (
+                    "05-network-egress-metering",
+                    "06-api-token-metering",
+                    "07-api-keys-and-environments",
+                )
+            },
+            "verified_against": (
+                "https://github.com/bear-ai-dev/"
+                "specific-aws-envs-meta-public/tree/d29ba9f"
+            ),
+        },
         "cohort_config_sha256": hashlib.sha256(
             (ROOT / "harness" / "cohort.json").read_bytes()
+        ).hexdigest(),
+        "task_08_11_reproduction_config": (
+            "harness/cohort-tasks-08-11-global-opus.json"
+        ),
+        "task_08_11_reproduction_config_sha256": hashlib.sha256(
+            (
+                ROOT
+                / "harness"
+                / "cohort-tasks-08-11-global-opus.json"
+            ).read_bytes()
         ).hexdigest(),
         "controls_config_sha256": hashlib.sha256(
             (ROOT / "harness" / "controls.json").read_bytes()
@@ -135,7 +186,7 @@ def main() -> None:
     }
     destination = ROOT / "sample-run" / "manifests" / "frozen-cohort.json"
     destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+    destination.write_text(json.dumps(payload, indent=1, sort_keys=True) + "\n")
     print(destination.relative_to(ROOT))
 
 

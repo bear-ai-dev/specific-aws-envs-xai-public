@@ -2,7 +2,9 @@
 
 Tasks 1, 2 and 3 each use one Daytona checksum stratum shared by both models.
 Task 4 was completed in two separately frozen four-attempt strata, one on
-Daytona and one on AWS Fargate.
+Daytona and one on AWS Fargate. Tasks 8 to 11 share one task checksum but the
+Opus arm spans two different agent scaffolds, so those four-attempt strata must
+remain separate for pass@k reporting.
 
 Tasks 5 to 7 were built once per model arm, so each arm carries its own Harbor
 task checksum and its own stratum. The published task packages for those three
@@ -108,15 +110,118 @@ RECORDED_RUNTIME_STRATA = {
             "task_checksum": "3f38fb2bc343a749016fa1425494c139f4baa0c44e84bb84c618d32ec94bb78e",
         },
     ),
+    "08-dimension-pricing-tiers": (
+        {
+            "name": "daytona-grok-mini-swe-01-08",
+            "environment": "daytona",
+            "model_label": "Grok 4.6",
+            "agent_scaffold": "mini-swe-agent/2.4.5",
+            "trial_numbers": tuple(range(1, 9)),
+            "task_checksum": "32397db1d2039a92abc0594de74fb5fef6a325b383208aa7f9a8327ad3dac307",
+        },
+        {
+            "name": "daytona-opus-opencode-01-04",
+            "environment": "daytona",
+            "model_label": "Opus 5",
+            "agent_scaffold": "opencode/1.18.13",
+            "trial_numbers": tuple(range(1, 5)),
+            "task_checksum": "32397db1d2039a92abc0594de74fb5fef6a325b383208aa7f9a8327ad3dac307",
+        },
+        {
+            "name": "daytona-opus-mini-swe-05-08",
+            "environment": "daytona",
+            "model_label": "Opus 5",
+            "agent_scaffold": "mini-swe-agent/2.4.5",
+            "trial_numbers": tuple(range(5, 9)),
+            "task_checksum": "32397db1d2039a92abc0594de74fb5fef6a325b383208aa7f9a8327ad3dac307",
+        },
+    ),
+    "09-s3-datastore-measurement": (
+        {
+            "name": "daytona-grok-mini-swe-01-08",
+            "environment": "daytona",
+            "model_label": "Grok 4.6",
+            "agent_scaffold": "mini-swe-agent/2.4.5",
+            "trial_numbers": tuple(range(1, 9)),
+            "task_checksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621",
+        },
+        {
+            "name": "daytona-opus-opencode-01-04",
+            "environment": "daytona",
+            "model_label": "Opus 5",
+            "agent_scaffold": "opencode/1.18.13",
+            "trial_numbers": tuple(range(1, 5)),
+            "task_checksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621",
+        },
+        {
+            "name": "daytona-opus-mini-swe-05-08",
+            "environment": "daytona",
+            "model_label": "Opus 5",
+            "agent_scaffold": "mini-swe-agent/2.4.5",
+            "trial_numbers": tuple(range(5, 9)),
+            "task_checksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621",
+        },
+    ),
+    "10-customer-identity-migration": (
+        {
+            "name": "daytona-grok-mini-swe-01-08",
+            "environment": "daytona",
+            "model_label": "Grok 4.6",
+            "agent_scaffold": "mini-swe-agent/2.4.5",
+            "trial_numbers": tuple(range(1, 9)),
+            "task_checksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae",
+        },
+        {
+            "name": "daytona-opus-opencode-01-04",
+            "environment": "daytona",
+            "model_label": "Opus 5",
+            "agent_scaffold": "opencode/1.18.13",
+            "trial_numbers": tuple(range(1, 5)),
+            "task_checksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae",
+        },
+        {
+            "name": "daytona-opus-mini-swe-05-08",
+            "environment": "daytona",
+            "model_label": "Opus 5",
+            "agent_scaffold": "mini-swe-agent/2.4.5",
+            "trial_numbers": tuple(range(5, 9)),
+            "task_checksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae",
+        },
+    ),
+    "11-customer-billing-schedule-migration": (
+        {
+            "name": "daytona-grok-mini-swe-01-08",
+            "environment": "daytona",
+            "model_label": "Grok 4.6",
+            "agent_scaffold": "mini-swe-agent/2.4.5",
+            "trial_numbers": tuple(range(1, 9)),
+            "task_checksum": "2ab40b84938458d3826bee37968342210ef9129a14378ce2a05eae17cdf2312a",
+        },
+        {
+            "name": "daytona-opus-opencode-01-04",
+            "environment": "daytona",
+            "model_label": "Opus 5",
+            "agent_scaffold": "opencode/1.18.13",
+            "trial_numbers": tuple(range(1, 5)),
+            "task_checksum": "2ab40b84938458d3826bee37968342210ef9129a14378ce2a05eae17cdf2312a",
+        },
+        {
+            "name": "daytona-opus-mini-swe-05-08",
+            "environment": "daytona",
+            "model_label": "Opus 5",
+            "agent_scaffold": "mini-swe-agent/2.4.5",
+            "trial_numbers": tuple(range(5, 9)),
+            "task_checksum": "2ab40b84938458d3826bee37968342210ef9129a14378ce2a05eae17cdf2312a",
+        },
+    ),
 }
 
 
 def stratum_for(task: str, trial_number: int, model_label: str | None = None) -> dict:
     """Return the declared runtime stratum for one packaged trial.
 
-    Tasks 1 to 4 declare one stratum per trial range and both models share it.
-    Tasks 5 to 7 were built per model arm, so their strata also carry a
-    model_label and the caller must say which arm it is asking about.
+    Tasks 1 to 4 declare strata by trial range. Tasks 5 to 11 also distinguish
+    model arms; Tasks 8 to 11 further distinguish the two Opus agent scaffolds.
     """
     for stratum in RECORDED_RUNTIME_STRATA[task]:
         if trial_number not in stratum["trial_numbers"]:

@@ -1,0 +1,22 @@
+{
+  "id": "8ccc9d0e-fb6e-4008-92d3-86563366a85a",
+  "taskName": "customer-identity-migration",
+  "trialName": "customer-identity-migration__xxwn98X",
+  "taskChecksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae",
+  "agent": {
+    "name": "mini-swe-agent",
+    "version": "2.4.5",
+    "model_info": {
+      "name": "converse/us.xai.grok-4.6",
+      "provider": "bedrock"
+    }
+  },
+  "verifierResult": {
+    "rewards": {
+      "reward": 1.0
+    }
+  },
+  "exceptionInfo": null,
+  "startedAt": "2026-08-27T05:18:43.545Z",
+  "finishedAt": "2026-08-27T16:44:00.699402Z"
+}

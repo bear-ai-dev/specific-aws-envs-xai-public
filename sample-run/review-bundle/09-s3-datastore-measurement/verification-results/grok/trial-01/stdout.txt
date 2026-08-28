@@ -1,0 +1,97 @@
+FAIL src/measurement-config/datastoreMeasurement.gold.spec.ts
+  ● S3 datastore measurement configuration › provisions a scoped IAM role and returns ingestion and DLQ locations
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: ObjectContaining {"dlq": "s3://usage-dlq/business-1", "iamRoleArn": "arn:aws:iam::meteringco:role/datastore", "ingestion": "s3://usage-bucket/business-1", "region": "us-east-1"}
+    Received: undefined
+
+      195 |     it('provisions a scoped IAM role and returns ingestion and DLQ locations', async () => {
+      196 |         const result = await DatastoreAccessInformation.setupAccess(accessEntity('123456789012'));
+    > 197 |         expect(result).toEqual(
+          |                        ^
+      198 |             expect.objectContaining({
+      199 |                 iamRoleArn: 'arn:aws:iam::meteringco:role/datastore',
+      200 |                 ingestion: 's3://usage-bucket/business-1',
+
+      at Object.<anonymous> (measurement-config/datastoreMeasurement.gold.spec.ts:197:24)
+
+  ● S3 datastore measurement configuration › updates account trust while preserving the existing role and external ID
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: ObjectContaining {"externalId": "external-1", "iamRoleArn": "arn:role"}
+    Received: undefined
+
+      233 |             accessEntity('999999999999', { iamRoleArn: 'arn:role', externalId: 'external-1' }),
+      234 |         );
+    > 235 |         expect(result).toEqual(expect.objectContaining({ iamRoleArn: 'arn:role', externalId: 'external-1' }));
+          |                        ^
+      236 |         const policy = JSON.parse(mockUpdateAssumeRolePolicy.mock.calls[0][0].PolicyDocument);
+      237 |         expect(policy.Statement[0].Principal.AWS).toBe('arn:aws:iam::999999999999:root');
+      238 |         expect(policy.Statement[0].Condition.StringEquals['sts:ExternalId']).toBe('external-1');
+
+      at Object.<anonymous> (measurement-config/datastoreMeasurement.gold.spec.ts:235:24)
+
+  ● S3 datastore measurement configuration › creates, persists, and returns provisioned datastore configuration
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 3
+    + Received  + 9
+
+    - ObjectContaining {
+    -   "dlq": "s3://usage-dlq/business-1",
+    + DatastoreAccessInformation {
+    +   "accountId": "123456789012",
+    +   "businessID": "business-1",
+    +   "dlq": "s3://usage-dlq/business-1/",
+    +   "externalId": "4d18e171-d254-4fd0-bd7f-a909409b86f9",
+        "iamRoleArn": "arn:aws:iam::meteringco:role/datastore",
+    -   "ingestion": "s3://usage-bucket/business-1",
+    +   "ingestion": "s3://usage-bucket/business-1/",
+    +   "measurementId": "b0f399ca-6998-4caa-bb24-cf28b30cd729",
+    +   "platform": "s3",
+    +   "region": "us-east-1",
+      }
+
+      253 |             }),
+      254 |         );
+    > 255 |         expect(returnedConfiguration).toEqual(
+          |                                       ^
+      256 |             expect.objectContaining({
+      257 |                 iamRoleArn: 'arn:aws:iam::meteringco:role/datastore',
+      258 |                 ingestion: 's3://usage-bucket/business-1',
+
+      at Object.<anonymous> (measurement-config/datastoreMeasurement.gold.spec.ts:255:39)
+
+  ● S3 connector usage delivery › keeps the generic DLQ writer usable for an already-relative source key
+
+    expect(received).toContain(expected) // indexOf
+
+    Expected substring: "bad"
+    Received string:    "{\"failedInput\":\"\",\"error\":{\"message\":\"invalid record\"},\"processingMetadata\":{\"sourceKey\":\"business-1/customer/file.json\",\"processedAt\":\"2026-08-27T06:03:35.011Z\"}}"
+
+      327 |         expect(command.input.Key).toBe('business-1/customer/file.json.message.text');
+      328 |         const serialized = JSON.stringify(JSON.parse(command.input.Body));
+    > 329 |         expect(serialized).toContain('bad');
+          |                            ^
+      330 |         expect(serialized).toMatch(/invalid record|discarded|processedAt|processor/);
+      331 |     });
+      332 | });
+
+      at Object.<anonymous> (measurement-config/datastoreMeasurement.gold.spec.ts:329:28)
+
+[32m[Nest] 1616  - [39m08/27/2026, 6:03:34 AM [32m    LOG[39m [38;5;3m[MeasurementConfigService] [39m[32mCreating Measurement Config with the following inputs[39m
+[32m[Nest] 1616  - [39m08/27/2026, 6:03:35 AM [32m    LOG[39m [38;5;3m[MeasurementConfigService] [39m[32m[object Object][39m
+[32m[Nest] 1616  - [39m08/27/2026, 6:03:35 AM [32m    LOG[39m [38;5;3m[MeasurementConfigService] [39m[32mLoaded information into DB[39m
+[32m[Nest] 1616  - [39m08/27/2026, 6:03:35 AM [32m    LOG[39m [38;5;3m[PrivateAPIUsageController] [39m[32mStarting DB Usage Endpoint execution[39m
+[32m[Nest] 1616  - [39m08/27/2026, 6:03:35 AM [32m    LOG[39m [38;5;3m[PrivateAPIUsageController] [39m[32mStarting DB Usage Endpoint execution[39m
+PASS src/appControllerHistorical.gold.spec.ts
+
+Test Suites: 1 failed, 1 passed, 2 total
+Tests:       4 failed, 6 passed, 10 total
+Snapshots:   0 total
+Time:        1.405 s
+Test results written to: ../tmp/jest-unit.json
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?

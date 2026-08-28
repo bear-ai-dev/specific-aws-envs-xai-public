@@ -1,14 +1,14 @@
 {
  "cohort_directory": "sample-run/raw/grok-4.6-and-opus-5-eight-rollouts-20260819",
- "scored_valid_trials": 112,
+ "scored_valid_trials": 176,
  "completed_trials_excluded_from_denominator": 0,
  "controls": {
   "oracle": {
-   "count": 7,
+   "count": 11,
    "all_reward_one": true
   },
   "nop": {
-   "count": 7,
+   "count": 11,
    "all_reward_zero": true
   }
  },
@@ -21,7 +21,11 @@
   "sample-run/review-bundle/04-tax-jurisdiction",
   "sample-run/review-bundle/05-network-egress-metering",
   "sample-run/review-bundle/06-api-token-metering",
-  "sample-run/review-bundle/07-api-keys-and-environments"
+  "sample-run/review-bundle/07-api-keys-and-environments",
+  "sample-run/review-bundle/08-dimension-pricing-tiers",
+  "sample-run/review-bundle/09-s3-datastore-measurement",
+  "sample-run/review-bundle/10-customer-identity-migration",
+  "sample-run/review-bundle/11-customer-billing-schedule-migration"
  ],
  "runtime_strata": {
   "01-entitlement-overage-lines": [
@@ -98,9 +102,299 @@
     ],
     "task_checksum": "bea753509f8689709ac2827ebc01c71b0cad2119ac99d51a87661c180ace6785"
    }
+  ],
+  "05-network-egress-metering": [
+   {
+    "name": "daytona-grok-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "edbaa55fe7240b126b3b47a1e33b25df9475e97f89031972eeedb2076bf7f498",
+    "model_label": "Grok 4.6"
+   },
+   {
+    "name": "daytona-opus-01-07",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "task_checksum": "6427d0d789ad611f6ebe201045f26ed7c62da6e71722d8792558a0fdf37c2b56",
+    "model_label": "Opus 5"
+   },
+   {
+    "name": "daytona-opus-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     8
+    ],
+    "task_checksum": "3f7e8cc2f7d5910314cab6ee5598e5333a6599880f896994887590c69373231a",
+    "model_label": "Opus 5"
+   }
+  ],
+  "06-api-token-metering": [
+   {
+    "name": "daytona-grok-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "4752c91a46310743198600c4182aafad05b54023c6cfec7c75e6497e1f62c96e",
+    "model_label": "Grok 4.6"
+   },
+   {
+    "name": "daytona-opus-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "28a06245e0c745b4801d176437331dafcfbe631d51473b67d1050e58b355d134",
+    "model_label": "Opus 5"
+   }
+  ],
+  "07-api-keys-and-environments": [
+   {
+    "name": "daytona-grok-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "3f6269b97803f429411916a6f0dc1325aecfd69f3a1e995fbd20d5c7bbb17d16",
+    "model_label": "Grok 4.6"
+   },
+   {
+    "name": "daytona-opus-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "3f38fb2bc343a749016fa1425494c139f4baa0c44e84bb84c618d32ec94bb78e",
+    "model_label": "Opus 5"
+   }
+  ],
+  "08-dimension-pricing-tiers": [
+   {
+    "name": "daytona-grok-mini-swe-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "32397db1d2039a92abc0594de74fb5fef6a325b383208aa7f9a8327ad3dac307",
+    "model_label": "Grok 4.6",
+    "agent_scaffold": "mini-swe-agent/2.4.5"
+   },
+   {
+    "name": "daytona-opus-opencode-01-04",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "task_checksum": "32397db1d2039a92abc0594de74fb5fef6a325b383208aa7f9a8327ad3dac307",
+    "model_label": "Opus 5",
+    "agent_scaffold": "opencode/1.18.13"
+   },
+   {
+    "name": "daytona-opus-mini-swe-05-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "32397db1d2039a92abc0594de74fb5fef6a325b383208aa7f9a8327ad3dac307",
+    "model_label": "Opus 5",
+    "agent_scaffold": "mini-swe-agent/2.4.5"
+   }
+  ],
+  "09-s3-datastore-measurement": [
+   {
+    "name": "daytona-grok-mini-swe-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621",
+    "model_label": "Grok 4.6",
+    "agent_scaffold": "mini-swe-agent/2.4.5"
+   },
+   {
+    "name": "daytona-opus-opencode-01-04",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "task_checksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621",
+    "model_label": "Opus 5",
+    "agent_scaffold": "opencode/1.18.13"
+   },
+   {
+    "name": "daytona-opus-mini-swe-05-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "8d0566291f73cfedcb3ad86c77667c5268718c6a5430c2f4a1165e5aff702621",
+    "model_label": "Opus 5",
+    "agent_scaffold": "mini-swe-agent/2.4.5"
+   }
+  ],
+  "10-customer-identity-migration": [
+   {
+    "name": "daytona-grok-mini-swe-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae",
+    "model_label": "Grok 4.6",
+    "agent_scaffold": "mini-swe-agent/2.4.5"
+   },
+   {
+    "name": "daytona-opus-opencode-01-04",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "task_checksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae",
+    "model_label": "Opus 5",
+    "agent_scaffold": "opencode/1.18.13"
+   },
+   {
+    "name": "daytona-opus-mini-swe-05-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "7b0209500913328127005725f2c53053b5e69a1de920f0ace3cb4f4f60a677ae",
+    "model_label": "Opus 5",
+    "agent_scaffold": "mini-swe-agent/2.4.5"
+   }
+  ],
+  "11-customer-billing-schedule-migration": [
+   {
+    "name": "daytona-grok-mini-swe-01-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "2ab40b84938458d3826bee37968342210ef9129a14378ce2a05eae17cdf2312a",
+    "model_label": "Grok 4.6",
+    "agent_scaffold": "mini-swe-agent/2.4.5"
+   },
+   {
+    "name": "daytona-opus-opencode-01-04",
+    "environment": "daytona",
+    "trial_numbers": [
+     1,
+     2,
+     3,
+     4
+    ],
+    "task_checksum": "2ab40b84938458d3826bee37968342210ef9129a14378ce2a05eae17cdf2312a",
+    "model_label": "Opus 5",
+    "agent_scaffold": "opencode/1.18.13"
+   },
+   {
+    "name": "daytona-opus-mini-swe-05-08",
+    "environment": "daytona",
+    "trial_numbers": [
+     5,
+     6,
+     7,
+     8
+    ],
+    "task_checksum": "2ab40b84938458d3826bee37968342210ef9129a14378ce2a05eae17cdf2312a",
+    "model_label": "Opus 5",
+    "agent_scaffold": "mini-swe-agent/2.4.5"
+   }
   ]
  },
- "pooled_result_boundary": "Task 4 pools descriptive eight-attempt counts across one Daytona stratum and one AWS Fargate stratum. Model comparisons remain matched within each four-attempt stratum.",
+ "pooled_result_boundary": "Task 4 pools descriptive eight-attempt counts across one Daytona stratum and one AWS Fargate stratum. Model comparisons remain matched within each four-attempt stratum. Tasks 8 to 11 retain descriptive pooled Opus solve counts, but pass@k is reported separately for their four-attempt opencode and mini-SWE-agent strata.",
  "model_arms": {
   "01-entitlement-overage-lines": [
    "Grok 4.6",
@@ -129,7 +423,24 @@
   "07-api-keys-and-environments": [
    "Grok 4.6",
    "Opus 5"
+  ],
+  "08-dimension-pricing-tiers": [
+   "Grok 4.6",
+   "Opus 5"
+  ],
+  "09-s3-datastore-measurement": [
+   "Grok 4.6",
+   "Opus 5"
+  ],
+  "10-customer-identity-migration": [
+   "Grok 4.6",
+   "Opus 5"
+  ],
+  "11-customer-billing-schedule-migration": [
+   "Grok 4.6",
+   "Opus 5"
   ]
  },
- "build_provenance_note": "Tasks 5 to 7 were built once per model arm, so each arm carries its own recorded Harbor task checksum and its own stratum. The published task packages are byte-identical to the packages the Opus arm ran against; see build_equivalence in sample-run/manifests/frozen-cohort.json."
+ "build_provenance_note": "Tasks 5 to 7 were built once per model arm, so each arm carries its own recorded Harbor task checksum and its own stratum. The published task packages are byte-identical to the packages the Opus arm ran against; see build_equivalence in sample-run/manifests/frozen-cohort.json.",
+ "agent_scaffold_note": "Tasks 8 to 11 ran Opus 5 attempts 01 to 04 under opencode 1.18.13 and attempts 05 to 08 under mini-SWE-agent 2.4.5; their trajectories carry the schema each scaffold emits. The Grok 4.6 arm is mini-SWE-agent 2.4.5 throughout."
 }

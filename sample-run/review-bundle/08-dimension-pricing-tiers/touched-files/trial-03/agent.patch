@@ -1,0 +1,997 @@
+diff --git a/src/dimensions/dimensions.controller.ts b/src/dimensions/dimensions.controller.ts
+index dde67e6..ce2bc4d 100644
+--- a/src/dimensions/dimensions.controller.ts
++++ b/src/dimensions/dimensions.controller.ts
+@@ -20,6 +20,7 @@ import {
+     DatabasedConsumptionUnit,
+     TimeBasedConsumptionUnit,
+ } from './dto/create-dimension.dto.js';
++import { DimensionTierDto } from './dto/dimension-tier.dto.js';
+ import { Request } from 'express';
+ import {
+     ApiBadRequestResponse,
+@@ -40,6 +41,7 @@ import { BasicResponseDTO } from '../basicResponseDTO.js';
+ @ApiExtraModels(CountBasedConsumptionUnit)
+ @ApiExtraModels(TimeBasedConsumptionUnit)
+ @ApiExtraModels(DatabasedConsumptionUnit)
++@ApiExtraModels(DimensionTierDto)
+ @ApiBearerAuth('bearer')
+ @Controller('dimensions')
+ @ApiTags('Dimensions')
+diff --git a/src/dimensions/dimensions.service.spec.ts b/src/dimensions/dimensions.service.spec.ts
+index e40a2e3..76bc622 100644
+--- a/src/dimensions/dimensions.service.spec.ts
++++ b/src/dimensions/dimensions.service.spec.ts
+@@ -18,4 +18,31 @@ describe('DimensionsService', () => {
+     it('should be defined', () => {
+         expect(service).toBeDefined();
+     });
++
++    it('persists volume-based tiers and can clear them with tiers: null', () => {
++        const dto = {
++            dimensionName: 'API Call',
++            usageIncrement: '10',
++            rounding: 'ceiling',
++            consumptionUnit: { type: 'count', unit: 'count-based' },
++            businessID: 'biz',
++            tiers: [
++                { tierPosition: '1', upperBound: '1000', tierName: 'Free' },
++                { tierPosition: '2', upperBound: 'inf', unitPrice: '0.05', extra: 'ignore-me' },
++            ],
++        } as any;
++        const created = service.transformDtoToEntityInput(dto, 'dim-1') as any;
++        expect(created.numerical.priceSegments).toEqual([
++            { tierPosition: '1', upperBound: '1000', tierName: 'Free' },
++            { tierPosition: '2', upperBound: 'inf', unitPrice: '0.05' },
++        ]);
++
++        const cleared = service.transformDtoToEntityInput(
++            { ...dto, tiers: null, consumptionPrice: '1.25' },
++            'dim-1',
++        ) as any;
++        expect(cleared.numerical.priceSegments).toEqual([
++            { lowerLimit: '0', upperLimit: 'inf', price: '1.25' },
++        ]);
++    });
+ });
+diff --git a/src/dimensions/dimensions.service.ts b/src/dimensions/dimensions.service.ts
+index 0323af7..922ea44 100644
+--- a/src/dimensions/dimensions.service.ts
++++ b/src/dimensions/dimensions.service.ts
+@@ -38,6 +38,7 @@ import { AuditService } from '../audit/audit.service.js';
+ import { AuditScope } from '../audit/entities/audit.interface.js';
+ import { measurementMode } from '../measurement-config/dto/create-measurement-config.dto.js';
+ import { joinMetadataObjectsAndRemoveNulls } from '../utils/shared/utils.js';
++import { validateDimensionTiers } from './dto/tierValidator.js';
+ 
+ @Injectable()
+ export class DimensionsService {
+@@ -49,6 +50,7 @@ export class DimensionsService {
+         @Inject(forwardRef(() => SchedulerService)) readonly schedulerService: SchedulerService,
+     ) {}
+     async create(createDimensionDto: CreateDimensionDto, subject): Promise<CreateDimensionResponse> {
++        this.assertValidTiers(createDimensionDto);
+         const dimensionId = v4();
+         // create the Points and commit it
+         const { loadPoints } = this.InfluxService;
+@@ -310,6 +312,26 @@ export class DimensionsService {
+         const {
+             data: [{ ...rest }],
+         } = await this.findOne({ dimensionId, businessID });
++        const updatedTiers = (updatedFields as { tiers?: unknown[] | null }).tiers;
++        if (updatedTiers === null) {
++            delete (rest as { tiers?: unknown }).tiers;
++        }
++        if (Array.isArray(updatedTiers) && updatedTiers.length > 0) {
++            delete (rest as { consumptionPrice?: string }).consumptionPrice;
++            delete (updatedFields as { consumptionPrice?: string }).consumptionPrice;
++        }
++        if (updatedFields?.consumptionPrice !== undefined && updatedFields?.consumptionPrice !== null) {
++            delete (rest as { tiers?: unknown }).tiers;
++            delete (updatedFields as { tiers?: unknown }).tiers;
++        }
++        const mergedForValidation = {
++            ...rest,
++            ...updatedFields,
++        } as CreateDimensionDto & { tiers?: unknown[] | null };
++        if (updatedTiers === null) {
++            mergedForValidation.tiers = null;
++        }
++        this.assertValidTiers(mergedForValidation);
+         if (updatedFields?.usageEntitlement === null || updatedFields?.overageAllowed === null) {
+             if (
+                 updatedFields?.usageEntitlement === null &&
+@@ -432,6 +454,21 @@ export class DimensionsService {
+ 
+         return mostRecentElementInLedger.map(({ dimensionId }) => dimensionId);
+     }
++    private assertValidTiers(
++        dto: Partial<CreateDimensionDto> & { tiers?: unknown[] | null },
++    ): void {
++        const error = validateDimensionTiers({
++            tiers: dto?.tiers as never,
++            usageIncrement: dto?.usageIncrement,
++            usageEntitlement: dto?.usageEntitlement,
++            consumptionPrice: dto?.consumptionPrice,
++            overageAllowed: dto?.overageAllowed,
++        });
++        if (error) {
++            throw new BadRequestException(error);
++        }
++    }
++
+     public transformDtoToEntityInput(
+         createDimensionDto: ReadDimensionResponseData | CreateDimensionDto,
+         dimensionId,
+@@ -448,7 +485,8 @@ export class DimensionsService {
+             aggregationInterval: argumentAggregationInternal,
+             aggregationMethod: argumentAggregationMethod,
+             metadata,
+-        } = createDimensionDto;
++            tiers,
++        } = createDimensionDto as typeof createDimensionDto & { tiers?: unknown[] | null };
+         let measurementId;
+ 
+         //eslint-disable-next-line
+@@ -477,13 +515,28 @@ export class DimensionsService {
+                     ? argumentAggregationInternal
+                     : aggregationInterval['Hour'],
+                 aggregationMethod: argumentAggregationMethod ? argumentAggregationMethod : aggregationMethod['max'],
+-                priceSegments: [
+-                    {
+-                        lowerLimit: '0',
+-                        upperLimit: 'inf',
+-                        price: consumptionPrice,
+-                    },
+-                ],
++                priceSegments:
++                    Array.isArray(tiers) && tiers.length > 0
++                        ? (tiers as Array<Record<string, string | undefined>>).map((tier) => {
++                              const persisted: Record<string, string> = {
++                                  tierPosition: tier.tierPosition,
++                                  upperBound: tier.upperBound,
++                              };
++                              if (tier.tierName !== undefined && tier.tierName !== null) {
++                                  persisted.tierName = tier.tierName;
++                              }
++                              if (tier.unitPrice !== undefined && tier.unitPrice !== null && tier.unitPrice !== '') {
++                                  persisted.unitPrice = tier.unitPrice;
++                              }
++                              return persisted;
++                          })
++                        : [
++                              {
++                                  lowerLimit: '0',
++                                  upperLimit: 'inf',
++                                  price: consumptionPrice,
++                              },
++                          ],
+                 sampleType: SampleType['gauge'],
+                 usageIncrement,
+                 rounding,
+diff --git a/src/dimensions/dto/create-dimension.dto.ts b/src/dimensions/dto/create-dimension.dto.ts
+index 9e8695d..23de96d 100644
+--- a/src/dimensions/dto/create-dimension.dto.ts
++++ b/src/dimensions/dto/create-dimension.dto.ts
+@@ -2,6 +2,7 @@ import { BadRequestException } from '@nestjs/common';
+ import { Type } from 'class-transformer';
+ import { ApiHideProperty, ApiProperty, getSchemaPath } from '@nestjs/swagger';
+ import {
++    IsArray,
+     IsDefined,
+     IsEnum,
+     IsInt,
+@@ -11,6 +12,7 @@ import {
+     IsObject,
+     IsOptional,
+     IsString,
++    ValidateIf,
+     ValidateNested,
+     ValidationArguments,
+ } from 'class-validator';
+@@ -19,6 +21,8 @@ import { DimensionEntity } from '../entities/dimensions.entity.js';
+ import { EntitlementCanbeInf, EntitlementMustBeSet, ShouldSetConsumptionPrice } from './entitlementValidator.js';
+ import { NumberStringIsInteger } from './numberStringIsInteger.js';
+ import { ValidateDecimalPlace } from './validateDecimalPlaces.js';
++import { DimensionTierDto } from './dimension-tier.dto.js';
++import { ValidDimensionTiers } from './tierValidator.js';
+ export enum countBasedUnits {
+     'count-based' = 'count-based',
+ }
+@@ -334,6 +338,28 @@ export class CreateDimensionDto {
+     @ValidateDecimalPlace('consumptionPrice')
+     public consumptionPrice?: string;
+ 
++    /**
++     * Optional volume-based pricing tiers.
++     * High-volume usage can be billed at different unit prices.
++     * Mutually exclusive with usageEntitlement, consumptionPrice, and overageAllowed: true.
++     * Pass `null` on update to clear tiers.
++     */
++    @IsOptional()
++    @ValidDimensionTiers()
++    @ValidateIf((_, value) => value !== null)
++    @IsArray()
++    @ValidateNested({ each: true })
++    @Type(() => DimensionTierDto)
++    @ApiProperty({
++        name: 'tiers',
++        type: [DimensionTierDto],
++        required: false,
++        nullable: true,
++        description:
++            'Optional volume-based pricing tiers. Mutually exclusive with usageEntitlement, consumptionPrice, and overageAllowed: true.',
++    })
++    public tiers?: DimensionTierDto[] | null;
++
+     /**
+      *
+      * The sample type used for the data. Gauge is a value that can go up or down. <br>
+@@ -458,7 +484,28 @@ export class CreateDimensionDto {
+                 this.usageIncrement = usageIncrement.toString();
+                 this.rounding = rounding;
+                 this.overageAllowed = overageAllowed ? overageAllowed : overageAllowedEnum.false;
+-                this.consumptionPrice = priceSegments[0].price;
++                const storedTiers = Array.isArray(priceSegments)
++                    ? (priceSegments as Array<Record<string, string | undefined>>).filter(
++                          (segment) => segment?.tierPosition !== undefined,
++                      )
++                    : [];
++                if (storedTiers.length > 0) {
++                    this.tiers = storedTiers.map((segment) => {
++                        const tier: DimensionTierDto = {
++                            tierPosition: segment.tierPosition,
++                            upperBound: segment.upperBound,
++                        };
++                        if (segment.tierName !== undefined) {
++                            tier.tierName = segment.tierName;
++                        }
++                        if (segment.unitPrice !== undefined) {
++                            tier.unitPrice = segment.unitPrice;
++                        }
++                        return tier;
++                    });
++                } else if (priceSegments?.[0]) {
++                    this.consumptionPrice = priceSegments[0].price;
++                }
+                 this.usageEntitlement = usageEntitlement;
+                 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                 //@ts-ignore
+diff --git a/src/dimensions/dto/dimension-tier.dto.ts b/src/dimensions/dto/dimension-tier.dto.ts
+new file mode 100644
+index 0000000..cf89262
+--- /dev/null
++++ b/src/dimensions/dto/dimension-tier.dto.ts
+@@ -0,0 +1,78 @@
++import { ApiProperty } from '@nestjs/swagger';
++import { IsNotEmpty, IsNumberString, IsOptional, IsString } from 'class-validator';
++import { ValidateDecimalPlace } from './validateDecimalPlaces.js';
++
++/**
++ * A volume-based pricing tier for a usage dimension.
++ * Numerical values are represented as strings to avoid precision loss.
++ */
++export class DimensionTierDto {
++    /**
++     * The position of the tier in the pricing ladder.
++     * Billing sorts tiers by the numeric value of this field.
++     *
++     * @example "1"
++     */
++    @IsNumberString()
++    @IsNotEmpty()
++    @ApiProperty({
++        name: 'tierPosition',
++        example: '1',
++        type: String,
++        description: 'The position of the tier in the pricing ladder. Billing sorts by the numeric value.',
++    })
++    public tierPosition: string;
++
++    /**
++     * Inclusive upper bound of usage for this tier.
++     * Must be a numeric string or `"inf"` for an unbounded final tier.
++     *
++     * @example "1000"
++     * @example "inf"
++     */
++    @IsString()
++    @IsNotEmpty()
++    @ApiProperty({
++        name: 'upperBound',
++        examples: ['1000', 'inf'],
++        type: String,
++        description: 'Inclusive upper bound of usage for this tier. A numeric string or "inf".',
++    })
++    public upperBound: string;
++
++    /**
++     * Optional friendly name appended to the invoice line-item name when this tier is consumed.
++     *
++     * @example "Standard"
++     */
++    @IsOptional()
++    @IsString()
++    @ApiProperty({
++        name: 'tierName',
++        example: 'Standard',
++        type: String,
++        required: false,
++        description: 'Optional friendly name appended to the invoice line-item name when this tier is consumed.',
++    })
++    public tierName?: string;
++
++    /**
++     * Unit price for usage that falls in this tier.
++     * Numerical values are represented as strings to avoid precision loss.
++     * May be omitted on the first tier to represent a free tier.
++     *
++     * @example "0.05"
++     */
++    @IsOptional()
++    @IsNumberString()
++    @ValidateDecimalPlace('unitPrice')
++    @ApiProperty({
++        name: 'unitPrice',
++        example: '0.05',
++        type: String,
++        required: false,
++        description:
++            'Unit price for usage that falls in this tier. May be omitted on the first tier to represent a free tier.',
++    })
++    public unitPrice?: string;
++}
+diff --git a/src/dimensions/dto/entitlementValidator.ts b/src/dimensions/dto/entitlementValidator.ts
+index 50bae10..fb4e0f5 100644
+--- a/src/dimensions/dto/entitlementValidator.ts
++++ b/src/dimensions/dto/entitlementValidator.ts
+@@ -83,8 +83,14 @@ export function EntitlementCanbeInf(property: string, validationOptions?: Valida
+ @Injectable()
+ export class ShouldSetConsumptionPriceRule implements ValidatorConstraintInterface {
+     validate(consumptionPrice: string, args: ValidationArguments) {
+-        const entitlement = (args.object as CreateDimensionDto)?.usageEntitlement;
+-        const overageAllowed = (args.object as CreateDimensionDto)?.overageAllowed;
++        const dto = args.object as CreateDimensionDto;
++        const entitlement = dto?.usageEntitlement;
++        const overageAllowed = dto?.overageAllowed;
++        const tiers = (dto as CreateDimensionDto & { tiers?: unknown[] | null })?.tiers;
++        if (Array.isArray(tiers) && tiers.length > 0) {
++            // Volume-based pricing uses tiers instead of a single consumptionPrice.
++            return consumptionPrice === undefined || consumptionPrice === null || consumptionPrice === '';
++        }
+         if (entitlement === undefined || entitlement === null) {
+             if (
+                 consumptionPrice &&
+diff --git a/src/dimensions/dto/tierValidator.spec.ts b/src/dimensions/dto/tierValidator.spec.ts
+new file mode 100644
+index 0000000..90b35f5
+--- /dev/null
++++ b/src/dimensions/dto/tierValidator.spec.ts
+@@ -0,0 +1,91 @@
++import { validateDimensionTiers } from './tierValidator.js';
++import { DimensionTierDto } from './dimension-tier.dto.js';
++
++const validTiers: DimensionTierDto[] = [
++    { tierPosition: '1', upperBound: '1000', tierName: 'Free', unitPrice: undefined },
++    { tierPosition: '2', upperBound: '5000', tierName: 'Standard', unitPrice: '0.05' },
++    { tierPosition: '3', upperBound: 'inf', unitPrice: '0.02' },
++];
++
++describe('validateDimensionTiers', () => {
++    it('allows omitted tiers', () => {
++        expect(validateDimensionTiers({ usageIncrement: '1' })).toBeNull();
++        expect(validateDimensionTiers({ tiers: null, usageIncrement: '1' })).toBeNull();
++    });
++
++    it('accepts a valid volume-based ladder including a free first tier', () => {
++        expect(validateDimensionTiers({ tiers: validTiers, usageIncrement: '1' })).toBeNull();
++    });
++
++    it('rejects empty arrays', () => {
++        expect(validateDimensionTiers({ tiers: [], usageIncrement: '1' })).toEqual(
++            'tiers must contain at least one pricing tier',
++        );
++    });
++
++    it('is mutually exclusive with usageEntitlement, consumptionPrice, and overageAllowed true', () => {
++        expect(
++            validateDimensionTiers({
++                tiers: validTiers,
++                usageIncrement: '1',
++                usageEntitlement: 100,
++            }),
++        ).toMatch(/usageEntitlement/);
++        expect(
++            validateDimensionTiers({
++                tiers: validTiers,
++                usageIncrement: '1',
++                consumptionPrice: '1.00',
++            }),
++        ).toMatch(/consumptionPrice/);
++        expect(
++            validateDimensionTiers({
++                tiers: validTiers,
++                usageIncrement: '1',
++                overageAllowed: 'true',
++            }),
++        ).toMatch(/overageAllowed/);
++    });
++
++    it('requires unitPrice on every tier after the first by numeric position', () => {
++        expect(
++            validateDimensionTiers({
++                tiers: [
++                    { tierPosition: '2', upperBound: 'inf' },
++                    { tierPosition: '1', upperBound: '10', unitPrice: '1' },
++                ],
++                usageIncrement: '1',
++            }),
++        ).toMatch(/unitPrice/);
++    });
++
++    it('requires increasing non-overlapping bounds aligned to usageIncrement', () => {
++        expect(
++            validateDimensionTiers({
++                tiers: [
++                    { tierPosition: '1', upperBound: '15', unitPrice: '1' },
++                    { tierPosition: '2', upperBound: 'inf', unitPrice: '2' },
++                ],
++                usageIncrement: '10',
++            }),
++        ).toMatch(/usageIncrement/);
++        expect(
++            validateDimensionTiers({
++                tiers: [
++                    { tierPosition: '1', upperBound: '20', unitPrice: '1' },
++                    { tierPosition: '2', upperBound: '10', unitPrice: '2' },
++                ],
++                usageIncrement: '10',
++            }),
++        ).toMatch(/increase/);
++        expect(
++            validateDimensionTiers({
++                tiers: [
++                    { tierPosition: '1', upperBound: 'inf', unitPrice: '1' },
++                    { tierPosition: '2', upperBound: '10', unitPrice: '2' },
++                ],
++                usageIncrement: '10',
++            }),
++        ).toMatch(/inf/);
++    });
++});
+diff --git a/src/dimensions/dto/tierValidator.ts b/src/dimensions/dto/tierValidator.ts
+new file mode 100644
+index 0000000..d777db6
+--- /dev/null
++++ b/src/dimensions/dto/tierValidator.ts
+@@ -0,0 +1,159 @@
++import { Injectable } from '@nestjs/common';
++import {
++    ValidationArguments,
++    ValidationOptions,
++    ValidatorConstraint,
++    ValidatorConstraintInterface,
++    registerDecorator,
++} from 'class-validator';
++import { DimensionTierDto } from './dimension-tier.dto.js';
++
++const isNumericString = (value: unknown): boolean => {
++    if (typeof value !== 'string' || value.trim() === '') {
++        return false;
++    }
++    return !isNaN(value as unknown as number) && !isNaN(parseFloat(value));
++};
++
++export const hasTiers = (tiers?: DimensionTierDto[] | null): tiers is DimensionTierDto[] => {
++    return Array.isArray(tiers) && tiers.length > 0;
++};
++
++export const validateDimensionTiers = ({
++    tiers,
++    usageIncrement,
++    usageEntitlement,
++    consumptionPrice,
++    overageAllowed,
++}: {
++    tiers?: DimensionTierDto[] | null;
++    usageIncrement?: string | number;
++    usageEntitlement?: number | 'inf' | null;
++    consumptionPrice?: string | null;
++    overageAllowed?: string | null;
++}): string | null => {
++    if (tiers === undefined || tiers === null) {
++        return null;
++    }
++    if (!Array.isArray(tiers)) {
++        return 'tiers must be an array of pricing tiers';
++    }
++    if (tiers.length === 0) {
++        return 'tiers must contain at least one pricing tier';
++    }
++    if (usageEntitlement !== undefined && usageEntitlement !== null) {
++        return 'tiers cannot be combined with usageEntitlement';
++    }
++    if (consumptionPrice !== undefined && consumptionPrice !== null && consumptionPrice !== '') {
++        return 'tiers cannot be combined with consumptionPrice';
++    }
++    if (overageAllowed === 'true') {
++        return 'tiers cannot be combined with overageAllowed: true';
++    }
++
++    const increment = Number(usageIncrement);
++    const hasIncrement = usageIncrement !== undefined && usageIncrement !== null && usageIncrement !== '';
++    if (hasIncrement && (!Number.isFinite(increment) || increment <= 0)) {
++        return 'usageIncrement must be a positive integer to validate tiers';
++    }
++
++    const seenPositions = new Set<number>();
++    for (let i = 0; i < tiers.length; i++) {
++        const tier = tiers[i];
++        if (!tier || typeof tier !== 'object') {
++            return `tiers[${i}] must be an object`;
++        }
++        if (!isNumericString(tier.tierPosition)) {
++            return `tiers[${i}].tierPosition must be a numeric string`;
++        }
++        const position = Number(tier.tierPosition);
++        if (!Number.isFinite(position)) {
++            return `tiers[${i}].tierPosition must be a numeric string`;
++        }
++        if (seenPositions.has(position)) {
++            return `tiers[${i}].tierPosition must be unique`;
++        }
++        seenPositions.add(position);
++
++        if (tier.upperBound !== 'inf' && !isNumericString(tier.upperBound)) {
++            return `tiers[${i}].upperBound must be a numeric string or "inf"`;
++        }
++        if (tier.unitPrice !== undefined && tier.unitPrice !== null && tier.unitPrice !== '') {
++            if (!isNumericString(tier.unitPrice)) {
++                return `tiers[${i}].unitPrice must be a numeric string`;
++            }
++        }
++    }
++
++    const sorted = [...tiers].sort((a, b) => Number(a.tierPosition) - Number(b.tierPosition));
++    for (let i = 1; i < sorted.length; i++) {
++        const unitPrice = sorted[i].unitPrice;
++        if (unitPrice === undefined || unitPrice === null || unitPrice === '') {
++            return 'unitPrice is required for every tier after the first';
++        }
++    }
++    let previousBound = 0;
++    for (let i = 0; i < sorted.length; i++) {
++        const tier = sorted[i];
++        const isLast = i === sorted.length - 1;
++        if (tier.upperBound === 'inf') {
++            if (!isLast) {
++                return 'upperBound "inf" is only allowed on the last tier';
++            }
++            continue;
++        }
++        const bound = Number(tier.upperBound);
++        if (!Number.isFinite(bound) || bound <= 0) {
++            return 'tiers upperBound must be a positive number or "inf"';
++        }
++        if (hasIncrement && bound % increment !== 0) {
++            return `tiers upperBound must align to usageIncrement ${increment}`;
++        }
++        if (bound <= previousBound) {
++            return 'tiers upperBound values must increase without overlap';
++        }
++        previousBound = bound;
++    }
++
++    return null;
++};
++
++@ValidatorConstraint({ name: 'ValidDimensionTiers', async: false })
++@Injectable()
++export class ValidDimensionTiersRule implements ValidatorConstraintInterface {
++    private lastError: string | null = null;
++
++    validate(tiers: DimensionTierDto[] | null | undefined, args: ValidationArguments) {
++        const dto = args.object as {
++            usageIncrement?: string | number;
++            usageEntitlement?: number | 'inf' | null;
++            consumptionPrice?: string | null;
++            overageAllowed?: string | null;
++        };
++        const error = validateDimensionTiers({
++            tiers,
++            usageIncrement: dto?.usageIncrement,
++            usageEntitlement: dto?.usageEntitlement,
++            consumptionPrice: dto?.consumptionPrice,
++            overageAllowed: dto?.overageAllowed,
++        });
++        this.lastError = error;
++        return error === null;
++    }
++
++    defaultMessage() {
++        return this.lastError || 'Invalid pricing tiers';
++    }
++}
++
++export function ValidDimensionTiers(validationOptions?: ValidationOptions) {
++    return function (object: unknown, propertyName: string) {
++        registerDecorator({
++            name: 'ValidDimensionTiers',
++            target: (object as { constructor: new (...args: unknown[]) => unknown }).constructor,
++            propertyName: propertyName,
++            options: validationOptions,
++            validator: ValidDimensionTiersRule,
++        });
++    };
++}
+diff --git a/src/dimensions/entities/dimensions.entity.ts b/src/dimensions/entities/dimensions.entity.ts
+index bfac400..fffa19d 100644
+--- a/src/dimensions/entities/dimensions.entity.ts
++++ b/src/dimensions/entities/dimensions.entity.ts
+@@ -218,7 +218,7 @@ export class Numerical {
+             dimensionUnit,
+             aggregationInterval,
+             aggregationMethod,
+-            priceSegments: JSON.parse(priceSegments),
++            priceSegments: priceSegments ? JSON.parse(priceSegments) : undefined,
+             sampleType,
+             usageIncrement: parseInt(usageIncrement),
+             rounding,
+diff --git a/src/invoice/entities/invoice.entity.ts b/src/invoice/entities/invoice.entity.ts
+index fb96501..c7bb685 100644
+--- a/src/invoice/entities/invoice.entity.ts
++++ b/src/invoice/entities/invoice.entity.ts
+@@ -102,6 +102,7 @@ export class InvoiceLineItem {
+         offeringName,
+         usageIncrement,
+         negative,
++        tierName,
+     }: {
+         total: number;
+         dimensionType: string;
+@@ -111,6 +112,7 @@ export class InvoiceLineItem {
+         offeringName: string;
+         usageIncrement: number;
+         negative?: boolean;
++        tierName?: string;
+     }): { total: number; dimension: string; unit?: string; displayName: string } {
+         const timeBasedUnits = {
+             second: {
+@@ -185,6 +187,9 @@ export class InvoiceLineItem {
+         displayName = newDisplayUnit
+             ? `${dimensionName} - ${newDisplayUnit[0].toUpperCase()}${newDisplayUnit.slice(1)} - ${offeringName}`
+             : `${dimensionName} - ${offeringName}`;
++        if (tierName) {
++            displayName = `${displayName} ${tierName}`;
++        }
+         return {
+             total: negative ? (rawTotal / usageIncrement) * -1 : rawTotal / usageIncrement,
+             dimension: dimensionId,
+diff --git a/src/offering/entities/offeringPackage.entity.spec.ts b/src/offering/entities/offeringPackage.entity.spec.ts
+index 836a289..3a82f6b 100644
+--- a/src/offering/entities/offeringPackage.entity.spec.ts
++++ b/src/offering/entities/offeringPackage.entity.spec.ts
+@@ -151,6 +151,132 @@ describe('OfferingPackageEntity', () => {
+     });
+ 
+     describe('Offering', () => {
++        test('unpriced dimensions without tiers or entitlement produce no invoice line items', async () => {
++            jest.spyOn(customerService, 'findUsageForCustomer').mockImplementation(
++                async () =>
++                    ({
++                        message: 'fake',
++                        data: [
++                            {
++                                dimensionId: 'unpriced',
++                                usage: [
++                                    {
++                                        startTime: DatetimeUtils.beginningOfDay(
++                                            DatetimeUtils.fifthDayOfLastMonthAtMidnight(new Date()),
++                                        ).toISOString(),
++                                        endTime: DatetimeUtils.endOfDay(
++                                            DatetimeUtils.fifthDayOfLastMonthAtMidnight(new Date()),
++                                        ).toISOString(),
++                                        value: '1000',
++                                    },
++                                ],
++                            },
++                        ],
++                    }) as ReadCustomerUsageData,
++            );
++            const fakeCustomer = { ...basicReadCustomerResponseData, invoices: [], offering: basicUsageOffering };
++            const lineItems = await Offering.getLineItemsForUsage({
++                customerService: customerService,
++                customer: fakeCustomer,
++                startDate: DatetimeUtils.fifthDayOfLastMonthAtMidnight(new Date()),
++                endDate: new Date(),
++                customerId: fakeCustomerID,
++                dimensions: [
++                    {
++                        aggregationInterval: aggregationInterval.month,
++                        aggregationMethod: aggregationMethod.sum,
++                        dimensionName: 'unpricedDimension',
++                        rounding: roundingEnum.floor,
++                        consumptionUnit: {
++                            unit: countBasedUnits['count-based'],
++                            type: 'count',
++                        },
++                        dimensionId: 'unpriced',
++                        usageIncrement: '1',
++                    },
++                ],
++                businessID: fakeBusinessID,
++                lineItems: new InvoiceLineItems(),
++                offeringInstance: Offering.getInstance(
++                    basicUsageOffering,
++                    fakeCustomerID,
++                    fakeBusinessID,
++                    invoicesService,
++                    fakeSettings,
++                    schedulerService,
++                    customerService,
++                ),
++            });
++            expect(lineItems.getLineItems()).toEqual([]);
++        });
++        test('tiered dimensions produce one line item per consumed tier and append tierName', async () => {
++            jest.spyOn(customerService, 'findUsageForCustomer').mockImplementation(
++                async () =>
++                    ({
++                        message: 'fake',
++                        data: [
++                            {
++                                dimensionId: 'tiered',
++                                usage: [
++                                    {
++                                        startTime: DatetimeUtils.beginningOfDay(
++                                            DatetimeUtils.fifthDayOfLastMonthAtMidnight(new Date()),
++                                        ).toISOString(),
++                                        endTime: DatetimeUtils.endOfDay(
++                                            DatetimeUtils.fifthDayOfLastMonthAtMidnight(new Date()),
++                                        ).toISOString(),
++                                        value: '6500',
++                                    },
++                                ],
++                            },
++                        ],
++                    }) as ReadCustomerUsageData,
++            );
++            const fakeCustomer = { ...basicReadCustomerResponseData, invoices: [], offering: basicUsageOffering };
++            const tiers = [
++                { tierPosition: '1', upperBound: '1000' },
++                { tierPosition: '2', upperBound: '5000', unitPrice: '0.05', tierName: 'Standard' },
++                { tierPosition: '3', upperBound: 'inf', unitPrice: '0.02', tierName: 'Enterprise' },
++            ];
++            const lineItems = await Offering.getLineItemsForUsage({
++                customerService: customerService,
++                customer: fakeCustomer,
++                startDate: DatetimeUtils.fifthDayOfLastMonthAtMidnight(new Date()),
++                endDate: new Date(),
++                customerId: fakeCustomerID,
++                dimensions: [
++                    {
++                        aggregationInterval: aggregationInterval.month,
++                        aggregationMethod: aggregationMethod.sum,
++                        dimensionName: 'API Call',
++                        rounding: roundingEnum.floor,
++                        consumptionUnit: {
++                            unit: countBasedUnits['count-based'],
++                            type: 'count',
++                        },
++                        dimensionId: 'tiered',
++                        usageIncrement: '1',
++                        tiers,
++                    },
++                ],
++                businessID: fakeBusinessID,
++                lineItems: new InvoiceLineItems(),
++                offeringInstance: Offering.getInstance(
++                    basicUsageOffering,
++                    fakeCustomerID,
++                    fakeBusinessID,
++                    invoicesService,
++                    fakeSettings,
++                    schedulerService,
++                    customerService,
++                ),
++            });
++            expect(lineItems.getLineItems()).toEqual([
++                expect.objectContaining({ name: 'API Call - foobar', quantity: 1000, unitCost: 0 }),
++                expect.objectContaining({ name: 'API Call - foobar Standard', quantity: 4000, unitCost: 0.05 }),
++                expect.objectContaining({ name: 'API Call - foobar Enterprise', quantity: 1500, unitCost: 0.02 }),
++            ]);
++        });
+         test('Line Items should respect the precision of the rate passed into it when converting to EUR', async () => {
+             basicReadCustomerResponseData = { ...basicReadCustomerResponseData, currency: SupportedCurrencies.EUR };
+             jest.spyOn(customerService, 'findUsageForCustomer').mockImplementation(
+diff --git a/src/offering/entities/offeringPackage.entity.ts b/src/offering/entities/offeringPackage.entity.ts
+index c7e5933..8ebcc67 100644
+--- a/src/offering/entities/offeringPackage.entity.ts
++++ b/src/offering/entities/offeringPackage.entity.ts
+@@ -26,6 +26,8 @@ import { CreditService } from '../../credit/credit.service.js';
+ import { ReadSettingsResponseData } from '../../setting/dto/read-setting.dto.js';
+ import { InvoiceGeneration } from '../../setting/dto/update-settings.dto.js';
+ import { CustomerContractDiscount } from '../../contract/dto/customerContractDiscount.js';
++import { DimensionTierDto } from '../../dimensions/dto/dimension-tier.dto.js';
++import { hasTiers } from '../../dimensions/dto/tierValidator.js';
+ 
+ export abstract class Offering {
+     static readonly logger = new Logger(Offering.name);
+@@ -345,34 +347,57 @@ export abstract class Offering {
+         }
+ 
+         Object.keys(dimensionTotals).forEach((dimensionId) => {
+-            const unitCost = Number(
+-                (parseFloat(dimensionMap[dimensionId].consumptionPrice) * exchangeRate).toFixed(
+-                    Offering.getDecimalsForNumber(parseFloat(dimensionMap[dimensionId].consumptionPrice)) === 0
+-                        ? 2
+-                        : Offering.getDecimalsForNumber(parseFloat(dimensionMap[dimensionId].consumptionPrice)),
+-                ),
+-            );
++            const dimension = dimensionMap[dimensionId];
++            const usageIncrementValue = parseInt(dimension.usageIncrement);
++            const {
++                consumptionUnit: { unit, type },
++            } = dimension;
++
++            if (hasTiers(dimension.tiers)) {
++                const allocations = Offering.allocateUsageAcrossTiers(
++                    Number(dimensionTotals[dimensionId]),
++                    dimension.tiers,
++                );
++                allocations.forEach(({ quantity, unitPrice, tierName }) => {
++                    const convertedUnitCost = Offering.convertUnitPrice(unitPrice, exchangeRate);
++                    const { displayName, total: displayTotal } = InvoiceLineItem.prepareLineItem({
++                        total: quantity,
++                        dimensionType: type,
++                        dimensionId,
++                        dimensionName: dimension.dimensionName,
++                        offeringName: offeringInstance.offeringName,
++                        usageIncrement: usageIncrementValue,
++                        dimensionUnit: unit,
++                        negative,
++                        tierName,
++                    });
++                    lineItems.addLineItem(new InvoiceLineItem(displayName, displayTotal, convertedUnitCost));
++                });
++                return;
++            }
++
++            if (dimension.consumptionPrice === undefined || dimension.consumptionPrice === null) {
++                return;
++            }
++
++            const unitCost = Offering.convertUnitPrice(dimension.consumptionPrice, exchangeRate);
+             const shouldDisplayLineItem = Billing.determineIfLineItemShown({
+                 Offering: offeringInstance,
+-                dimension: dimensionMap[dimensionId],
++                dimension,
+                 totalUsage: dimensionTotals[dimensionId] as number,
+                 unitCost,
+                 freeDimensionOnInvoice: offeringInstance.settings?.freeDimensionOnInvoice,
+             });
+             if (shouldDisplayLineItem) {
+-                const {
+-                    usageIncrement,
+-                    consumptionUnit: { unit, type },
+-                } = dimensionMap[dimensionId];
+                 // Handle currency conversion
+ 
+                 const { displayName, total: displayTotal } = InvoiceLineItem.prepareLineItem({
+                     total: dimensionTotals[dimensionId],
+                     dimensionType: type,
+                     dimensionId,
+-                    dimensionName: dimensionMap[dimensionId].dimensionName,
++                    dimensionName: dimension.dimensionName,
+                     offeringName: offeringInstance.offeringName,
+-                    usageIncrement: parseInt(usageIncrement),
++                    usageIncrement: usageIncrementValue,
+                     dimensionUnit: unit,
+                     negative,
+                 });
+@@ -404,6 +429,46 @@ export abstract class Offering {
+         }
+         return numberString.length - decimalIndex - 1;
+     }
++    static convertUnitPrice(unitPrice: string | number | undefined, exchangeRate: number): number {
++        const parsedPrice = parseFloat(unitPrice === undefined || unitPrice === null ? '0' : unitPrice.toString());
++        const safePrice = Number.isFinite(parsedPrice) ? parsedPrice : 0;
++        return Number(
++            (safePrice * exchangeRate).toFixed(
++                Offering.getDecimalsForNumber(safePrice) === 0 ? 2 : Offering.getDecimalsForNumber(safePrice),
++            ),
++        );
++    }
++    static allocateUsageAcrossTiers(
++        totalUsage: number,
++        tiers: DimensionTierDto[],
++    ): Array<{ quantity: number; unitPrice: string; tierName?: string }> {
++        const sorted = [...tiers].sort((a, b) => Number(a.tierPosition) - Number(b.tierPosition));
++        const allocations: Array<{ quantity: number; unitPrice: string; tierName?: string }> = [];
++        let previousBound = 0;
++        let remaining = Number(totalUsage);
++
++        for (const tier of sorted) {
++            if (remaining <= 0) {
++                break;
++            }
++            const upperBound = tier.upperBound === 'inf' ? Number.POSITIVE_INFINITY : Number(tier.upperBound);
++            const capacity = Number.isFinite(upperBound) ? Math.max(upperBound - previousBound, 0) : remaining;
++            const quantity = Math.min(remaining, capacity);
++            if (quantity > 0) {
++                allocations.push({
++                    quantity,
++                    unitPrice: tier.unitPrice ?? '0',
++                    tierName: tier.tierName,
++                });
++                remaining -= quantity;
++            }
++            if (Number.isFinite(upperBound)) {
++                previousBound = upperBound;
++            }
++        }
++
++        return allocations;
++    }
+     abstract processFreeTrialEnd({ customer }: { customer: ReadCustomerResponseData }): Promise<string>;
+ 
+     abstract offcycleBilling({
+diff --git a/src/offering/entities/offeringTiers.spec.ts b/src/offering/entities/offeringTiers.spec.ts
+new file mode 100644
+index 0000000..d839fec
+--- /dev/null
++++ b/src/offering/entities/offeringTiers.spec.ts
+@@ -0,0 +1,53 @@
++import { Offering } from './offeringPackage.entity.js';
++import { InvoiceLineItem } from '../../invoice/entities/invoice.entity.js';
++
++describe('volume-based pricing tiers', () => {
++    it('allocates usage across inclusive bounds sorted by numeric tierPosition', () => {
++        const allocations = Offering.allocateUsageAcrossTiers(6500, [
++            { tierPosition: '3', upperBound: 'inf', unitPrice: '0.02', tierName: 'Enterprise' },
++            { tierPosition: '1', upperBound: '1000', unitPrice: '0' },
++            { tierPosition: '2', upperBound: '5000', unitPrice: '0.05', tierName: 'Standard' },
++        ]);
++
++        expect(allocations).toEqual([
++            { quantity: 1000, unitPrice: '0', tierName: undefined },
++            { quantity: 4000, unitPrice: '0.05', tierName: 'Standard' },
++            { quantity: 1500, unitPrice: '0.02', tierName: 'Enterprise' },
++        ]);
++    });
++
++    it('omits unused higher tiers', () => {
++        expect(
++            Offering.allocateUsageAcrossTiers(750, [
++                { tierPosition: '1', upperBound: '1000', unitPrice: '1' },
++                { tierPosition: '2', upperBound: 'inf', unitPrice: '2' },
++            ]),
++        ).toEqual([{ quantity: 750, unitPrice: '1', tierName: undefined }]);
++    });
++
++    it('treats omitted first-tier prices as free', () => {
++        expect(
++            Offering.allocateUsageAcrossTiers(10, [{ tierPosition: '1', upperBound: 'inf' }]),
++        ).toEqual([{ quantity: 10, unitPrice: '0', tierName: undefined }]);
++    });
++
++    it('preserves price precision during currency conversion', () => {
++        expect(Offering.convertUnitPrice('1.23456789', 0.91)).toEqual(1.12345678);
++        expect(Offering.convertUnitPrice('2', 0.91)).toEqual(1.82);
++        expect(Offering.convertUnitPrice(undefined, 0.91)).toEqual(0);
++    });
++
++    it('appends tierName to the normal line-item name', () => {
++        const { displayName } = InvoiceLineItem.prepareLineItem({
++            total: 100,
++            dimensionType: 'count',
++            dimensionName: 'API Call',
++            dimensionUnit: 'count-based',
++            dimensionId: 'dim-1',
++            offeringName: 'Pro',
++            usageIncrement: 1,
++            tierName: 'Standard',
++        });
++        expect(displayName).toBe('API Call - Pro Standard');
++    });
++});

@@ -1,0 +1,1308 @@
+diff --git a/src/customer/customer.controller.spec.ts b/src/customer/customer.controller.spec.ts
+index b9ec011..f1f23fd 100644
+--- a/src/customer/customer.controller.spec.ts
++++ b/src/customer/customer.controller.spec.ts
+@@ -4,7 +4,8 @@ import { PublicAPICustomerController } from './customer.controller';
+ import { CustomerService } from './customer.service';
+ import { SchedulerModule } from '../scheduler/scheduler.module';
+ import { forwardRef } from '@nestjs/common';
+-import { PrivateAPIServicesModule } from '../services/services.module';
++import { PublicAPIOfferingModule } from '../offering/offering.module';
++import { UsageModule } from '../usage/usage.module';
+ 
+ describe('CustomerController', () => {
+     let controller: PublicAPICustomerController;
+@@ -13,7 +14,7 @@ describe('CustomerController', () => {
+         const module: TestingModule = await Test.createTestingModule({
+             controllers: [PublicAPICustomerController],
+             providers: [CustomerService],
+-            imports: [InfluxModule, forwardRef(() => SchedulerModule), forwardRef(() => PrivateAPIServicesModule)],
++            imports: [InfluxModule, forwardRef(() => SchedulerModule), forwardRef(() => PublicAPIOfferingModule), forwardRef(() => UsageModule)],
+         }).compile();
+ 
+         controller = module.get<PublicAPICustomerController>(PublicAPICustomerController);
+diff --git a/src/customer/customer.controller.ts b/src/customer/customer.controller.ts
+index 2ee9e5e..d3b6316 100644
+--- a/src/customer/customer.controller.ts
++++ b/src/customer/customer.controller.ts
+@@ -1,4 +1,16 @@
+-import { Controller, Get, Post, Body, Param, Delete, Req, UseGuards, Put, NotFoundException } from '@nestjs/common';
++import {
++    Controller,
++    Get,
++    Post,
++    Body,
++    Param,
++    Delete,
++    Req,
++    UseGuards,
++    Put,
++    NotFoundException,
++    Query,
++} from '@nestjs/common';
+ import { CustomerService } from './customer.service';
+ import { CreateCustomerDto, CreateCustomerResponseDto } from './dto/create-customer.dto';
+ import { Request } from 'express';
+@@ -6,6 +18,7 @@ import {
+     ApiBadRequestResponse,
+     ApiBearerAuth,
+     ApiCreatedResponse,
++    ApiExtraModels,
+     ApiNotFoundResponse,
+     ApiOkResponse,
+     ApiOperation,
+@@ -15,7 +28,15 @@ import { AuthGuard } from '@nestjs/passport';
+ import { UpdateCustomerDto } from './dto/update-customer.dto';
+ import { ReadCustomerResponseDTO, ReadCustomerResponseData } from './dto/read-customer.dto';
+ import { BasicResponseDTO } from '../basicResponseDTO';
++import {
++    AggregatedUsageResponse,
++    QueryParamUsageDto,
++    ReadServiceUsageData,
++    UnAggregatedUsageResponse,
++} from '../services/dto/readService.dto';
+ 
++@ApiExtraModels(UnAggregatedUsageResponse)
++@ApiExtraModels(AggregatedUsageResponse)
+ @ApiBearerAuth('bearer')
+ @Controller('customers')
+ @ApiTags('Customers')
+@@ -45,6 +66,38 @@ export class PublicAPICustomerController {
+         return this.customerService.findAll({ businessID });
+     }
+ 
++    /**
++     * Get usage data for a customer
++     */
++    @ApiOkResponse({
++        status: 200,
++        description: 'OK',
++        type: ReadServiceUsageData,
++    })
++    @ApiBadRequestResponse({
++        status: 400,
++        description: 'Bad Request',
++        type: BasicResponseDTO,
++    })
++    @ApiNotFoundResponse({
++        status: 404,
++        description: 'Customer Not Found',
++        type: NotFoundException,
++    })
++    @ApiOperation({ operationId: 'Get usage data for a customer' })
++    @UseGuards(AuthGuard('jwt'))
++    @Get(':customerId/usage')
++    findUsage(
++        @Param('customerId') customerId: string,
++        @Req() request: Request,
++        @Query() query: QueryParamUsageDto
++    ) {
++        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
++        //@ts-ignore
++        const { businessID } = request.user;
++        return this.customerService.findUsageForCustomer({ customerId, businessID }, query);
++    }
++
+     /**
+      * Fine one customer
+      */
+diff --git a/src/customer/customer.module.ts b/src/customer/customer.module.ts
+index 95a34de..2fde2d8 100644
+--- a/src/customer/customer.module.ts
++++ b/src/customer/customer.module.ts
+@@ -3,12 +3,19 @@ import { CustomerService } from './customer.service';
+ import { PrivateAPICustomerController, PublicAPICustomerController } from './customer.controller';
+ import { InfluxModule } from '../influx/influx.module';
+ import { SchedulerModule } from '../scheduler/scheduler.module';
+-import { PrivateAPIServicesModule } from '../services/services.module';
++import { PublicAPIOfferingModule } from '../offering/offering.module';
++import { UsageModule } from '../usage/usage.module';
++import { CustomerIdExistsRule } from './dto/customerIdExists';
+ 
+ @Module({
+     controllers: [PublicAPICustomerController],
+-    providers: [CustomerService],
+-    imports: [InfluxModule, forwardRef(() => SchedulerModule), forwardRef(() => PrivateAPIServicesModule)],
++    providers: [CustomerService, CustomerIdExistsRule],
++    imports: [
++        InfluxModule,
++        forwardRef(() => SchedulerModule),
++        forwardRef(() => PublicAPIOfferingModule),
++        forwardRef(() => UsageModule),
++    ],
+     exports: [CustomerService],
+ })
+ export class PublicAPICustomerModule {}
+diff --git a/src/customer/customer.service.spec.ts b/src/customer/customer.service.spec.ts
+index 0b2284a..8e3cf22 100644
+--- a/src/customer/customer.service.spec.ts
++++ b/src/customer/customer.service.spec.ts
+@@ -3,7 +3,8 @@ import { InfluxModule } from '../influx/influx.module';
+ import { CustomerService } from './customer.service';
+ import { SchedulerModule } from '../scheduler/scheduler.module';
+ import { forwardRef } from '@nestjs/common';
+-import { PrivateAPIServicesModule } from '../services/services.module';
++import { PublicAPIOfferingModule } from '../offering/offering.module';
++import { UsageModule } from '../usage/usage.module';
+ 
+ describe('CustomerService', () => {
+     let service: CustomerService;
+@@ -11,7 +12,7 @@ describe('CustomerService', () => {
+     beforeEach(async () => {
+         const module: TestingModule = await Test.createTestingModule({
+             providers: [CustomerService],
+-            imports: [InfluxModule, forwardRef(() => SchedulerModule), forwardRef(() => PrivateAPIServicesModule)],
++            imports: [InfluxModule, forwardRef(() => SchedulerModule), forwardRef(() => PublicAPIOfferingModule), forwardRef(() => UsageModule)],
+         }).compile();
+ 
+         service = module.get<CustomerService>(CustomerService);
+diff --git a/src/customer/customer.service.ts b/src/customer/customer.service.ts
+index 0a7c3a0..b4e7a8e 100644
+--- a/src/customer/customer.service.ts
++++ b/src/customer/customer.service.ts
+@@ -1,4 +1,4 @@
+-import { Inject, Injectable, Logger, NotFoundException, forwardRef, ConflictException } from '@nestjs/common';
++import { Inject, Injectable, Logger, NotFoundException, forwardRef } from '@nestjs/common';
+ import { CreateCustomerDto, CreateCustomerResponseDto } from './dto/create-customer.dto';
+ import { InfluxService } from '../influx/influx.service';
+ import { CustomerEntity } from './entities/customer.entity';
+@@ -8,8 +8,10 @@ import { CustomerInvoiceMetadata, ReadCustomerResponseData } from './dto/read-cu
+ import { Invoice } from '../invoice/entities/invoice.entity';
+ import { SchedulerService } from '../scheduler/scheduler.service';
+ import { SchedulerStatus, SupportedMeasurementFrequencies, schedulerType } from '../scheduler/dto/scheduler.dto';
+-import { CronExpression } from '@nestjs/schedule';
+-import { ServicesService } from '../services/services.service';
++import { OfferingService } from '../offering/offering.service';
++import { UsageService } from '../usage/usage.service';
++import { QueryParamUsageDto, ReadServiceUsageData } from '../services/dto/readService.dto';
++import { ReadOfferingResponseData } from '../offering/dto/readOffering.dto';
+ 
+ @Injectable()
+ export class CustomerService {
+@@ -17,11 +19,18 @@ export class CustomerService {
+     constructor(
+         readonly InfluxService: InfluxService,
+         @Inject(forwardRef(() => SchedulerService)) readonly schedulerService: SchedulerService,
+-        @Inject(forwardRef(() => ServicesService)) readonly servicesService: ServicesService
++        @Inject(forwardRef(() => OfferingService)) readonly offeringService: OfferingService,
++        @Inject(forwardRef(() => UsageService)) readonly usageService: UsageService
+     ) {}
+ 
+     async create(createCustomerDto: CreateCustomerDto, subject: string): Promise<CreateCustomerResponseDto> {
+         CustomerService.logger.log('Customer DTO', createCustomerDto);
++        if (createCustomerDto.offeringId) {
++            await this.offeringService.findOne({
++                businessID: createCustomerDto.businessID,
++                offeringId: createCustomerDto.offeringId,
++            });
++        }
+         const customerId = v4();
+         const { loadPoints } = this.InfluxService;
+         const customerEntity = new CustomerEntity({ ...createCustomerDto, customerId });
+@@ -40,6 +49,22 @@ export class CustomerService {
+         return { message: 'New customer added', customerId: customerEntity.customerId };
+     }
+ 
++    private async hydrateOffering({
++        businessID,
++        offeringId,
++    }: {
++        businessID: string;
++        offeringId?: string;
++    }): Promise<ReadOfferingResponseData | undefined> {
++        if (!offeringId) {
++            return undefined;
++        }
++        const {
++            data: [offering],
++        } = await this.offeringService.findOne({ businessID, offeringId });
++        return offering;
++    }
++
+     private async findInvoicesByCustomer({ businessID, customerId }) {
+         CustomerService.logger.log(`Finding invoices for customer ${customerId} of business ${businessID}`);
+         const invoiceDbModels = await this.InfluxService.getInvoicesForCustomer({ businessID, customerId });
+@@ -67,7 +92,8 @@ export class CustomerService {
+                     customerId,
+                     businessID,
+                 });
+-                response.push(new ReadCustomerResponseData(entity, invoices));
++                const offering = await this.hydrateOffering({ businessID, offeringId: entity.offeringId });
++                response.push(new ReadCustomerResponseData(entity, invoices, offering));
+             }
+             return {
+                 data: response,
+@@ -78,7 +104,7 @@ export class CustomerService {
+         }
+     }
+ 
+-    async findOne({ customerId, businessID }): Promise<{ data: CustomerEntity[]; message: string }> {
++    async findOne({ customerId, businessID }): Promise<{ data: ReadCustomerResponseData[]; message: string }> {
+         CustomerService.logger.log(`Finding saasClientID: ${customerId} for ${businessID}`);
+         const customerConfig = await this.InfluxService.getLatestCustomer({ businessID, customerId });
+         if (customerConfig.length > 0) {
+@@ -86,8 +112,10 @@ export class CustomerService {
+                 customerId,
+                 businessID,
+             });
++            const entity = CustomerEntity.dbModelToEntity(customerConfig[0]);
++            const offering = await this.hydrateOffering({ businessID, offeringId: entity.offeringId });
+             return {
+-                data: [new ReadCustomerResponseData(CustomerEntity.dbModelToEntity(customerConfig[0]), invoices)],
++                data: [new ReadCustomerResponseData(entity, invoices, offering)],
+                 message: 'Found Customer',
+             };
+         } else {
+@@ -101,21 +129,6 @@ export class CustomerService {
+         if (customerConfig.length === 0) {
+             throw new NotFoundException(`Customer with ID: ${customerId} not found`);
+         } else {
+-            const customerResults = await this.servicesService.findAllServicesWithCustomerId({
+-                customerId,
+-                businessID,
+-            });
+-            if (customerResults?.data?.length) {
+-                throw new ConflictException(
+-                    `Cannot delete customer when they are attached to services, delete services before deleting customer. Current serviceIds associated with the customer: ${customerResults.data.reduce(
+-                        (acc, { serviceId }) => {
+-                            acc += `${serviceId}   `;
+-                            return acc;
+-                        },
+-                        ''
+-                    )} `
+-                );
+-            }
+             const { loadPoints } = this.InfluxService;
+             const entity = CustomerEntity.dbModelToEntity(customerConfig[0]);
+             entity.softDelete = true;
+@@ -138,6 +151,9 @@ export class CustomerService {
+ 
+     async update({ customerId, businessID, ...updatedFields }: UpdateCustomerDto): Promise<CreateCustomerResponseDto> {
+         CustomerService.logger.log(`Attempting to update saasClientID: ${customerId} for ${businessID}`);
++        if (updatedFields.offeringId) {
++            await this.offeringService.findOne({ businessID, offeringId: updatedFields.offeringId });
++        }
+         const {
+             data: [{ ...rest }],
+         } = await this.findOne({ customerId, businessID });
+@@ -148,4 +164,30 @@ export class CustomerService {
+         await loadPoints(`${process.env.STAGE}-config`, `meteringco`, points);
+         return { message: 'Customer updated added', customerId: customerId };
+     }
++
++    async findUsageForCustomer(
++        { customerId, businessID }: { customerId: string; businessID: string },
++        query: QueryParamUsageDto
++    ): Promise<ReadServiceUsageData> {
++        const usageDoc = await this.usageService.findUsageForCustomer({ customerId, businessID }, query);
++        return { data: usageDoc, message: 'Found usage' };
++    }
++
++    async findAllCustomersWithOfferingId({
++        businessID,
++        offeringId,
++    }: {
++        businessID: string;
++        offeringId: string;
++    }): Promise<{ data: CustomerEntity[]; message: string }> {
++        CustomerService.logger.log(`Finding customers for offering ${offeringId} of business ${businessID}`);
++        const customerDBModels = await this.InfluxService.getLatestCustomers({ businessID });
++        const customers = customerDBModels
++            .map((dbModel) => CustomerEntity.dbModelToEntity(dbModel))
++            .filter((customer) => customer.offeringId === offeringId);
++        return {
++            data: customers,
++            message: customers.length ? 'Found Customers' : 'No Customers Found',
++        };
++    }
+ }
+diff --git a/src/customer/dto/create-customer.dto.ts b/src/customer/dto/create-customer.dto.ts
+index a2e336f..e31b3e8 100644
+--- a/src/customer/dto/create-customer.dto.ts
++++ b/src/customer/dto/create-customer.dto.ts
+@@ -188,6 +188,14 @@ export class CreateCustomerDto {
+     @IsOptional()
+     @Type(() => Address)
+     public address?: Address;
++
++    /**
++     * Optional offering assigned to this customer.
++     * Example: `"539b7f74-3832-474e-a955-6d69c5df12d0"`
++     */
++    @IsUUID()
++    @IsOptional()
++    public offeringId?: string;
+ }
+ 
+ export class CreateCustomerResponseDto extends BasicResponseDTO {
+diff --git a/src/customer/dto/customerIdExists.ts b/src/customer/dto/customerIdExists.ts
+new file mode 100644
+index 0000000..8ea38d7
+--- /dev/null
++++ b/src/customer/dto/customerIdExists.ts
+@@ -0,0 +1,49 @@
++import { Injectable } from '@nestjs/common';
++import {
++    ValidationArguments,
++    ValidationOptions,
++    registerDecorator,
++    ValidatorConstraint,
++    ValidatorConstraintInterface,
++} from 'class-validator';
++import { CustomerService } from '../customer.service';
++
++@ValidatorConstraint({ name: 'CustomerIdExistsRule', async: true })
++@Injectable()
++export class CustomerIdExistsRule implements ValidatorConstraintInterface {
++    constructor(readonly customerService: CustomerService) {}
++
++    async validate(id: string, args: ValidationArguments) {
++        if (id) {
++            try {
++                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
++                // @ts-ignore
++                await this.customerService.findOne({ customerId: id, businessID: args?.object?.businessID });
++                return true;
++            } catch (e) {
++                return false;
++            }
++        } else {
++            return true;
++        }
++    }
++
++    defaultMessage(args: ValidationArguments) {
++        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
++        // @ts-ignore
++        return `customerId: ${args.object?.customerId} doesn't exist`;
++    }
++}
++
++export function CustomerIdExists(property: string, validationOptions?: ValidationOptions) {
++    return function (object: unknown, propertyName: string) {
++        registerDecorator({
++            name: 'customerIdExists',
++            target: object.constructor,
++            propertyName: propertyName,
++            constraints: [property],
++            options: validationOptions,
++            validator: CustomerIdExistsRule,
++        });
++    };
++}
+diff --git a/src/customer/dto/read-customer.dto.ts b/src/customer/dto/read-customer.dto.ts
+index 6b4dd5d..69656b4 100644
+--- a/src/customer/dto/read-customer.dto.ts
++++ b/src/customer/dto/read-customer.dto.ts
+@@ -4,6 +4,7 @@ import { ReadInvoicesDto } from '../../invoice/dto/read-invoices.dto';
+ import { OmitType } from '@nestjs/swagger';
+ import { Invoice } from '../../invoice/entities/invoice.entity';
+ import { toDateString } from '../../utils/shared/dateFormating';
++import { ReadOfferingResponseData } from '../../offering/dto/readOffering.dto';
+ 
+ export class CustomerInvoiceMetadata extends OmitType(ReadInvoicesDto, [
+     'businessID',
+@@ -28,9 +29,20 @@ export class ReadCustomerResponseData extends CustomerEntity {
+      * Array of invoices associated with this customer
+      */
+     public invoices?: CustomerInvoiceMetadata[];
+-    constructor(customer: CustomerEntity, invoices: CustomerInvoiceMetadata[] = null) {
++
++    /**
++     * Hydrated offering associated with this customer
++     */
++    public offering?: ReadOfferingResponseData;
++
++    constructor(
++        customer: CustomerEntity,
++        invoices: CustomerInvoiceMetadata[] = null,
++        offering: ReadOfferingResponseData = null
++    ) {
+         super({ ...customer });
+         this.invoices = invoices;
++        this.offering = offering;
+     }
+ }
+ 
+diff --git a/src/customer/entities/customer.entity.ts b/src/customer/entities/customer.entity.ts
+index 82835d2..57aa8cc 100644
+--- a/src/customer/entities/customer.entity.ts
++++ b/src/customer/entities/customer.entity.ts
+@@ -75,6 +75,12 @@ export class CustomerEntity {
+      */
+     public taxExempt?: TaxExempt;
+ 
++    /**
++     * Optional offering assigned to this customer.
++     * Example: `"539b7f74-3832-474e-a955-6d69c5df12d0"`
++     */
++    public offeringId?: string;
++
+     constructor({
+         customerId,
+         businessID = undefined,
+@@ -86,6 +92,7 @@ export class CustomerEntity {
+         address,
+         customerVatId,
+         taxExempt = TaxExempt.none,
++        offeringId = undefined,
+     }: CustomerEntity) {
+         this.customerId = customerId;
+         this.customerName = customerName;
+@@ -97,6 +104,7 @@ export class CustomerEntity {
+         this.address = address;
+         this.customerVatId = customerVatId;
+         this.taxExempt = taxExempt;
++        this.offeringId = offeringId;
+     }
+     static transformer(customerEntity: CustomerEntity, influxService: InfluxService): Array<Point> {
+         const customerEntityPoint = influxService.getPoint(CustomerEntity._measurement);
+@@ -107,6 +115,9 @@ export class CustomerEntity {
+         customerEntityPoint.tag('customerVatId', customerEntity.customerVatId);
+         customerEntityPoint.tag('taxExempt', customerEntity.taxExempt);
+         customerEntityPoint.tag('email', customerEntity.email);
++        if (customerEntity.offeringId) {
++            customerEntityPoint.tag('offeringId', customerEntity.offeringId);
++        }
+         customerEntityPoint.stringField('customerName', customerEntity.customerName);
+         if (customerEntity.address) {
+             customerEntityPoint.tag('address', JSON.stringify(customerEntity.address));
+@@ -125,7 +136,7 @@ export class CustomerEntity {
+     }
+ 
+     static dbModelToEntity(dbModel) {
+-        const { _value, customerId, paymentChannel, email, address, customerVatId, taxExempt, ...rest } = dbModel;
++        const { _value, customerId, paymentChannel, email, address, customerVatId, taxExempt, offeringId, ...rest } = dbModel;
+ 
+         const paymentChannelOptions = Object.keys(rest)
+             .filter((key) => /paymentChannelOptions_/.test(key))
+@@ -142,6 +153,7 @@ export class CustomerEntity {
+             address: address ? JSON.parse(address) : {},
+             customerVatId,
+             taxExempt,
++            offeringId,
+         });
+     }
+ }
+diff --git a/src/influx/entities/labelPodInfluxRow.entity.ts b/src/influx/entities/labelPodInfluxRow.entity.ts
+index 10abf42..3c6be36 100644
+--- a/src/influx/entities/labelPodInfluxRow.entity.ts
++++ b/src/influx/entities/labelPodInfluxRow.entity.ts
+@@ -6,5 +6,6 @@ export class LabelPodInfluxRow extends BaseInfluxTable {
+     public label_meteringco_application_id: string;
+     public label_meteringco_dimension_id: string;
+     public label_meteringco_service_id: string;
++    public label_meteringco_customer_id: string;
+     public pod: string;
+ }
+diff --git a/src/influx/entities/measurementInfluxDbModel.interface.ts b/src/influx/entities/measurementInfluxDbModel.interface.ts
+index 921eecc..6e9ef7a 100644
+--- a/src/influx/entities/measurementInfluxDbModel.interface.ts
++++ b/src/influx/entities/measurementInfluxDbModel.interface.ts
+@@ -5,6 +5,7 @@ export interface MeasurementInfluxDbModel extends BaseInfluxTable {
+     measurementId?: string;
+     applicationId?: string;
+     serviceId?: string;
++    customerId?: string;
+     dimensionId?: string;
+     recordValue: number;
+     uniqueInfrastructureId?: string;
+diff --git a/src/influx/influx.service.ts b/src/influx/influx.service.ts
+index a862d7d..40156e1 100644
+--- a/src/influx/influx.service.ts
++++ b/src/influx/influx.service.ts
+@@ -130,6 +130,7 @@ export class InfluxService {
+         endDate,
+         serviceId,
+         applicationId,
++        customerId,
+     }: {
+         businessID: string;
+         dimensionId: string;
+@@ -139,14 +140,19 @@ export class InfluxService {
+         endDate: Date;
+         serviceId?: string;
+         applicationId?: string;
++        customerId?: string;
+     }) => {
+-        if (applicationId) {
+-            const queryApi = this.dbclient.getQueryApi(this.org);
+-            const dimensionAggregationFluxQuery = `from(bucket: "${process.env.STAGE}-usage-data")
++        const queryApi = this.dbclient.getQueryApi(this.org);
++        const identityFilter = customerId
++            ? `|> filter(fn: (r) => r["customerId"] == "${customerId}")`
++            : applicationId
++            ? `|> filter(fn: (r) => r["applicationId"] == "${applicationId}" or r["serviceId"] == "${serviceId}")`
++            : `|> filter(fn: (r) => r["serviceId"] == "${serviceId}")`;
++        const dimensionAggregationFluxQuery = `from(bucket: "${process.env.STAGE}-usage-data")
+         |> range(start: ${startDate.toISOString()}, stop:${endDate.toISOString()})
+         |> filter(fn: (r) => r["businessID"] == "${businessID}")
+         |> filter(fn: (r) => r["dimensionId"] == "${dimensionId}")
+-        |> filter(fn: (r) => r["applicationId"] == "${applicationId}" or r["serviceId"] == "${serviceId}")
++        ${identityFilter}
+         |> filter(fn: (r) => r["_measurement"] == "${UsageEntity._measurement}")
+         |> group(columns: ["_measurement"], mode:"by")
+         |> aggregateWindow(every: ${this.aggregationIntervalToInfluxQueryLine(
+@@ -154,29 +160,10 @@ export class InfluxService {
+         )}, fn: ${this.aggregationMethodToQueryLine(aggregationMethod)}, createEmpty: true) 
+         |> sort(columns: ["_time"], desc: false)
+         `;
+-            InfluxService.logger.debug(dimensionAggregationFluxQuery);
+-            const res = queryApi.collectRows<any>(dimensionAggregationFluxQuery);
+-
+-            return res;
+-        } else {
+-            const queryApi = this.dbclient.getQueryApi(this.org);
+-            const dimensionAggregationFluxQuery = `from(bucket: "${process.env.STAGE}-usage-data")
+-        |> range(start: ${startDate.toISOString()}, stop:${endDate.toISOString()})
+-        |> filter(fn: (r) => r["businessID"] == "${businessID}")
+-        |> filter(fn: (r) => r["dimensionId"] == "${dimensionId}")
+-        |> filter(fn: (r) => r["serviceId"] == "${serviceId}")
+-        |> filter(fn: (r) => r["_measurement"] == "${UsageEntity._measurement}")
+-        |> group(columns: ["_measurement"], mode:"by")
+-        |> aggregateWindow(every: ${this.aggregationIntervalToInfluxQueryLine(
+-            aggregationInterval
+-        )}, fn: ${this.aggregationMethodToQueryLine(aggregationMethod)}, createEmpty: true)
+-        |> sort(columns: ["_time"], desc: false)
+-        `;
+-            InfluxService.logger.debug(dimensionAggregationFluxQuery);
+-            const res = queryApi.collectRows<any>(dimensionAggregationFluxQuery);
++        InfluxService.logger.debug(dimensionAggregationFluxQuery);
++        const res = queryApi.collectRows<any>(dimensionAggregationFluxQuery);
+ 
+-            return res;
+-        }
++        return res;
+     };
+ 
+     dimensionUsageNoAggregation = async ({
+@@ -186,6 +173,7 @@ export class InfluxService {
+         endDate,
+         serviceId,
+         applicationId,
++        customerId,
+     }: {
+         businessID: string;
+         dimensionId: string;
+@@ -193,38 +181,27 @@ export class InfluxService {
+         endDate: Date;
+         serviceId?: string;
+         applicationId?: string;
++        customerId?: string;
+     }) => {
+-        if (applicationId) {
+-            const queryApi = this.dbclient.getQueryApi(this.org);
+-            const dimensionAggregationFluxQuery = `from(bucket: "${process.env.STAGE}-usage-data")
+-        |> range(start: ${startDate.toISOString()}, stop:${endDate.toISOString()})
+-        |> filter(fn: (r) => r["businessID"] == "${businessID}")
+-        |> filter(fn: (r) => r["dimensionId"] == "${dimensionId}")
+-        |> filter(fn: (r) => r["applicationId"] == "${applicationId}" or r["serviceId"] == "${serviceId}")
+-        |> filter(fn: (r) => r["_measurement"] == "${UsageEntity._measurement}")
+-        |> group(columns: ["_measurement"], mode:"by")
+-        |> sort(columns: ["_time"], desc: false)
+-        `;
+-            InfluxService.logger.debug(dimensionAggregationFluxQuery);
+-            const res = queryApi.collectRows<any>(dimensionAggregationFluxQuery);
+-
+-            return res;
+-        } else {
+-            const queryApi = this.dbclient.getQueryApi(this.org);
+-            const dimensionAggregationFluxQuery = `from(bucket: "${process.env.STAGE}-usage-data")
++        const queryApi = this.dbclient.getQueryApi(this.org);
++        const identityFilter = customerId
++            ? `|> filter(fn: (r) => r["customerId"] == "${customerId}")`
++            : applicationId
++            ? `|> filter(fn: (r) => r["applicationId"] == "${applicationId}" or r["serviceId"] == "${serviceId}")`
++            : `|> filter(fn: (r) => r["serviceId"] == "${serviceId}")`;
++        const dimensionAggregationFluxQuery = `from(bucket: "${process.env.STAGE}-usage-data")
+         |> range(start: ${startDate.toISOString()}, stop:${endDate.toISOString()})
+         |> filter(fn: (r) => r["businessID"] == "${businessID}")
+         |> filter(fn: (r) => r["dimensionId"] == "${dimensionId}")
+-        |> filter(fn: (r) => r["serviceId"] == "${serviceId}")
++        ${identityFilter}
+         |> filter(fn: (r) => r["_measurement"] == "${UsageEntity._measurement}")
+         |> group(columns: ["_measurement"], mode:"by")
+         |> sort(columns: ["_time"], desc: false)
+         `;
+-            InfluxService.logger.debug(dimensionAggregationFluxQuery);
+-            const res = queryApi.collectRows<any>(dimensionAggregationFluxQuery);
++        InfluxService.logger.debug(dimensionAggregationFluxQuery);
++        const res = queryApi.collectRows<any>(dimensionAggregationFluxQuery);
+ 
+-            return res;
+-        }
++        return res;
+     };
+     private aggregationMethodToQueryLine(aggMethod: aggregationMethod) {
+         switch (aggMethod) {
+@@ -1036,7 +1013,7 @@ export class InfluxService {
+                 |> range(start: ${new Date(startTime).toISOString()}, stop:${new Date(endTime).toISOString()})
+                 |> filter(fn: (r) => r["businessID"] == "${businessID}")
+                     |> filter(fn: (r) => r["_measurement"] == "meteringco_kube_pod_labels")
+-                    |> filter(fn: (r) => exists r.label_meteringco_service_id or exists r.label_meteringco_application_id)
++                    |> filter(fn: (r) => exists r.label_meteringco_service_id or exists r.label_meteringco_application_id or exists r.label_meteringco_customer_id)
+                     |> filter(fn: (r) => exists r.pod)
+                     |> group(columns: ["pod"], mode:"by")
+                     |> unique(column:"pod")
+@@ -1092,7 +1069,7 @@ export class InfluxService {
+                     |> range(start: ${new Date(startTime).toISOString()}, stop:${new Date(endTime).toISOString()})
+                     |> filter(fn: (r) => r["businessID"] == "${businessID}")
+                         |> filter(fn: (r) => r["_measurement"] == "meteringco_kube_pod_labels")
+-                        |> filter(fn: (r) => exists r.label_meteringco_service_id or exists r.label_meteringco_application_id)
++                        |> filter(fn: (r) => exists r.label_meteringco_service_id or exists r.label_meteringco_application_id or exists r.label_meteringco_customer_id)
+                         |> filter(fn: (r) => exists r.pod)
+                         |> group(columns: ["pod"], mode:"by")
+                         |> unique(column:"pod")
+@@ -1113,7 +1090,7 @@ export class InfluxService {
+                         |> range(start: ${new Date(startTime).toISOString()}, stop:${new Date(endTime).toISOString()})
+                         |> filter(fn: (r) => r["businessID"] == "${businessID}")
+                         |> filter(fn: (r) => r["_measurement"] == "meteringco_kube_pod_labels")
+-                        |> filter(fn: (r) => exists r.label_meteringco_service_id or exists r.label_meteringco_application_id)
++                        |> filter(fn: (r) => exists r.label_meteringco_service_id or exists r.label_meteringco_application_id or exists r.label_meteringco_customer_id)
+                         |> filter(fn: (r) => exists r.label_meteringco_dimension_id)
+                         |> filter(fn: (r) => exists r.pod)
+                         |> filter(fn: (r) => r["pod"] == "${podId}")
+diff --git a/src/influx/influxUsageAggregateEvent.ts b/src/influx/influxUsageAggregateEvent.ts
+index d5dde44..b045656 100644
+--- a/src/influx/influxUsageAggregateEvent.ts
++++ b/src/influx/influxUsageAggregateEvent.ts
+@@ -31,7 +31,8 @@ import {
+ const { usageData } = SupportedResources;
+ export class InfluxAggregateUsageEvent {
+     private static readonly logger = new Logger(InfluxAggregateUsageEvent.name);
+-    public serviceId: ServiceEntity['serviceId'];
++    public serviceId?: ServiceEntity['serviceId'];
++    public customerId?: string;
+     public offeringDocument: ReadOfferingResponseData;
+ 
+     /**
+@@ -69,6 +70,7 @@ export class InfluxAggregateUsageEvent {
+             dimension,
+             serviceId,
+             applicationId,
++            customerId,
+         }: SingleUsageEvent): Promise<BasicUsageDocument[] | UsageResponseDocument[]> => {
+             const {
+                 dimensionId,
+@@ -86,6 +88,7 @@ export class InfluxAggregateUsageEvent {
+                     aggregationMethod,
+                     serviceId,
+                     applicationId,
++                    customerId,
+                 });
+                 const aggregatedResults = data.map(({ _value, _time }, index, array): UsageResponseDocument => {
+                     const value = _value === null ? '0' : _value?.toString();
+@@ -118,9 +121,10 @@ export class InfluxAggregateUsageEvent {
+                     endDate: new Date(endTime),
+                     serviceId,
+                     applicationId,
++                    customerId,
+                 });
+                 const unAggregregatedResults = data.map((row) => {
+-                    const { businessID, _measurement, dimensionId, applicationId, serviceId, ...rest } =
++                    const { businessID, _measurement, dimensionId, applicationId, serviceId, customerId, ...rest } =
+                         MeasurementFormat.toEntity(row);
+                     return { ...rest, recordValue: rest?.recordValue?.toString() };
+                 });
+diff --git a/src/measurement-config/dto/create-standard-measurement.dto.ts b/src/measurement-config/dto/create-standard-measurement.dto.ts
+index 9001057..653a249 100644
+--- a/src/measurement-config/dto/create-standard-measurement.dto.ts
++++ b/src/measurement-config/dto/create-standard-measurement.dto.ts
+@@ -1,9 +1,9 @@
+ import { ApiHideProperty } from '@nestjs/swagger';
+-import { IsString, IsOptional, IsNotEmpty, IsObject, IsRFC3339, IsNumberString, IsAscii } from 'class-validator';
++import { IsString, IsOptional, IsNotEmpty, IsObject, IsRFC3339, IsNumberString, IsAscii, IsUUID } from 'class-validator';
+ 
+-import { ValidServiceApplicationID } from './measurementIdOrApplicationIdValidator';
+ import { ServiceIdExists } from '../../services/dto/serviceIdExists';
+ import { DimensionIdExists } from '../../dimensions/dto/dimensionIdExists';
++import { CustomerIdExists } from '../../customer/dto/customerIdExists';
+ 
+ export class CreateStandardMeasurementDto {
+     /**
+@@ -30,11 +30,19 @@ export class CreateStandardMeasurementDto {
+     public timeStamp: string;
+ 
+     /**
+-     * Conditionally REQUIRED.<br>
+-     * The application ID of a service this usage record attributes to.
+-     * This field is required if the `serviceId` is not provided.
+-     * If both are provided the `serviceId` takes precedence
+-     * and both  persist in usage records.
++     * REQUIRED.<br>
++     * The customer ID this usage record attributes to.
++     * <br><br>
++     * Example: `"e8366954-6f36-47e9-8431-ac95f88b5cc7"`
++     *
++     **/
++    @IsUUID()
++    @IsNotEmpty()
++    @CustomerIdExists('customerId')
++    public customerId?: string;
++
++    /**
++     * Deprecated. The application ID of a service this usage record attributes to.
+      * <br><br>
+      * Example: `"e8366954-6f36-47e9-8431-ac95f88b5cc7"`
+      *
+@@ -45,18 +53,12 @@ export class CreateStandardMeasurementDto {
+     public applicationId?: string;
+ 
+     /**
+-     * Conditionally REQUIRED.<br>
+-     * The service ID of a service this usage record attributes to.
+-     * This field is required if the `applicationId` is not provided.
+-     * If both are provided the `serviceId` takes precedence
+-     * and both persist in usage records.
++     * Deprecated. The service ID of a service this usage record attributes to.
+      * <br><br>
+      * Example: `'e8366954-6f36-47e9-8431-ac95f88b5cc7'`
+      *
+      **/
+-    @ValidServiceApplicationID('serviceId', {
+-        message: 'Must provide either a serviceId or a applicationId',
+-    })
++    @IsOptional()
+     @ServiceIdExists('serviceId')
+     public serviceId?: string;
+ 
+@@ -100,6 +102,7 @@ export class CreateStandardMeasurementDto {
+             this.timeStamp = doc.timeStamp;
+             this.applicationId = doc.applicationId;
+             this.serviceId = doc.serviceId;
++            this.customerId = doc.customerId;
+             this.dimensionId = doc.dimensionId;
+             this.recordValue = doc.recordValue;
+             this.metadata = doc.metadata;
+diff --git a/src/measurement-config/entities/measurement.interface.ts b/src/measurement-config/entities/measurement.interface.ts
+index 11cbb02..c2880e9 100644
+--- a/src/measurement-config/entities/measurement.interface.ts
++++ b/src/measurement-config/entities/measurement.interface.ts
+@@ -10,6 +10,7 @@ export abstract class MeasurementFormat {
+     dimensionId?: string;
+     applicationId?: string;
+     serviceId?: string;
++    customerId?: string;
+     timeStamp?: string;
+     recordValue: number;
+     businessID: string;
+@@ -21,6 +22,7 @@ export abstract class MeasurementFormat {
+         point.tag('applicationId', measurement.applicationId);
+         point.tag('dimensionId', measurement.dimensionId);
+         point.tag('serviceId', measurement.serviceId);
++        point.tag('customerId', measurement.customerId);
+         point.tag('businessID', measurement.businessID);
+         point.floatField('recordValue', measurement.recordValue);
+         if (measurement?.metadata) {
+@@ -35,6 +37,8 @@ export abstract class MeasurementFormat {
+             timeStamp: dbModel._time,
+             dimensionId: dbModel.dimensionId,
+             applicationId: dbModel.applicationId,
++            serviceId: dbModel.serviceId,
++            customerId: dbModel.customerId,
+             recordValue: dbModel._value,
+             metadata: {},
+             _measurement: dbModel._measurement,
+diff --git a/src/measurement-config/entities/standardMeasurement.entity.ts b/src/measurement-config/entities/standardMeasurement.entity.ts
+index a312a2b..b027180 100644
+--- a/src/measurement-config/entities/standardMeasurement.entity.ts
++++ b/src/measurement-config/entities/standardMeasurement.entity.ts
+@@ -19,10 +19,11 @@ export class StandardMeasurementEntity implements MeasurementFormat {
+     public businessID: string;
+     public applicationId?: string;
+     public serviceId?: string;
++    public customerId?: string;
+     public recordValue: number;
+     public metadata: Record<string, string>;
+     public _measurement: string;
+-    public static allowedTags = ['meteringcoApplicationId', 'meteringcoServiceId', 'meteringcoDimensionId'];
++    public static allowedTags = ['meteringcoApplicationId', 'meteringcoServiceId', 'meteringcoDimensionId', 'meteringcoCustomerId'];
+ 
+     constructor(measurement: MeasurementFormat) {
+         if (measurement.timeStamp) {
+@@ -33,6 +34,7 @@ export class StandardMeasurementEntity implements MeasurementFormat {
+         this.dimensionId = measurement.dimensionId;
+         this.applicationId = measurement.applicationId;
+         this.serviceId = measurement.serviceId;
++        this.customerId = measurement.customerId;
+         this.recordValue = measurement.recordValue;
+         this.metadata = measurement.metadata;
+         this.businessID = measurement.businessID;
+diff --git a/src/measurement-config/entities/standardMeasurementPreProcessor.ts b/src/measurement-config/entities/standardMeasurementPreProcessor.ts
+index 50f8ca6..8149b8a 100644
+--- a/src/measurement-config/entities/standardMeasurementPreProcessor.ts
++++ b/src/measurement-config/entities/standardMeasurementPreProcessor.ts
+@@ -47,6 +47,7 @@ export class StandardMeasurementPreProcessorEntity {
+         let dimensionId;
+         let serviceId;
+         let applicationId;
++        let customerId;
+         if (preprocessed.measurementType === PreProcessorMeasurementType.AGENT) {
+             const startTime = new Date('January 1, 1970 00:00:00');
+             const endTime = new Date();
+@@ -58,10 +59,18 @@ export class StandardMeasurementPreProcessorEntity {
+                 endTime: endTime.toISOString(),
+             });
+             if (data.length > 0) {
+-                const [{ label_meteringco_application_id, label_meteringco_dimension_id, label_meteringco_service_id }] = data;
++                const [
++                    {
++                        label_meteringco_application_id,
++                        label_meteringco_dimension_id,
++                        label_meteringco_service_id,
++                        label_meteringco_customer_id,
++                    },
++                ] = data;
+                 dimensionId = label_meteringco_dimension_id;
+                 serviceId = label_meteringco_service_id;
+                 applicationId = label_meteringco_application_id;
++                customerId = label_meteringco_customer_id;
+             } else {
+                 return { message: 'No labels found' };
+             }
+@@ -76,6 +85,7 @@ export class StandardMeasurementPreProcessorEntity {
+             dimensionId,
+             serviceId,
+             applicationId,
++            customerId,
+         });
+         StandardMeasurementEntity.publish(standardMeasurement);
+     }
+diff --git a/src/microservices/ebsSnapshotDataGatherer/ebsSnapshotDataGatherer.service.ts b/src/microservices/ebsSnapshotDataGatherer/ebsSnapshotDataGatherer.service.ts
+index ed09e76..08ba379 100644
+--- a/src/microservices/ebsSnapshotDataGatherer/ebsSnapshotDataGatherer.service.ts
++++ b/src/microservices/ebsSnapshotDataGatherer/ebsSnapshotDataGatherer.service.ts
+@@ -50,7 +50,7 @@ export class EbsSnapshotDataGathererService {
+                         ({ VolumeId, SnapshotId, VolumeSize, Tags, StartTime, StorageTier, OwnerId }) => {
+                             const results = StandardMeasurementEntity.awsTagKeyReducer(Tags);
+                             if (Object.keys(results).length) {
+-                                const { meteringcoServiceId, meteringcoApplicationId, meteringcoDimensionId } = results;
++                                const { meteringcoServiceId, meteringcoApplicationId, meteringcoDimensionId, meteringcoCustomerId } = results;
+                                 const entity = new StandardMeasurementEntity({
+                                     businessID,
+                                     dimensionId: meteringcoDimensionId,
+@@ -65,6 +65,7 @@ export class EbsSnapshotDataGathererService {
+                                     },
+                                     serviceId: meteringcoServiceId,
+                                     applicationId: meteringcoApplicationId,
++                                    customerId: meteringcoCustomerId,
+                                     _measurement: UsageEntity._measurement,
+                                     recordValue: VolumeSize,
+                                 });
+diff --git a/src/microservices/ebsVolumeDataGatherer/ebsvolumeDataGatherer.service.ts b/src/microservices/ebsVolumeDataGatherer/ebsvolumeDataGatherer.service.ts
+index c97f571..70bc623 100644
+--- a/src/microservices/ebsVolumeDataGatherer/ebsvolumeDataGatherer.service.ts
++++ b/src/microservices/ebsVolumeDataGatherer/ebsvolumeDataGatherer.service.ts
+@@ -46,7 +46,7 @@ export class EbsVolumeDataGathererService {
+                     ({ VolumeId, Size, Iops, VolumeType, Tags, State, Throughput, AvailabilityZone }) => {
+                         const results = StandardMeasurementEntity.awsTagKeyReducer(Tags);
+                         if (Object.keys(results).length) {
+-                            const { meteringcoServiceId, meteringcoApplicationId, meteringcoDimensionId } = results;
++                            const { meteringcoServiceId, meteringcoApplicationId, meteringcoDimensionId, meteringcoCustomerId } = results;
+                             const entity = new StandardMeasurementEntity({
+                                 businessID,
+                                 dimensionId: meteringcoDimensionId,
+@@ -61,6 +61,7 @@ export class EbsVolumeDataGathererService {
+                                 },
+                                 serviceId: meteringcoServiceId,
+                                 applicationId: meteringcoApplicationId,
++                                customerId: meteringcoCustomerId,
+                                 _measurement: UsageEntity._measurement,
+                                 recordValue: Size,
+                             });
+diff --git a/src/microservices/ec2EgressDataGatherer/ec2EgressDataGatherer.service.ts b/src/microservices/ec2EgressDataGatherer/ec2EgressDataGatherer.service.ts
+index 8dd7e7e..3eefceb 100644
+--- a/src/microservices/ec2EgressDataGatherer/ec2EgressDataGatherer.service.ts
++++ b/src/microservices/ec2EgressDataGatherer/ec2EgressDataGatherer.service.ts
+@@ -52,7 +52,8 @@ export class Ec2EgressDataGathererService {
+                     meteringcoDimensionIds.includes(dimensionId) &&
+                     !(
+                         !tags.find((tag) => tag.Key === 'meteringcoApplicationId') &&
+-                        !tags.find((tag) => tag.Key === 'meteringcoServiceId')
++                        !tags.find((tag) => tag.Key === 'meteringcoServiceId') &&
++                        !tags.find((tag) => tag.Key === 'meteringcoCustomerId')
+                     )
+                 );
+             })
+@@ -66,6 +67,7 @@ export class Ec2EgressDataGathererService {
+             meteringcoDimensionId: string;
+             meteringcoServiceId: string;
+             meteringcoApplicationId: string;
++            meteringcoCustomerId: string;
+             egress: number;
+         }[] = [];
+         (
+@@ -80,7 +82,7 @@ export class Ec2EgressDataGathererService {
+             idMetadataMap[metricDataResult.Id].egress = metricDataResult.Values[metricDataResult.Values.length - 1];
+             instanceEgressList.push(idMetadataMap[metricDataResult.Id]);
+         });
+-        const instanceGroupByTags = ArrayGroupBy(['meteringcoDimensionId', 'meteringcoServiceId', 'meteringcoApplicationId']);
++        const instanceGroupByTags = ArrayGroupBy(['meteringcoDimensionId', 'meteringcoServiceId', 'meteringcoApplicationId', 'meteringcoCustomerId']);
+         const groupedInstances = instanceGroupByTags(instanceEgressList);
+         Object.keys(groupedInstances).forEach((tagCombinaton) => {
+             const egressBytesTotal = groupedInstances[tagCombinaton].reduce(
+@@ -104,6 +106,7 @@ export class Ec2EgressDataGathererService {
+                 recordValue: egressBytesTotal,
+                 serviceId: groupedInstances[tagCombinaton][0].meteringcoServiceId,
+                 applicationId: groupedInstances[tagCombinaton][0].meteringcoApplicationId,
++                customerId: groupedInstances[tagCombinaton][0].meteringcoCustomerId,
+                 _measurement: UsageEntity._measurement,
+             });
+             StandardMeasurementEntity.publish(entity);
+diff --git a/src/microservices/ec2InstanceDataGatherer/ec2InstanceDataGatherer.service.ts b/src/microservices/ec2InstanceDataGatherer/ec2InstanceDataGatherer.service.ts
+index 8a674c6..597b567 100644
+--- a/src/microservices/ec2InstanceDataGatherer/ec2InstanceDataGatherer.service.ts
++++ b/src/microservices/ec2InstanceDataGatherer/ec2InstanceDataGatherer.service.ts
+@@ -53,7 +53,8 @@ export class Ec2InstanceDataGathererService {
+                 meteringcoDimensionIds.includes(dimensionId) &&
+                 !(
+                     !tags.find((tag) => tag.Key === 'meteringcoApplicationId') &&
+-                    !tags.find((tag) => tag.Key === 'meteringcoServiceId')
++                    !tags.find((tag) => tag.Key === 'meteringcoServiceId') &&
++                    !tags.find((tag) => tag.Key === 'meteringcoCustomerId')
+                 )
+             );
+         });
+@@ -63,7 +64,7 @@ export class Ec2InstanceDataGathererService {
+                 instance[tag.Key] = tag.Value;
+             });
+         });
+-        const instanceGroupByTags = ArrayGroupBy(['meteringcoDimensionId', 'meteringcoServiceId', 'meteringcoApplicationId']);
++        const instanceGroupByTags = ArrayGroupBy(['meteringcoDimensionId', 'meteringcoServiceId', 'meteringcoApplicationId', 'meteringcoCustomerId']);
+         const groupedInstances = instanceGroupByTags(taggedInstance);
+         Object.keys(groupedInstances).forEach((tagCombinaton) => {
+             const runningTimeIncrement = 0.08333333; // TODO: make this dynamic
+@@ -82,6 +83,7 @@ export class Ec2InstanceDataGathererService {
+                 recordValue: runningTimeTotal,
+                 serviceId: groupedInstances[tagCombinaton][0].meteringcoServiceId,
+                 applicationId: groupedInstances[tagCombinaton][0].meteringcoApplicationId,
++                customerId: groupedInstances[tagCombinaton][0].meteringcoCustomerId,
+                 _measurement: UsageEntity._measurement,
+             });
+             StandardMeasurementEntity.publish(entity);
+diff --git a/src/offering/offering.controller.spec.ts b/src/offering/offering.controller.spec.ts
+index a765722..3d91729 100644
+--- a/src/offering/offering.controller.spec.ts
++++ b/src/offering/offering.controller.spec.ts
+@@ -3,7 +3,8 @@ import { InfluxModule } from '../influx/influx.module';
+ import { PublicAPIOfferingController } from './offering.controller';
+ import { OfferingService } from './offering.service';
+ import { PublicAPIDimensionsModule } from '../dimensions/dimensions.module';
+-import { PrivateAPIServicesModule } from '../services/services.module';
++import { PublicAPICustomerModule } from '../customer/customer.module';
++import { forwardRef } from '@nestjs/common';
+ 
+ describe('OfferingController', () => {
+     let controller: PublicAPIOfferingController;
+@@ -12,7 +13,7 @@ describe('OfferingController', () => {
+         const module: TestingModule = await Test.createTestingModule({
+             controllers: [PublicAPIOfferingController],
+             providers: [OfferingService],
+-            imports: [InfluxModule, PublicAPIDimensionsModule, PrivateAPIServicesModule],
++            imports: [InfluxModule, PublicAPIDimensionsModule, forwardRef(() => PublicAPICustomerModule)],
+         }).compile();
+ 
+         controller = module.get<PublicAPIOfferingController>(PublicAPIOfferingController);
+diff --git a/src/offering/offering.module.ts b/src/offering/offering.module.ts
+index be742f1..82be5fd 100644
+--- a/src/offering/offering.module.ts
++++ b/src/offering/offering.module.ts
+@@ -3,12 +3,12 @@ import { OfferingService } from './offering.service';
+ import { PrivateAPIOfferingController, PublicAPIOfferingController } from './offering.controller';
+ import { InfluxModule } from '../influx/influx.module';
+ import { PublicAPIDimensionsModule } from '../dimensions/dimensions.module';
+-import { PrivateAPIServicesModule } from '../services/services.module';
++import { PublicAPICustomerModule } from '../customer/customer.module';
+ 
+ @Module({
+     controllers: [PublicAPIOfferingController],
+     providers: [OfferingService],
+-    imports: [InfluxModule, forwardRef(() => PublicAPIDimensionsModule), forwardRef(() => PrivateAPIServicesModule)],
++    imports: [InfluxModule, forwardRef(() => PublicAPIDimensionsModule), forwardRef(() => PublicAPICustomerModule)],
+     exports: [OfferingService],
+ })
+ export class PublicAPIOfferingModule {}
+diff --git a/src/offering/offering.service.spec.ts b/src/offering/offering.service.spec.ts
+index 01b5d31..111b4ff 100644
+--- a/src/offering/offering.service.spec.ts
++++ b/src/offering/offering.service.spec.ts
+@@ -8,7 +8,7 @@ import { OfferingPackageEntity } from './entities/offeringPackage.entity';
+ import { OfferingInfluxRow } from '../influx/entities/offeringInfluxTable.entity';
+ import { ReadDimensionResponseData } from '../dimensions/dto/read-dimension.dto';
+ import { dataBasedUnits, roundingEnum } from '../dimensions/dto/create-dimension.dto';
+-import { ServicesService } from '../services/services.service';
++import { CustomerService } from '../customer/customer.service';
+ 
+ describe('OfferingService', () => {
+     const mockData: CreateOfferingDTO = {
+@@ -78,7 +78,7 @@ describe('OfferingService', () => {
+                         findOne: mockFindOne,
+                     };
+                 }
+-                if (token === ServicesService) {
++                if (token === CustomerService) {
+                     return {};
+                 }
+             })
+diff --git a/src/offering/offering.service.ts b/src/offering/offering.service.ts
+index 28b823b..687ab30 100644
+--- a/src/offering/offering.service.ts
++++ b/src/offering/offering.service.ts
+@@ -16,7 +16,7 @@ import { DeleteOfferingDTO, DeleteOfferingResponse } from './dto/deleteOffering.
+ import { DimensionsService } from '../dimensions/dimensions.service';
+ import { UpdateOfferingDto } from './dto/updateOfferingDto';
+ import { randomUUID } from 'crypto';
+-import { ServicesService } from '../services/services.service';
++import { CustomerService } from '../customer/customer.service';
+ 
+ @Injectable()
+ export class OfferingService {
+@@ -24,7 +24,7 @@ export class OfferingService {
+     constructor(
+         readonly InfluxService: InfluxService,
+         @Inject(forwardRef(() => DimensionsService)) readonly dimensionService: DimensionsService,
+-        @Inject(forwardRef(() => ServicesService)) readonly servicesService: ServicesService
++        @Inject(forwardRef(() => CustomerService)) readonly customerService: CustomerService
+     ) {}
+ 
+     async findAll({ businessID }): Promise<ReadOfferingResponseDTO> {
+@@ -188,15 +188,15 @@ export class OfferingService {
+         OfferingService.logger.log(`Attempting to delete offering: ${offeringId} for ${businessID}`);
+         const offeringDbModels = await this.InfluxService.getLatestOfferingConfig({ businessID, offeringId });
+         try {
+-            const { data: serviceIds } = await this.servicesService.findAllServicesWithofferingId({
++            const { data: customers } = await this.customerService.findAllCustomersWithOfferingId({
+                 businessID,
+                 offeringId,
+             });
+-            if (serviceIds.length) {
++            if (customers.length) {
+                 throw new ConflictException(
+-                    `Cannot delete offering when they are attached to services, remove services from offerings before deleting. Current serviceIds using the offering: ${serviceIds.reduce(
+-                        (acc, { serviceId }) => {
+-                            acc += `${serviceId}   `;
++                    `Cannot delete offering when they are attached to customers, remove customers from offerings before deleting. Current customerIds using the offering: ${customers.reduce(
++                        (acc, { customerId }) => {
++                            acc += `${customerId}   `;
+                             return acc;
+                         },
+                         ''
+diff --git a/src/openApiPublicSpecGenerator.ts b/src/openApiPublicSpecGenerator.ts
+index a381a32..c50e0d5 100644
+--- a/src/openApiPublicSpecGenerator.ts
++++ b/src/openApiPublicSpecGenerator.ts
+@@ -4,7 +4,6 @@ import { NestFactory } from '@nestjs/core';
+ import { ValidationPipe } from '@nestjs/common';
+ import { AppModule } from './app.module';
+ import { PublicAPIOfferingModule } from './offering/offering.module';
+-import { PublicAPIServicesModule } from './services/services.module';
+ import { PublicAPICustomerModule } from './customer/customer.module';
+ import { BillingModule } from './billing/billing.module';
+ import { MeasurementConfigModule } from './measurement-config/measurement-config.module';
+@@ -66,7 +65,6 @@ MeteringCo API has the following endpoints:
+         .addTag('Dimensions', 'Manage dimensions in MeteringCo.')
+         .addTag('Offerings', 'Manage offerings in MeteringCo.')
+         .addTag('Customers', 'Manage customers in MeteringCo.')
+-        .addTag('Services', 'Manage services in MeteringCo.')
+         .addTag('Measurements', 'Manage measurements in MeteringCo.')
+         .addServer('https://api.int.meteringco.tech', 'Sandbox Environment API')
+         .addServer('https://api.prod.meteringco.tech', 'Product Environment API')
+@@ -83,7 +81,6 @@ MeteringCo API has the following endpoints:
+         .build();
+     const document = SwaggerModule.createDocument(app, config, {
+         include: [
+-            PublicAPIServicesModule,
+             PublicAPIOfferingModule,
+             PublicAPIDimensionsModule,
+             MeasurementConfigModule,
+diff --git a/src/services/services.module.ts b/src/services/services.module.ts
+index 0ecf676..f0b16da 100644
+--- a/src/services/services.module.ts
++++ b/src/services/services.module.ts
+@@ -1,19 +1,16 @@
+ import { Module } from '@nestjs/common';
+ import { ServicesService } from './services.service';
+-import {
+-    PrivateAPIServicesController,
+-    PublicAPIServicesController as PublicAPIServicesController,
+-} from './services.controller';
++import { PrivateAPIServicesController } from './services.controller';
+ import { InfluxModule } from '../influx/influx.module';
+ import { UsageModule } from '../usage/usage.module';
+ import { forwardRef } from '@nestjs/common';
+ import { PublicAPIOfferingModule } from '../offering/offering.module';
+ import { PublicAPICustomerModule } from '../customer/customer.module';
+ import { ServiceIdExistsRule } from './dto/serviceIdExists';
+-import { PrivateAPIDimensionsModule, PublicAPIDimensionsModule } from '../dimensions/dimensions.module';
++import { PublicAPIDimensionsModule } from '../dimensions/dimensions.module';
+ 
+ @Module({
+-    controllers: [PublicAPIServicesController],
++    controllers: [],
+     providers: [ServicesService, ServiceIdExistsRule],
+     imports: [
+         InfluxModule,
+diff --git a/src/usage/dto/read-usage.dto.ts b/src/usage/dto/read-usage.dto.ts
+index 01c7566..98c1917 100644
+--- a/src/usage/dto/read-usage.dto.ts
++++ b/src/usage/dto/read-usage.dto.ts
+@@ -1,5 +1,3 @@
+-import { ServiceEntity } from '../../services/entities/service.entity';
+-
+ export class UsageDocument {
+     public value: string;
+ 
+@@ -21,7 +19,12 @@ export class UsageDocument {
+     }
+ }
+ 
++export class ReadUsageForCustomerDto {
++    public customerId: string;
++    public businessID: string;
++}
++
+ export class ReadUsageForServiceDto {
+-    public serviceId: ServiceEntity['serviceId'];
++    public serviceId: string;
+     public businessID: string;
+ }
+diff --git a/src/usage/usage.controller.spec.ts b/src/usage/usage.controller.spec.ts
+index 6482d4d..8a40c32 100644
+--- a/src/usage/usage.controller.spec.ts
++++ b/src/usage/usage.controller.spec.ts
+@@ -4,6 +4,7 @@ import { PublicAPIDimensionsModule } from '../dimensions/dimensions.module';
+ import { InfluxModule } from '../influx/influx.module';
+ import { MeasurementConfigModule } from '../measurement-config/measurement-config.module';
+ import { PublicAPIOfferingModule } from '../offering/offering.module';
++import { PublicAPICustomerModule } from '../customer/customer.module';
+ import { PublicAPIServicesModule } from '../services/services.module';
+ import { UsageController } from './usage.controller';
+ import { UsageService } from './usage.service';
+@@ -19,6 +20,7 @@ describe('UsageController', () => {
+                 InfluxModule,
+                 MeasurementConfigModule,
+                 PublicAPIDimensionsModule,
++                forwardRef(() => PublicAPICustomerModule),
+                 forwardRef(() => PublicAPIServicesModule),
+                 PublicAPIOfferingModule,
+             ],
+diff --git a/src/usage/usage.module.ts b/src/usage/usage.module.ts
+index 6fc5e5f..e7efefa 100644
+--- a/src/usage/usage.module.ts
++++ b/src/usage/usage.module.ts
+@@ -4,8 +4,9 @@ import { PrivateAPIUsageController, UsageController } from './usage.controller';
+ import { InfluxModule } from '../influx/influx.module';
+ import { MeasurementConfigModule } from '../measurement-config/measurement-config.module';
+ import { PublicAPIDimensionsModule } from '../dimensions/dimensions.module';
+-import { PublicAPIServicesModule } from '../services/services.module';
++import { PublicAPICustomerModule } from '../customer/customer.module';
+ import { PublicAPIOfferingModule } from '../offering/offering.module';
++import { PublicAPIServicesModule } from '../services/services.module';
+ 
+ @Module({
+     controllers: [UsageController],
+@@ -15,8 +16,9 @@ import { PublicAPIOfferingModule } from '../offering/offering.module';
+         InfluxModule,
+         forwardRef(() => MeasurementConfigModule),
+         forwardRef(() => PublicAPIDimensionsModule),
+-        forwardRef(() => PublicAPIServicesModule),
++        forwardRef(() => PublicAPICustomerModule),
+         forwardRef(() => PublicAPIOfferingModule),
++        forwardRef(() => PublicAPIServicesModule),
+     ],
+ })
+ export class UsageModule {}
+diff --git a/src/usage/usage.service.spec.ts b/src/usage/usage.service.spec.ts
+index 955b06f..8826f0c 100644
+--- a/src/usage/usage.service.spec.ts
++++ b/src/usage/usage.service.spec.ts
+@@ -4,6 +4,7 @@ import { PublicAPIDimensionsModule } from '../dimensions/dimensions.module';
+ import { InfluxModule } from '../influx/influx.module';
+ import { MeasurementConfigModule } from '../measurement-config/measurement-config.module';
+ import { PublicAPIOfferingModule } from '../offering/offering.module';
++import { PublicAPICustomerModule } from '../customer/customer.module';
+ import { PublicAPIServicesModule } from '../services/services.module';
+ import { UsageService } from './usage.service';
+ 
+@@ -17,6 +18,7 @@ describe('UsageService', () => {
+                 InfluxModule,
+                 MeasurementConfigModule,
+                 PublicAPIDimensionsModule,
++                forwardRef(() => PublicAPICustomerModule),
+                 forwardRef(() => PublicAPIServicesModule),
+                 PublicAPIOfferingModule,
+             ],
+diff --git a/src/usage/usage.service.ts b/src/usage/usage.service.ts
+index c130325..713259c 100644
+--- a/src/usage/usage.service.ts
++++ b/src/usage/usage.service.ts
+@@ -1,17 +1,17 @@
+-import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
++import { ConflictException, forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
+ import { BasicResponseDTO } from '../basicResponseDTO';
+ 
+ import { DimensionsService } from '../dimensions/dimensions.service';
+-import { aggregationInterval } from '../dimensions/dto/create-dimension.dto';
+ import { InfluxService } from '../influx/influx.service';
+ import { StandardMeasurementEntity } from '../measurement-config/entities/standardMeasurement.entity';
+ 
+ import { MeasurementConfigService } from '../measurement-config/measurement-config.service';
+ import { OfferingService } from '../offering/offering.service';
+ import { QueryParamUsageDto } from '../services/dto/readService.dto';
++import { CustomerService } from '../customer/customer.service';
+ import { ServicesService } from '../services/services.service';
+ import { CreateUsageDto } from './dto/create-usage.dto';
+-import { ReadUsageForServiceDto } from './dto/read-usage.dto';
++import { ReadUsageForCustomerDto, ReadUsageForServiceDto } from './dto/read-usage.dto';
+ import { UsageEntity } from './entities/usage.entity';
+ 
+ const ONE_DAY_IN_MS = 864e5;
+@@ -22,13 +22,46 @@ export class UsageService {
+         readonly influxService: InfluxService,
+         @Inject(forwardRef(() => MeasurementConfigService)) readonly measurementConfigService: MeasurementConfigService,
+         @Inject(forwardRef(() => DimensionsService)) readonly dimensionService: DimensionsService,
+-        @Inject(forwardRef(() => ServicesService)) readonly servicesService: ServicesService,
+-        @Inject(forwardRef(() => OfferingService)) readonly offeringService: OfferingService
++        @Inject(forwardRef(() => CustomerService)) readonly customerService: CustomerService,
++        @Inject(forwardRef(() => OfferingService)) readonly offeringService: OfferingService,
++        @Inject(forwardRef(() => ServicesService)) readonly servicesService: ServicesService
+     ) {}
+     findAll() {
+         return `This action returns all usage`;
+     }
+ 
++    async findUsageForCustomer({ customerId, businessID }: ReadUsageForCustomerDto, overrides: QueryParamUsageDto) {
++        const {
++            data: [customer],
++        } = await this.customerService.findOne({ customerId, businessID });
++        const offering = customer.offering;
++        if (!offering) {
++            throw new ConflictException(`Customer ${customerId} does not have an offering assigned`);
++        }
++        const { dimensions, ...restOfOfferingDoc } = offering;
++        let setDimensions = dimensions;
++        if (overrides?.aggregationInterval) {
++            setDimensions = dimensions.map((dimension) => ({
++                ...dimension,
++                aggregationInterval: overrides.aggregationInterval,
++            }));
++        }
++        const startDate = new Date(Date.now() - ONE_DAY_IN_MS);
++        const endDate = new Date();
++
++        UsageService.logger.debug(`Gathering Usage for businessID: ${businessID} and customerId: ${customerId}`);
++        const aggregateData = await this.influxService.getAggregateUsageForDimension({
++            customerId,
++            businessID,
++            startTime: overrides?.startTime ? overrides?.startTime : startDate.toISOString(),
++            endTime: overrides?.endTime ? overrides?.endTime : endDate.toISOString(),
++            influxService: this.influxService,
++            clientID: customerId,
++            offeringDocument: { dimensions: setDimensions, ...restOfOfferingDoc },
++        });
++        return aggregateData;
++    }
++
+     async findUsageForService({ serviceId, businessID }: ReadUsageForServiceDto, overrides: QueryParamUsageDto) {
+         const {
+             data: [

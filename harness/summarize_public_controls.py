@@ -85,11 +85,15 @@ def main() -> None:
             raise SystemExit(f"control exception: {task}")
 
     payload = {
-        "schema_version": 2,
+        "schema_version": 3,
         "run_date": min(started_dates) if started_dates else None,
         "purpose": (
             "post-normalization oracle and no-op validation of all runnable "
             "public tasks"
+        ),
+        "public_task_sha256_scope": (
+            "Current public-tree integrity inventory. It proves the executed "
+            "tree only for jobs whose stage is post-normalization."
         ),
         "harbor_version": "0.18.0",
         "environment": "docker",
@@ -102,6 +106,21 @@ def main() -> None:
             "nop_all_reward_zero": True,
         },
         "tasks": {task: records[task] for task in TASKS},
+        "jobs": {
+            job_dir.name: {
+                "environment": "docker",
+                "config": "harness/controls.json",
+                "run_date": min(started_dates) if started_dates else None,
+                "stage": "post-normalization",
+                "tasks": list(TASKS),
+                "summary": {
+                    "trials": len(TASKS) * 2,
+                    "exceptions": exceptions,
+                    "oracle_all_reward_one": True,
+                    "nop_all_reward_zero": True,
+                },
+            }
+        },
     }
     destination = (
         ROOT / "sample-run" / "manifests" / "public-controls-validation.json"
@@ -113,6 +132,9 @@ def main() -> None:
     )
     transformation = json.loads(transformation_path.read_text())
     transformation["public_controls_reproduction_job"] = job_dir.name
+    transformation["public_control_jobs"] = {
+        job_dir.name: "post-normalization Tasks 1 to 11"
+    }
     transformation["public_task_sha256"] = {
         task: records[task]["public_task_sha256"] for task in TASKS
     }

@@ -1,4 +1,4 @@
-# Matched Bedrock cohort analysis
+# Highlighted matched-cohort analysis
 
 ## Contents
 
@@ -11,8 +11,10 @@
 
 ## Cohort result
 
-This sample evaluates the report's four tasks with eight Grok 4.6 trials and
-eight Opus 5 trials per task. Tasks 1, 2, and 3 use one Daytona runtime
+This document analyzes four highlighted tasks from the eleven-task public
+sample, with eight Grok 4.6 trials and eight Opus 5 trials per task. The full
+eleven-task result is in the [pass-rate matrix](indexes/pass-rate-matrix.md).
+Tasks 1, 2, and 3 use one Daytona runtime
 stratum. Task 4 pools one matched four-run Daytona stratum and one
 separately matched four-run AWS Fargate stratum.
 
@@ -34,7 +36,7 @@ the strongest single-stratum full-failure example.
 
 ## Observed model difference
 
-The four tasks were run with the same harness version, agent version, provider,
+The four highlighted tasks were run with the same harness version, agent version, provider,
 reasoning setting, and task-specific verifier. Models are matched within every
 recorded runtime-checksum stratum. Every admitted trial has a numeric reward,
 native trajectory, complete verifier evidence, and no Harbor exception.
@@ -46,8 +48,9 @@ multi-part contract across sibling code paths and boundary states.
 
 ## Trial evidence
 
-The [machine-readable index](indexes/trials.json) resolves all 64 admitted
-trials to their trajectories and verifier results.
+The [machine-readable index](indexes/trials.json) resolves all 176 admitted
+trials to their trajectories and verifier results. The table below covers the
+64 trials analyzed in this document.
 
 | Task | Full trajectories | Final code and touched files | Verifier evidence | Controls |
 | --- | --- | --- | --- | --- |
@@ -157,10 +160,11 @@ The task images keep those task-local credentials separate from Bedrock
 provider credentials. The models may inspect public sandbox resources while
 developing, but held-out data and independent scoring remain root-only.
 
-The normalized public version of every task has an oracle score of `1.0` and a
-no-op score of `0.0`. Recorded-build coverage is narrower: Task 1's stored
-control predates its scored build, Task 4 has a control for its Daytona stratum
-only, and Tasks 2 and 3 are fully covered. The runnable
+Every published task has an oracle score of `1.0` and a no-op score of `0.0`
+under the task identity recorded in the public control manifest. Recorded-build
+coverage is narrower for these four highlighted tasks: Task 1's stored control
+predates its scored build, Task 4 has a control for its Daytona stratum only,
+and Tasks 2 and 3 are fully covered. The runnable
 public tasks apply deterministic publication normalization to names, domains,
 example account identifiers, and task-local fake credentials. One MIT-licensed
 runtime dependency is vendored unchanged under a neutral package scope so clean
@@ -168,16 +172,16 @@ installs do not depend on the source organization. Requirements,
 model-generated control flow, trial order, verifier outcomes, and binary
 rewards are unchanged.
 
-All four normalized public task directories were separately rerun through
-Harbor in Docker. The four oracle trials scored `1.0`, the four no-op trials
-scored `0.0`, and none raised an exception; the task digests and trial IDs are
-in the
+The four highlighted normalized task directories were separately rerun through
+Harbor in Docker. Their four oracle trials scored `1.0`, their four no-op trials
+scored `0.0`, and none raised an exception. Tasks 5 to 11 carry recorded-build
+controls with the same binary outcomes. Task identities and trial IDs are in the
 [`public control manifest`](manifests/public-controls-validation.json).
 
 ## Evidence boundary
 
 The conclusions are limited to the stored prompts, recorded runtime-checksum
-strata, trajectories, verifier outcomes, and controls. These four task samples
+strata, trajectories, verifier outcomes, and controls. These four highlighted tasks
 do not establish a universal model ranking. The 0/8 versus 5/8 total for Task
 27 is a pooled descriptive count across two equal backend strata; the matched
 comparison is preserved within each stratum. Tasks 2 and 3 show a
